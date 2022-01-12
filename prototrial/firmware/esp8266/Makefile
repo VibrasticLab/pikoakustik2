@@ -3,7 +3,7 @@
 # project subdirectory.
 #
 
-PROJECT_NAME := console
+PROJECT_NAME := pikouser
 
 include $(IDF_PATH)/make/project.mk
 

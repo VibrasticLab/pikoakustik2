@@ -1,18 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include "esp_system.h"
-#include "esp_log.h"
-#include "esp_console.h"
-#include "esp_vfs_dev.h"
-#include "FreeRTOS.h"
-#include "driver/uart.h"
-#include "linenoise/linenoise.h"
-#include "argtable3/argtable3.h"
-#include "nvs.h"
-#include "nvs_flash.h"
-
-#include "cmd_system.h"
-#include "my_console.h"
+#include "my_includes.h"
 
 const char* prompt = "esp8266> ";
 
