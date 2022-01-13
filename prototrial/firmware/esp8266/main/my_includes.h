@@ -18,7 +18,6 @@
 #include "esp_sleep.h"
 #include "esp_spi_flash.h"
 
-#include "FreeRTOS.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
@@ -32,8 +31,6 @@
 
 #include "linenoise/linenoise.h"
 #include "argtable3/argtable3.h"
-
-#include "xsnprintf.h"
 
 #include "cmd_system.h"
 #include "my_console.h"

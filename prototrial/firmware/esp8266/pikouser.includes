@@ -1,0 +1,9 @@
+main
+/opt/esp8266-rtos/components/esp8266/include
+/opt/esp8266-rtos/components/esp8266/include/driver
+/opt/esp8266-rtos/components/log/include
+/opt/esp8266-rtos/components/console
+/opt/esp8266-rtos/components/vfs/include
+/opt/esp8266-rtos/components/nvs_flash/include
+/opt/esp8266-rtos/components/spi_flash/include
+/opt/esp8266-rtos/components/freertos/include
