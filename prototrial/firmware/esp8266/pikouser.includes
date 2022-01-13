@@ -7,3 +7,4 @@ main
 /opt/esp8266-rtos/components/nvs_flash/include
 /opt/esp8266-rtos/components/spi_flash/include
 /opt/esp8266-rtos/components/freertos/include
+main/fonts

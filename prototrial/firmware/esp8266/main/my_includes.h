@@ -5,6 +5,7 @@
  #ifndef _MY_INCLUDES_H_
  #define _MY_INCLUDES_H_
 
+#include <errno.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
@@ -27,6 +28,7 @@
 #include "rom/uart.h"
 
 #include "driver/gpio.h"
+#include "driver/i2c.h"
 
 #include "nvs.h"
 #include "nvs_flash.h"
@@ -34,9 +36,12 @@
 #include "linenoise/linenoise.h"
 #include "argtable3/argtable3.h"
 
+//#include "fonts.h"
+//#include "oled_i2c.h"
+//#include "ssd1306.h"
+
 #include "fonts.h"
-#include "oled_i2c.h"
-#include "ssd1306.h"
+#include "ssd1306i2c.h"
 
 #include "cmd_system.h"
 #include "my_console.h"

@@ -11,9 +11,8 @@
 
 void app_main()
 {
-
+    start_ssd1306();
     start_console();
-    start_olcd();
     start_blink();
     
     while(true) {
