@@ -13,4 +13,6 @@ main/my_led.c
 main/my_led.h
 main/oled_i2c.c
 main/oled_i2c.h
+main/ssd1306.h
+main/ssd1306_i2c.c
 sdkconfig.defaults

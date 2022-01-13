@@ -4,3 +4,4 @@
 *.cxxflags
 *.cflags
 *.config
+*.autosave

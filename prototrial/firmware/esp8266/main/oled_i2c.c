@@ -5,15 +5,15 @@
 
 #include "my_includes.h"
 
-#define SDA_MUX     PERIPHS_IO_MUX_GPIO5_U
-#define SDA_FUNC    FUNC_GPIO5
-#define SDA_PIN     5
-#define SDA_BIT     BIT5
+#define SCL_MUX     PERIPHS_IO_MUX_GPIO5_U
+#define SCL_FUNC    FUNC_GPIO5
+#define SCL_PIN     5
+#define SCL_BIT     BIT5
 
-#define SCL_MUX     PERIPHS_IO_MUX_GPIO4_U
-#define SCL_FUNC    FUNC_GPIO4
-#define SCL_PIN     4
-#define SCL_BIT     BIT4
+#define SDA_MUX     PERIPHS_IO_MUX_GPIO4_U
+#define SDA_FUNC    FUNC_GPIO4
+#define SDA_PIN     4
+#define SDA_BIT     BIT4
 
 #define _DELAY      os_delay_us(1)
 
@@ -52,18 +52,18 @@ void i2c_init(void){
     return;
 }
 
-uint8_t i2c_start(void){
+bool i2c_start(void){
     _SDA1;
     _SCL1;
     _DELAY;
 
-    if (_SDAX == 0) return I2C_FALSE;
+    if (_SDAX == 0) return true;
 
     _SDA0;
     _DELAY;
     _SCL0;
 
-    return I2C_TRUE;
+    return false;
 }
 
 void i2c_stop(void){
@@ -77,7 +77,7 @@ void i2c_stop(void){
     _DELAY;
 }
 
-uint8_t i2c_write(uint8_t data)
+bool i2c_write(uint8_t data)
 {
     uint8_t ibit;
     uint8_t ret;
@@ -128,7 +128,7 @@ uint8_t ICACHE_FLASH_ATTR i2c_read(void)
     return data;
 }
 
-void i2c_set_ack(uint8_t ack)
+void i2c_set_ack(bool ack)
 {
     _SCL0;
 

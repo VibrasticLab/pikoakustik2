@@ -10,6 +10,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 #include "esp_system.h"
 #include "esp_log.h"
@@ -35,6 +36,7 @@
 
 #include "fonts.h"
 #include "oled_i2c.h"
+#include "ssd1306.h"
 
 #include "cmd_system.h"
 #include "my_console.h"
