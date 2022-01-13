@@ -5,10 +5,11 @@
  #ifndef _MY_INCLUDES_H_
  #define _MY_INCLUDES_H_
 
+#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
-#include <ctype.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 #include "esp_system.h"
 #include "esp_log.h"
@@ -31,6 +32,9 @@
 
 #include "linenoise/linenoise.h"
 #include "argtable3/argtable3.h"
+
+#include "fonts.h"
+#include "oled_i2c.h"
 
 #include "cmd_system.h"
 #include "my_console.h"

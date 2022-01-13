@@ -1,10 +1,16 @@
 main/cmd_system.c
 main/cmd_system.h
 main/component.mk
+main/font_glcd_5x7.c
+main/font_tahoma_8pt.c
+main/fonts.c
+main/fonts.h
 main/main.c
 main/my_console.c
 main/my_console.h
 main/my_includes.h
 main/my_led.c
 main/my_led.h
+main/oled_i2c.c
+main/oled_i2c.h
 sdkconfig.defaults
