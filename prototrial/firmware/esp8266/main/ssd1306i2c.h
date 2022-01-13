@@ -18,10 +18,7 @@
 //#define SSD1306_DEBUG
 
 // SLA (0x3C) + WRITE_MODE (0x00) =  0x78 (0b01111000)
-#define OLED_I2C_ADDRESS   0x3C
-
-#define SSD1306_I2C_ADDR_0    (0x3C)
-#define SSD1306_I2C_ADDR_1    (0x3D)
+#define SSD1306_I2C_ADDR    (0x3C)
 
 #define SCL_PIN 5
 #define SDA_PIN 4

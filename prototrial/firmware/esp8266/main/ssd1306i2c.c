@@ -320,7 +320,7 @@ void start_ssd1306(void){
 
     ssd1306_t dev = {
             .i2c_port = i2c_master_port,
-            .i2c_addr = SSD1306_I2C_ADDR_0,
+            .i2c_addr = SSD1306_I2C_ADDR,
             .screen = SSD1306_SCREEN, // or SH1106_SCREEN
             .width = DISPLAY_WIDTH,
             .height = DISPLAY_HEIGHT
