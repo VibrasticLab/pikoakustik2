@@ -5,3 +5,4 @@
 *.cflags
 *.config
 *.autosave
+*.creator.user
