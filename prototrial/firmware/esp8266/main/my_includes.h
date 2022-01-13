@@ -41,5 +41,6 @@
 #include "cmd_system.h"
 #include "my_console.h"
 #include "my_led.h"
+#include "lcd_draw.h"
 
  #endif

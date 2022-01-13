@@ -66,7 +66,7 @@ bool ssd1306_init(uint8_t id){
 
     ssd1306_term(id);
 
-    ctx = malloc(sizeof(oled_i2c_ctx));
+    ctx = pvPortZalloc(sizeof(oled_i2c_ctx));
     if (ctx == NULL){
         printf("Alloc OLED context failed\r\n");
         goto oled_init_fail;
@@ -76,12 +76,12 @@ bool ssd1306_init(uint8_t id){
 #if (PANEL0_TYPE != 0)
  #if (PANEL0_TYPE == SSD1306_128x64)
         ctx->type = SSD1306_128x64;
-        ctx->buffer = malloc(1024);
+        ctx->buffer = pvPortZalloc(1024);
         ctx->width = 128;
         ctx->height = 64;
  #elif (PANEL0_TYPE == SSD1306_128x32)
         ctx->type = SSD1306_128x32;
-        ctx->buffer = malloc(512);
+        ctx->buffer = pvPortZalloc(512);
         ctx->width = 128;
         ctx->height = 32;
  #else
@@ -178,10 +178,10 @@ bool ssd1306_init(uint8_t id){
     ctx->id = id;
     _ctxs[id] = ctx;
 
+    _command(ctx->address, 0xaf);
+
     ssd1306_clear(id);
     ssd1306_refresh(id, true);
-
-    _command(ctx->address, 0xaf);
 
     return true;
 
@@ -318,5 +318,291 @@ void ssd1306_term(uint8_t id){
     free(ctx);
 
     _ctxs[id] = NULL;
+}
+
+uint8_t ssd1306_get_width(uint8_t id){
+    oled_i2c_ctx *ctx = _ctxs[id];
+
+    if (ctx == NULL) return 0;
+    return ctx->width;
+}
+
+void ssd1306_draw_pixel(uint8_t id, int8_t x, int8_t y, ssd1306_color_t color){
+    oled_i2c_ctx *ctx = _ctxs[id];
+    uint16_t index;
+
+    if(ctx == NULL) return;
+
+    if((x >= ctx->width) || (x < 0) || (y >= ctx->height) || (y < 0)) return;
+
+    index = x + (y / 8) * ctx->width;
+
+    switch (color){
+        case SSD1306_COLOR_TRANSPARENT:
+            break;
+        case SSD1306_COLOR_WHITE:
+            ctx->buffer[index] |= (1 << (y & 7));
+            break;
+        case SSD1306_COLOR_BLACK:
+            ctx->buffer[index] &= ~(1 << (y & 7));
+            break;
+        case SSD1306_COLOR_INVERT:
+            ctx->buffer[index] ^= (1 << (y & 7));
+            break;
+    }
+
+    if (ctx->refresh_left > x) ctx->refresh_left = x;
+    if (ctx->refresh_right < x) ctx->refresh_right = x;
+    if (ctx->refresh_top > y) ctx->refresh_top = y;
+    if (ctx->refresh_bottom < y) ctx->refresh_bottom = y;
+}
+
+void ssd1306_draw_hline(uint8_t id, int8_t x, int8_t y, uint8_t w, ssd1306_color_t color){
+    oled_i2c_ctx *ctx = _ctxs[id];
+    uint16_t index;
+    uint8_t mask, t;
+
+    if (ctx == NULL) return;
+
+    if ((x >= ctx->width) || (x < 0) || (y >= ctx->height) || (y < 0)) return;
+    if (w == 0) return;
+    if (x + w > ctx->width) w = ctx->width - x;
+
+    t = w;
+    index = x + (y / 8) * ctx->width;
+    mask = 1 << (y & 7);
+
+    switch (color){
+        case SSD1306_COLOR_TRANSPARENT:
+            break;
+        case SSD1306_COLOR_WHITE:
+            while (t--){
+                ctx->buffer[index] |= mask;
+                ++index;
+            }
+            break;
+        case SSD1306_COLOR_BLACK:
+            mask = ~mask;
+            while (t--){
+                ctx->buffer[index] &= mask;
+                ++index;
+            }
+            break;
+        case SSD1306_COLOR_INVERT:
+            while (t--){
+                ctx->buffer[index] ^= mask;
+                ++index;
+            }
+            break;
+    }
+
+    if (ctx->refresh_left > x) ctx->refresh_left = x;
+    if (ctx->refresh_right < x + w - 1) ctx->refresh_right = x + w - 1;
+    if (ctx->refresh_top > y) ctx->refresh_top = y;
+    if (ctx->refresh_bottom < y) ctx->refresh_bottom = y;
+}
+
+void ssd1306_draw_vline(uint8_t id, int8_t x, int8_t y, uint8_t h, ssd1306_color_t color){
+    oled_i2c_ctx *ctx = _ctxs[id];
+    uint16_t index;
+    uint8_t mask, mod, t;
+
+    if (ctx == NULL) return;
+
+    if ((x >= ctx->width) || (x < 0) || (y >= ctx->height) || (y < 0)) return;
+    if (h == 0) return;
+    if (y + h > ctx->height) h = ctx->height - y;
+
+    t = h;
+    index = x + (y / 8) * ctx->width;
+    mod = y & 7;
+
+    if(mod){
+        // Magic from Adafruit
+        mod = 8 - mod;
+        static const uint8_t premask[8] = { 0x00, 0x80, 0xC0, 0xE0, 0xF0, 0xF8, 0xFC, 0xFE };
+        mask = premask[mod];
+
+        if (t < mod) mask &= (0xFF >> (mod - t));
+
+        switch (color){
+            case SSD1306_COLOR_TRANSPARENT:
+                break;
+            case SSD1306_COLOR_WHITE:
+                ctx->buffer[index] |= mask;
+                break;
+            case SSD1306_COLOR_BLACK:
+                ctx->buffer[index] &= ~mask;
+                break;
+            case SSD1306_COLOR_INVERT:
+                ctx->buffer[index] ^= mask;
+                break;
+        }
+
+        if (t < mod) goto draw_vline_finish;
+
+        t -= mod;
+        index += ctx->width;
+    }
+
+    if (t >= 8){ // byte aligned line at middle
+        switch (color){
+            case SSD1306_COLOR_TRANSPARENT:
+                break;
+            case SSD1306_COLOR_WHITE:
+                do{
+                   ctx->buffer[index] = 0xff;
+                   index += ctx->width;
+                   t -= 8;
+                }while (t >= 8);
+                break;
+            case SSD1306_COLOR_BLACK:
+                do{
+                   ctx->buffer[index] = 0x00;
+                   index += ctx->width;
+                   t -= 8;
+                } while (t >= 8);
+                break;
+            case SSD1306_COLOR_INVERT:
+                do{
+                    ctx->buffer[index] = ~ctx->buffer[index];
+                    index += ctx->width;
+                    t -= 8;
+                } while (t >= 8);
+                break;
+        }
+    }
+
+    if (t){ // // partial line at bottom
+        mod = t & 7;
+        static const uint8_t postmask[8] = {0x00, 0x01, 0x03, 0x07, 0x0F, 0x1F, 0x3F, 0x7F };
+        mask = postmask[mod];
+
+        switch (color){
+            case SSD1306_COLOR_TRANSPARENT:
+                break;
+            case SSD1306_COLOR_WHITE:
+                ctx->buffer[index] |= mask;
+                break;
+            case SSD1306_COLOR_BLACK:
+                ctx->buffer[index] &= ~mask;
+                break;
+            case SSD1306_COLOR_INVERT:
+                ctx->buffer[index] ^= mask;
+                break;
+        }
+    }
+
+draw_vline_finish:
+    if (ctx->refresh_left > x) ctx->refresh_left = x;
+    if (ctx->refresh_right < x) ctx->refresh_right = x;
+    if (ctx->refresh_top > y) ctx->refresh_top = y;
+    if (ctx->refresh_bottom < y + h - 1) ctx->refresh_bottom = y + h - 1;
+    return;
+}
+
+void ssd1306_draw_rectangle(uint8_t id, int8_t x, int8_t y, uint8_t w, uint8_t h, ssd1306_color_t color){
+    ssd1306_draw_hline(id, x, y, w, color);
+    ssd1306_draw_hline(id, x, y + h - 1, w, color);
+    ssd1306_draw_vline(id, x, y, h, color);
+    ssd1306_draw_vline(id, x + w - 1, y, h, color);
+}
+
+void ssd1306_fill_rectangle(uint8_t id, int8_t x, int8_t y, uint8_t w, uint8_t h, ssd1306_color_t color){
+    uint8_t i;
+    for (i = x; i < x + w; ++i)
+        ssd1306_draw_vline(id, i, y, h, color);
+}
+
+void ssd1306_select_font(uint8_t id, uint8_t idx){
+    oled_i2c_ctx *ctx = _ctxs[id];
+
+    if (ctx == NULL) return;
+
+    if (idx < OLED_NUM_FONTS)
+        ctx->font = oled_fonts[idx];
+}
+
+uint8_t ssd1306_measure_string(uint8_t id, char *str){
+    oled_i2c_ctx *ctx = _ctxs[id];
+    uint8_t w = 0;
+    unsigned char chr;
+
+    if (ctx == NULL) return 0;
+
+    if (ctx->font == NULL) return 0;
+
+    while (*str)
+    {
+        chr = *str;
+        // we always have space in the font set
+        if ((chr < ctx->font->char_start) || (chr > ctx->font->char_end)) chr = ' ';
+
+        chr = chr - ctx->font->char_start;   // c now become index to tables
+        w += ctx->font->char_descriptors[chr].width;
+        ++str;
+        if (*str) w += ctx->font->c;
+    }
+
+    return w;
+}
+
+uint8_t ssd1306_draw_char(uint8_t id, uint8_t x, uint8_t y, unsigned char chr, ssd1306_color_t foreground, ssd1306_color_t background){
+    oled_i2c_ctx *ctx = _ctxs[id];
+    uint8_t i, j;
+    const uint8_t *bitmap;
+    uint8_t line = 0;
+
+    if (ctx == NULL) return 0;
+    if (ctx->font == NULL) return 0;
+
+    if ((chr < ctx->font->char_start) || (chr > ctx->font->char_end)) chr = ' ';
+    chr = chr - ctx->font->char_start;
+    bitmap = ctx->font->bitmap + ctx->font->char_descriptors[chr].offset;
+
+    for (j = 0; j < ctx->font->height; ++j){
+        for (i = 0; i < ctx->font->char_descriptors[chr].width; ++i){
+            if (i % 8 == 0){
+                line = bitmap[(ctx->font->char_descriptors[chr].width + 7) / 8 * j + i / 8];
+            }
+
+            if (line & 0x80){
+                ssd1306_draw_pixel(id, x + i, y + j, foreground);
+            }
+            else{
+                switch (background){
+                    case SSD1306_COLOR_TRANSPARENT:
+                        break;
+                    case SSD1306_COLOR_WHITE:
+                    case SSD1306_COLOR_BLACK:
+                        ssd1306_draw_pixel(id, x + i, y + j, background);
+                        break;
+                    case SSD1306_COLOR_INVERT:
+                        break;
+                }
+            }
+
+            line = line << 1;
+        }
+    }
+
+    return (ctx->font->char_descriptors[chr].width);
+}
+
+uint8_t ssd1306_draw_string(uint8_t id, uint8_t x, uint8_t y, char *str, ssd1306_color_t foreground, ssd1306_color_t background){
+    oled_i2c_ctx *ctx = _ctxs[id];
+    uint8_t t = x;
+
+    if (ctx == NULL) return 0;
+    if (ctx->font == NULL) return 0;
+    if (str == NULL) return 0;
+
+    while (*str){
+        x += ssd1306_draw_char(id, x, y, *str, foreground, background);
+        ++str;
+        if(*str)x += ctx->font->c;
+    }
+
+    return (x-t);
 }
 

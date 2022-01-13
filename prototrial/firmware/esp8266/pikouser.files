@@ -5,6 +5,8 @@ main/font_glcd_5x7.c
 main/font_tahoma_8pt.c
 main/fonts.c
 main/fonts.h
+main/lcd_draw.c
+main/lcd_draw.h
 main/main.c
 main/my_console.c
 main/my_console.h

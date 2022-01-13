@@ -11,9 +11,9 @@
 
 void app_main()
 {
-    i2c_init();
+
     start_console();
-    ssd1306_init(PANEL_ACTIVE);
+    start_olcd();
     start_blink();
     
     while(true) {

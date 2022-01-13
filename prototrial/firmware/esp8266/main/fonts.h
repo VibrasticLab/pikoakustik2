@@ -20,7 +20,7 @@ typedef struct _font_info
     uint8_t c;
     char char_start;
     char char_end;
-    const font_char_desc_t* char_descriptor;
+    const font_char_desc_t* char_descriptors;
     const uint8_t* bitmap;
 } font_info_t;
 

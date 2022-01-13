@@ -15,12 +15,14 @@ static void register_free();
 static void register_heap();
 static void register_version();
 static void register_restart();
+static void register_oled_test();
 
 void register_system(){
     register_free();
     register_heap();
     register_version();
     register_restart();
+    register_oled_test();
 }
 
 /* 'version' command */
@@ -108,5 +110,24 @@ static void register_heap()
         .func = &heap_size,
     };
     ESP_ERROR_CHECK( esp_console_cmd_register(&heap_cmd) );
+
+}
+
+static int cmd_oled(int argc, char **argv)
+{
+    test_olcd();
+    ESP_LOGI(TAG, "testing OLED LCD");
+    return 0;
+}
+
+static void register_oled_test()
+{
+    const esp_console_cmd_t oled_cmd = {
+        .command = "oled",
+        .help = "Test OLED LCD Drawing",
+        .hint = NULL,
+        .func = &cmd_oled,
+    };
+    ESP_ERROR_CHECK( esp_console_cmd_register(&oled_cmd) );
 
 }
