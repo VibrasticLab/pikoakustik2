@@ -13,8 +13,9 @@ void app_main()
 {
     start_ssd1306();
     start_console();
+    test_olcd();
     start_blink();
-    
+
     while(true) {
         int loop = loop_console();
         if(loop==1)break;

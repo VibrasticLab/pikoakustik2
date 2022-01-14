@@ -29,6 +29,7 @@ void register_system(){
 static int get_version(int argc, char **argv)
 {
     esp_chip_info_t info;
+
     esp_chip_info(&info);
     printf("IDF Version:%s\r\n", esp_get_idf_version());
     printf("Chip info:\r\n");
@@ -115,8 +116,8 @@ static void register_heap()
 
 static int cmd_oled(int argc, char **argv)
 {
-    test_olcd();
-    ESP_LOGI(TAG, "testing OLED LCD");
+    test_olcd_flip();
+    ESP_LOGI(TAG, "testing Flip OLED LCD");
     return 0;
 }
 
@@ -124,7 +125,7 @@ static void register_oled_test()
 {
     const esp_console_cmd_t oled_cmd = {
         .command = "oled",
-        .help = "Test OLED LCD Drawing",
+        .help = "Flip Test OLED LCD Drawing",
         .hint = NULL,
         .func = &cmd_oled,
     };
