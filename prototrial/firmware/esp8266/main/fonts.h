@@ -14,12 +14,16 @@
 extern "C" {
 #endif
 
+#define FONTS_TERMINUS_6X12_ISO8859_1
+#define DEFAULT_FONT FONT_FACE_TERMINUS_6X12_ISO8859_1
+
 typedef enum
 {
     FONT_FACE_GLCD5x7 = 0,
 
     FONT_FACE_ROBOTO_8PT,
     FONT_FACE_ROBOTO_10PT,
+    FONT_FACE_TERMINUS_6X12_ISO8859_1,
 } font_face_t;
 
 /**

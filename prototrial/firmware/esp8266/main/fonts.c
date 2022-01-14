@@ -24,6 +24,10 @@
  #include "fonts/font_roboto_10pt.h"
 #endif
 
+#ifdef FONTS_TERMINUS_6X12_ISO8859_1
+ #include "fonts/font_terminus_6x12_iso8859_1.h"
+#endif
+
 /////////////////////////////////////////////
 
 // FIXME: this declaration is noisy
@@ -46,6 +50,12 @@ const font_info_t *font_builtin_fonts[] = {
   [FONT_FACE_ROBOTO_10PT] = &_fonts_roboto_10pt_info,
 #else
   [FONT_FACE_ROBOTO_10PT] = NULL,
+#endif
+
+#ifdef FONTS_TERMINUS_6X12_ISO8859_1
+  [FONT_FACE_TERMINUS_6X12_ISO8859_1] = &_fonts_terminus_6x12_iso8859_1_info,
+#else
+  [FONT_FACE_TERMINUS_6X12_ISO8859_1] = NULL,
 #endif
 
 };

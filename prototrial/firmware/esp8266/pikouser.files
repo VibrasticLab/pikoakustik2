@@ -6,6 +6,7 @@ main/fonts.h
 main/fonts/font_glcd_5x7.h
 main/fonts/font_roboto_10pt.h
 main/fonts/font_roboto_8pt.h
+main/fonts/font_terminus_6x12_iso8859_1.h
 main/image.xbm
 main/lcd_draw.c
 main/lcd_draw.h

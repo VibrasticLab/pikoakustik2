@@ -35,6 +35,7 @@ static void i2c_master_init(void){
     ESP_ERROR_CHECK(i2c_param_config(I2C_NUM_0, &conf));
 }
 
+
 static int inline i2c_send(const ssd1306_t *dev, uint8_t reg, uint8_t* data, uint8_t len){
     int ret;
     i2c_cmd_handle_t cmd = i2c_cmd_link_create();
@@ -119,6 +120,9 @@ int ssd1306_init(const ssd1306_t *dev){
     return -EIO;
 }
 
+int ssd1306_clear_screen(const ssd1306_t *dev){
+    return ssd1306_load_frame_buffer(dev, NULL);
+}
 
 static int sh1106_go_coordinate(const ssd1306_t *dev, uint8_t x, uint8_t y){
     if (x >= dev->width || y >= (dev->height / 8))
@@ -894,13 +898,14 @@ int ssd1306_start_scroll_hori_vert(const ssd1306_t *dev, bool way, uint8_t start
 }
 
 
-int ssd1306_clear_screen(const ssd1306_t *dev){
-    return ssd1306_load_frame_buffer(dev, NULL);
-}
-
 void start_ssd1306(void){
     i2c_master_init();
 
     ssd1306_init(&oled_dev);
+
     ssd1306_clear_screen(&oled_dev);
+    ssd1306_set_whole_display_lighting(&oled_dev, false);
+
+    bool fwd = false;
+    ssd1306_set_scan_direction_fwd(&oled_dev, fwd);
 }

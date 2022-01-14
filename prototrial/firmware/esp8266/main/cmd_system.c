@@ -15,14 +15,18 @@ static void register_free();
 static void register_heap();
 static void register_version();
 static void register_restart();
-static void register_oled_test();
+static void register_oled_img();
+static void register_oled_flip();
+static void register_oled_text();
 
 void register_system(){
     register_free();
     register_heap();
     register_version();
     register_restart();
-    register_oled_test();
+    register_oled_img();
+    register_oled_flip();
+    register_oled_text();
 }
 
 /* 'version' command */
@@ -114,21 +118,56 @@ static void register_heap()
 
 }
 
-static int cmd_oled(int argc, char **argv)
+static int oled_img(int argc, char **argv)
 {
-    test_olcd_flip();
-    ESP_LOGI(TAG, "testing Flip OLED LCD");
+    test_olcd_img();
+    ESP_LOGI(TAG, "Draw test OLED LCD");
     return 0;
 }
 
-static void register_oled_test()
+static void register_oled_img()
 {
-    const esp_console_cmd_t oled_cmd = {
+    const esp_console_cmd_t oled_img_cmd = {
         .command = "oled",
-        .help = "Flip Test OLED LCD Drawing",
+        .help = "Image OLED LCD Drawing",
         .hint = NULL,
-        .func = &cmd_oled,
+        .func = &oled_img,
     };
-    ESP_ERROR_CHECK( esp_console_cmd_register(&oled_cmd) );
+    ESP_ERROR_CHECK( esp_console_cmd_register(&oled_img_cmd) );
+}
 
+static int oled_flip(int argc, char **argv)
+{
+    test_olcd_flip();
+    ESP_LOGI(TAG, "flipping OLED LCD");
+    return 0;
+}
+
+static void register_oled_flip()
+{
+    const esp_console_cmd_t oled_flip_cmd = {
+        .command = "flip",
+        .help = "Flipping OLED LCD Drawing",
+        .hint = NULL,
+        .func = &oled_flip,
+    };
+    ESP_ERROR_CHECK( esp_console_cmd_register(&oled_flip_cmd) );
+}
+
+static int oled_text(int argc, char **argv)
+{
+    test_olcd_text();
+    ESP_LOGI(TAG, "Text test OLED LCD");
+    return 0;
+}
+
+static void register_oled_text()
+{
+    const esp_console_cmd_t oled_text_cmd = {
+        .command = "text",
+        .help = "Text OLED LCD Drawing",
+        .hint = NULL,
+        .func = &oled_text,
+    };
+    ESP_ERROR_CHECK( esp_console_cmd_register(&oled_text_cmd) );
 }

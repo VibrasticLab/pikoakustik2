@@ -123,6 +123,8 @@ typedef enum{
 
 } ssd1306_scroll_t;
 
+#define ssd1306_clear_buffer memset
+
 int ssd1306_command(const ssd1306_t *dev, uint8_t cmd);
 int ssd1306_init(const ssd1306_t *dev);
 int ssd1306_clear_screen(const ssd1306_t *dev);
