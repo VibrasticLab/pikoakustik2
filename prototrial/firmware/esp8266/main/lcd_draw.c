@@ -1,6 +1,6 @@
 #include "my_includes.h"
 
-#include "image.xbm"
+#include "logo.xbm"
 
 #define SEC_DELAY (100 / portTICK_PERIOD_MS)
 
@@ -13,7 +13,7 @@ void test_olcd_img(void){
     ssd1306_clear_screen(&oled_dev);
     ssd1306_clear_buffer(lcdbuff,0,sizeof(lcdbuff));
 
-    ssd1306_load_xbm(&oled_dev, image_bits, lcdbuff);
+    ssd1306_load_xbm(&oled_dev, logo_bits, lcdbuff);
 }
 
 void test_olcd_flip(void){
@@ -44,7 +44,7 @@ static void ssd1306_task(void *pvParameters){
     vTaskDelay(1000/portTICK_PERIOD_MS);
 
 
-    if (ssd1306_load_xbm(&oled_dev, image_bits, lcdbuff))
+    if (ssd1306_load_xbm(&oled_dev, logo_bits, lcdbuff))
         goto error_loop;
 
     bool fwd = false;

@@ -13,7 +13,7 @@ void app_main()
 {
     start_ssd1306();
     start_console();
-    test_olcd_text();
+    test_olcd_img();
     start_blink();
 
     while(true) {
