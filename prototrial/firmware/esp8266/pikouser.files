@@ -4,9 +4,11 @@ main/component.mk
 main/fonts.c
 main/fonts.h
 main/fonts/font_glcd_5x7.h
-main/fonts/font_roboto_10pt.h
-main/fonts/font_roboto_8pt.h
+main/fonts/font_terminus_10x18_iso8859_1.h
 main/fonts/font_terminus_6x12_iso8859_1.h
+main/fonts/font_terminus_8x14_iso8859_1.h
+main/fonts/font_terminus_bold_10x18_iso8859_1.h
+main/fonts/font_terminus_bold_8x14_iso8859_1.h
 main/image.xbm
 main/lcd_draw.c
 main/lcd_draw.h
@@ -17,6 +19,8 @@ main/my_includes.h
 main/my_led.c
 main/my_led.h
 main/oled_urls.md
+main/page_home.h
+main/page_home.c
 main/ssd1306i2c.c
 main/ssd1306i2c.h
 sdkconfig.defaults

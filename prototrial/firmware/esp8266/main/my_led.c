@@ -6,9 +6,9 @@
 static void gpio_task_blink(void *arg){
     while(1){
         gpio_set_level(GPIO_OUTPUT_LED, 0);
-        vTaskDelay(100 / portTICK_RATE_MS);
+        vTaskDelay(500 / portTICK_RATE_MS);
         gpio_set_level(GPIO_OUTPUT_LED, 1);
-        vTaskDelay(100 / portTICK_RATE_MS);
+        vTaskDelay(500 / portTICK_RATE_MS);
     }
 }
 

@@ -2,8 +2,8 @@
  * Just include everything necessary
  */
 
- #ifndef _MY_INCLUDES_H_
- #define _MY_INCLUDES_H_
+#ifndef _MY_INCLUDES_H_
+#define _MY_INCLUDES_H_
 
 #include <errno.h>
 #include <ctype.h>
@@ -36,10 +36,6 @@
 #include "linenoise/linenoise.h"
 #include "argtable3/argtable3.h"
 
-//#include "fonts.h"
-//#include "oled_i2c.h"
-//#include "ssd1306.h"
-
 #include "fonts.h"
 #include "ssd1306i2c.h"
 
@@ -47,5 +43,6 @@
 #include "my_console.h"
 #include "my_led.h"
 #include "lcd_draw.h"
+#include "page_home.h"
 
- #endif
+#endif
