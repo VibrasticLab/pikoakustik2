@@ -18,7 +18,11 @@ void app_main()
     start_blink();
 
     while(true) {
+#ifdef CONSOLE_DUMB
+        loop_console();
+#else
         int loop = loop_console();
-        if(loop==1)break;
+        if(loop==1)printf("Empty Command\r\n");
+#endif
     }
 }

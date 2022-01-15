@@ -1,6 +1,11 @@
 #include "my_includes.h"
 
-const char* prompt = "esp8266> ";
+#ifdef CONSOLE_NOPROMPT
+ const char* prompt = "";
+#else
+ const char* prompt = "esp8266> ";
+#endif
+
 
 static void initialize_nvs()
 {
@@ -49,6 +54,12 @@ void start_console(void){
     esp_console_register_help_command();
     register_system();
 
+#ifdef CONSOLE_DUMB
+    printf("\n"
+           "This is an example of ESP-IDF console component.\n"
+           "Type 'help' to get the list of commands.\n");
+    linenoiseSetDumbMode(1);
+#else
     printf("\n"
            "This is an example of ESP-IDF console component.\n"
            "Type 'help' to get the list of commands.\n"
@@ -63,13 +74,17 @@ void start_console(void){
                "On Windows, try using Putty instead.\n");
         linenoiseSetDumbMode(1);
     }
+#endif
 }
 
 int loop_console(void){
     char* line = linenoise(prompt);
     if(line==NULL) return 1;
 
+#ifdef CONSOLE_DUMB
+#else
     if(strlen(line)>0) linenoiseHistoryAdd(line);
+#endif
     
     int ret;
     esp_err_t err = esp_console_run(line, &ret);
