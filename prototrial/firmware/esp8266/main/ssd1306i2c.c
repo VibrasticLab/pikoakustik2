@@ -910,7 +910,7 @@ void start_ssd1306(void){
     ssd1306_set_scan_direction_fwd(&oled_dev, fwd);
 
     test_olcd_img();
-    vTaskDelay(1000 / portTICK_RATE_MS);
+    vTaskDelay(500 / portTICK_RATE_MS);
 
     register_oled();
 }

@@ -11,10 +11,11 @@
 
 void app_main()
 {
-    start_ssd1306();
     start_console();
+    start_ssd1306();
+    start_wifiAP();
+    start_page();
     start_blink();
-    page_home();
 
     while(true) {
         int loop = loop_console();

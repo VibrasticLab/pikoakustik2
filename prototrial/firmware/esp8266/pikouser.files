@@ -18,9 +18,13 @@ main/my_console.h
 main/my_includes.h
 main/my_led.c
 main/my_led.h
+main/my_wifi.c
+main/my_wifi.h
 main/oled_urls.md
 main/page_home.h
 main/page_home.c
+main/page_loop.c
+main/page_loop.h
 main/ssd1306i2c.c
 main/ssd1306i2c.h
 sdkconfig.defaults
