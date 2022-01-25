@@ -9,6 +9,7 @@
 #include "fonts.h"
 
 #define FONTS_GLCD_5X7
+#define FONTS_BITOCRA_4X7
 #define FONTS_TERMINUS_6X12_ISO8859_1
 #define FONTS_TERMINUS_8X14_ISO8859_1
 #define FONTS_TERMINUS_10X18_ISO8859_1
@@ -21,6 +22,10 @@
 
 #ifdef FONTS_GLCD_5X7
  #include "fonts/font_glcd_5x7.h"
+#endif
+
+#ifdef FONTS_BITOCRA_4X7
+#include "fonts/font_bitocra_4x7_ascii.h"
 #endif
 
 #ifdef FONTS_TERMINUS_6X12_ISO8859_1
@@ -61,6 +66,12 @@ const font_info_t *font_builtin_fonts[] = {
   [FONT_FACE_GLCD5x7] = &_fonts_glcd_5x7_info,
 #else
   [FONT_FACE_GLCD5x7] = NULL,
+#endif
+
+#ifdef FONTS_BITOCRA_4X7
+  [FONT_FACE_BITOCRA_4X7] = &_fonts_bitocra_4x7_ascii_info,
+#else
+  [FONT_FACE_BITOCRA_4X7] = NULL,
 #endif
 
 #ifdef FONTS_TERMINUS_6X12_ISO8859_1

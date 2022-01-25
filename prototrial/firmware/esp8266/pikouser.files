@@ -3,6 +3,7 @@ main/cmd_system.h
 main/component.mk
 main/fonts.c
 main/fonts.h
+main/fonts/font_bitocra_4x7_ascii.h
 main/fonts/font_glcd_5x7.h
 main/fonts/font_terminus_10x18_iso8859_1.h
 main/fonts/font_terminus_6x12_iso8859_1.h

@@ -1,8 +1,10 @@
 #include "my_includes.h"
 
+#define BUTTON_SEL_FILE     9
 #define BUTTON_WIFI_SWITCH  12
-#define BUTTON_PAGE_LOOP    14
 #define BUTTON_PAGE_SEND    13
+#define BUTTON_PAGE_LOOP    14
+
 #define GPIO_INPUT_PIN_SEL  ((1ULL<< BUTTON_WIFI_SWITCH) | \
                                (1ULL<< BUTTON_PAGE_LOOP) | \
                                (1ULL<< BUTTON_PAGE_SEND))
@@ -39,6 +41,12 @@ static void btn_page_send_handler(void *arg){
     pageSWable = false;
 }
 
+static void btn_sel_file(void *arg){
+    (void) arg;
+
+    if(pageNum!=PAGE_FILES)pageNum = PAGE_FILES;
+}
+
 void start_exti(void){
     gpio_config_t io_conf;
 
@@ -52,4 +60,5 @@ void start_exti(void){
     gpio_isr_handler_add(BUTTON_WIFI_SWITCH, btn_wifi_handler, NULL);
     gpio_isr_handler_add(BUTTON_PAGE_LOOP, btn_page_loop_handler, NULL);
     gpio_isr_handler_add(BUTTON_PAGE_SEND, btn_page_send_handler, NULL);
+    gpio_isr_handler_add(BUTTON_SEL_FILE, btn_sel_file, NULL);
 }
