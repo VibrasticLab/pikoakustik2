@@ -22,5 +22,5 @@ void start_blink(void){
     io_conf.pull_up_en = 0;
     gpio_config(&io_conf);
 
-    xTaskCreate(gpio_task_blink, "gpio blink", 2048, NULL, 10, NULL);
+    xTaskCreate(gpio_task_blink, "gpio blink", 2048, NULL, tskIDLE_PRIORITY, NULL);
 }

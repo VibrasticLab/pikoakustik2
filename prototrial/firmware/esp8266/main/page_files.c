@@ -28,5 +28,6 @@ void page_files_demo(void){
                             OLED_COLOR_WHITE,
                             OLED_COLOR_BLACK);
     }
+
     ssd1306_load_frame_buffer(&oled_dev,lcdbuff);
 }

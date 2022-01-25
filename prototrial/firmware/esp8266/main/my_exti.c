@@ -2,10 +2,16 @@
 
 #define BUTTON_WIFI_SWITCH  12
 #define BUTTON_PAGE_LOOP    14
-#define GPIO_INPUT_PIN_SEL  ((1ULL<< BUTTON_WIFI_SWITCH) | (1ULL<< BUTTON_PAGE_LOOP))
+#define BUTTON_PAGE_SEND    13
+#define GPIO_INPUT_PIN_SEL  ((1ULL<< BUTTON_WIFI_SWITCH) | \
+                               (1ULL<< BUTTON_PAGE_LOOP) | \
+                               (1ULL<< BUTTON_PAGE_SEND))
 
 extern bool wifi_ap;
 extern uint8_t pageNum;
+extern uint8_t sendStep;
+
+bool pageSWable = true;
 
 static void btn_wifi_handler(void *arg){
     (void) arg;
@@ -16,11 +22,21 @@ static void btn_wifi_handler(void *arg){
     }
 }
 
-static void btn_page_handler(void *arg){
+static void btn_page_loop_handler(void *arg){
     (void) arg;
 
-    if(pageNum==PAGE_MAX){pageNum=PAGE_HOME;}
-    else{pageNum++;}
+    if(pageSWable){
+        if(pageNum==PAGE_MAX){pageNum=PAGE_HOME;}
+        else{pageNum++;}
+    }
+}
+
+static void btn_page_send_handler(void *arg){
+    (void) arg;
+
+    pageNum = PAGE_SEND;
+    sendStep = 0;
+    pageSWable = false;
 }
 
 void start_exti(void){
@@ -34,5 +50,6 @@ void start_exti(void){
 
     gpio_install_isr_service(0);
     gpio_isr_handler_add(BUTTON_WIFI_SWITCH, btn_wifi_handler, NULL);
-    gpio_isr_handler_add(BUTTON_PAGE_LOOP, btn_page_handler, NULL);
+    gpio_isr_handler_add(BUTTON_PAGE_LOOP, btn_page_loop_handler, NULL);
+    gpio_isr_handler_add(BUTTON_PAGE_SEND, btn_page_send_handler, NULL);
 }

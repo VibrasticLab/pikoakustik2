@@ -31,6 +31,8 @@ main/page_loop.c
 main/page_loop.h
 main/page_plot.c
 main/page_plot.h
+main/page_send.c
+main/page_send.h
 main/ssd1306i2c.c
 main/ssd1306i2c.h
 sdkconfig.defaults

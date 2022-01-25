@@ -53,6 +53,7 @@
 #include "lcd_draw.h"
 #include "page_home.h"
 #include "page_plot.h"
+#include "page_send.h"
 #include "page_files.h"
 #include "page_loop.h"
 

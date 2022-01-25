@@ -99,7 +99,7 @@ void test_olcd_loop(void){
     vTaskDelay(1000 / portTICK_RATE_MS);
     ssd1306_clear_screen(&oled_dev);
     ssd1306_clear_buffer(lcdbuff,0,sizeof(lcdbuff));
-    xTaskCreate(ssd1306_task, "ssd1306_task", 2048, NULL, 2, NULL);
+    xTaskCreate(ssd1306_task, "ssd1306_task", 2048, NULL, tskIDLE_PRIORITY, NULL);
 }
 
 static int oled_img(int argc, char **argv){
