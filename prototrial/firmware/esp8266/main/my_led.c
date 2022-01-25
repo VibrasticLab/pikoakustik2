@@ -1,7 +1,8 @@
 #include "my_includes.h"
 
-#define GPIO_OUTPUT_LED    16
-#define GPIO_OUTPUT_PIN_SEL  (1ULL << GPIO_OUTPUT_LED)
+//#define GPIO_OUTPUT_LED         16
+#define GPIO_OUTPUT_LED         2
+#define GPIO_OUTPUT_PIN_SEL     (1ULL << GPIO_OUTPUT_LED)
 
 static void gpio_task_blink(void *arg){
     while(1){

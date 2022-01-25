@@ -49,8 +49,11 @@
 #include "my_console.h"
 #include "my_led.h"
 #include "my_wifi.h"
+#include "my_exti.h"
 #include "lcd_draw.h"
 #include "page_home.h"
+#include "page_plot.h"
+#include "page_files.h"
 #include "page_loop.h"
 
 #endif

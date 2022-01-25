@@ -15,6 +15,7 @@ void app_main()
     start_ssd1306();
     start_wifiAP();
     start_page();
+    start_exti();
     start_blink();
 
     while(true) {
