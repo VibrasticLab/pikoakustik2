@@ -1,0 +1,16 @@
+main
+main/fonts
+/opt/esp-idf/components/esp_rom/include
+/opt/esp-idf/components/driver
+/opt/esp-idf/components/driver/include
+/opt/esp-idf/components/esp_common/include
+/opt/esp-idf/components/esp_system/include
+/opt/esp-idf/components/log/include
+/opt/esp-idf/components/console
+/opt/esp-idf/components/vfs/include
+/opt/esp-idf/components/nvs_flash/include
+/opt/esp-idf/components/spi_flash/include
+/opt/esp-idf/components/freertos/include
+/opt/esp-idf/components/esp_event/include
+/opt/esp-idf/components/lwip/lwip/src/include
+.
