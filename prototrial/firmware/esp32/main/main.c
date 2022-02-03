@@ -15,13 +15,19 @@
 void app_main(void){
     nvsInit();
     start_ssd1306();
-    test_olcd_img();
     shellInit();
+    start_wifiAP();
+    start_page();
+    start_mic();
     ledInit();
 
     while(1){
+#ifdef CONSOLE_DUMB
+        shellLoop();
+#else
         int loop = shellLoop();
-        if(loop==1)break;
+        if(loop==1)printf("Empty Command\r\n");
+#endif
     }
 }
 

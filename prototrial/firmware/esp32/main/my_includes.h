@@ -22,6 +22,8 @@
 #include "esp_spi_flash.h"
 #include "esp_event.h"
 #include "esp_err.h"
+#include "esp_now.h"
+#include "esp_wifi.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -35,6 +37,7 @@
 
 #include "driver/gpio.h"
 #include "driver/i2c.h"
+#include "driver/i2s.h"
 
 #include "nvs.h"
 #include "nvs_flash.h"
@@ -49,7 +52,15 @@
 #include "my_nvs.h"
 #include "my_led.h"
 #include "my_cmd.h"
+#include "my_mic.h"
+#include "my_wifi.h"
 #include "my_shell.h"
 #include "myconfig.h"
+
+#include "page_files.h"
+#include "page_home.h"
+#include "page_loop.h"
+#include "page_plot.h"
+#include "page_send.h"
 
 #endif
