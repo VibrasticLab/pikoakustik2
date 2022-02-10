@@ -10,7 +10,7 @@
 
 /**
  * @brief Main entry function
- * @details First main function app 
+ * @details First main function app
  */
 void app_main(void){
     nvsInit();
@@ -19,6 +19,7 @@ void app_main(void){
     start_wifiAP();
     start_page();
     start_mic();
+    start_exti();
     ledInit();
 
     while(1){

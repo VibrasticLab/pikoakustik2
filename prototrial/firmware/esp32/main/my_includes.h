@@ -54,6 +54,7 @@
 #include "my_cmd.h"
 #include "my_mic.h"
 #include "my_wifi.h"
+#include "my_exti.h"
 #include "my_shell.h"
 #include "myconfig.h"
 

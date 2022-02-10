@@ -5,7 +5,7 @@ extern tcpip_adapter_ip_info_t ipInfo;
 
 static uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
 static uint8_t battPercent = 69;
-\
+
 bool runIdle = true;
 extern bool wifi_ap;
 

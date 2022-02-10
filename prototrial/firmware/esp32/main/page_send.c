@@ -5,8 +5,7 @@ extern ssd1306_t oled_dev;
 static uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
 
 extern uint8_t pageNum;
-//extern bool pageSWable;
-bool pageSWable = true;
+extern bool pageSWable;
 
 uint8_t sendStep = PAGE_SEND_MAX;
 

@@ -17,6 +17,8 @@ main/logo.xbm
 main/main.c
 main/my_cmd.c
 main/my_cmd.h
+main/my_exti.c
+main/my_exti.h
 main/my_includes.h
 main/my_led.c
 main/my_led.h

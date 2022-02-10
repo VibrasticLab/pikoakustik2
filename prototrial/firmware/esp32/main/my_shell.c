@@ -11,8 +11,8 @@ static void consoleInit(void){
     fsync(fileno(stdout));
     setvbuf(stdin, NULL,_IONBF, 0);
 
-    esp_vfs_dev_uart_port_set_rx_line_endings(CONFIG_ESP_CONSOLE_UART_NUM, ESP_LINE_ENDINGS_CR);
-    esp_vfs_dev_uart_port_set_tx_line_endings(CONFIG_ESP_CONSOLE_UART_NUM, ESP_LINE_ENDINGS_CRLF);
+    esp_vfs_dev_uart_port_set_rx_line_endings(STM32_COMM_UART_NUM, ESP_LINE_ENDINGS_CR);
+    esp_vfs_dev_uart_port_set_tx_line_endings(STM32_COMM_UART_NUM, ESP_LINE_ENDINGS_CRLF);
 
     const uart_config_t uartConf = {
         .baud_rate = 115200,
@@ -22,9 +22,9 @@ static void consoleInit(void){
         .source_clk = UART_SCLK_REF_TICK,
     };
 
-    uart_driver_install(CONFIG_ESP_CONSOLE_UART_NUM, 256, 0, 0, NULL, 0);
-    uart_param_config(CONFIG_ESP_CONSOLE_UART_NUM, &uartConf);
-    esp_vfs_dev_uart_use_driver(CONFIG_ESP_CONSOLE_UART_NUM);
+    uart_driver_install(STM32_COMM_UART_NUM, 256, 0, 0, NULL, 0);
+    uart_param_config(STM32_COMM_UART_NUM, &uartConf);
+    esp_vfs_dev_uart_use_driver(STM32_COMM_UART_NUM);
 
     const esp_console_config_t consoleConf = {
         .max_cmdline_args = 8,
