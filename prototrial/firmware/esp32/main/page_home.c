@@ -5,6 +5,7 @@ extern tcpip_adapter_ip_info_t ipInfo;
 
 static uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
 static uint8_t battPercent = 69;
+static uint8_t ambientDB = 110;
 
 bool runIdle = true;
 extern bool wifi_ap;
@@ -79,7 +80,7 @@ static void page_info_runmode(const ssd1306_t *dev, uint8_t *fb){
         ssd1306_draw_string(dev,
                             fb,
                             font_builtin_fonts[FONT_FACE_TERMINUS_BOLD_12X24_ISO8859_1],
-                            32, 25, "IDLE",
+                            10, 25, "IDLE",
                             OLED_COLOR_WHITE,
                             OLED_COLOR_BLACK);
     }
@@ -87,10 +88,22 @@ static void page_info_runmode(const ssd1306_t *dev, uint8_t *fb){
         ssd1306_draw_string(dev,
                             fb,
                             font_builtin_fonts[FONT_FACE_TERMINUS_BOLD_12X24_ISO8859_1],
-                            32, 25, "RUN",
+                            10, 25, "RUN",
                             OLED_COLOR_WHITE,
                             OLED_COLOR_BLACK);
     }
+}
+
+static void page_info_ambient(const ssd1306_t *dev, uint8_t *fb){
+    char strAmbientDB[8];
+
+    sprintf(strAmbientDB, "%3idB", ambientDB);
+    ssd1306_draw_string(dev,
+                        fb,
+                        font_builtin_fonts[FONT_FACE_TERMINUS_8X14_ISO8859_1],
+                        75, 28, strAmbientDB,
+                        OLED_COLOR_WHITE,
+                        OLED_COLOR_BLACK);
 }
 
 static void page_info_ip(const ssd1306_t *dev, uint8_t *fb){
@@ -121,6 +134,7 @@ void page_home(void){
     page_info_batt(&oled_dev,lcdbuff);
     page_info_wifimode(&oled_dev,lcdbuff);
     page_info_runmode(&oled_dev,lcdbuff);
+    page_info_ambient(&oled_dev, lcdbuff);
     page_info_ip(&oled_dev,lcdbuff);
 
     ssd1306_load_frame_buffer(&oled_dev,lcdbuff);
