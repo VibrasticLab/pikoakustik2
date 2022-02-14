@@ -394,24 +394,6 @@ F 3 "" H 4000 2000 50  0001 C CNN
 	1    4000 2000
 	1    0    0    -1  
 $EndComp
-Text Label 3950 2850 0    50   ~ 0
-RX0
-Wire Wire Line
-	3300 2750 3350 2750
-Connection ~ 3300 2750
-Wire Wire Line
-	3300 2850 3950 2850
-Wire Wire Line
-	3300 2750 3300 2850
-Text Label 3950 2650 0    50   ~ 0
-TX0
-Wire Wire Line
-	3300 2550 3350 2550
-Connection ~ 3300 2550
-Wire Wire Line
-	3300 2650 3950 2650
-Wire Wire Line
-	3300 2550 3300 2650
 Wire Wire Line
 	1300 2450 1550 2450
 Text Label 1300 2450 2    50   ~ 0
@@ -481,38 +463,30 @@ Wire Wire Line
 	2350 2000 2200 2000
 Text HLabel 2350 2000 2    50   UnSpc ~ 0
 ESP32_VDD
-Wire Wire Line
-	3250 2750 3300 2750
-Wire Wire Line
-	3250 2550 3300 2550
-Text HLabel 3350 2750 2    50   Input ~ 0
+Text HLabel 7800 1700 2    50   Input ~ 0
 ESP32_RX
-Text HLabel 3350 2550 2    50   Output ~ 0
+Text HLabel 7800 1500 2    50   Output ~ 0
 ESP32_TX
-Wire Wire Line
-	2950 2750 2800 2750
-Wire Wire Line
-	2950 2550 2800 2550
 $Comp
 L Device:R R-UART2
 U 1 1 620A5BC5
-P 3100 2750
-F 0 "R-UART2" V 2893 2750 50  0001 C CNN
-F 1 "0" V 2984 2750 50  0000 C CNN
-F 2 "" V 3030 2750 50  0001 C CNN
-F 3 "~" H 3100 2750 50  0001 C CNN
-	1    3100 2750
+P 7550 1700
+F 0 "R-UART2" V 7343 1700 50  0001 C CNN
+F 1 "0" V 7434 1700 50  0000 C CNN
+F 2 "" V 7480 1700 50  0001 C CNN
+F 3 "~" H 7550 1700 50  0001 C CNN
+	1    7550 1700
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R R-UART1
 U 1 1 620A5150
-P 3100 2550
-F 0 "R-UART1" V 2893 2550 50  0001 C CNN
-F 1 "0" V 2984 2550 50  0000 C CNN
-F 2 "" V 3030 2550 50  0001 C CNN
-F 3 "~" H 3100 2550 50  0001 C CNN
-	1    3100 2550
+P 7550 1500
+F 0 "R-UART1" V 7343 1500 50  0001 C CNN
+F 1 "0" V 7434 1500 50  0000 C CNN
+F 2 "" V 7480 1500 50  0001 C CNN
+F 3 "~" H 7550 1500 50  0001 C CNN
+	1    7550 1500
 	0    1    1    0   
 $EndComp
 Wire Wire Line
@@ -547,4 +521,24 @@ Wire Wire Line
 	5800 1900 5800 2150
 Wire Wire Line
 	5200 1900 5800 1900
+Wire Wire Line
+	7700 1500 7800 1500
+Wire Wire Line
+	7700 1700 7800 1700
+Text Label 7250 1500 2    50   ~ 0
+TX0
+Wire Wire Line
+	7250 1500 7400 1500
+Text Label 7250 1700 2    50   ~ 0
+RX0
+Wire Wire Line
+	7250 1700 7400 1700
+Wire Wire Line
+	2800 2550 3050 2550
+Wire Wire Line
+	2800 2750 3050 2750
+Text Label 3050 2550 0    50   ~ 0
+TX0
+Text Label 3050 2750 0    50   ~ 0
+RX0
 $EndSCHEMATC
