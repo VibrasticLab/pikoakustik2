@@ -1,4 +1,6 @@
 (sym_lib_table
   (lib (name SSD1306-128x64_OLED)(type Legacy)(uri ${KIPRJMOD}/libs/ssd1306/SSD1306-128x64_OLED.lib)(options "")(descr ""))
   (lib (name INMP441)(type Legacy)(uri ${KIPRJMOD}/libs/inmp441/INMP441.lib)(options "")(descr ""))
+  (lib (name OPL_Connector)(type Legacy)(uri /usr/share/kicad/userlib/symbols/seeedopl/OPL_Connector.lib)(options "")(descr ""))
+  (lib (name codec)(type Legacy)(uri ${KIPRJMOD}/libs/codec/codec.lib)(options "")(descr ""))
 )
