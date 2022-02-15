@@ -52,10 +52,10 @@
 #include "my_nvs.h"
 #include "my_led.h"
 #include "my_cmd.h"
-#include "my_mic.h"
 #include "my_wifi.h"
 #include "my_exti.h"
 #include "my_shell.h"
+#include "my_i2smic.h"
 #include "myconfig.h"
 
 #include "page_files.h"

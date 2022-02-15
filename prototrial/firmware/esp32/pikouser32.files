@@ -19,11 +19,11 @@ main/my_cmd.c
 main/my_cmd.h
 main/my_exti.c
 main/my_exti.h
+main/my_i2smic.c
+main/my_i2smic.h
 main/my_includes.h
 main/my_led.c
 main/my_led.h
-main/my_mic.c
-main/my_mic.h
 main/my_nvs.c
 main/my_nvs.h
 main/my_shell.c

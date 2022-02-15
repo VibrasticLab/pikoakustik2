@@ -57,10 +57,6 @@ Wire Wire Line
 	2800 4550 3050 4550
 Text Label 3050 4550 0    50   ~ 0
 BTN_ACT_B
-Wire Wire Line
-	2800 4750 3050 4750
-Text Label 3050 4750 0    50   ~ 0
-BTN_PAGE
 $Comp
 L SSD1306-128x64_OLED:SSD1306 Brd1
 U 1 1 620D05FD
@@ -582,8 +578,12 @@ Wire Wire Line
 	3450 5900 3450 6000
 Wire Wire Line
 	3450 5500 3450 5600
-Text Label 3050 4650 0    50   ~ 0
+Text Label 3050 4050 0    50   ~ 0
 MIC_DATA
 Wire Wire Line
-	2800 4650 3050 4650
+	2800 4050 3050 4050
+Wire Wire Line
+	2800 4750 3050 4750
+Text Label 3050 4750 0    50   ~ 0
+BTN_PAGE
 $EndSCHEMATC

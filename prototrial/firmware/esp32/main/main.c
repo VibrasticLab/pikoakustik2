@@ -18,7 +18,7 @@ void app_main(void){
     shellInit();
     start_wifiAP();
     start_page();
-    start_mic();
+    start_i2smic();
     start_exti();
     ledInit();
 
