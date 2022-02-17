@@ -9,10 +9,14 @@
 
 #include "my_includes.h"
 
+extern uint8_t pageNum;
+extern bool pageSWable;
+
 static void register_free(void);
 static void register_heap(void);
 static void register_version(void);
 static void register_restart(void);
+static void register_pageloop(void);
 
 void registerCommands(void)
 {
@@ -20,6 +24,7 @@ void registerCommands(void)
     register_heap();
     register_version();
     register_restart();
+    register_pageloop();
 }
 
 /* 'version' command */
@@ -107,4 +112,24 @@ static void register_heap(void)
         .func = &heap_size,
     };
     esp_console_cmd_register(&heap_cmd);
+}
+
+static int func_pageloop(int argc, char **argv){
+    if(pageSWable){
+        if(pageNum==PAGE_MAX){pageNum=PAGE_HOME;}
+        else{pageNum++;}
+    }
+
+    return 0;
+}
+
+static void register_pageloop(void){
+    const esp_console_cmd_t cmd_pageloop = {
+        .command = "page",
+        .help = "Display Page Loop",
+        .hint = NULL,
+        .func = &func_pageloop,
+    };
+
+    esp_console_cmd_register(&cmd_pageloop);
 }

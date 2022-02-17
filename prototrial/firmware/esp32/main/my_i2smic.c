@@ -4,46 +4,69 @@
 
 #include "my_includes.h"
 
-#define AUDIO_SAMPLE_RATE       (16000) // or 44100 if you like
+#define MIC_MAX_TASK
+#define MIC_MAX_CMD
+
+#define AUDIO_SAMPLE_RATE       (44100)
 #define I2S_CH                  I2S_NUM_0
 #define SAMPLES_NUM             (1024)
 
-int16_t y_cf[SAMPLES_NUM*2]; // For both Left-Right
+extern uint16_t ambientDB;
+
+int16_t i2s_readraw_buff[SAMPLES_NUM];
 
 static void micZero(void){
     for(int i=0 ; i< SAMPLES_NUM ; i++){
-            y_cf[i*2 + 0] = 0;
-            y_cf[i*2 + 1] = 0;
+            i2s_readraw_buff[i] = 0;
     }
 }
 
 static void micRaw(void){
     esp_err_t errMic;
     size_t bytesread;
-    int16_t i2s_readraw_buff[SAMPLES_NUM];
 
-    errMic= i2s_read(I2S_CH, (char *)i2s_readraw_buff, SAMPLES_NUM * 2, &bytesread, (100 / portTICK_RATE_MS));
+    errMic= i2s_read(I2S_CH, (char *)i2s_readraw_buff, sizeof(i2s_readraw_buff), &bytesread, (100 / portTICK_RATE_MS));
 
-    if(errMic != ESP_OK){
-        printf("I2S read error\r\n");
-    }
-    else{
-        for(int i=0 ; i< SAMPLES_NUM ; i++){
-                y_cf[i*2 + 0] = i2s_readraw_buff[i];
-                y_cf[i*2 + 1] = 0; // right channel fills with 0
-        }
-    }
+    if(errMic != ESP_OK) printf("I2S read error\r\n");
 }
 
-static int micGet(int argc, char **argv){
+static void micGet(void){
     micZero();
     micRaw();
 
     for(int i=0 ; i< SAMPLES_NUM ; i++){
-        printf("%i,",y_cf[i*2 + 0]);
-        printf("%i,",y_cf[i*2 + 1]);
+        printf("%i,",i2s_readraw_buff[i]);
     }
+}
+
+static uint16_t micMax(void){
+    uint16_t valMax = 0;
+    uint16_t valAbs = 0;
+
+    micZero();
+    micRaw();
+
+    for(int i=0 ; i< SAMPLES_NUM ; i++){
+            valAbs = abs(i2s_readraw_buff[i]);
+            if(valAbs >= valMax) valMax = valAbs;
+    }
+
+    return valMax;
+}
+
+#ifdef MIC_MAX_CMD
+static int micGetFunc(int argc, char **argv){
+    micGet();
     printf("0\r\n");
+
+    return 0;
+}
+
+static int micMaxFunc(int argc, char **argv){
+    uint16_t maxVal = 0;
+
+    maxVal = micMax();
+    printf("micMax =  %i\r\n", maxVal);
 
     return 0;
 }
@@ -53,14 +76,32 @@ static void micRegister(void){
         .command = "get",
         .help = "Test data Mic (once)",
         .hint = NULL,
-        .func = &micGet,
+        .func = &micGetFunc,
+    };
+
+    const esp_console_cmd_t max = {
+        .command = "max",
+        .help = "Test Max Mic (once)",
+        .hint = NULL,
+        .func = &micMaxFunc,
     };
 
     esp_console_cmd_register(&get);
+    esp_console_cmd_register(&max);
 }
+#endif
+
+#ifdef MIC_MAX_TASK
+static void micAvgTask(void *pvParameter){
+    while(1){
+        ambientDB = micMax();
+        vTaskDelay(2000 / portTICK_PERIOD_MS);
+    }
+}
+#endif
 
 void start_i2smic(void){
-    
+
     i2s_config_t micConf = {
         .mode = I2S_MODE_MASTER | I2S_MODE_RX,
         .sample_rate = AUDIO_SAMPLE_RATE,
@@ -91,5 +132,13 @@ void start_i2smic(void){
         printf("I2S clock set error\r\n");
     }
 
+    ambientDB = micMax();
+
+#ifdef MIC_MAX_TASK
+    xTaskCreate(&micAvgTask, "mic_avg_task", 4096, NULL, 5, NULL);
+#endif
+
+#ifdef MIC_MAX_CMD
     micRegister();
+#endif
 }
