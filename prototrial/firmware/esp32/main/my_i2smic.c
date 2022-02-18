@@ -13,7 +13,7 @@
 
 extern uint16_t ambientDB;
 
-int16_t i2s_readraw_buff[SAMPLES_NUM];
+static int16_t i2s_readraw_buff[SAMPLES_NUM];
 
 static void micZero(void){
     for(int i=0 ; i< SAMPLES_NUM ; i++){
