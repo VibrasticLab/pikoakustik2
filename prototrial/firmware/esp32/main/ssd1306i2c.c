@@ -922,10 +922,6 @@ int ssd1306_start_scroll_hori_vert(const ssd1306_t *dev, bool way, uint8_t start
     return -EIO;
 }
 
-/**
- * @brief Start SSD1306 LCD
- * 
- */
 void start_ssd1306(void){
     i2c_master_init();
 
