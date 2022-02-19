@@ -1,31 +1,81 @@
+/**
+ * @file page_home.c
+ * @brief Page Home source
+ * 
+ * @addtogroup LCD
+ * @{
+ */
+
 #include "my_includes.h"
 
+extern bool wifi_ap;
 extern ssd1306_t oled_dev;
 extern tcpip_adapter_ip_info_t ipInfo;
 
+/**
+ * @brief LCD buffer array 
+ * 
+ */
 static uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
-static uint8_t battPercent = 69;
+
+/**
+ * @brief Battery percent
+ * 
+ */
+uint8_t battPercent = 69;
+
+/**
+ * @brief Ambient dB 
+ * 
+ */
 uint16_t ambientDB = 110;
 
+/**
+ * @brief Flag STM32 run/idle status
+ * 
+ */
 bool runIdle = true;
-extern bool wifi_ap;
 
+/**
+ * @brief Draw Battery in Full state
+ * 
+ * @param dev LCD device object
+ * @param fb frame buffer array
+ */
 static void page_batt_full(const ssd1306_t *dev, uint8_t *fb){
     ssd1306_fill_rectangle(dev,fb,51,0,6,2,OLED_COLOR_WHITE);
     ssd1306_fill_rectangle(dev,fb,48,3,12,18,OLED_COLOR_WHITE);
 }
 
+/**
+ * @brief Draw Battery in Empty state
+ * 
+ * @param dev LCD device object
+ * @param fb frame buffer array
+ */
 static void page_batt_empty(const ssd1306_t *dev, uint8_t *fb){
     ssd1306_fill_rectangle(dev,fb,51,0,6,2,OLED_COLOR_WHITE);
     ssd1306_draw_rectangle(dev,fb,48,3,12,18,OLED_COLOR_WHITE);
 }
 
+/**
+ * @brief Draw Battery in Half state
+ * 
+ * @param dev LCD device object
+ * @param fb frame buffer array
+ */
 static void page_batt_half(const ssd1306_t *dev, uint8_t *fb){
     ssd1306_fill_rectangle(dev,fb,51,0,6,2,OLED_COLOR_WHITE);
     ssd1306_draw_rectangle(dev,fb,48,3,12,9,OLED_COLOR_WHITE);
     ssd1306_fill_rectangle(dev,fb,48,11,12,9,OLED_COLOR_WHITE);
 }
 
+/**
+ * @brief Draw Battery percent
+ * 
+ * @param dev LCD device object
+ * @param fb frame buffer array
+ */
 static void page_info_batt(const ssd1306_t *dev, uint8_t *fb){
     char strBattPercent[5];
 
@@ -48,6 +98,12 @@ static void page_info_batt(const ssd1306_t *dev, uint8_t *fb){
     }
 }
 
+/**
+ * @brief Draw WIFI mode
+ * 
+ * @param dev LCD device object
+ * @param fb frame buffer array
+ */
 static void page_info_wifimode(const ssd1306_t *dev, uint8_t *fb){
     ssd1306_draw_string(dev,
                         fb,
@@ -75,6 +131,12 @@ static void page_info_wifimode(const ssd1306_t *dev, uint8_t *fb){
 
 }
 
+/**
+ * @brief Draw STM32 run/idle status
+ * 
+ * @param dev LCD device object
+ * @param fb frame buffer array
+ */
 static void page_info_runmode(const ssd1306_t *dev, uint8_t *fb){
     if(runIdle){
         ssd1306_draw_string(dev,
@@ -94,6 +156,12 @@ static void page_info_runmode(const ssd1306_t *dev, uint8_t *fb){
     }
 }
 
+/**
+ * @brief Draw ambient dB
+ * 
+ * @param dev LCD device object
+ * @param fb frame buffer array
+ */
 static void page_info_ambient(const ssd1306_t *dev, uint8_t *fb){
     char strAmbientDB[8];
 
@@ -133,6 +201,10 @@ static void page_info_ip(const ssd1306_t *dev, uint8_t *fb){
     }
 }
 
+/**
+ * @brief Draw Page Home
+ * 
+ */
 void page_home(void){
     ssd1306_clear_buffer(lcdbuff,0,sizeof(lcdbuff));
 
@@ -144,3 +216,5 @@ void page_home(void){
 
     ssd1306_load_frame_buffer(&oled_dev,lcdbuff);
 }
+
+/** @} */

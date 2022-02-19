@@ -1,4 +1,12 @@
 /**
+ * @file ssd1306i2c.c
+ * @brief SSD1306 Driver source
+ * 
+ * @addtogroup LCD
+ * @{
+ */
+
+/**
  * Original works:
  * https://github.com/Fonger/ESP8266-RTOS-SSD1306/blob/master/ssd1306/ssd1306.c
  */
@@ -14,6 +22,10 @@
 #define abs(x) ((x)<0 ? -(x) : (x))
 #define swap(x, y) do { typeof(x) temp##x##y = x; x = y; y = temp##x##y; } while (0)
 
+/**
+ * @brief SSD1306 driver object
+ * 
+ */
 ssd1306_t oled_dev = {
         .i2c_port = I2C_NUM_0,
         .i2c_addr = SSD1306_I2C_ADDR,
@@ -22,6 +34,10 @@ ssd1306_t oled_dev = {
         .height = DISPLAY_HEIGHT
 };
 
+/**
+ * @brief Initialize I2C driver
+ * 
+ */
 static void i2c_master_init(void){
     i2c_config_t conf;
     conf.mode = I2C_MODE_MASTER;
@@ -36,7 +52,15 @@ static void i2c_master_init(void){
     ESP_ERROR_CHECK(i2c_param_config(I2C_NUM_0, &conf));
 }
 
-
+/**
+ * @brief I2C command write
+ * 
+ * @param dev Device driver obejct
+ * @param reg Register address
+ * @param data Data to send
+ * @param len Length data
+ * @return int Execution status
+ */
 static int inline i2c_send(const ssd1306_t *dev, uint8_t reg, uint8_t* data, uint8_t len){
     int ret;
     i2c_cmd_handle_t cmd = i2c_cmd_link_create();
@@ -898,7 +922,10 @@ int ssd1306_start_scroll_hori_vert(const ssd1306_t *dev, bool way, uint8_t start
     return -EIO;
 }
 
-
+/**
+ * @brief Start SSD1306 LCD
+ * 
+ */
 void start_ssd1306(void){
     i2c_master_init();
 
@@ -915,3 +942,5 @@ void start_ssd1306(void){
 
     register_oled();
 }
+
+/** @} */

@@ -1,3 +1,11 @@
+/**
+ * @file font_glcd_5x7.h
+ * @brief Font GLCD 5x7
+ * 
+ * @addtogroup LCD
+ * @{
+ */
+
 /*
  * font_glcd_5x7.c
  *
@@ -2622,3 +2630,5 @@ const font_info_t _fonts_glcd_5x7_info =
 };
 
 #endif /* _EXTRAS_FONTS_FONT_GLCD_5X7_H_ */
+
+/** @} */

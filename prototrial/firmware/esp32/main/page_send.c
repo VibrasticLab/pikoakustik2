@@ -1,14 +1,34 @@
+/**
+ * @file page_send.c
+ * @brief Page Send source
+ * 
+ * @addtogroup LCD
+ * @{
+ */
+
 #include "my_includes.h"
 
 extern ssd1306_t oled_dev;
-
-static uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
-
 extern uint8_t pageNum;
 extern bool pageSWable;
 
+/**
+ * @brief LCD buffer array
+ * 
+ */
+static uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
+
+/**
+ * @brief Sending step example flag
+ * 
+ */
 uint8_t sendStep = PAGE_SEND_MAX;
 
+/**
+ * @brief Sending page routine example
+ * 
+ * @param arg 
+ */
 static void page_task_send_demo(void *arg){
     (void) arg;
 
@@ -28,6 +48,10 @@ static void page_task_send_demo(void *arg){
 
 void page_send(void){}
 
+/**
+ * @brief Page sending demo
+ * 
+ */
 void page_send_demo(void){
     ssd1306_clear_buffer(lcdbuff,0,sizeof(lcdbuff));
 
@@ -68,6 +92,12 @@ void page_send_demo(void){
     ssd1306_load_frame_buffer(&oled_dev,lcdbuff);
 }
 
+/**
+ * @brief Sending page routine example start
+ * 
+ */
 void start_send_page(void){
     xTaskCreate(page_task_send_demo, "page send demo", 512, NULL, tskIDLE_PRIORITY, NULL);
 }
+
+/** @} */

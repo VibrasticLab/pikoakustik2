@@ -1,4 +1,12 @@
 /**
+ * @file font_terminus_bold_8x14_iso8859_1.h
+ * @brief Font Terminus 8x14 Bold
+ * 
+ * @addtogroup LCD
+ * @{
+ */
+
+/**
  * This file contains generated binary font data.
  *
  * Font:    Terminus_Bold
@@ -4367,3 +4375,5 @@ const font_info_t _fonts_terminus_bold_8x14_iso8859_1_info =
 };
 
 #endif /* _EXTRAS_FONTS_FONT_TERMINUS_BOLD_8X14_ISO8859_1_H_ */
+
+/** @} */

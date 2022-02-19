@@ -23,7 +23,7 @@
 #define FONTS_GLCD_5X7
 
 /**
- * @brief  Include BitOcra 4x7 font
+ * @brief  Include BitOCRA 4x7 font
  * 
  */
 #define FONTS_BITOCRA_4X7
@@ -170,6 +170,10 @@ const font_info_t *font_builtin_fonts[] = {
 
 };
 
+/**
+ * @brief Number of fonts
+ * 
+ */
 const size_t font_builtin_fonts_count =
   (sizeof(font_builtin_fonts) / sizeof(font_info_t *));
 

@@ -1,16 +1,49 @@
+/**
+ * @file page_plot.c
+ * @brief Page Plot source
+ * 
+ * @addtogroup LCD
+ * @{
+ */
+
 #include "my_includes.h"
 
 extern ssd1306_t oled_dev;
 
+/**
+ * @brief LCD buffer array
+ * 
+ */
 static uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
 
+/**
+ * @brief LCD plot X axis point example
+ * 
+ */
 static uint8_t xpoint[] = {10,25,40,55,70,85};
+
+/**
+ * @brief LCD plot y axis point example
+ * 
+ */
 static uint8_t ypoint[] = {10,30,15,25,30,35};
 
+/**
+ * @brief Plot Line
+ * 
+ * @param x0 start X point
+ * @param y0 start Y point
+ * @param x1 end X point
+ * @param y1 end Y point
+ */
 static void plot_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1){
     ssd1306_draw_line(&oled_dev,lcdbuff, x0,y0,x1,y1, OLED_COLOR_WHITE);
 }
 
+/**
+ * @brief Draw plot axis
+ * 
+ */
 static void plot_axis(void){
     ssd1306_draw_string(&oled_dev,
                         lcdbuff,
@@ -33,6 +66,10 @@ static void plot_axis(void){
 
 void page_plot(void){}
 
+/**
+ * @brief Draw demo plot
+ * 
+ */
 void page_plot_demo(void){
     ssd1306_clear_buffer(lcdbuff,0,sizeof(lcdbuff));
 
@@ -46,3 +83,5 @@ void page_plot_demo(void){
 
     ssd1306_load_frame_buffer(&oled_dev,lcdbuff);
 }
+
+/** @} */

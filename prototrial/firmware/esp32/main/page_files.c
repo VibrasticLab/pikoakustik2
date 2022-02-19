@@ -1,11 +1,27 @@
+/**
+ * @file page_files.c
+ * @brief Page Files source
+ * 
+ * @addtogroup LCD
+ * @{
+ */
+
 #include "my_includes.h"
 
 extern ssd1306_t oled_dev;
 
+/**
+ * @brief LCD buffer array
+ * 
+ */
 static uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
 
 void page_files(void){}
 
+/**
+ * @brief File list display demo
+ * 
+ */
 void page_files_demo(void){
     ssd1306_clear_buffer(lcdbuff,0,sizeof(lcdbuff));
 
@@ -31,3 +47,5 @@ void page_files_demo(void){
 
     ssd1306_load_frame_buffer(&oled_dev,lcdbuff);
 }
+
+/** @} */

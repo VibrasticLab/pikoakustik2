@@ -1,4 +1,12 @@
 /**
+ * @file font_bitocra_4x7_ascii.h
+ * @brief Font BitOCRA 4x7
+ * 
+ * @addtogroup LCD
+ * @{
+ */
+
+/**
  * This file contains generated binary font data.
  *
  * Font:    BitOCRA
@@ -992,3 +1000,5 @@ const font_info_t _fonts_bitocra_4x7_ascii_info =
 };
 
 #endif /* _EXTRAS_FONTS_FONT_BITOCRA_4X7_ASCII_H_ */
+
+/** @} */

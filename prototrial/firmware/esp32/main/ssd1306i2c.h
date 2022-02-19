@@ -1,4 +1,12 @@
 /**
+ * @file ssd1306i2c.h
+ * @brief SSD1306 Driver header
+ * 
+ * @addtogroup LCD
+ * @{
+ */
+
+/**
  * Original works:
  * https://github.com/Fonger/ESP8266-RTOS-SSD1306/blob/master/ssd1306/ssd1306.h
  */
@@ -13,15 +21,42 @@
 
 #include <driver/i2c.h>
 
+/**
+ * @brief Enable LCD SSD1306 Driver Debug
+ * 
+ */
 #define SSD1306_DEBUG
 
-// SLA (0x3C) + WRITE_MODE (0x00) =  0x78 (0b01111000)
+/**
+ * @brief LCD SSD1306 I2C Addressing
+ * @details SLA (0x3C) + WRITE_MODE (0x00) =  0x78 (0b01111000)
+ * @details Value 0x78 written in LCD unit
+ * 
+ */
 #define SSD1306_I2C_ADDR    (0x3C)
 
+/**
+ * @brief I2C SCL pin
+ * 
+ */
 #define SCL_PIN 22
+
+/**
+ * @brief I2C SDA pin
+ * 
+ */
 #define SDA_PIN 21
 
+/**
+ * @brief LCD pixel width
+ * 
+ */
 #define DISPLAY_WIDTH 128
+
+/**
+ * @brief LCD pixel height
+ * 
+ */
 #define DISPLAY_HEIGHT 64
 
 /* SSD1306 commands */
@@ -78,6 +113,10 @@
 #define SH1106_SET_LOW_COL_ADDR      (0x00)
 #define SH1106_SET_HIGH_COL_ADDR     (0x10)
 
+/**
+ * @brief LCD voltage
+ * 
+ */
 typedef enum{
     SH1106_VOLTAGE_74 = 0, // 7.4 Volt
     SH1106_VOLTAGE_80,     // 8.0 Volt
@@ -85,11 +124,19 @@ typedef enum{
     SH1106_VOLTAGE_90      // 9.0 Volt
 } sh1106_voltage_t;
 
+/**
+ * @brief LCD screen type
+ * 
+ */
 typedef enum{
     SSD1306_SCREEN = 0,
     SH1106_SCREEN
 } ssd1306_screen_t;
 
+/**
+ * @brief LCD SSD1306 driver type
+ * 
+ */
 typedef struct{
     i2c_port_t i2c_port;
     uint8_t i2c_addr;
@@ -98,12 +145,20 @@ typedef struct{
     uint8_t height;
 } ssd1306_t;
 
+/**
+ * @brief LCD SSD1306 orientation
+ * 
+ */
 typedef enum{
     SSD1306_ADDR_MODE_HORIZONTAL = 0,
     SSD1306_ADDR_MODE_VERTICAL,
     SSD1306_ADDR_MODE_PAGE
 } ssd1306_mem_addr_mode_t;
 
+/**
+ * @brief LCD pixel color
+ * 
+ */
 typedef enum{
     OLED_COLOR_TRANSPARENT = -1, //!< Transparent (not drawing)
     OLED_COLOR_BLACK = 0,        //!< Black (pixel off)
@@ -111,6 +166,10 @@ typedef enum{
     OLED_COLOR_INVERT = 2,       //!< Invert pixel (XOR)
 } ssd1306_color_t;
 
+/**
+ * @brief LCD scroll 
+ * 
+ */
 typedef enum{
     FRAME_5 = 0,
     FRAME_64,
@@ -125,13 +184,57 @@ typedef enum{
 
 #define ssd1306_clear_buffer memset
 
+/**
+ * @brief LCD command write function
+ * 
+ * @param dev Device driver object
+ * @param cmd Command number
+ * @return int Execution status
+ */
 int ssd1306_command(const ssd1306_t *dev, uint8_t cmd);
+
+/**
+ * @brief LCD SSD1306 Initialization
+ * 
+ * @param dev Device driver object
+ * @return int Execution status
+ */
 int ssd1306_init(const ssd1306_t *dev);
+
+/**
+ * @brief LCD Clear screen
+ * 
+ * @param dev Device driver object
+ * @return int Execution status*
+ */
 int ssd1306_clear_screen(const ssd1306_t *dev);
 
+/**
+ * @brief Load XBM image to buffer
+ * 
+ * @param xbm Array image name
+ * @param dev Device driver object
+ * @param fb Frame buffer
+ * @return int Execution status
+ */
 int ssd1306_load_xbm(const ssd1306_t *dev, uint8_t *xbm, uint8_t *fb);
+
+/**
+ * @brief Load frame buffer to device
+ * 
+ * @param dev Device driver object
+ * @param buf Buffer to load
+ * @return int Execution status
+ */
 int ssd1306_load_frame_buffer(const ssd1306_t *dev, uint8_t buf[]);
 
+/**
+ * @brief Enable Display
+ * 
+ * @param dev Device driver object
+ * @param on On/Off value
+ * @return int Execution Status
+ */
 int ssd1306_display_on(const ssd1306_t *dev, bool on);
 int ssd1306_set_display_start_line(const ssd1306_t *dev, uint8_t start);
 int ssd1306_set_display_offset(const ssd1306_t *dev, uint8_t offset);
@@ -180,3 +283,5 @@ int ssd1306_set_charge_pump_enabled(const ssd1306_t *dev, bool enabled);
 void start_ssd1306(void);
 
 #endif // SSD1306I2C_H
+
+/** @} */

@@ -1,4 +1,12 @@
 /**
+ * @file font_terminus_10x18_iso8859_1.h
+ * @brief Font Terminus 10x18
+ * 
+ * @addtogroup LCD
+ * @{
+ */
+
+/**
  * This file contains generated binary font data.
  *
  * Font:    Terminus
@@ -5387,3 +5395,4 @@ const font_info_t _fonts_terminus_10x18_iso8859_1_info =
 };
 
 #endif /* _EXTRAS_FONTS_FONT_TERMINUS_10X18_ISO8859_1_H_ */
+/** @} */

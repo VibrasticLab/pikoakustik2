@@ -24,6 +24,10 @@ extern "C" {
 
 #define DEFAULT_FONT FONT_FACE_GLCD5x7
 
+/**
+ * @brief Font enumeration
+ * 
+ */
 typedef enum
 {
     FONT_FACE_GLCD5x7 = 0,
@@ -38,7 +42,8 @@ typedef enum
 } font_face_t;
 
 /**
- * Character descriptor
+ * @brief Font description
+ * 
  */
 typedef struct _font_char_desc
 {
@@ -47,7 +52,8 @@ typedef struct _font_char_desc
 } font_char_desc_t;
 
 /**
- * Font information
+ * @brief Font information
+ *
  */
 typedef struct _font_info
 {
@@ -66,7 +72,7 @@ extern const font_info_t *font_builtin_fonts[];
 extern const size_t font_builtin_fonts_count;
 
 /**
- * Find character decriptor in font
+ * @brief Find character decriptor in font
  * @param fnt Pointer to font information struct
  * @param c Character
  * @return Character descriptor or NULL if no character found
@@ -79,7 +85,7 @@ inline const font_char_desc_t *font_get_char_desc(const font_info_t *fnt, char c
 }
 
 /**
- * Calculate width of string in pixels
+ * @brief Calculate width of string in pixels
  * @param fnt Pointer to font information struct
  * @param s String
  * @return String width

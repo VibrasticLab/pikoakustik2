@@ -1,4 +1,12 @@
 /**
+ * @file font_terminus_12x24_iso8859_1.h
+ * @brief Font Terminus 12x24
+ * 
+ * @addtogroup LCD
+ * @{
+ */
+
+/**
  * This file contains generated binary font data.
  *
  * Font:    Terminus
@@ -6917,3 +6925,4 @@ const font_info_t _fonts_terminus_12x24_iso8859_1_info =
 };
 
 #endif /* _EXTRAS_FONTS_FONT_TERMINUS_12X24_ISO8859_1_H_ */
+/** @} */
