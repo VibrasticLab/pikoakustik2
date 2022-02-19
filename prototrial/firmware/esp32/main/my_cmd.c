@@ -1,3 +1,11 @@
+/**
+ * @file my_cmd.c
+ * @brief Console commands source
+ * 
+ * @addtogroup Console
+ * @{
+ */
+
 /* Console example — various system commands
 
    This example code is in the Public Domain (or CC0 licensed, at your option.)
@@ -18,6 +26,10 @@ static void register_version(void);
 static void register_restart(void);
 static void register_pageloop(void);
 
+/**
+ * @brief Register all basic commands
+ * 
+ */
 void registerCommands(void)
 {
     register_free();
@@ -27,7 +39,13 @@ void registerCommands(void)
     register_pageloop();
 }
 
-/* 'version' command */
+/**
+ * @brief Get the system version
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 static int get_version(int argc, char **argv)
 {
     esp_chip_info_t info;
@@ -46,6 +64,10 @@ static int get_version(int argc, char **argv)
     return 0;
 }
 
+/**
+ * @brief Register system version command
+ * 
+ */
 static void register_version(void)
 {
     const esp_console_cmd_t cmd = {
@@ -57,14 +79,24 @@ static void register_version(void)
     esp_console_cmd_register(&cmd);
 }
 
-/** 'restart' command restarts the program */
 
+/**
+ * @brief Restart system
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 static int restart(int argc, char **argv)
 {
     printf("Restarting");
     esp_restart();
 }
 
+/**
+ * @brief Register restart system command
+ * 
+ */
 static void register_restart(void)
 {
     const esp_console_cmd_t cmd = {
@@ -76,14 +108,24 @@ static void register_restart(void)
     esp_console_cmd_register(&cmd);
 }
 
-/** 'free' command prints available heap memory */
 
+/**
+ * @brief Print available memory heap
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 static int free_mem(int argc, char **argv)
 {
     printf("%d\n", esp_get_free_heap_size());
     return 0;
 }
 
+/**
+ * @brief Register memory free command
+ * 
+ */
 static void register_free(void)
 {
     const esp_console_cmd_t cmd = {
@@ -95,7 +137,13 @@ static void register_free(void)
     esp_console_cmd_register(&cmd);
 }
 
-/* 'heap' command prints minumum heap size */
+/**
+ * @brief Print minimum heap size 
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 static int heap_size(int argc, char **argv)
 {
     uint32_t heap_size = heap_caps_get_minimum_free_size(MALLOC_CAP_DEFAULT);
@@ -103,6 +151,10 @@ static int heap_size(int argc, char **argv)
     return 0;
 }
 
+/**
+ * @brief Register heap size command
+ * 
+ */
 static void register_heap(void)
 {
     const esp_console_cmd_t heap_cmd = {
@@ -114,6 +166,13 @@ static void register_heap(void)
     esp_console_cmd_register(&heap_cmd);
 }
 
+/**
+ * @brief LCD switch page
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 static int func_pageloop(int argc, char **argv){
     if(pageSWable){
         if(pageNum==PAGE_MAX){pageNum=PAGE_HOME;}
@@ -123,6 +182,10 @@ static int func_pageloop(int argc, char **argv){
     return 0;
 }
 
+/**
+ * @brief Register LCD switch page command
+ * 
+ */
 static void register_pageloop(void){
     const esp_console_cmd_t cmd_pageloop = {
         .command = "page",
@@ -133,3 +196,5 @@ static void register_pageloop(void){
 
     esp_console_cmd_register(&cmd_pageloop);
 }
+
+/** @} */

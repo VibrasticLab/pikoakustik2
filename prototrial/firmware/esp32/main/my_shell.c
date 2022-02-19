@@ -1,3 +1,11 @@
+/**
+ * @file my_shell.c
+ * @brief UART Shell source
+ * 
+ * @addtogroup Console
+ * @{
+ */
+
 #include "my_includes.h"
 
 #if UART_USE_PROMPT
@@ -6,6 +14,10 @@ const char* prompt = "esp32> ";
 const char* prompt = "";
 #endif
 
+/**
+ * @brief UART Console Start
+ * 
+ */
 static void consoleInit(void){
     fflush(stdout);
     fsync(fileno(stdout));
@@ -37,6 +49,10 @@ static void consoleInit(void){
     linenoiseHistorySetMaxLen(100);
 }
 
+/**
+ * @brief UART Shell start
+ * 
+ */
 void shellInit(void){
     consoleInit();
     esp_console_register_help_command();
@@ -58,6 +74,11 @@ void shellInit(void){
     }
 }
 
+/**
+ * @brief UART Shell loop
+ * 
+ * @return int Execution status
+ */
 int shellLoop(void){
     char* line = linenoise(prompt);
     if(line==NULL){
@@ -85,3 +106,5 @@ int shellLoop(void){
     linenoiseFree(line);
     return 0;
 }
+
+/** @} */

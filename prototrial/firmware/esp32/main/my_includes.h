@@ -1,4 +1,12 @@
 /**
+ * @file my_includes.h
+ * @brief Global header
+ * 
+ * @addtogroup Main
+ * @{
+ */
+
+/**
  * Just include everything necessary
  */
 
@@ -65,3 +73,5 @@
 #include "page_send.h"
 
 #endif
+
+/** @} */

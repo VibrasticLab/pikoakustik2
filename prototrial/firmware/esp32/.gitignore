@@ -6,3 +6,4 @@
 *.config
 *.autosave
 *.creator.user
+*_doc/

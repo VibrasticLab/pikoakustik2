@@ -1,21 +1,60 @@
+/**
+ * @file my_exti.c
+ * @brief GPIO Interrupt source
+ * 
+ * @addtogroup GPIO
+ * @{
+ */
+
 #include "my_includes.h"
 
+/**
+ * @brief Button Action A pin
+ * 
+ */
 #define BUTTON_WIFI_SWITCH  35
+
+/**
+ * @brief Button Action B pin
+ * 
+ */
 #define BUTTON_PAGE_SEND    32
+
+/**
+ * @brief Switch Page Loop pin
+ * 
+ */
 #define BUTTON_PAGE_LOOP    33
 
+/**
+ * @brief Input GPIO group
+ * 
+ */
 #define GPIO_INPUT_PIN_SEL  ((1ULL<< BUTTON_WIFI_SWITCH) | \
                                (1ULL<< BUTTON_PAGE_LOOP) | \
                                (1ULL<< BUTTON_PAGE_SEND))
 
+/**
+ * @brief Interrupt Flag number
+ * 
+ */
 #define ESP_INTR_FLAG_DEFAULT 0
 
 extern bool wifi_ap;
 extern uint8_t pageNum;
 extern uint8_t sendStep;
 
+/**
+ * @brief Flag if page switchable or not
+ * 
+ */
 bool pageSWable = true;
 
+/**
+ * @brief Interrupt for Action A button
+ * 
+ * @param arg 
+ */
 static void btn_wifi_handler(void *arg){
     (void) arg;
 
@@ -25,6 +64,11 @@ static void btn_wifi_handler(void *arg){
     }
 }
 
+/**
+ * @brief Interrupt for Switch Page Loop button
+ * 
+ * @param arg 
+ */
 static void btn_page_loop_handler(void *arg){
     (void) arg;
 
@@ -34,6 +78,11 @@ static void btn_page_loop_handler(void *arg){
     }
 }
 
+/**
+ * @brief Interrupt for Action B button
+ * 
+ * @param arg 
+ */
 static void btn_page_send_handler(void *arg){
     (void) arg;
 
@@ -42,6 +91,10 @@ static void btn_page_send_handler(void *arg){
     pageSWable = false;
 }
 
+/**
+ * @brief Start GPIO Interrupt
+ * 
+ */
 void start_exti(void){
     gpio_config_t io_conf;
 
@@ -56,3 +109,5 @@ void start_exti(void){
     gpio_isr_handler_add(BUTTON_PAGE_LOOP, btn_page_loop_handler, NULL);
     gpio_isr_handler_add(BUTTON_PAGE_SEND, btn_page_send_handler, NULL);
 }
+
+/** @} */

@@ -1,4 +1,12 @@
 /**
+ * @file fonts.c
+ * @brief Fonts source
+ * 
+ * @addtogroup LCD
+ * @{
+ */
+
+/**
  * LCD/OLED fonts library
  *
  * FIXME: License?
@@ -8,14 +16,58 @@
  */
 #include "fonts.h"
 
+/**
+ * @brief Include GLCD 5x7 font
+ * 
+ */
 #define FONTS_GLCD_5X7
+
+/**
+ * @brief  Include BitOcra 4x7 font
+ * 
+ */
 #define FONTS_BITOCRA_4X7
+
+/**
+ * @brief  Include Terminus 6x12 font
+ * 
+ */
 #define FONTS_TERMINUS_6X12_ISO8859_1
+
+/**
+ * @brief Include Terminus 8x14 font
+ * 
+ */
 #define FONTS_TERMINUS_8X14_ISO8859_1
+
+/**
+ * @brief Include Terminus 10x18 font
+ * 
+ */
 #define FONTS_TERMINUS_10X18_ISO8859_1
+
+/**
+ * @brief Include Terminus 12x24 font
+ * 
+ */
 #define FONTS_TERMINUS_12X24_ISO8859_1
+
+/**
+ * @brief Include Terminus 8x14 (Bold) font
+ * 
+ */
 #define FONTS_TERMINUS_BOLD_8X14_ISO8859_1
+
+/**
+ * @brief  Include Terminus 10x18 (Bold) font
+ * 
+ */
 #define FONTS_TERMINUS_BOLD_10X18_ISO8859_1
+
+/**
+ * @brief  Include Terminus 12x24 (Bold) font
+ * 
+ */
 #define FONTS_TERMINUS_BOLD_12X24_ISO8859_1
 
 /////////////////////////////////////////////
@@ -137,3 +189,5 @@ uint16_t font_measure_string(const font_info_t *fnt, const char *s) {
 
   return res > 0 ? res - fnt->c : 0;
 }
+
+/** @} */

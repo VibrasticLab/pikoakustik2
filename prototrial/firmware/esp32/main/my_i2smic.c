@@ -1,26 +1,69 @@
 /**
+ * @file my_i2smic.c
+ * @brief I2S Mic source
+ * 
+ * @addtogroup I2S
+ * @{
+ */
+
+/**
  * example in use: https://github.com/pedrominatel/esp32-projects/blob/master/demo/sound_spectrum/main/i2s_spectrum_example_main.c
  */
 
 #include "my_includes.h"
 
+/**
+ * @brief Enable Mic Max dB Task
+ * 
+ */
 #define MIC_MAX_TASK
+
+/**
+ * @brief Enable Mic Max dB command
+ * 
+ */
 #define MIC_MAX_CMD
 
+/**
+ * @brief Audio Sample Rate
+ * 
+ */
 #define AUDIO_SAMPLE_RATE       (44100)
+
+/**
+ * @brief I2S Port number
+ * 
+ */
 #define I2S_CH                  I2S_NUM_0
+
+/**
+ * @brief Sample Size
+ * 
+ */
 #define SAMPLES_NUM             (1024)
 
 extern uint16_t ambientDB;
 
+/**
+ * @brief Audio read buffer array
+ * 
+ */
 static int16_t i2s_readraw_buff[SAMPLES_NUM];
 
+/**
+ * @brief Zero-ing buffer array
+ * 
+ */
 static void micZero(void){
     for(int i=0 ; i< SAMPLES_NUM ; i++){
             i2s_readraw_buff[i] = 0;
     }
 }
 
+/**
+ * @brief Get Raw value into buffer array
+ * 
+ */
 static void micRaw(void){
     esp_err_t errMic;
     size_t bytesread;
@@ -30,6 +73,10 @@ static void micRaw(void){
     if(errMic != ESP_OK) printf("I2S read error\r\n");
 }
 
+/**
+ * @brief Print buffer array
+ * 
+ */
 static void micGet(void){
     micZero();
     micRaw();
@@ -39,6 +86,11 @@ static void micGet(void){
     }
 }
 
+/**
+ * @brief Get maximum value as dB
+ * 
+ * @return uint16_t Max value (dB)
+ */
 static uint16_t micMax(void){
     uint16_t valMax = 0;
     uint16_t valAbs = 0;
@@ -55,6 +107,13 @@ static uint16_t micMax(void){
 }
 
 #ifdef MIC_MAX_CMD
+/**
+ * @brief Print raw read buffer command
+ * 
+ * @param argc argument counter
+ * @param argv argument values
+ * @return int return status
+ */
 static int micGetFunc(int argc, char **argv){
     micGet();
     printf("0\r\n");
@@ -62,6 +121,13 @@ static int micGetFunc(int argc, char **argv){
     return 0;
 }
 
+/**
+ * @brief Get Max value command
+ * 
+ * @param argc argument counter
+ * @param argv argument values
+ * @return int return status
+ */
 static int micMaxFunc(int argc, char **argv){
     uint16_t maxVal = 0;
 
@@ -71,6 +137,10 @@ static int micMaxFunc(int argc, char **argv){
     return 0;
 }
 
+/**
+ * @brief Register Mic Commands
+ * 
+ */
 static void micRegister(void){
     const esp_console_cmd_t get = {
         .command = "get",
@@ -92,7 +162,12 @@ static void micRegister(void){
 #endif
 
 #ifdef MIC_MAX_TASK
-static void micAvgTask(void *pvParameter){
+/**
+ * @brief Get Max value dB routine
+ * 
+ * @param pvParameter Task paramaters
+ */
+static void micMaxTask(void *pvParameter){
     while(1){
         ambientDB = micMax();
         vTaskDelay(2000 / portTICK_PERIOD_MS);
@@ -100,6 +175,10 @@ static void micAvgTask(void *pvParameter){
 }
 #endif
 
+/**
+ * @brief I2S Mic Initialization
+ * 
+ */
 void start_i2smic(void){
 
     i2s_config_t micConf = {
@@ -135,10 +214,12 @@ void start_i2smic(void){
     ambientDB = micMax();
 
 #ifdef MIC_MAX_TASK
-    xTaskCreate(&micAvgTask, "mic_avg_task", 4096, NULL, 5, NULL);
+    xTaskCreate(&micMaxTask, "mic_max_task", 4096, NULL, 5, NULL);
 #endif
 
 #ifdef MIC_MAX_CMD
     micRegister();
 #endif
 }
+
+/** @} */

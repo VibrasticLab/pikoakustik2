@@ -1,4 +1,12 @@
 /**
+ * @file fonts.h
+ * @brief Fonts header
+ * 
+ * @addtogroup LCD
+ * @{
+ */
+
+/**
  * LCD/OLED fonts library
  *
  * Copyright (c) 2016 Ruslan V. Uss (https://github.com/UncleRus),
@@ -81,3 +89,5 @@ uint16_t font_measure_string(const font_info_t *fnt, const char *s);
 #ifdef __cplusplus
 }
 #endif
+
+/** @} */

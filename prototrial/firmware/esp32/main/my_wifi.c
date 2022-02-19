@@ -1,14 +1,57 @@
+/**
+ * @file my_wifi.c
+ * @brief WIFI source
+ * 
+ * @addtogroup WIFI
+ * @{
+ */
+
 #include "my_includes.h"
 
+/**
+ * @brief AP WIFI SSID
+ * 
+ */
 #define EXAMPLE_ESP_WIFI_SSID   "elbiCare"
+
+/**
+ * @brief AP WIFI Passwrod
+ * 
+ */
 #define EXAMPLE_ESP_WIFI_PASS   "audiometri"
+
+/**
+ * @brief AP WIFI Connection Number
+ * 
+ */
 #define EXAMPLE_MAX_STA_CONN    2
 
+/**
+ * @brief Flag if using AP or STA mode
+ * 
+ */
 bool wifi_ap = true;
+
+/**
+ * @brief Device IP info variable
+ * 
+ */
 tcpip_adapter_ip_info_t ipInfo;
 
+/**
+ * @brief Tag log for Wifi AP
+ * 
+ */
 static const char *TAG = "wifiAP";
 
+/**
+ * @brief WIFI event handler
+ * 
+ * @param arg 
+ * @param event_base 
+ * @param event_id 
+ * @param event_data 
+ */
 static void wifi_event_handler(void* arg, esp_event_base_t event_base,
                                     int32_t event_id, void* event_data){
 
@@ -23,6 +66,10 @@ static void wifi_event_handler(void* arg, esp_event_base_t event_base,
     }
 }
 
+/**
+ * @brief Start AP WIFI
+ * 
+ */
 void start_wifiAP(void){
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
@@ -59,3 +106,5 @@ void start_wifiAP(void){
     tcpip_adapter_get_ip_info(ESP_IF_WIFI_AP, &ipInfo);
     ESP_LOGI(TAG, "Dev IP: %s", ip4addr_ntoa(&ipInfo.ip));
 }
+
+/** @} */
