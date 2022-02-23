@@ -1,7 +1,7 @@
 /**
  * @file my_cmd.c
  * @brief Console commands source
- * 
+ *
  * @addtogroup Console
  * @{
  */
@@ -28,7 +28,7 @@ static void register_pageloop(void);
 
 /**
  * @brief Register all basic commands
- * 
+ *
  */
 void registerCommands(void)
 {
@@ -41,10 +41,10 @@ void registerCommands(void)
 
 /**
  * @brief Get the system version
- * 
- * @param argc 
- * @param argv 
- * @return int 
+ *
+ * @param argc
+ * @param argv
+ * @return int
  */
 static int get_version(int argc, char **argv)
 {
@@ -66,7 +66,7 @@ static int get_version(int argc, char **argv)
 
 /**
  * @brief Register system version command
- * 
+ *
  */
 static void register_version(void)
 {
@@ -82,10 +82,10 @@ static void register_version(void)
 
 /**
  * @brief Restart system
- * 
- * @param argc 
- * @param argv 
- * @return int 
+ *
+ * @param argc
+ * @param argv
+ * @return int
  */
 static int restart(int argc, char **argv)
 {
@@ -95,7 +95,7 @@ static int restart(int argc, char **argv)
 
 /**
  * @brief Register restart system command
- * 
+ *
  */
 static void register_restart(void)
 {
@@ -111,10 +111,10 @@ static void register_restart(void)
 
 /**
  * @brief Print available memory heap
- * 
- * @param argc 
- * @param argv 
- * @return int 
+ *
+ * @param argc
+ * @param argv
+ * @return int
  */
 static int free_mem(int argc, char **argv)
 {
@@ -124,7 +124,7 @@ static int free_mem(int argc, char **argv)
 
 /**
  * @brief Register memory free command
- * 
+ *
  */
 static void register_free(void)
 {
@@ -138,22 +138,22 @@ static void register_free(void)
 }
 
 /**
- * @brief Print minimum heap size 
- * 
- * @param argc 
- * @param argv 
- * @return int 
+ * @brief Print minimum heap size
+ *
+ * @param argc
+ * @param argv
+ * @return int
  */
 static int heap_size(int argc, char **argv)
 {
-    uint32_t heap_size = heap_caps_get_minimum_free_size(MALLOC_CAP_DEFAULT);
-    printf("min heap size: %u\n", heap_size);
+    uint32_t heapSize = heap_caps_get_minimum_free_size(MALLOC_CAP_DEFAULT);
+    printf("min heap size: %u\n", heapSize);
     return 0;
 }
 
 /**
  * @brief Register heap size command
- * 
+ *
  */
 static void register_heap(void)
 {
@@ -168,10 +168,10 @@ static void register_heap(void)
 
 /**
  * @brief LCD switch page
- * 
- * @param argc 
- * @param argv 
- * @return int 
+ *
+ * @param argc
+ * @param argv
+ * @return int
  */
 static int func_pageloop(int argc, char **argv){
     if(pageSWable){
@@ -184,7 +184,7 @@ static int func_pageloop(int argc, char **argv){
 
 /**
  * @brief Register LCD switch page command
- * 
+ *
  */
 static void register_pageloop(void){
     const esp_console_cmd_t cmd_pageloop = {
