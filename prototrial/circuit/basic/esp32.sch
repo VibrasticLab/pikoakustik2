@@ -94,13 +94,9 @@ Wire Wire Line
 	5150 3400 5450 3400
 Wire Wire Line
 	5650 3300 5150 3300
-Wire Wire Line
-	5150 3500 5400 3500
-Text Label 5400 3500 0    50   ~ 0
+Text Label 6050 3500 0    50   ~ 0
 OLED_SCL
-Wire Wire Line
-	5150 3600 5400 3600
-Text Label 5400 3600 0    50   ~ 0
+Text Label 6050 3600 0    50   ~ 0
 OLED_SDA
 $Comp
 L Connector:Conn_01x06_Male J-PROG1
@@ -586,4 +582,60 @@ Wire Wire Line
 	2800 4750 3050 4750
 Text Label 3050 4750 0    50   ~ 0
 BTN_PAGE
+Wire Wire Line
+	5150 3500 5950 3500
+$Comp
+L Device:R R-OLED1
+U 1 1 62169589
+P 5850 3250
+F 0 "R-OLED1" H 5920 3296 50  0001 L CNN
+F 1 "10K" H 5650 3300 50  0000 L CNN
+F 2 "" V 5780 3250 50  0001 C CNN
+F 3 "~" H 5850 3250 50  0001 C CNN
+	1    5850 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R-OLED2
+U 1 1 6216A4C0
+P 5950 3250
+F 0 "R-OLED2" H 6020 3296 50  0001 L CNN
+F 1 "10K" H 6000 3300 50  0000 L CNN
+F 2 "" V 5880 3250 50  0001 C CNN
+F 3 "~" H 5950 3250 50  0001 C CNN
+	1    5950 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VDD #PWR047
+U 1 1 6216AE62
+P 5900 3050
+F 0 "#PWR047" H 5900 2900 50  0001 C CNN
+F 1 "VDD" H 5915 3223 50  0000 C CNN
+F 2 "" H 5900 3050 50  0001 C CNN
+F 3 "" H 5900 3050 50  0001 C CNN
+	1    5900 3050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5950 3100 5950 3050
+Wire Wire Line
+	5950 3050 5900 3050
+Wire Wire Line
+	5850 3100 5850 3050
+Wire Wire Line
+	5850 3050 5900 3050
+Connection ~ 5900 3050
+Wire Wire Line
+	5950 3400 5950 3500
+Connection ~ 5950 3500
+Wire Wire Line
+	5950 3500 6050 3500
+Wire Wire Line
+	5850 3400 5850 3600
+Wire Wire Line
+	5150 3600 5850 3600
+Connection ~ 5850 3600
+Wire Wire Line
+	5850 3600 6050 3600
 $EndSCHEMATC

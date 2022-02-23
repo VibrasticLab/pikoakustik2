@@ -72,13 +72,9 @@ F 3 "" H 7150 3650 50  0001 C CNN
 	1    7150 3650
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	7050 3450 7200 3450
-Wire Wire Line
-	7050 3350 7200 3350
-Text Label 7200 3350 0    50   ~ 0
+Text Label 7300 3350 0    50   ~ 0
 OLED_SDA
-Text Label 7200 3450 0    50   ~ 0
+Text Label 7300 3450 0    50   ~ 0
 OLED_SDL
 $Comp
 L power:VDD #PWR04
@@ -622,4 +618,56 @@ Wire Wire Line
 	8150 4950 8150 5100
 Text Label 8150 5100 0    50   ~ 0
 LED
+$Comp
+L Device:R R-OLED1
+U 1 1 621610CD
+P 7100 3100
+F 0 "R-OLED1" H 7170 3146 50  0000 L CNN
+F 1 "10K" H 7170 3055 50  0000 L CNN
+F 2 "" V 7030 3100 50  0001 C CNN
+F 3 "~" H 7100 3100 50  0001 C CNN
+	1    7100 3100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7050 3450 7100 3450
+Wire Wire Line
+	7050 3350 7200 3350
+$Comp
+L Device:R R-OLED2
+U 1 1 6216714C
+P 7200 3100
+F 0 "R-OLED2" H 7270 3146 50  0000 L CNN
+F 1 "10K" H 7270 3055 50  0000 L CNN
+F 2 "" V 7130 3100 50  0001 C CNN
+F 3 "~" H 7200 3100 50  0001 C CNN
+	1    7200 3100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7200 3250 7200 3350
+Connection ~ 7200 3350
+Wire Wire Line
+	7200 3350 7300 3350
+Wire Wire Line
+	7100 3250 7100 3450
+Connection ~ 7100 3450
+Wire Wire Line
+	7100 3450 7300 3450
+$Comp
+L power:VDD #PWR021
+U 1 1 6216A0BA
+P 7150 2950
+F 0 "#PWR021" H 7150 2800 50  0001 C CNN
+F 1 "VDD" H 7165 3123 50  0000 C CNN
+F 2 "" H 7150 2950 50  0001 C CNN
+F 3 "" H 7150 2950 50  0001 C CNN
+	1    7150 2950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7200 2950 7150 2950
+Wire Wire Line
+	7100 2950 7150 2950
+Connection ~ 7150 2950
 $EndSCHEMATC
