@@ -49,14 +49,6 @@ Wire Wire Line
 	2800 3950 3050 3950
 Text Label 3050 3950 0    50   ~ 0
 OLED_SCL
-Wire Wire Line
-	2800 4450 3050 4450
-Text Label 3050 4450 0    50   ~ 0
-BTN_ACT_A
-Wire Wire Line
-	2800 4550 3050 4550
-Text Label 3050 4550 0    50   ~ 0
-BTN_ACT_B
 $Comp
 L SSD1306-128x64_OLED:SSD1306 Brd1
 U 1 1 620D05FD
@@ -579,10 +571,6 @@ MIC_DATA
 Wire Wire Line
 	2800 4050 3050 4050
 Wire Wire Line
-	2800 4750 3050 4750
-Text Label 3050 4750 0    50   ~ 0
-BTN_PAGE
-Wire Wire Line
 	5150 3500 5950 3500
 $Comp
 L Device:R R-OLED1
@@ -638,4 +626,16 @@ Wire Wire Line
 Connection ~ 5850 3600
 Wire Wire Line
 	5850 3600 6050 3600
+Wire Wire Line
+	2800 4150 3050 4150
+Text Label 3050 4150 0    50   ~ 0
+BTN_ACT_A
+Wire Wire Line
+	2800 4250 3050 4250
+Text Label 3050 4250 0    50   ~ 0
+BTN_ACT_B
+Wire Wire Line
+	2800 4350 3050 4350
+Text Label 3050 4350 0    50   ~ 0
+BTN_PAGE
 $EndSCHEMATC

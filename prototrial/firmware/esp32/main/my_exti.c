@@ -1,7 +1,7 @@
 /**
  * @file my_exti.c
  * @brief GPIO Interrupt source
- * 
+ *
  * @addtogroup GPIO
  * @{
  */
@@ -10,25 +10,25 @@
 
 /**
  * @brief Button Action A pin
- * 
+ *
  */
-#define BUTTON_WIFI_SWITCH  35
+#define BUTTON_WIFI_SWITCH  25
 
 /**
  * @brief Button Action B pin
- * 
+ *
  */
-#define BUTTON_PAGE_SEND    32
+#define BUTTON_PAGE_SEND    26
 
 /**
  * @brief Switch Page Loop pin
- * 
+ *
  */
-#define BUTTON_PAGE_LOOP    33
+#define BUTTON_PAGE_LOOP    27
 
 /**
  * @brief Input GPIO group
- * 
+ *
  */
 #define GPIO_INPUT_PIN_SEL  ((1ULL<< BUTTON_WIFI_SWITCH) | \
                                (1ULL<< BUTTON_PAGE_LOOP) | \
@@ -36,7 +36,7 @@
 
 /**
  * @brief Interrupt Flag number
- * 
+ *
  */
 #define ESP_INTR_FLAG_DEFAULT 0
 
@@ -46,14 +46,14 @@ extern uint8_t sendStep;
 
 /**
  * @brief Flag if page switchable or not
- * 
+ *
  */
 bool pageSWable = true;
 
 /**
  * @brief Interrupt for Action A button
- * 
- * @param arg 
+ *
+ * @param arg
  */
 static void btn_wifi_handler(void *arg){
     (void) arg;
@@ -66,8 +66,8 @@ static void btn_wifi_handler(void *arg){
 
 /**
  * @brief Interrupt for Switch Page Loop button
- * 
- * @param arg 
+ *
+ * @param arg
  */
 static void btn_page_loop_handler(void *arg){
     (void) arg;
@@ -80,8 +80,8 @@ static void btn_page_loop_handler(void *arg){
 
 /**
  * @brief Interrupt for Action B button
- * 
- * @param arg 
+ *
+ * @param arg
  */
 static void btn_page_send_handler(void *arg){
     (void) arg;
@@ -93,7 +93,7 @@ static void btn_page_send_handler(void *arg){
 
 /**
  * @brief Start GPIO Interrupt
- * 
+ *
  */
 void start_exti(void){
     gpio_config_t io_conf;
@@ -101,7 +101,7 @@ void start_exti(void){
     io_conf.intr_type = GPIO_INTR_POSEDGE;
     io_conf.pin_bit_mask = GPIO_INPUT_PIN_SEL;
     io_conf.mode = GPIO_MODE_INPUT;
-    io_conf.pull_up_en = GPIO_PULLUP_ENABLE; // Must externally pulled up
+    io_conf.pull_up_en = GPIO_PULLUP_ENABLE; // Should also externally pulled up
     gpio_config(&io_conf);
 
     gpio_install_isr_service(ESP_INTR_FLAG_DEFAULT);

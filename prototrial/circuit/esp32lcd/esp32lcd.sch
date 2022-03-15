@@ -162,10 +162,6 @@ Wire Wire Line
 	5150 3150 5400 3150
 Text Label 5400 3150 0    50   ~ 0
 MIC_WS
-Wire Wire Line
-	5150 4450 5400 4450
-Text Label 5400 4450 0    50   ~ 0
-MIC_SD
 $Comp
 L Device:R R-BTN1
 U 1 1 620512AF
@@ -357,18 +353,6 @@ Wire Wire Line
 	3950 2250 3850 2250
 Wire Wire Line
 	3850 1850 3850 1950
-Wire Wire Line
-	5150 4550 5400 4550
-Text Label 5400 4550 0    50   ~ 0
-BTN_WIFI
-Wire Wire Line
-	5150 4350 5400 4350
-Text Label 5400 4350 0    50   ~ 0
-BTN_PAGE
-Wire Wire Line
-	5150 4250 5400 4250
-Text Label 5400 4250 0    50   ~ 0
-BTN_SEND
 Text Label 3150 2500 0    50   ~ 0
 BTN_SEND
 Text Label 3150 3600 0    50   ~ 0
@@ -670,4 +654,20 @@ Wire Wire Line
 Wire Wire Line
 	7100 2950 7150 2950
 Connection ~ 7150 2950
+Wire Wire Line
+	5150 3850 5400 3850
+Text Label 5400 3850 0    50   ~ 0
+MIC_SD
+Wire Wire Line
+	5150 3950 5400 3950
+Text Label 5400 3950 0    50   ~ 0
+BTN_SEND
+Wire Wire Line
+	5150 4050 5400 4050
+Text Label 5400 4050 0    50   ~ 0
+BTN_PAGE
+Wire Wire Line
+	5150 4150 5400 4150
+Text Label 5400 4150 0    50   ~ 0
+BTN_WIFI
 $EndSCHEMATC
