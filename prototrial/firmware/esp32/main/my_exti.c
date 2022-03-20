@@ -98,10 +98,11 @@ static void btn_page_send_handler(void *arg){
 void start_exti(void){
     gpio_config_t io_conf;
 
-    io_conf.intr_type = GPIO_INTR_POSEDGE;
+    io_conf.intr_type = GPIO_INTR_NEGEDGE;
     io_conf.pin_bit_mask = GPIO_INPUT_PIN_SEL;
     io_conf.mode = GPIO_MODE_INPUT;
     io_conf.pull_up_en = GPIO_PULLUP_ENABLE; // Should also externally pulled up
+    io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
     gpio_config(&io_conf);
 
     gpio_install_isr_service(ESP_INTR_FLAG_DEFAULT);
