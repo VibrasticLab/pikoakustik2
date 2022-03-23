@@ -1,7 +1,7 @@
 /**
  * @file my_i2smic.c
  * @brief I2S Mic source
- * 
+ *
  * @addtogroup I2S
  * @{
  */
@@ -14,31 +14,31 @@
 
 /**
  * @brief Enable Mic Max dB Task
- * 
+ *
  */
 #define MIC_MAX_TASK
 
 /**
  * @brief Enable Mic Max dB command
- * 
+ *
  */
 #define MIC_MAX_CMD
 
 /**
  * @brief Audio Sample Rate
- * 
+ *
  */
 #define AUDIO_SAMPLE_RATE       (44100)
 
 /**
  * @brief I2S Port number
- * 
+ *
  */
 #define I2S_CH                  I2S_NUM_0
 
 /**
  * @brief Sample Size
- * 
+ *
  */
 #define SAMPLES_NUM             (1024)
 
@@ -46,13 +46,13 @@ extern uint16_t ambientDB;
 
 /**
  * @brief Audio read buffer array
- * 
+ *
  */
 static int16_t i2s_readraw_buff[SAMPLES_NUM];
 
 /**
  * @brief Zero-ing buffer array
- * 
+ *
  */
 static void micZero(void){
     for(int i=0 ; i< SAMPLES_NUM ; i++){
@@ -62,7 +62,7 @@ static void micZero(void){
 
 /**
  * @brief Get Raw value into buffer array
- * 
+ *
  */
 static void micRaw(void){
     esp_err_t errMic;
@@ -75,7 +75,7 @@ static void micRaw(void){
 
 /**
  * @brief Print buffer array
- * 
+ *
  */
 static void micGet(void){
     micZero();
@@ -88,7 +88,7 @@ static void micGet(void){
 
 /**
  * @brief Get maximum value as dB
- * 
+ *
  * @return uint16_t Max value (dB)
  */
 static uint16_t micMax(void){
@@ -109,7 +109,7 @@ static uint16_t micMax(void){
 #ifdef MIC_MAX_CMD
 /**
  * @brief Print raw read buffer command
- * 
+ *
  * @param argc argument counter
  * @param argv argument values
  * @return int return status
@@ -123,7 +123,7 @@ static int micGetFunc(int argc, char **argv){
 
 /**
  * @brief Get Max value command
- * 
+ *
  * @param argc argument counter
  * @param argv argument values
  * @return int return status
@@ -139,7 +139,7 @@ static int micMaxFunc(int argc, char **argv){
 
 /**
  * @brief Register Mic Commands
- * 
+ *
  */
 static void micRegister(void){
     const esp_console_cmd_t get = {
@@ -164,7 +164,7 @@ static void micRegister(void){
 #ifdef MIC_MAX_TASK
 /**
  * @brief Get Max value dB routine
- * 
+ *
  * @param pvParameter Task paramaters
  */
 static void micMaxTask(void *pvParameter){
@@ -177,7 +177,7 @@ static void micMaxTask(void *pvParameter){
 
 /**
  * @brief I2S Mic Initialization
- * 
+ *
  */
 void start_i2smic(void){
 
@@ -214,7 +214,7 @@ void start_i2smic(void){
     ambientDB = micMax();
 
 #ifdef MIC_MAX_TASK
-    xTaskCreate(&micMaxTask, "mic_max_task", 4096, NULL, 5, NULL);
+    xTaskCreate(&micMaxTask, "mic_max_task", 4096, NULL, tskIDLE_PRIORITY, NULL);
 #endif
 
 #ifdef MIC_MAX_CMD
