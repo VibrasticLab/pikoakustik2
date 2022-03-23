@@ -1,7 +1,7 @@
 /**
  * @file my_includes.h
  * @brief Global header
- * 
+ *
  * @addtogroup Main
  * @{
  */
@@ -39,6 +39,9 @@
 
 #include "lwip/err.h"
 #include "lwip/sys.h"
+#include "lwip/dns.h"
+#include "lwip/netdb.h"
+#include "lwip/sockets.h"
 
 #include "driver/uart.h"
 #include "esp32/rom/uart.h"
@@ -64,6 +67,10 @@
 #include "my_exti.h"
 #include "my_shell.h"
 #include "my_i2smic.h"
+#include "my_wifista.h"
+
+#include "data_send.h"
+
 #include "myconfig.h"
 
 #include "page_files.h"

@@ -1,7 +1,7 @@
 /**
  * @file my_wifi.h
- * @brief WIFI header
- * 
+ * @brief WIFI AP header
+ *
  * @addtogroup WIFI
  * @{
  */

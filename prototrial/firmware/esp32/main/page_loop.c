@@ -1,7 +1,7 @@
 /**
  * @file page_loop.c
  * @brief Page Loop source
- * 
+ *
  * @addtogroup LCD
  * @{
  */
@@ -10,14 +10,14 @@
 
 /**
  * @brief Page index number variable
- * 
+ *
  */
 uint8_t pageNum = PAGE_HOME;
 
 /**
  * @brief Page Loop routine
- * 
- * @param arg 
+ *
+ * @param arg
  */
 static void page_task_loop(void *arg){
     (void)arg;
@@ -38,7 +38,7 @@ static void page_task_loop(void *arg){
             break;
 
         case PAGE_SEND:
-            page_send_demo();
+            page_send();
             break;
 
         default:
@@ -51,10 +51,9 @@ static void page_task_loop(void *arg){
 
 /**
  * @brief Start Page Loop routine
- * 
+ *
  */
 void start_page(void){
-    start_send_page();
     xTaskCreate(page_task_loop, "page loop", 2048, NULL, tskIDLE_PRIORITY, NULL);
 }
 

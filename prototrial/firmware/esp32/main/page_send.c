@@ -1,7 +1,7 @@
 /**
  * @file page_send.c
  * @brief Page Send source
- * 
+ *
  * @addtogroup LCD
  * @{
  */
@@ -14,45 +14,15 @@ extern bool pageSWable;
 
 /**
  * @brief LCD buffer array
- * 
+ *
  */
 static uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
 
 /**
- * @brief Sending step example flag
- * 
- */
-uint8_t sendStep = PAGE_SEND_MAX;
-
-/**
- * @brief Sending page routine example
- * 
- * @param arg 
- */
-static void page_task_send_demo(void *arg){
-    (void) arg;
-
-    while(true){
-        if(sendStep<PAGE_SEND_MAX){
-            sendStep++;
-
-            if(sendStep==PAGE_SEND_MAX){
-                pageNum = PAGE_HOME;
-                pageSWable = true;
-            }
-        }
-
-        vTaskDelay(1000 / portTICK_RATE_MS);
-    }
-}
-
-void page_send(void){}
-
-/**
  * @brief Page sending demo
- * 
+ *
  */
-void page_send_demo(void){
+void page_sendDisplay(uint8_t sendStep){
     ssd1306_clear_buffer(lcdbuff,0,sizeof(lcdbuff));
 
     ssd1306_draw_string(&oled_dev,
@@ -62,7 +32,7 @@ void page_send_demo(void){
                         OLED_COLOR_WHITE,
                         OLED_COLOR_BLACK);
 
-    if(sendStep>=1){
+    if(sendStep>=PAGE_SEND_TRY){
         ssd1306_draw_string(&oled_dev,
                             lcdbuff,
                             font_builtin_fonts[FONT_FACE_TERMINUS_6X12_ISO8859_1],
@@ -71,7 +41,7 @@ void page_send_demo(void){
                             OLED_COLOR_BLACK);
     }
 
-    if(sendStep>=2){
+    if(sendStep>=PAGE_SEND_WAIT){
         ssd1306_draw_string(&oled_dev,
                             lcdbuff,
                             font_builtin_fonts[FONT_FACE_TERMINUS_6X12_ISO8859_1],
@@ -80,7 +50,7 @@ void page_send_demo(void){
                             OLED_COLOR_BLACK);
     }
 
-    if(sendStep>=3){
+    if(sendStep>=PAGE_SEND_OK){
         ssd1306_draw_string(&oled_dev,
                             lcdbuff,
                             font_builtin_fonts[FONT_FACE_TERMINUS_6X12_ISO8859_1],
@@ -92,12 +62,11 @@ void page_send_demo(void){
     ssd1306_load_frame_buffer(&oled_dev,lcdbuff);
 }
 
-/**
- * @brief Sending page routine example start
- * 
- */
-void start_send_page(void){
-    xTaskCreate(page_task_send_demo, "page send demo", 512, NULL, tskIDLE_PRIORITY, NULL);
+void page_send(void){
+    page_sendDisplay(PAGE_SEND_PREP);
+    send_DataGETDemo();
+    pageNum = PAGE_HOME;
+    pageSWable = true;
 }
 
 /** @} */

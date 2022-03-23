@@ -1,7 +1,7 @@
 /**
  * @file my_wifi.c
- * @brief WIFI source
- * 
+ * @brief WIFI AP source
+ *
  * @addtogroup WIFI
  * @{
  */
@@ -10,47 +10,47 @@
 
 /**
  * @brief AP WIFI SSID
- * 
+ *
  */
 #define EXAMPLE_ESP_WIFI_SSID   "elbiCare"
 
 /**
  * @brief AP WIFI Passwrod
- * 
+ *
  */
 #define EXAMPLE_ESP_WIFI_PASS   "audiometri"
 
 /**
  * @brief AP WIFI Connection Number
- * 
+ *
  */
 #define EXAMPLE_MAX_STA_CONN    2
 
 /**
  * @brief Flag if using AP or STA mode
- * 
+ *
  */
 bool wifi_ap = true;
 
 /**
  * @brief Device IP info variable
- * 
+ *
  */
 tcpip_adapter_ip_info_t ipInfo;
 
 /**
  * @brief Tag log for Wifi AP
- * 
+ *
  */
 static const char *TAG = "wifiAP";
 
 /**
  * @brief WIFI event handler
- * 
- * @param arg 
- * @param event_base 
- * @param event_id 
- * @param event_data 
+ *
+ * @param arg
+ * @param event_base
+ * @param event_id
+ * @param event_data
  */
 static void wifi_event_handler(void* arg, esp_event_base_t event_base,
                                     int32_t event_id, void* event_data){
@@ -67,8 +67,17 @@ static void wifi_event_handler(void* arg, esp_event_base_t event_base,
 }
 
 /**
+ * @brief Get the IP of wifiAP object
+ *
+ */
+static void getIP_wifiAP(void){
+    tcpip_adapter_get_ip_info((tcpip_adapter_if_t) ESP_IF_WIFI_AP, &ipInfo);
+    ESP_LOGI(TAG, "Dev IP: %s", ip4addr_ntoa(&ipInfo.ip));
+}
+
+/**
  * @brief Start AP WIFI
- * 
+ *
  */
 void start_wifiAP(void){
     ESP_ERROR_CHECK(esp_netif_init());
@@ -98,13 +107,12 @@ void start_wifiAP(void){
     }
 
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_AP));
-    ESP_ERROR_CHECK(esp_wifi_set_config(ESP_IF_WIFI_AP, &wifiap_cfg));
+    ESP_ERROR_CHECK(esp_wifi_set_config((wifi_interface_t) ESP_IF_WIFI_AP, &wifiap_cfg));
     ESP_ERROR_CHECK(esp_wifi_start());
 
     ESP_LOGI(TAG, "SoftAP OK. SSID:%s password:%s",EXAMPLE_ESP_WIFI_SSID, EXAMPLE_ESP_WIFI_PASS);
 
-    tcpip_adapter_get_ip_info(ESP_IF_WIFI_AP, &ipInfo);
-    ESP_LOGI(TAG, "Dev IP: %s", ip4addr_ntoa(&ipInfo.ip));
+    getIP_wifiAP();
 }
 
 /** @} */

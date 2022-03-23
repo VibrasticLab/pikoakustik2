@@ -87,8 +87,8 @@ static void btn_page_send_handler(void *arg){
     (void) arg;
 
     pageNum = PAGE_SEND;
-    sendStep = 0;
     pageSWable = false;
+    page_send();
 }
 
 /**

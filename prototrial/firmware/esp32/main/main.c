@@ -16,7 +16,8 @@ void app_main(void){
     nvsInit();
     start_ssd1306();
     shellInit();
-    start_wifiAP();
+    // start_wifiAP();
+    start_wifiSTA();
     start_page();
     start_i2smic();
     start_exti();
