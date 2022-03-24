@@ -194,7 +194,7 @@ void start_i2smic(void){
 
     i2s_pin_config_t micPin = {
         .bck_io_num = 14,
-        .ws_io_num = 15,
+        .ws_io_num = 13,
         .data_out_num = I2S_PIN_NO_CHANGE,
         .data_in_num = 23,
     };

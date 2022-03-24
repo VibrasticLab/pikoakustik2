@@ -1,7 +1,7 @@
 /**
  * @file my_shell.c
  * @brief UART Shell source
- * 
+ *
  * @addtogroup Console
  * @{
  */
@@ -16,15 +16,15 @@ const char* prompt = "";
 
 /**
  * @brief UART Console Start
- * 
+ *
  */
 static void consoleInit(void){
     fflush(stdout);
     fsync(fileno(stdout));
     setvbuf(stdin, NULL,_IONBF, 0);
 
-    esp_vfs_dev_uart_port_set_rx_line_endings(STM32_COMM_UART_NUM, ESP_LINE_ENDINGS_CR);
-    esp_vfs_dev_uart_port_set_tx_line_endings(STM32_COMM_UART_NUM, ESP_LINE_ENDINGS_CRLF);
+    esp_vfs_dev_uart_port_set_rx_line_endings(UART_NUM_0, ESP_LINE_ENDINGS_CR);
+    esp_vfs_dev_uart_port_set_tx_line_endings(UART_NUM_0, ESP_LINE_ENDINGS_CRLF);
 
     const uart_config_t uartConf = {
         .baud_rate = 115200,
@@ -34,9 +34,9 @@ static void consoleInit(void){
         .source_clk = UART_SCLK_REF_TICK,
     };
 
-    uart_driver_install(STM32_COMM_UART_NUM, 256, 0, 0, NULL, 0);
-    uart_param_config(STM32_COMM_UART_NUM, &uartConf);
-    esp_vfs_dev_uart_use_driver(STM32_COMM_UART_NUM);
+    ESP_ERROR_CHECK(uart_driver_install(UART_NUM_0, UART_BUFF_SIZE, 0, 0, NULL, 0));
+    ESP_ERROR_CHECK(uart_param_config(UART_NUM_0, &uartConf));
+    esp_vfs_dev_uart_use_driver(UART_NUM_0);
 
     const esp_console_config_t consoleConf = {
         .max_cmdline_args = 8,
@@ -51,7 +51,7 @@ static void consoleInit(void){
 
 /**
  * @brief UART Shell start
- * 
+ *
  */
 void shellInit(void){
     consoleInit();
@@ -61,22 +61,13 @@ void shellInit(void){
 
     printf("System Configured\n");
 
-     printf("\n"
-           "This is an example of ESP-IDF console component.\n"
-           "Type 'help' to get the list of commands.\n");
-
-    int probe_status = linenoiseProbe();
-    if (probe_status) { /* zero indicates success */
-        printf("\n"
-               "Your terminal program does not support escape sequences.\n"
-               "Line editing and history features are disabled.\n");
-        linenoiseSetDumbMode(1);
-    }
+    /* always use Dumb Mode to disable echo feature */
+    linenoiseSetDumbMode(1);
 }
 
 /**
  * @brief UART Shell loop
- * 
+ *
  * @return int Execution status
  */
 int shellLoop(void){
@@ -95,7 +86,7 @@ int shellLoop(void){
     if (err == ESP_ERR_NOT_FOUND) {
         printf("Unrecognized command\n");
     } else if (err == ESP_ERR_INVALID_ARG) {
-        // command was empty
+        printf("Invalid command arguments\n");
     } else if (err == ESP_OK && ret != ESP_OK) {
         printf("Command returned non-zero error code: 0x%x (%s)\n", ret, esp_err_to_name(ret));
     } else if (err != ESP_OK) {

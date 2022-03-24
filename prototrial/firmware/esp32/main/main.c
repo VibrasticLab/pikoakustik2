@@ -13,6 +13,10 @@
  * @details First main function app
  */
 void app_main(void){
+
+    /* set all log level to none */
+    esp_log_level_set("*", ESP_LOG_NONE);
+
     nvsInit();
     start_ssd1306();
     shellInit();
