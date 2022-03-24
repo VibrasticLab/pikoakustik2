@@ -109,7 +109,10 @@ void send_DataGETDemo(void){
     };
     esp_http_client_handle_t client = esp_http_client_init(&config);
 
+    page_sendDisplay(PAGE_SEND_TRY);
     esp_err_t err = esp_http_client_perform(client);
+
+    page_sendDisplay(PAGE_SEND_WAIT);
     if (err == ESP_OK) {
         ESP_LOGI(TAG, "HTTP GET Status = %d, content_length = %d",
                 esp_http_client_get_status_code(client),
@@ -118,6 +121,7 @@ void send_DataGETDemo(void){
         ESP_LOGE(TAG, "HTTP GET request failed: %s", esp_err_to_name(err));
     }
 
+    page_sendDisplay(PAGE_SEND_OK);
     esp_http_client_cleanup(client);
 }
 
@@ -135,8 +139,11 @@ void send_DataPOSTDemo(void){
     esp_http_client_set_method(client, HTTP_METHOD_POST);
     esp_http_client_set_header(client, "Content-Type", "application/json");
     esp_http_client_set_post_field(client, post_data, strlen(post_data));
+
+    page_sendDisplay(PAGE_SEND_TRY);
     esp_err_t err = esp_http_client_perform(client);
 
+    page_sendDisplay(PAGE_SEND_WAIT);
     if (err == ESP_OK) {
         ESP_LOGI(TAG, "HTTP POST Status = %d, content_length = %d",
                 esp_http_client_get_status_code(client),
@@ -145,6 +152,7 @@ void send_DataPOSTDemo(void){
         ESP_LOGE(TAG, "HTTP POST request failed: %s", esp_err_to_name(err));
     }
 
+    page_sendDisplay(PAGE_SEND_OK);
     esp_http_client_cleanup(client);
 }
 
