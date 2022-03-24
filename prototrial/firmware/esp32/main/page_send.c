@@ -64,7 +64,7 @@ void page_sendDisplay(uint8_t sendStep){
 
 void page_send(void){
     page_sendDisplay(PAGE_SEND_PREP);
-    send_DataGETDemo();
+    send_DataPOSTDemo();
     pageNum = PAGE_HOME;
     pageSWable = true;
 }

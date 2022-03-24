@@ -32,6 +32,8 @@
 #include "esp_err.h"
 #include "esp_now.h"
 #include "esp_wifi.h"
+#include "esp_tls.h"
+#include "esp_http_client.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -40,8 +42,6 @@
 #include "lwip/err.h"
 #include "lwip/sys.h"
 #include "lwip/dns.h"
-#include "lwip/netdb.h"
-#include "lwip/sockets.h"
 
 #include "driver/uart.h"
 #include "esp32/rom/uart.h"

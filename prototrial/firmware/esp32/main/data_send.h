@@ -6,6 +6,7 @@
  * @{
  */
 
- void send_DataGETDemo(void);
+void send_DataGETDemo(void);
+void send_DataPOSTDemo(void);
 
  /** @} */
