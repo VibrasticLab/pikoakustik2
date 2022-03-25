@@ -20,8 +20,6 @@
 extern uint8_t pageNum;
 extern bool pageSWable;
 
-static void register_free(void);
-static void register_heap(void);
 static void register_version(void);
 static void register_restart(void);
 static void register_pageloop(void);
@@ -32,8 +30,6 @@ static void register_pageloop(void);
  */
 void registerCommands(void)
 {
-    register_free();
-    register_heap();
     register_version();
     register_restart();
     register_pageloop();
@@ -71,7 +67,7 @@ static int get_version(int argc, char **argv)
 static void register_version(void)
 {
     const esp_console_cmd_t cmd = {
-        .command = "version",
+        .command = "sys-version",
         .help = "Get version of chip and SDK",
         .hint = NULL,
         .func = &get_version,
@@ -100,70 +96,12 @@ static int restart(int argc, char **argv)
 static void register_restart(void)
 {
     const esp_console_cmd_t cmd = {
-        .command = "restart",
+        .command = "sys-restart",
         .help = "Software reset of the chip",
         .hint = NULL,
         .func = &restart,
     };
     esp_console_cmd_register(&cmd);
-}
-
-
-/**
- * @brief Print available memory heap
- *
- * @param argc
- * @param argv
- * @return int
- */
-static int free_mem(int argc, char **argv)
-{
-    printf("%d\n", esp_get_free_heap_size());
-    return 0;
-}
-
-/**
- * @brief Register memory free command
- *
- */
-static void register_free(void)
-{
-    const esp_console_cmd_t cmd = {
-        .command = "free",
-        .help = "Get the current size of free heap memory",
-        .hint = NULL,
-        .func = &free_mem,
-    };
-    esp_console_cmd_register(&cmd);
-}
-
-/**
- * @brief Print minimum heap size
- *
- * @param argc
- * @param argv
- * @return int
- */
-static int heap_size(int argc, char **argv)
-{
-    uint32_t heapSize = heap_caps_get_minimum_free_size(MALLOC_CAP_DEFAULT);
-    printf("min heap size: %u\n", heapSize);
-    return 0;
-}
-
-/**
- * @brief Register heap size command
- *
- */
-static void register_heap(void)
-{
-    const esp_console_cmd_t heap_cmd = {
-        .command = "heap",
-        .help = "Get minimum size of free heap memory that was available during program execution",
-        .hint = NULL,
-        .func = &heap_size,
-    };
-    esp_console_cmd_register(&heap_cmd);
 }
 
 /**

@@ -45,6 +45,12 @@
 extern uint16_t ambientDB;
 
 /**
+ * @brief Tag for LCD command
+ *
+ */
+static const char *TAG = "MIC";
+
+/**
  * @brief Audio read buffer array
  *
  */
@@ -143,14 +149,14 @@ static int micMaxFunc(int argc, char **argv){
  */
 static void micRegister(void){
     const esp_console_cmd_t get = {
-        .command = "get",
+        .command = "mic-get",
         .help = "Test data Mic (once)",
         .hint = NULL,
         .func = &micGetFunc,
     };
 
     const esp_console_cmd_t max = {
-        .command = "max",
+        .command = "mic-max",
         .help = "Test Max Mic (once)",
         .hint = NULL,
         .func = &micMaxFunc,
@@ -200,15 +206,15 @@ void start_i2smic(void){
     };
 
     if(i2s_driver_install(I2S_CH, &micConf, 0, NULL) != ESP_OK){
-        printf("I2S driver install error\r\n");
+        ESP_LOGE(TAG, "I2S driver install error\r\n");
     }
 
     if(i2s_set_pin(I2S_CH, &micPin) != ESP_OK){
-        printf("I2S pin set error\r\n");
+        ESP_LOGE(TAG, "I2S pin set error\r\n");
     }
 
     if(i2s_set_clk(I2S_CH, AUDIO_SAMPLE_RATE, I2S_BITS_PER_SAMPLE_16BIT, I2S_CHANNEL_MONO) != ESP_OK){
-        printf("I2S clock set error\r\n");
+        ESP_LOGE(TAG, "I2S clock set error\r\n");
     }
 
     ambientDB = micMax();

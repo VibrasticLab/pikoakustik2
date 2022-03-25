@@ -1,7 +1,7 @@
 /**
  * @file lcd_draw.c
  * @brief Basic LCD Draw source
- * 
+ *
  * @addtogroup LCD
  * @{
  */
@@ -14,39 +14,31 @@ extern ssd1306_t oled_dev;
 
 /**
  * @brief Tag for LCD command
- * 
+ *
  */
-static const char *TAG = "cmd_oled";
-
-/**
- * @brief Flag if image drawn forward or backward
- * 
- */
-static bool imgfwd = true;
+static const char *TAG = "OLED";
 
 /**
  * @brief LCD pixel buffer array
- * 
+ *
  */
 static uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
 
 static void register_oled_img();
-static void register_oled_flip();
 static void register_oled_text();
 
 /**
  * @brief register basic LCD commands
- * 
+ *
  */
 void register_oled(void){
     register_oled_img();
-    register_oled_flip();
     register_oled_text();
 }
 
 /**
- * @brief LCD image test
- * 
+ * @brief Test image drawing
+ *
  */
 void test_olcd_img(void){
     ssd1306_clear_screen(&oled_dev);
@@ -56,19 +48,41 @@ void test_olcd_img(void){
 }
 
 /**
- * @brief LCD flip test 
- * 
+ * @brief LCD image command
+ *
+ * @param argc
+ * @param argv
+ * @return int
  */
-void test_olcd_flip(void){
-    ssd1306_set_scan_direction_fwd(&oled_dev, imgfwd);
-    imgfwd = !imgfwd;
+static int oled_img(int argc, char **argv){
+    test_olcd_img();
+
+    ESP_LOGI(TAG, "Draw test OLED LCD");
+    return 0;
 }
 
 /**
- * @brief LCD text test
- * 
+ * @brief Register LCD image command
+ *
  */
-void test_olcd_text(void){
+static void register_oled_img(){
+    const esp_console_cmd_t oled_img_cmd = {
+        .command = "oled-img",
+        .help = "Image OLED LCD Drawing",
+        .hint = NULL,
+        .func = &oled_img,
+    };
+    ESP_ERROR_CHECK( esp_console_cmd_register(&oled_img_cmd) );
+}
+
+/**
+ * @brief LCD text command
+ *
+ * @param argc
+ * @param argv
+ * @return int
+ */
+static int oled_text(int argc, char **argv){
     ssd1306_clear_screen(&oled_dev);
     ssd1306_clear_buffer(lcdbuff,0,sizeof(lcdbuff));
 
@@ -101,127 +115,18 @@ void test_olcd_text(void){
                         OLED_COLOR_BLACK);
 
     ssd1306_load_frame_buffer(&oled_dev,lcdbuff);
-}
 
-/**
- * @brief Basic LCD example routine
- * 
- * @param pvParameters Task parameters
- */
-static void ssd1306_task(void *pvParameters){
-    printf("%s: Started user interface task\n", __FUNCTION__);
-    vTaskDelay(1000 / portTICK_RATE_MS);
-
-
-    if (ssd1306_load_xbm(&oled_dev, logo_bits, lcdbuff))
-        goto error_loop;
-
-    bool fwd = false;
-    while (1) {
-        vTaskDelay(1000 / portTICK_RATE_MS);
-        printf("%s: still alive, flipping!\n", __FUNCTION__);
-        ssd1306_set_scan_direction_fwd(&oled_dev, fwd);
-        fwd = !fwd;
-    }
-
-error_loop:
-    printf("%s: error while loading framebuffer into SSD1306\n", __func__);
-    for(;;){
-        vTaskDelay(1000 / portTICK_RATE_MS);
-        printf("%s: error loop\n", __FUNCTION__);
-    }
-}
-
-/**
- * @brief LCD loop start test
- * 
- */
-void test_olcd_loop(void){
-    while (ssd1306_init(&oled_dev) != 0){
-        printf("%s: failed to init SSD1306 lcd\n", __func__);
-        vTaskDelay(1000 / portTICK_RATE_MS);
-    }
-
-    vTaskDelay(1000 / portTICK_RATE_MS);
-    ssd1306_clear_screen(&oled_dev);
-    ssd1306_clear_buffer(lcdbuff,0,sizeof(lcdbuff));
-    xTaskCreate(ssd1306_task, "ssd1306_task", 2048, NULL, tskIDLE_PRIORITY, NULL);
-}
-
-/**
- * @brief LCD image command
- * 
- * @param argc 
- * @param argv 
- * @return int 
- */
-static int oled_img(int argc, char **argv){
-    test_olcd_img();
-    ESP_LOGI(TAG, "Draw test OLED LCD");
-    return 0;
-}
-
-/**
- * @brief Register LCD image command
- * 
- */
-static void register_oled_img(){
-    const esp_console_cmd_t oled_img_cmd = {
-        .command = "oled",
-        .help = "Image OLED LCD Drawing",
-        .hint = NULL,
-        .func = &oled_img,
-    };
-    ESP_ERROR_CHECK( esp_console_cmd_register(&oled_img_cmd) );
-}
-
-/**
- * @brief LCD flip command
- * 
- * @param argc 
- * @param argv 
- * @return int 
- */
-static int oled_flip(int argc, char **argv){
-    test_olcd_flip();
-    ESP_LOGI(TAG, "flipping OLED LCD");
-    return 0;
-}
-
-/**
- * @brief Register LCD flip command
- * 
- */
-static void register_oled_flip(){
-    const esp_console_cmd_t oled_flip_cmd = {
-        .command = "flip",
-        .help = "Flipping OLED LCD Drawing",
-        .hint = NULL,
-        .func = &oled_flip,
-    };
-    ESP_ERROR_CHECK( esp_console_cmd_register(&oled_flip_cmd) );
-}
-
-/**
- * @brief LCD text command
- * 
- * @param argc 
- * @param argv 
- * @return int 
- */
-static int oled_text(int argc, char **argv){
-    test_olcd_text();
     ESP_LOGI(TAG, "Text test OLED LCD");
     return 0;
 }
 
 /**
  * @brief Register LCD text command
- * 
+ *
  */
 static void register_oled_text(){
     const esp_console_cmd_t oled_text_cmd = {
-        .command = "text",
+        .command = "oled-text",
         .help = "Text OLED LCD Drawing",
         .hint = NULL,
         .func = &oled_text,

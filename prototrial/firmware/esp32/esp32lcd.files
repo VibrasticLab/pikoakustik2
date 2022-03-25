@@ -1,5 +1,7 @@
-Makefile
+esp32lcd_doxyconf
 main/component.mk
+main/data_send.c
+main/data_send.h
 main/fonts.c
 main/fonts.h
 main/fonts/font_bitocra_4x7_ascii.h
@@ -30,6 +32,8 @@ main/my_shell.c
 main/my_shell.h
 main/my_wifi.c
 main/my_wifi.h
+main/my_wifista.c
+main/my_wifista.h
 main/myconfig.h
 main/page_files.c
 main/page_files.h
@@ -43,4 +47,5 @@ main/page_send.c
 main/page_send.h
 main/ssd1306i2c.c
 main/ssd1306i2c.h
+sdkconfig
 sdkconfig.defaults
