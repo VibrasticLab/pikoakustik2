@@ -1,0 +1,5 @@
+.
+board
+/opt/chibios/os/rt/include
+/opt/chibios/os/hal/include
+/opt/chibios/os/hal/lib/streams
