@@ -1,17 +1,12 @@
 /**
- * @file ht_includes.h
- * @brief Global config and inclusion header
+ * @file ht_config.h
+ * @brief Global configurations header
  * @addtogroup Main
  * @{
  */
 
 #ifndef HT_INCLUDES_H
 #define HT_INCLUDES_H
-
-#include "ch.h"
-#include "hal.h"
-
-#include "ht_led.h"
 
 #define USER_TESTER         "VibrasticLab"
 
@@ -20,7 +15,6 @@
 #define USER_TEST_STATE     FALSE   /* Whether run as test or metri mode */
 
 #define USER_SERIAL         TRUE   /* Whether enable serial interface or not */
- #define USER_SERCONSOLE    FALSE   /* Whether user serial echo and prompt */
  #define USER_USB_DESC      TRUE   /* Whether use custom USB description or not */
  #define USER_SER_SCALE     TRUE   /* Whether use tone test out in scale or not */
 

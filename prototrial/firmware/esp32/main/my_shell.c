@@ -81,6 +81,9 @@ int shellLoop(void){
     }
 
     int ret;
+#if UART_NO_ERROR_MSG
+    esp_console_run(line, &ret);
+#else
     esp_err_t err = esp_console_run(line, &ret);
 
     if (err == ESP_ERR_NOT_FOUND) {
@@ -92,6 +95,7 @@ int shellLoop(void){
     } else if (err != ESP_OK) {
         printf("Internal error: %s\n", esp_err_to_name(err));
     }
+#endif
 
     /* linenoise allocates line buffer on the heap, so need to free it */
     linenoiseFree(line);

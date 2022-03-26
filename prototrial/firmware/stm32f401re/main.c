@@ -14,7 +14,11 @@
     limitations under the License.
 */
 
-#include "ht_includes.h"
+#include "ch.h"
+#include "hal.h"
+
+#include "ht_led.h"
+#include "ht_console.h"
 
 extern uint8_t mode_led;
 
@@ -126,16 +130,23 @@ int main(void) {
   ht_led_Test();
 #endif
 
-  /*
-   * Creates the blinker thread.
-   */
-  chThdCreateStatic(waRunLed, sizeof(waRunLed), NORMALPRIO, thdRunLed, NULL);
+#if USER_SERIAL
+  ht_commUSB_Init();
+#endif
 
-  /*
-   * Normal main() thread activity, in this demo it does nothing except
-   * sleeping in a loop and check the button state.
-   */
   while (true) {
-    chThdSleepMilliseconds(500);
+
+#if USER_SERIAL
+    ht_commUSB_shInit();
+#endif
+
+    if(stt_readyAll==FALSE){
+      chThdSleepMilliseconds(500);
+      chThdCreateStatic(waRunLed, sizeof(waRunLed),NORMALPRIO, thdRunLed, NULL);
+      ht_commUSB_Msg("All System Ready\r\n");
+      stt_readyAll = TRUE;
+    }
+
+    chThdSleepMilliseconds(1000);
   }
 }

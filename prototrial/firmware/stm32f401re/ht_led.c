@@ -6,7 +6,10 @@
  * @{
  */
 
-#include "ht_includes.h"
+#include "ch.h"
+#include "hal.h"
+
+#include "ht_led.h"
 
 /**
  * @brief LED Mode global variable

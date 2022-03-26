@@ -5,7 +5,7 @@
 
 # Compiler options here.
 ifeq ($(USE_OPT),)
-  USE_OPT = -O2 -ggdb -fomit-frame-pointer -falign-functions=16
+  USE_OPT = -Os -fomit-frame-pointer -falign-functions=16
 endif
 
 # C specific options here (added to USE_OPT).
@@ -88,6 +88,7 @@ PROJECT = stm32ht
 
 # Imported source files and paths
 CHIBIOS = /opt/chibios
+
 # Startup files.
 include $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_stm32f4xx.mk
 # HAL-OSAL files (optional).
@@ -99,6 +100,9 @@ include $(CHIBIOS)/os/hal/osal/rt/osal.mk
 include $(CHIBIOS)/os/rt/rt.mk
 include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v7m.mk
 # Other files (optional).
+ARMNONEEABIINC = /usr/arm-none-eabi/include
+include $(CHIBIOS)/os/hal/lib/streams/streams.mk
+include $(CHIBIOS)/os/various/shell/shell.mk
 
 # Define linker script file here
 LDSCRIPT= $(STARTUPLD)/STM32F401xE.ld
@@ -112,7 +116,9 @@ CSRC = $(STARTUPSRC) \
        $(HALSRC) \
        $(PLATFORMSRC) \
        $(BOARDSRC) \
-       main.c ht_led.c
+       $(STREAMSSRC) \
+       $(SHELLSRC) \
+       main.c ht_led.c ht_console.c ht_usb.c
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
@@ -145,9 +151,7 @@ ASMXSRC = $(STARTUPASM) $(PORTASM) $(OSALASM)
 INCDIR = $(CHIBIOS)/os/license \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) \
-         $(CHIBIOS)/os/various \
-	 $(CHIBIOS)/os/hal/lib/streams \
-	 /usr/arm-none-eabi/include
+         $(STREAMSINC) $(SHELLINC) $(ARMNONEEABIINC)
 
 #
 # Project, sources and paths
@@ -197,7 +201,15 @@ CPPWARN = -Wall -Wextra -Wundef
 #
 
 # List all user C define here, like -D_DEBUG=1
-UDEFS =
+UDEFS = -DSHELL_PROMPT_STR="\"\"" \
+        -DCHPRINTF_USE_FLOAT=TRUE \
+        -DSHELL_MAX_LINE_LENGTH=64 \
+        -DSHELL_MAX_ARGUMENTS=4 \
+        -DSHELL_CMD_MEM_ENABLED=FALSE \
+        -DSHELL_CMD_TEST_ENABLED=FALSE \
+        -DSHELL_CMD_EXIT_ENABLED=FALSE \
+        -DSHELL_CMD_THREADS_ENABLED=FALSE \
+        -DSHELL_CMD_SYSTIME_ENABLED=FALSE
 
 # Define ASM defines here
 UADEFS =

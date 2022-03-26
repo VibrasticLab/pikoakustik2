@@ -28,6 +28,12 @@
 #define UART_USE_PROMPT 0
 
 /**
+ * @brief Disable any unsuccesful command responses
+ *
+ */
+#define UART_NO_ERROR_MSG 1
+
+/**
  * @brief Use Console in dumb mode
  *
  */
