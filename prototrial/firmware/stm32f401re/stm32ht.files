@@ -3,6 +3,8 @@ board/board.h
 board/board.mk
 chconf.h
 halconf.h
+ht_audio.c
+ht_audio.h
 ht_config.h
 ht_console.c
 ht_console.h

@@ -132,7 +132,7 @@
 /*
  * I2S driver system settings.
  */
-#define STM32_I2S_USE_SPI2                  FALSE
+#define STM32_I2S_USE_SPI2                  TRUE
 #define STM32_I2S_USE_SPI3                  FALSE
 #define STM32_I2S_SPI2_IRQ_PRIORITY         10
 #define STM32_I2S_SPI3_IRQ_PRIORITY         10
@@ -142,6 +142,10 @@
 #define STM32_I2S_SPI2_TX_DMA_STREAM        STM32_DMA_STREAM_ID(1, 4)
 #define STM32_I2S_SPI3_RX_DMA_STREAM        STM32_DMA_STREAM_ID(1, 0)
 #define STM32_I2S_SPI3_TX_DMA_STREAM        STM32_DMA_STREAM_ID(1, 7)
+#define STM32_I2S_SPI2_MODE                 (STM32_I2S_MODE_MASTER |        \
+                                             STM32_I2S_MODE_TX)
+#define STM32_I2S_SPI3_MODE                 (STM32_I2S_MODE_MASTER |        \
+                                             STM32_I2S_MODE_TX)
 #define STM32_I2S_DMA_ERROR_HOOK(i2sp)      osalSysHalt("DMA failure")
 
 /*

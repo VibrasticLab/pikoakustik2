@@ -118,7 +118,8 @@ CSRC = $(STARTUPSRC) \
        $(BOARDSRC) \
        $(STREAMSSRC) \
        $(SHELLSRC) \
-       main.c ht_led.c ht_console.c ht_usb.c
+       main.c ht_led.c ht_console.c ht_usb.c \
+       ht_audio.c
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
@@ -222,7 +223,7 @@ UINCDIR =
 ULIBDIR =
 
 # List all user libraries here
-ULIBS =
+ULIBS = -lm
 
 #
 # End of user defines

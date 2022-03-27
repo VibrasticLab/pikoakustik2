@@ -22,6 +22,7 @@
 #include "ht_config.h"
 
 #include "ht_led.h"
+#include "ht_audio.h"
 #include "ht_console.h"
 
 extern uint8_t mode_led;
@@ -138,6 +139,13 @@ int main(void) {
   shellInit();
   ht_commUSB_Init();
   ht_commUART_Init();
+#endif
+
+#if USER_AUDIO
+    ht_audio_Init();
+ #if USER_AUDIO_STARTUP
+    ht_audio_TestBoth();
+ #endif
 #endif
 
   while (true) {
