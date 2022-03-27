@@ -33,10 +33,28 @@ void ht_commUSB_Init(void);
 void ht_commUSB_shInit(void);
 
 /**
- * @brief USBommon message function
+ * @brief USB Common message function
  * @param[in] String Message to chprintf() on USB interface.
  */
 void ht_commUSB_Msg(char *string);
+
+/**
+ * @brief Start Shell and UART peripheral
+ * @details Serial Interface using UART1 (SD1)
+ */
+void ht_commUART_Init(void);
+
+/**
+ * @brief Re-Initialize Shell Thread
+ * @details This routine should be called on main thread with some delays
+ */
+void ht_commUART_shInit(void);
+
+/**
+ * @brief UART Common message function
+ * @param[in] String Message to chprintf() on UART interface.
+ */
+void ht_commUART_Msg(char *string);
 
 #endif // HT_CONSOLE_H
 /** @} */

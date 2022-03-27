@@ -17,6 +17,10 @@
 #include "ch.h"
 #include "hal.h"
 
+#include "shell.h"
+
+#include "ht_config.h"
+
 #include "ht_led.h"
 #include "ht_console.h"
 
@@ -131,19 +135,22 @@ int main(void) {
 #endif
 
 #if USER_SERIAL
+  shellInit();
   ht_commUSB_Init();
+  ht_commUART_Init();
 #endif
 
   while (true) {
 
 #if USER_SERIAL
     ht_commUSB_shInit();
+    ht_commUART_shInit();
 #endif
 
     if(stt_readyAll==FALSE){
-      chThdSleepMilliseconds(500);
       chThdCreateStatic(waRunLed, sizeof(waRunLed),NORMALPRIO, thdRunLed, NULL);
       ht_commUSB_Msg("All System Ready\r\n");
+      ht_commUART_Msg("All System Ready\r\n");
       stt_readyAll = TRUE;
     }
 
