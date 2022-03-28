@@ -6,6 +6,8 @@
  * @{
  */
 
+#include <stdint.h>
+
 #include "ch.h"
 #include "hal.h"
 

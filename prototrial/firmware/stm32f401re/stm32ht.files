@@ -15,3 +15,5 @@ ht_usb.h
 main.c
 mcuconf.h
 Makefile
+msg_my.c
+msg_my.h

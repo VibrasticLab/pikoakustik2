@@ -17,6 +17,8 @@ main/lcd_draw.c
 main/lcd_draw.h
 main/logo.xbm
 main/main.c
+main/msg_ht.c
+main/msg_ht.h
 main/my_cmd.c
 main/my_cmd.h
 main/my_exti.c

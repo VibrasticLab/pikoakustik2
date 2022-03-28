@@ -24,6 +24,7 @@
 #include "ht_led.h"
 #include "ht_audio.h"
 #include "ht_console.h"
+#include "msg_my.h"
 
 extern uint8_t mode_led;
 
@@ -125,20 +126,18 @@ int main(void) {
   halInit();
   chSysInit();
 
-  palSetPadMode(GPIOA,LED_RUN,PAL_MODE_OUTPUT_PUSHPULL);
-  palClearPad(GPIOA,LED_RUN);
-
-  mode_led = LED_READY;
-
-#if USER_LED_BUTTON
-  ht_led_Init();
-  ht_led_Test();
-#endif
-
 #if USER_SERIAL
   shellInit();
   ht_commUSB_Init();
   ht_commUART_Init();
+#endif
+
+#if USER_LED_BUTTON
+  palSetPadMode(GPIOA,LED_RUN,PAL_MODE_OUTPUT_PUSHPULL);
+  palClearPad(GPIOA,LED_RUN);
+
+  ht_led_Init();
+  ht_led_Test();
 #endif
 
 #if USER_AUDIO
@@ -147,6 +146,10 @@ int main(void) {
     ht_audio_TestBoth();
  #endif
 #endif
+
+  mode_led = LED_READY;
+
+  esp32_InfoStatus(HT_STATE_IDLE);
 
   while (true) {
 
@@ -157,8 +160,6 @@ int main(void) {
 
     if(stt_readyAll==FALSE){
       chThdCreateStatic(waRunLed, sizeof(waRunLed),NORMALPRIO, thdRunLed, NULL);
-      ht_commUSB_Msg("All System Ready\r\n");
-      ht_commUART_Msg("All System Ready\r\n");
       stt_readyAll = TRUE;
     }
 

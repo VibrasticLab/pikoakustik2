@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 
 #include "ch.h"
 #include "hal.h"
@@ -20,6 +21,7 @@
 
 #include "ht_usb.h"
 #include "ht_console.h"
+#include "msg_my.h"
 
 /*******************************************
  * Serial Command Callback
@@ -47,6 +49,7 @@ static void cmd_coba(BaseSequentialStream *chp, int argc, char *argv[]){
  */
 static const ShellCommand commands[] = {
   {"coba",cmd_coba},
+  {"htstate",esp32_MsgStatus},
   {NULL, NULL}
 };
 

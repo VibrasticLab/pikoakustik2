@@ -6,6 +6,8 @@
  * @{
  */
 
+#include <stdint.h>
+
 #include "hal.h"
 
 /* Virtual serial port over USB.*/

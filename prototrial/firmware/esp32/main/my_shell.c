@@ -58,6 +58,7 @@ void shellInit(void){
     esp_console_register_help_command();
 
     registerCommands();
+    registerSTM32Messages();
 
     printf("System Configured\n");
 

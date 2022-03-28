@@ -31,10 +31,10 @@ uint8_t battPercent = 69;
 uint16_t ambientDB = 110;
 
 /**
- * @brief Flag STM32 run/idle status
+ * @brief Flag STM32 run/idle/prep status
  * 
  */
-bool runIdle = true;
+uint8_t runIdle = HT_STATE_PREP;
 
 /**
  * @brief Draw Battery in Full state
@@ -138,7 +138,15 @@ static void page_info_wifimode(const ssd1306_t *dev, uint8_t *fb){
  * @param fb frame buffer array
  */
 static void page_info_runmode(const ssd1306_t *dev, uint8_t *fb){
-    if(runIdle){
+    if(runIdle==HT_STATE_PREP){
+        ssd1306_draw_string(dev,
+                            fb,
+                            font_builtin_fonts[FONT_FACE_TERMINUS_BOLD_12X24_ISO8859_1],
+                            10, 25, "PREP",
+                            OLED_COLOR_WHITE,
+                            OLED_COLOR_BLACK);
+    }
+    else if(runIdle==HT_STATE_IDLE){
         ssd1306_draw_string(dev,
                             fb,
                             font_builtin_fonts[FONT_FACE_TERMINUS_BOLD_12X24_ISO8859_1],
@@ -146,7 +154,7 @@ static void page_info_runmode(const ssd1306_t *dev, uint8_t *fb){
                             OLED_COLOR_WHITE,
                             OLED_COLOR_BLACK);
     }
-    else{
+    if(runIdle==HT_STATE_RUN){
         ssd1306_draw_string(dev,
                             fb,
                             font_builtin_fonts[FONT_FACE_TERMINUS_BOLD_12X24_ISO8859_1],
