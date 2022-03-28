@@ -9,12 +9,7 @@
 #include "my_includes.h"
 
 extern ssd1306_t oled_dev;
-
-/**
- * @brief LCD buffer array
- * 
- */
-static uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
+extern uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
 
 void page_files(void){}
 

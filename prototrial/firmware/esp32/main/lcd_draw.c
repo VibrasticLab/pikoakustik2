@@ -22,7 +22,7 @@ static const char *TAG = "OLED";
  * @brief LCD pixel buffer array
  *
  */
-static uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
+uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
 
 static void register_oled_img();
 static void register_oled_text();

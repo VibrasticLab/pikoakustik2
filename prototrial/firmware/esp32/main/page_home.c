@@ -8,15 +8,11 @@
 
 #include "my_includes.h"
 
-extern bool wifi_ap;
 extern ssd1306_t oled_dev;
-extern tcpip_adapter_ip_info_t ipInfo;
+extern uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
 
-/**
- * @brief LCD buffer array 
- * 
- */
-static uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
+extern bool wifi_ap;
+extern tcpip_adapter_ip_info_t ipInfo;
 
 /**
  * @brief Battery percent

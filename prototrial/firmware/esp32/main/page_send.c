@@ -8,15 +8,11 @@
 
 #include "my_includes.h"
 
-extern ssd1306_t oled_dev;
 extern uint8_t pageNum;
 extern bool pageSWable;
 
-/**
- * @brief LCD buffer array
- *
- */
-static uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
+extern ssd1306_t oled_dev;
+extern uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
 
 /**
  * @brief Page sending demo
