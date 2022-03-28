@@ -36,9 +36,6 @@ void app_main(void){
         int loop = shellLoop();
         if(loop==1)printf("Empty Command\r\n");
 #endif
-        if(runIdle==HT_STATE_PREP){
-            askingSTM32status();
-        }
     }
 }
 

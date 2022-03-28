@@ -17,10 +17,23 @@ void registerSTM32Messages(void){
 }
 
 /**
- * @brief Asking STM32 about current status if still PREP
+ * @brief Asking STM32 routine loop task
+ * @param pvParameter
  */
-void askingSTM32status(void){
-  printf("htstate\r\n");
+static void askingSTM32Task(void *pvParameter){
+    while (1) {
+        if(runIdle==HT_STATE_PREP){
+          printf("htstate\r\n");
+        }
+        vTaskDelay(BLINK_DELAY / portTICK_PERIOD_MS);
+    }
+}
+
+/**
+ * @brief Asking STM32 routine start
+ */
+void askingSTM32Init(void){
+  xTaskCreate(&askingSTM32Task, "asking_task", 1024, NULL, tskIDLE_PRIORITY, NULL);
 }
 
 /**

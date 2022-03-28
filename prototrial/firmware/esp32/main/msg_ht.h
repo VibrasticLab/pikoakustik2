@@ -15,7 +15,7 @@
 #define HT_STATE_IDLE 1
 #define HT_STATE_RUN  2
 
-void askingSTM32status(void);
+void askingSTM32Init(void);
 void registerSTM32Messages(void);
 
 #endif // MSG_HT_H

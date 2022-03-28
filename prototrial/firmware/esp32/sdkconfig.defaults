@@ -1,11 +1,6 @@
 # disable outdated sertificate bundle
 CONFIG_MBEDTLS_CERTIFICATE_BUNDLE_DEFAULT_CMN=y
 
-# use UART/CONSOLE Baudrate 38400
-# to avoid incidental hwcontrol from STM32
-CONFIG_ESP_CONSOLE_UART_BAUDRATE=38400
-CONFIG_CONSOLE_UART_BAUDRATE=38400
-
 # disable bootloader log output
 # dont forget to: make bootloader-flash
 CONFIG_BOOTLOADER_LOG_LEVEL_NONE=y

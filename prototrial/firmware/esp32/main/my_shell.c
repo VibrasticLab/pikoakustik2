@@ -27,7 +27,7 @@ static void consoleInit(void){
     esp_vfs_dev_uart_port_set_tx_line_endings(UART_NUM_0, ESP_LINE_ENDINGS_CRLF);
 
     const uart_config_t uartConf = {
-        .baud_rate = 115200,
+        .baud_rate = UART_BAUDRATE,
         .data_bits = UART_DATA_8_BITS,
         .parity = UART_PARITY_DISABLE,
         .stop_bits = UART_STOP_BITS_1,
@@ -58,7 +58,9 @@ void shellInit(void){
     esp_console_register_help_command();
 
     registerCommands();
+
     registerSTM32Messages();
+    askingSTM32Init();
 
     printf("System Configured\n");
 

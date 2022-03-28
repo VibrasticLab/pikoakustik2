@@ -21,6 +21,8 @@
  */
 #define BLINK_DELAY 100
 
+#define UART_BAUDRATE   38400
+
 /**
  * @brief Whether Shell use prompt
  *
