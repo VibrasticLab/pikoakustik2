@@ -21,6 +21,7 @@
 
 #include "ht_usb.h"
 #include "ht_mmc.h"
+#include "ht_audio.h"
 #include "ht_console.h"
 #include "msg_my.h"
 
@@ -42,16 +43,122 @@ static void cmd_coba(BaseSequentialStream *chp, int argc, char *argv[]){
     chprintf(chp,"Serial Console at %d & buffer size %d bit\r\n",SERIAL_DEFAULT_BITRATE,SERIAL_BUFFERS_SIZE);
 }
 
-/*******************************************/
-
 static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
-  if(argc != 1){chprintf(chp,"usage: mmc [test]\r\n");return;}
+  if(argc < 1){
+     chprintf(chp,"usage: mmc [test|default|ls|clear|cat] <file-number>\r\n");
+     return;
+  }
 
   if(strcmp(argv[0], "test")==0){
     ht_mmc_testWrite();
     ht_mmc_testCat();
     chprintf(chp,"MMC Test Finished\r\n");
   }
+  else if(strcmp(argv[0], "default")==0){
+    ht_mmc_testDefault();
+  }
+  else if(strcmp(argv[0], "ls")==0){
+    ht_mmc_lsFiles(LS_SHOWLIST);
+  }
+  else if(strcmp(argv[0], "clear")==0){
+    ht_mmc_delAllFiles();
+  }
+  else if(strcmp(argv[0], "cat")==0){
+    if(argc == 2){
+      ht_mmc_catFiles(atoi(argv[1]));
+    }
+  }
+}
+
+static void cmd_out(BaseSequentialStream *chp, int argc, char *argv[]) {
+  uint8_t in_ampl;
+  uint16_t in_freq;
+
+  double vfreq=1;
+
+  uint8_t lrc = 0;
+  uint16_t tone_durr = 1000;
+
+  switch(argc){
+    case 2:
+      lrc = 0;
+      in_freq = atoi(argv[0]);
+      in_ampl = atoi(argv[1]);
+      break;
+
+    case 3:
+      lrc = atoi(argv[0]);;
+      in_freq = atoi(argv[1]);
+      in_ampl = atoi(argv[2]);
+      break;
+
+    case 4:
+      lrc = atoi(argv[0]);
+      in_freq = atoi(argv[1]);
+      in_ampl = atoi(argv[2]);
+      tone_durr = atoi(argv[3]);
+      break;
+
+    default:
+      chprintf(chp,"usage: out <0/1> <freq> <ampl> <duration_ms>\r\n");
+      return;
+      break;
+  }
+
+  switch(lrc){
+      case OUT_LEFT:
+          ht_audio_LeftCh();
+          break;
+
+      case OUT_RIGHT:
+          ht_audio_RightCh();
+          break;
+  }
+
+  if(in_freq>=250 && in_freq<=8000){
+      vfreq = (double) in_freq / 400; // 400 is known array length as default frequency
+  }
+  else{
+      chprintf(chp,"frequency only between 250 and 8000\r\n");
+  }
+
+  if(!(in_ampl>0 && in_ampl<10)){
+      chprintf(chp,"amplitudo scaling only between 1 and 9\r\n");
+      return;
+  }
+
+  ht_audio_ToneScale(vfreq, in_ampl);
+  chprintf(chp,"Out: Freq:%5i Ampl:%2i\r\n",in_freq,in_ampl);
+
+  ht_audio_Play(tone_durr);
+
+  chprintf(chp,"Finished\r\n");
+  ht_audio_DisableCh();
+}
+
+static void cmd_tone(BaseSequentialStream *chp, int argc, char *argv[]){
+  if(argc != 1){chprintf(chp,"usage: tone [minl|minr|maxl|maxr]\r\n");return;}
+
+  if(strcmp(argv[0],"minl")==0){
+     ht_audio_LeftCh();
+     ht_audio_ToneScale(1.25,1);
+  }
+  else if(strcmp(argv[0],"minr")==0){
+      ht_audio_RightCh();
+      ht_audio_ToneScale(1.25,1);
+  }
+  else if(strcmp(argv[0],"maxl")==0){
+     ht_audio_LeftCh();
+     ht_audio_ToneScale(1.25,9);
+  }
+  else if(strcmp(argv[0],"maxr")==0){
+     ht_audio_RightCh();
+     ht_audio_ToneScale(1.25,9);
+  }
+
+  ht_audio_Play(10*TEST_DURATION);
+  ht_audio_DisableCh();
+  chprintf(chp,"Finished\r\n");
 }
 
 /*******************************************/
@@ -63,6 +170,8 @@ static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
 static const ShellCommand commands[] = {
   {"coba", cmd_coba},
   {"mmc", cmd_mmc},
+  {"out", cmd_out},
+  {"tone", cmd_tone},
   {"htstate", esp32_MsgStatus},
   {NULL, NULL}
 };

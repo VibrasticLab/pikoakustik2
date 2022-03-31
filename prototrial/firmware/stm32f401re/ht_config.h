@@ -32,7 +32,6 @@
  #define USER_METRI_RECORD  TRUE   /* Whether record Audiometri session */
  #define USER_METRI_ALLFREQ FALSE  /* Whether Audiometri in all frequency or selection */
  #define USER_METRI_ONEFREQ FALSE  /* Whether Audiometri in single frequency only */
-#define USER_METRI_16KHZ    FALSE  /* Whether Audiometri use 16kHz or not */
 
 #endif // HT_INCLUDES_H
 

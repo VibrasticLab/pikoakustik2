@@ -156,7 +156,7 @@ static FRESULT scanFiles(char *path, uint16_t *lastfnum, uint8_t showList){
 }
 
 static FRESULT deleteFiles(char *path){
-    char fname[MMC_STR_BUFF_SIZE];
+    char fname[MMC_FNAME_SIZE];
     FRESULT err;
     DIR Dir;
     FILINFO Fno;
@@ -282,6 +282,8 @@ void ht_mmc_InitCheck(void){
     f_mount(0, "", 0);
 }
 
+/*******************************************/
+
 void ht_mmc_testWrite(void){
     char buffer[MMC_STR_BUFF_SIZE];
     char strbuff[COMM_BUFF_SIZE];
@@ -327,7 +329,7 @@ void ht_mmc_testWrite(void){
 void ht_mmc_testCat(void){
     uint16_t line_num=0;
     char buffer[MMC_STR_BUFF_SIZE];
-    char fname[MMC_STR_BUFF_SIZE];
+    char fname[MMC_FNAME_SIZE];
     char strbuff[COMM_BUFF_SIZE];
 
     FATFS FatFs;
@@ -359,6 +361,143 @@ void ht_mmc_testCat(void){
                 if(eof[0]==0)break;
 
                 ht_comm_Buff(strbuff,sizeof(strbuff),"%3i %s\r",line_num,line);
+                ht_commUSB_Msg(strbuff);
+            }
+            f_close(Fil);
+        }
+        else{
+            ht_comm_Buff(strbuff,sizeof(strbuff),"Open Error:%d\r\n",err);
+            ht_commUSB_Msg(strbuff);
+        }
+
+        f_mount(0, "", 0);
+    }
+    free(Fil);
+}
+
+void ht_mmc_testDefault(void){
+    char buffer[MMC_STR_BUFF_SIZE];
+
+    FATFS FatFs;
+    FIL *Fil;
+    UINT bw;
+    FRESULT err;
+
+    Fil = (FIL*)malloc(sizeof(FIL));
+
+    err = mmc_check();
+    if(err!=FR_OK){
+        return;
+    }
+
+    if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
+        ht_mmc_Buff(buffer,sizeof(buffer),"Test\n");
+
+        f_mount(&FatFs, "", 0);
+
+        err = f_open(Fil, "/SAV_0.TXT", FA_WRITE | FA_CREATE_ALWAYS);
+        if(err==FR_OK){
+            f_write(Fil, buffer, strlen(buffer), &bw);
+            f_close(Fil);
+            mode_led=LED_READY;
+        }
+        else{
+            mode_led=LED_FAIL;
+        }
+
+        f_mount(0, "", 0);
+    }
+    free(Fil);
+}
+
+/*******************************************/
+
+void ht_mmc_lsFiles(uint8_t showList){
+    FATFS FatFs;
+    FIL *Fil;
+    FRESULT err;
+
+    char buff[MMC_STR_BUFF_SIZE];
+    char fname[MMC_FNAME_SIZE];
+
+    Fil = (FIL*)malloc(sizeof(FIL));
+
+    if(mmc_check()!=FR_OK){return;}
+
+    if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
+        err = f_mount(&FatFs,"",0);
+        if(err==FR_OK){
+            strcpy(buff,"/");
+            err = scanFiles(buff, &lastnum, showList);
+            if(err==FR_OK){
+                if(lastnum < FILE_MAX_NUM){
+                    ht_mmc_Buff(fname,sizeof(fname),"/SAV_%i.TXT",lastnum);
+
+                    err = f_open(Fil, fname, FA_READ | FA_OPEN_EXISTING);
+                    if(err==FR_OK){
+                        f_close(Fil);
+                    }
+                }
+                else{
+                    ht_commUSB_Msg("Warning: Maximum save number\r\n");
+                }
+            }
+        }
+        f_mount(0, "", 0);
+    }
+    free(Fil);
+}
+
+void ht_mmc_delAllFiles(void){
+    FATFS FatFs;
+    FIL *Fil;
+    FRESULT err;
+    char buff[MMC_STR_BUFF_SIZE];
+
+    Fil = (FIL*)malloc(sizeof(FIL));
+
+    if(mmc_check()!=FR_OK){return;}
+
+    if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
+
+        err = f_mount(&FatFs,"",0);
+        if(err==FR_OK){
+            strcpy(buff,"/");
+            err = deleteFiles(buff);
+            if(err==FR_OK){
+                ht_commUSB_Msg("Saving files cleared\r\n");
+            }
+        }
+        f_mount(0, "", 0);
+    }
+    free(Fil);
+}
+
+void ht_mmc_catFiles(uint16_t fnum){
+    char strbuff[COMM_BUFF_SIZE];
+    char fname[MMC_FNAME_SIZE];
+    FATFS FatFs;
+    FIL *Fil;
+    FRESULT err;
+
+    Fil = (FIL*)malloc(sizeof(FIL));
+
+    if(mmc_check()!=FR_OK){return;}
+
+    ht_mmc_Buff(fname,sizeof(fname),"/SAV_%i.TXT",fnum);
+    if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
+        f_mount(&FatFs, "", 0);
+
+        err=f_open(Fil, fname, FA_OPEN_EXISTING |FA_READ);
+        if(err==FR_OK){
+            char line[MMC_STR_BUFF_SIZE];
+            TCHAR *eof;
+            while(1){
+                strcpy(line,"");
+                eof=f_readline(line,sizeof(line),Fil);
+                if(eof[0]==0)break;
+
+                ht_comm_Buff(strbuff,sizeof(strbuff),"%s\r",line);
                 ht_commUSB_Msg(strbuff);
             }
             f_close(Fil);

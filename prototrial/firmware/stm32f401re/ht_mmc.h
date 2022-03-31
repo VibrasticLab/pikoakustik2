@@ -28,6 +28,11 @@
 #define MMC_STR_BUFF_SIZE 128
 
 /**
+ * @brief Filename string size
+ */
+#define MMC_FNAME_SIZE    16
+
+/**
  * @brief File Buffer length variable
  */
 #define FILE_BUFF_LEN 4096
@@ -68,16 +73,16 @@ void ht_mmc_testWrite(void);
 void ht_mmc_testCat(void);
 
 /**
+ * @brief Test write default save file in Overwrite mode
+ */
+void ht_mmc_testDefault(void);
+
+/**
  * @brief List files on directory
  * @param Show option (0: No List, 1: File number, 2: File names)
  *
  */
 void ht_mmc_lsFiles(uint8_t showList);
-
-/**
- * @brief List number files on directory
- */
-void ht_mmc_lsNumFiles(void);
 
 /**
  * @brief Delete All Files on media
