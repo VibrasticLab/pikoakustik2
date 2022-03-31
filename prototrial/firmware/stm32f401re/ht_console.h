@@ -10,6 +10,11 @@
 #define HT_CONSOLE_H
 
 /**
+ * @brief Size off buffer for chsnprintf() on interface
+ */
+#define COMM_BUFF_SIZE 128
+
+/**
  * @brief Shell thread working area size
  * @details Set to bigger size if necessary
  */

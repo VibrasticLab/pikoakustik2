@@ -20,6 +20,7 @@
 #include "ht_config.h"
 
 #include "ht_usb.h"
+#include "ht_mmc.h"
 #include "ht_console.h"
 #include "msg_my.h"
 
@@ -43,13 +44,26 @@ static void cmd_coba(BaseSequentialStream *chp, int argc, char *argv[]){
 
 /*******************************************/
 
+static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
+  if(argc != 1){chprintf(chp,"usage: mmc [test]\r\n");return;}
+
+  if(strcmp(argv[0], "test")==0){
+    ht_mmc_testWrite();
+    ht_mmc_testCat();
+    chprintf(chp,"MMC Test Finished\r\n");
+  }
+}
+
+/*******************************************/
+
 /**
  * @brief Shell command and it's callback enumeration
  * @details Extending from internal shell's callback
  */
 static const ShellCommand commands[] = {
-  {"coba",cmd_coba},
-  {"htstate",esp32_MsgStatus},
+  {"coba", cmd_coba},
+  {"mmc", cmd_mmc},
+  {"htstate", esp32_MsgStatus},
   {NULL, NULL}
 };
 

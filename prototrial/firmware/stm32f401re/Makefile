@@ -4,8 +4,10 @@
 #
 
 # Compiler options here.
+# nano/nosys specs: for 'sbrk' linker
 ifeq ($(USE_OPT),)
-  USE_OPT = -Os -fomit-frame-pointer -falign-functions=16
+  USE_OPT = -Os -fomit-frame-pointer -falign-functions=16 \
+            -specs=nano.specs -specs=nosys.specs
 endif
 
 # C specific options here (added to USE_OPT).
@@ -96,6 +98,7 @@ include $(CHIBIOS)/os/hal/hal.mk
 include $(CHIBIOS)/os/hal/ports/STM32/STM32F4xx/platform.mk
 include board/board.mk
 include $(CHIBIOS)/os/hal/osal/rt/osal.mk
+include $(CHIBIOS)/os/various/fatfs_bindings/fatfs.mk
 # RTOS files (optional).
 include $(CHIBIOS)/os/rt/rt.mk
 include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v7m.mk
@@ -118,8 +121,9 @@ CSRC = $(STARTUPSRC) \
        $(BOARDSRC) \
        $(STREAMSSRC) \
        $(SHELLSRC) \
+       $(FATFSSRC) \
        main.c ht_led.c ht_console.c ht_usb.c \
-       ht_audio.c msg_my.c
+       ht_audio.c ht_mmc.c msg_my.c
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
@@ -151,7 +155,7 @@ ASMXSRC = $(STARTUPASM) $(PORTASM) $(OSALASM)
 
 INCDIR = $(CHIBIOS)/os/license \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
-         $(HALINC) $(PLATFORMINC) $(BOARDINC) \
+         $(HALINC) $(PLATFORMINC) $(BOARDINC) $(FATFSINC) \
          $(STREAMSINC) $(SHELLINC) $(ARMNONEEABIINC)
 
 #
@@ -182,7 +186,7 @@ HEX  = $(CP) -O ihex
 BIN  = $(CP) -O binary
 
 # ARM-specific options here
-AOPT =
+AOPT = 
 
 # THUMB-specific options here
 TOPT = -mthumb -DTHUMB
@@ -223,6 +227,7 @@ UINCDIR =
 ULIBDIR =
 
 # List all user libraries here
+# -lm: for libmath
 ULIBS = -lm
 
 #

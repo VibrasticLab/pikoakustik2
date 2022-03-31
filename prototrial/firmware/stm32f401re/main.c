@@ -22,6 +22,7 @@
 #include "ht_config.h"
 
 #include "ht_led.h"
+#include "ht_mmc.h"
 #include "ht_audio.h"
 #include "ht_console.h"
 #include "msg_my.h"
@@ -126,12 +127,6 @@ int main(void) {
   halInit();
   chSysInit();
 
-#if USER_SERIAL
-  shellInit();
-  ht_commUSB_Init();
-  ht_commUART_Init();
-#endif
-
 #if USER_LED_BUTTON
   palSetPadMode(GPIOA,LED_RUN,PAL_MODE_OUTPUT_PUSHPULL);
   palClearPad(GPIOA,LED_RUN);
@@ -140,14 +135,23 @@ int main(void) {
   ht_led_Test();
 #endif
 
+#if USER_SERIAL
+  shellInit();
+  ht_commUSB_Init();
+  ht_commUART_Init();
+#endif
+
+#if USER_MMC
+   ht_mmc_Init();
+   ht_mmc_InitCheck();
+#endif
+
 #if USER_AUDIO
     ht_audio_Init();
  #if USER_AUDIO_STARTUP
     ht_audio_TestBoth();
  #endif
 #endif
-
-  mode_led = LED_READY;
 
   esp32_InfoStatus(HT_STATE_IDLE);
 
