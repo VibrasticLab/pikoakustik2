@@ -48,51 +48,6 @@ static ThdFunc_RunLED(thdRunLed, arg) {
   chRegSetThreadName("run led");
 
   while (true) {
-
-#if USER_TEST_MODE
-    if(mode_led==LED_FAIL){
-        led_result_off();
-
-        palClearPad(GPIOA, LED_RUN);
-        chThdSleepMilliseconds(200);
-
-        palSetPad(GPIOA, LED_RUN);
-        chThdSleepMilliseconds(200);
-
-        palClearPad(GPIOA, LED_RUN);
-        chThdSleepMilliseconds(200);
-
-        palSetPad(GPIOA, LED_RUN);
-        chThdSleepMilliseconds(200);
-
- #if USER_LED_BUTTON
-        led_result_off();
-        led_resultYES();
-        chThdSleepMilliseconds(200);
-
-        led_result_off();
-        led_resultNO();
-        chThdSleepMilliseconds(200);
- #else
-        chThdSleepMilliseconds(400);
- #endif
-    }
-    else if(mode_led==LED_READY){
-        palTogglePad(GPIOA, LED_RUN);
-
- #if USER_LED_BUTTON
-        led_result_off();
-        led_resultYES();
-        chThdSleepMilliseconds(200);
-
-        led_result_off();
-        led_resultNO();
-        chThdSleepMilliseconds(200);
- #else
-        chThdSleepMilliseconds(400);
- #endif
-    }
-#else
     if(mode_led==LED_FAIL){
         palClearPad(GPIOA, LED_RUN);
         chThdSleepMilliseconds(50);
@@ -115,8 +70,6 @@ static ThdFunc_RunLED(thdRunLed, arg) {
         palTogglePad(GPIOA, LED_RUN);
         chThdSleepMilliseconds(50);
     }
-#endif
-
   }
 }
 

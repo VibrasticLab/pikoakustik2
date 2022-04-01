@@ -42,14 +42,6 @@ static uint8_t mode_btnB;
  */
 static uint8_t mode_btnC;
 
-#if USER_TEST_MODE
-/**
- * @brief Test button status variable
- */
-static uint8_t test_button = 0;
-#endif
-
-#if !(USER_TEST_MODE)
 /**
  * @brief Reset Button function called by EXTI callback
  */
@@ -85,7 +77,6 @@ static void exti_stdby_cb(void){
 
     reset_ledbutton();
 }
-#endif
 
 /*******************************************/
 
@@ -97,13 +88,6 @@ static void extiAnsA(EXTDriver *extp, expchannel_t channel) {
     (void)extp;
     (void)channel;
 
-#if USER_TEST_MODE
-    if(test_button==0){
-        led_answer_off();
-        led_answerA();
-        test_button = BTN_ANS_A;
-    }
-#else
     if(mode_status==STT_IDLE){
         led_answer_off();
         led_answerA();
@@ -129,7 +113,6 @@ static void extiAnsA(EXTDriver *extp, expchannel_t channel) {
             mode_step = STEP_CHK;
         }
     }
-#endif
 
     return;
 }
@@ -142,13 +125,6 @@ static void extiAnsB(EXTDriver *extp, expchannel_t channel) {
     (void)extp;
     (void)channel;
 
-#if USER_TEST_MODE
-    if(test_button==0){
-        led_answer_off();
-        led_answerB();
-        test_button = BTN_ANS_B;
-    }
-#else
     if(mode_status==STT_IDLE){
         led_answer_off();
         led_answerB();
@@ -174,7 +150,6 @@ static void extiAnsB(EXTDriver *extp, expchannel_t channel) {
             mode_step = STEP_CHK;
         }
     }
-#endif
 
     return;
 }
@@ -187,13 +162,6 @@ static void extiAnsC(EXTDriver *extp, expchannel_t channel) {
     (void)extp;
     (void)channel;
 
-#if USER_TEST_MODE
-    if(test_button==0){
-        led_answer_off();
-        led_answerC();
-        test_button = BTN_ANS_C;
-    }
-#else
     if(mode_status==STT_IDLE){
         led_answer_off();
         led_answerC();
@@ -219,7 +187,6 @@ static void extiAnsC(EXTDriver *extp, expchannel_t channel) {
             mode_step = STEP_CHK;
         }
     }
-#endif
 
     return;
 }
@@ -257,41 +224,6 @@ static const EXTConfig extcfg = {
   }
 };
 
-#if USER_TEST_MODE
-static THD_WORKING_AREA(waAudioTest, 512);
-#define ThdFunc_AudioTest THD_FUNCTION
-
-/**
- * @brief Thread for Test Audio on Button command
- */
-static ThdFunc_AudioTest(thdAudioTest, arg) {
-    (void)arg;
-    chRegSetThreadName("exti audio test");
-
-    while(1){
-        switch(test_button){
-            case BTN_ANS_A:
-                ht_commUSB_Msg("Testing Left Channel\r\n");
-                ht_audio_TestLeft();
-                break;
-            case BTN_ANS_B:
-                ht_commUSB_Msg("Testing Both Channel\r\n");
-                ht_audio_TestBoth();
-                break;
-            case BTN_ANS_C:
-                ht_commUSB_Msg("Testing Right Channel\r\n");
-                ht_audio_TestRight();
-                break;
-            default: break;
-        }
-
-        test_button = 0;
-        led_answer_off();
-        chThdSleepMilliseconds(200);
-    }
-}
-#endif
-
 void ht_exti_Init(void){
     palSetPadMode(GPIOC, 0, PAL_MODE_INPUT_PULLUP);
     palSetPadMode(GPIOC, 1, PAL_MODE_INPUT_PULLUP);
@@ -305,10 +237,6 @@ void ht_exti_Init(void){
     mode_btnA=0;
     mode_btnB=0;
     mode_btnC=0;
-
-#if USER_TEST_MODE
-    chThdCreateStatic(waAudioTest, sizeof(waAudioTest), NORMALPRIO, thdAudioTest, NULL);
-#endif
 }
 
 /** @} */
