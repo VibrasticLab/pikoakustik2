@@ -59,8 +59,10 @@ void shellInit(void){
 
     registerCommands();
 
-//    registerSTM32Messages();
-//    askingSTM32Init();
+#if UART_TO_STM32
+    registerSTM32Messages();
+    askingSTM32Init();
+#endif
 
     printf("System Configured\n");
 

@@ -21,6 +21,16 @@
  */
 #define BLINK_DELAY 100
 
+/**
+ * @brief Whether use UART0 connected to STM32 chip or not
+ * @warning If choose not and UART0 used for debugging,
+ *          then STM32 must be hold on reset!
+ */
+#define UART_TO_STM32   FALSE
+
+/**
+ * @brief UART baudrate value
+ */
 #define UART_BAUDRATE   38400
 
 /**

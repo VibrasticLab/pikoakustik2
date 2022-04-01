@@ -16,8 +16,9 @@ extern uint8_t runIdle;
  */
 void app_main(void){
 
-    /* set all log level to none */
+#if UART_TO_STM32
     esp_log_level_set("*", ESP_LOG_NONE);
+#endif
 
     nvsInit();
     start_ssd1306();
