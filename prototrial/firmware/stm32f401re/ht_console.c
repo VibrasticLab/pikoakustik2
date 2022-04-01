@@ -57,6 +57,7 @@ static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
      return;
   }
 
+#if USER_MMC
   if(strcmp(argv[0], "test")==0){
     ht_mmc_testWrite();
     ht_mmc_testCat();
@@ -70,6 +71,10 @@ static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
       ht_mmc_catFiles(atoi(argv[1]));
     }
   }
+#else
+  (void) argv;
+#endif
+
 }
 
 static void cmd_out(BaseSequentialStream *chp, int argc, char *argv[]) {

@@ -45,7 +45,7 @@ static THD_WORKING_AREA(waRunLed, 128);
  */
 static ThdFunc_RunLED(thdRunLed, arg) {
   (void)arg;
-  chRegSetThreadName("run led");
+  chRegSetThreadName("run_led");
 
   while (true) {
     if(mode_led==LED_FAIL){
