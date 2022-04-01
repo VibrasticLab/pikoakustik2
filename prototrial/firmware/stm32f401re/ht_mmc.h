@@ -33,14 +33,9 @@
 #define MMC_FNAME_SIZE    16
 
 /**
- * @brief File Buffer length variable
- */
-#define FILE_BUFF_LEN 4096
-
-/**
  * @brief Maximum Last Number to be saved
  */
-#define FILE_MAX_NUM  500
+#define FILE_MAX_NUM  250
 
 /**
  * @brief rename to match name f_write()

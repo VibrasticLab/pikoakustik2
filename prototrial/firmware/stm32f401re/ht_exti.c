@@ -19,6 +19,7 @@
 #include "ht_led.h"
 #include "ht_exti.h"
 #include "ht_audio.h"
+#include "ht_metri.h"
 #include "ht_console.h"
 
 extern uint8_t mode_status;
@@ -64,7 +65,7 @@ static void reset_ledbutton(void){
  * @brief EXTI callback function for entering Standby Mode
  */
 static void exti_idle_cb(void){
-    ht_comm_Msg("Entering Mode: Standby\r\n");
+    ht_commUSB_Msg("Entering Mode: Standby\r\n");
     mode_status=STT_STDBY;
 
     reset_ledbutton();
@@ -76,7 +77,7 @@ static void exti_idle_cb(void){
  * @brief EXTI callback function for entering Check Save File Mode
  */
 static void exti_stdby_cb(void){
-    ht_comm_Msg("Entering Mode: Checking Save File\r\n");
+    ht_commUSB_Msg("Entering Mode: Checking Save File\r\n");
     palSetPad(GPIOA, LED_RUN);
 
     mode_led=LED_CFILE;
@@ -108,7 +109,7 @@ static void extiAnsA(EXTDriver *extp, expchannel_t channel) {
         led_answerA();
         mode_btnA=1;
 
-        ht_comm_Msg("Entering Mode: Setup\r\n");
+        ht_commUSB_Msg("Entering Mode: Setup\r\n");
         mode_status = STT_SETUP;
     }
     else if(mode_status==STT_READY){
@@ -153,7 +154,7 @@ static void extiAnsB(EXTDriver *extp, expchannel_t channel) {
         led_answerB();
         mode_btnB=1;
 
-        ht_comm_Msg("Entering Mode: Setup\r\n");
+        ht_commUSB_Msg("Entering Mode: Setup\r\n");
         mode_status = STT_SETUP;
     }
     else if(mode_status==STT_READY){
@@ -198,7 +199,7 @@ static void extiAnsC(EXTDriver *extp, expchannel_t channel) {
         led_answerC();
         mode_btnC=1;
 
-        ht_comm_Msg("Entering Mode: Setup\r\n");
+        ht_commUSB_Msg("Entering Mode: Setup\r\n");
         mode_status = STT_SETUP;
     }
     else if(mode_status==STT_READY){

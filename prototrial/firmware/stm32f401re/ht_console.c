@@ -21,9 +21,17 @@
 
 #include "ht_usb.h"
 #include "ht_mmc.h"
+#include "ht_led.h"
+#include "ht_metri.h"
 #include "ht_audio.h"
 #include "ht_console.h"
 #include "msg_my.h"
+
+extern uint8_t lastnum;
+
+extern uint8_t mode_status;
+extern uint8_t channel_stt;
+extern uint8_t mode_led;
 
 /*******************************************
  * Serial Command Callback
@@ -155,6 +163,30 @@ static void cmd_tone(BaseSequentialStream *chp, int argc, char *argv[]){
   chprintf(chp,"Finished\r\n");
 }
 
+static void cmd_metri(BaseSequentialStream *chp, int argc, char *argv[]) {
+    (void)argv;
+    char tester[] = USER_TESTER;
+
+    if (argc != 1) {
+      chprintf(chp, "Usage: metri [virt|who]\r\n");
+      return;
+    }
+
+    if(strcmp(argv[0],"virt")==0){
+      chprintf(chp, "Run Virtual Test Start\r\n");
+      chprintf(chp, "DONT PUSH ANY BUTTON\r\n");
+
+      ht_mmcMetri_chkFile();
+      ht_mmcMetri_jsonChStart(channel_stt);
+
+      mode_led = LED_METRI;
+      mode_status = STT_VIRT;
+    }
+    else if(strcmp(argv[0],"who")==0){
+      chprintf(chp, "tester name: \"%s\"\r\n",tester);
+    }
+}
+
 /*******************************************/
 
 /**
@@ -166,6 +198,7 @@ static const ShellCommand commands[] = {
   {"mmc", cmd_mmc},
   {"out", cmd_out},
   {"tone", cmd_tone},
+  {"metri", cmd_metri},
   {"htstate", esp32_MsgStatus},
   {NULL, NULL}
 };
