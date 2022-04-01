@@ -12,7 +12,7 @@
 
 #define USER_BAUD           38400    /* Default Baudrate */
 
-#define USER_TEST_MODE      FALSE   /* Whether run as test or metri mode */
+#define USER_TEST_MODE      TRUE   /* Whether run as test or metri mode */
 
 #define USER_SERIAL         TRUE   /* Whether enable serial interface or not */
  #define USER_USB_DESC      TRUE   /* Whether use custom USB description or not */

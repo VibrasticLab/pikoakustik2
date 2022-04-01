@@ -317,7 +317,11 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
 
               if(freq_idx != freq_max){
                   ht_commUSB_Msg("Continue next Frequency\r\n");
+#if USER_MMC
+ #if USER_METRI_RECORD
                   ht_mmcMetri_jsonComma();
+ #endif
+#endif
               }
               else{
                   if(channel_stt!=OUT_RIGHT){
