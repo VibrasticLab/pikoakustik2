@@ -59,8 +59,8 @@ void shellInit(void){
 
     registerCommands();
 
-    registerSTM32Messages();
-    askingSTM32Init();
+//    registerSTM32Messages();
+//    askingSTM32Init();
 
     printf("System Configured\n");
 

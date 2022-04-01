@@ -264,9 +264,9 @@ EXTRA_SEARCH_MAPPINGS  =
 #---------------------------------------------------------------------------
 # Configuration options related to the LaTeX output
 #---------------------------------------------------------------------------
-GENERATE_LATEX         = NO
+GENERATE_LATEX         = YES
 LATEX_OUTPUT           = latex
-LATEX_CMD_NAME         =
+LATEX_CMD_NAME         = "pdflatex -interaction=nonstopmode"
 MAKEINDEX_CMD_NAME     = makeindex
 LATEX_MAKEINDEX_CMD    = makeindex
 COMPACT_LATEX          = NO
