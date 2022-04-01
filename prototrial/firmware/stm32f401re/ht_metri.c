@@ -141,7 +141,7 @@ static void ht_metri_AudioPlay(uint8_t lr_stt){
 }
 
 /* More action/statement need more allocated memory space */
-static THD_WORKING_AREA(waRunMetri, 4096);
+static THD_WORKING_AREA(waRunMetri, 2048);
 #define ThdFunc_RunMetri THD_FUNCTION
 
 /**
@@ -170,9 +170,11 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
     else if(mode_status==STT_CFILE){
         ht_metri_ResultReset();
 
-#if defined(USER_METRI_RECORD) && defined(USER_MMC)
+#if USER_MMC
+ #if USER_METRI_RECORD
         ht_mmcMetri_chkFile();
         ht_mmcMetri_jsonChStart(channel_stt);
+ #endif
 #endif
 
         ht_commUSB_Msg("Entering Mode: Audiometri\r\n");
@@ -299,9 +301,11 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
               ht_commUSB_Msg(strbuff);
               ht_commUSB_Msg("A Frequency Finish\r\n");
 
-#if defined(USER_METRI_RECORD) && defined(USER_MMC)
+#if USER_MMC
+ #if USER_METRI_RECORD
               ht_mmcMetri_hearingResult(freq_test[freq_idx],freq_idx,ampl_num);
               ht_mmcMetri_hearingRecord(res_arr,test_count,ampl_num);
+ #endif
 #endif
 
               freq_idx++;
@@ -321,16 +325,20 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
                       freq_idx = 0;
                       ht_commUSB_Msg("Continue next Channel\r\n");
 
-#if defined(USER_METRI_RECORD) && defined(USER_MMC)
+#if USER_MMC
+ #if USER_METRI_RECORD
                       ht_mmcMetri_jsonChClose();
                       ht_mmcMetri_jsonChStart(channel_stt);
+  #endif
 #endif
                   }
                   else{
 
-#if defined(USER_METRI_RECORD) && defined(USER_MMC)
+#if USER_MMC
+ #if USER_METRI_RECORD
                       ht_mmcMetri_jsonChClose();
                       ht_mmcMetri_endResult();
+ #endif
 #endif
                       ht_commUSB_Msg("Testing Finish\r\n");
                       freq_idx = 0;

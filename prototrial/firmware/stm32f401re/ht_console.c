@@ -176,8 +176,12 @@ static void cmd_metri(BaseSequentialStream *chp, int argc, char *argv[]) {
       chprintf(chp, "Run Virtual Test Start\r\n");
       chprintf(chp, "DONT PUSH ANY BUTTON\r\n");
 
+#if USER_MMC
+ #if USER_METRI_RECORD
       ht_mmcMetri_chkFile();
       ht_mmcMetri_jsonChStart(channel_stt);
+ #endif
+#endif
 
       mode_led = LED_METRI;
       mode_status = STT_VIRT;
