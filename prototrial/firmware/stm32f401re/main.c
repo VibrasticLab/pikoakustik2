@@ -23,6 +23,7 @@
 
 #include "ht_led.h"
 #include "ht_mmc.h"
+#include "ht_exti.h"
 #include "ht_audio.h"
 #include "ht_console.h"
 #include "msg_my.h"
@@ -47,7 +48,7 @@ static ThdFunc_RunLED(thdRunLed, arg) {
 
   while (true) {
 
-#if USER_TEST_STATE
+#if USER_TEST_MODE
     if(mode_led==LED_FAIL){
         led_result_off();
 
@@ -127,12 +128,13 @@ int main(void) {
   halInit();
   chSysInit();
 
-#if USER_LED_BUTTON
   palSetPadMode(GPIOA,LED_RUN,PAL_MODE_OUTPUT_PUSHPULL);
   palClearPad(GPIOA,LED_RUN);
 
+#if USER_LED_BUTTON
   ht_led_Init();
   ht_led_Test();
+  ht_exti_Init();
 #endif
 
 #if USER_SERIAL
