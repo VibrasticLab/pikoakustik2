@@ -23,7 +23,7 @@
 #define USER_IOT            FALSE   /* Whether use UART for IOT module or not */
 
 #define USER_AUDIO          TRUE   /* Whether use Audio module or not */
- #define USER_AUDIO_STARTUP TRUE   /* Whether use Audio test at startup */
+ #define USER_AUDIO_TEST    TRUE   /* Whether use Audio test at startup */
 
 #define USER_LED_BUTTON     TRUE   /* Whether use LED and Button modules */
 

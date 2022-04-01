@@ -21,10 +21,12 @@
 
 #include "ht_mmc.h"
 #include "ht_led.h"
+#include "ht_audio.h"
+#include "ht_metri.h"
 #include "ht_console.h"
 
-/* Blink indicator mode */
 extern uint8_t mode_led;
+extern uint8_t mode_status;
 
 /**
  * @brief Global MMC Driver Pointer
@@ -150,28 +152,6 @@ static FRESULT scanFiles(char *path, uint16_t *lastfnum, uint8_t showList){
           ht_commUSB_Msg(strbuff);
         }
 
-        f_closedir(&Dir);
-    }
-    return err;
-}
-
-static FRESULT deleteFiles(char *path){
-    char fname[MMC_FNAME_SIZE];
-    FRESULT err;
-    DIR Dir;
-    FILINFO Fno;
-
-    err = f_opendir(&Dir,path);
-    if(err==FR_OK){
-        while(1){
-            err=f_readdir(&Dir,&Fno);
-            if(err!=FR_OK || Fno.fname[0]==0)break;
-
-            if(!(Fno.fattrib & AM_DIR)){
-                ht_mmc_Buff(fname,sizeof(fname),"/%s\r\n",Fno.fname);
-                err = f_unlink(fname);
-            }
-        }
         f_closedir(&Dir);
     }
     return err;
@@ -375,41 +355,6 @@ void ht_mmc_testCat(void){
     free(Fil);
 }
 
-void ht_mmc_testDefault(void){
-    char buffer[MMC_STR_BUFF_SIZE];
-
-    FATFS FatFs;
-    FIL *Fil;
-    UINT bw;
-    FRESULT err;
-
-    Fil = (FIL*)malloc(sizeof(FIL));
-
-    err = mmc_check();
-    if(err!=FR_OK){
-        return;
-    }
-
-    if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
-        ht_mmc_Buff(buffer,sizeof(buffer),"Test\n");
-
-        f_mount(&FatFs, "", 0);
-
-        err = f_open(Fil, "/SAV_0.TXT", FA_WRITE | FA_CREATE_ALWAYS);
-        if(err==FR_OK){
-            f_write(Fil, buffer, strlen(buffer), &bw);
-            f_close(Fil);
-            mode_led=LED_READY;
-        }
-        else{
-            mode_led=LED_FAIL;
-        }
-
-        f_mount(0, "", 0);
-    }
-    free(Fil);
-}
-
 /*******************************************/
 
 void ht_mmc_lsFiles(uint8_t showList){
@@ -441,31 +386,6 @@ void ht_mmc_lsFiles(uint8_t showList){
                 else{
                     ht_commUSB_Msg("Warning: Maximum save number\r\n");
                 }
-            }
-        }
-        f_mount(0, "", 0);
-    }
-    free(Fil);
-}
-
-void ht_mmc_delAllFiles(void){
-    FATFS FatFs;
-    FIL *Fil;
-    FRESULT err;
-    char buff[MMC_STR_BUFF_SIZE];
-
-    Fil = (FIL*)malloc(sizeof(FIL));
-
-    if(mmc_check()!=FR_OK){return;}
-
-    if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
-
-        err = f_mount(&FatFs,"",0);
-        if(err==FR_OK){
-            strcpy(buff,"/");
-            err = deleteFiles(buff);
-            if(err==FR_OK){
-                ht_commUSB_Msg("Saving files cleared\r\n");
             }
         }
         f_mount(0, "", 0);
@@ -508,6 +428,132 @@ void ht_mmc_catFiles(uint16_t fnum){
         }
 
         f_mount(0, "", 0);
+    }
+    free(Fil);
+}
+
+/*******************************************/
+
+void ht_mmcMetri_chkFile(void){
+    char strbuff[COMM_BUFF_SIZE];
+    FATFS FatFs;
+    FIL *Fil_last;
+    FIL *Fil_new;
+    FRESULT err;
+    UINT bw;
+
+    char buff[MMC_STR_BUFF_SIZE];
+    char buffer[MMC_STR_BUFF_SIZE];
+    char fname[MMC_FNAME_SIZE];
+    char tester[] = USER_TESTER;
+
+    Fil_last = (FIL*)malloc(sizeof(FIL));
+    Fil_new = (FIL*)malloc(sizeof(FIL));
+
+    if(mmc_check()!=FR_OK){return;}
+
+    if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
+
+        ht_mmc_Buff(buffer,sizeof(buffer),"{\"tester\":\"%s\",",tester);
+
+        err = f_mount(&FatFs,"",0);
+        if(err==FR_OK){
+            strcpy(buff,"/");
+            err = scanFiles(buff, &lastnum, LS_NOSHOW);
+
+            if(lastnum < FILE_MAX_NUM){
+                ht_mmc_Buff(fname,sizeof(fname),"/SAV_%i.TXT",lastnum);
+
+                err = f_open(Fil_last, fname, FA_READ | FA_OPEN_EXISTING);
+                if(err==FR_OK){
+                    f_close(Fil_last);
+                    ht_comm_Buff(strbuff,sizeof(strbuff),"File %s exist\r\n",fname);
+                    ht_commUSB_Msg(strbuff);
+
+                    lastnum++;
+                    ht_commUSB_Msg("File name incremented\r\n");
+
+                    ht_mmc_Buff(fname,sizeof(fname),"/SAV_%i.TXT",lastnum);
+
+                    err = f_open(Fil_new, fname, FA_WRITE | FA_READ | FA_OPEN_ALWAYS);
+                    if(err==FR_OK){
+                        f_lseek(Fil_new, f_size(Fil_new));
+                        f_write(Fil_new, buffer, strlen(buffer), &bw);
+                        f_close(Fil_new);
+                    }
+                }
+                else if(err==FR_NO_FILE){
+                    ht_comm_Buff(strbuff,sizeof(strbuff),"File %s not exist\r\n",fname);
+                    ht_commUSB_Msg(strbuff);
+                    ht_commUSB_Msg("File name created now\r\n");
+
+                    ht_mmc_Buff(fname,sizeof(fname),"/SAV_%i.TXT",lastnum);
+
+                    err = f_open(Fil_new, fname, FA_WRITE | FA_READ | FA_OPEN_ALWAYS);
+                    if(err==FR_OK){
+                        f_lseek(Fil_new, f_size(Fil_new));
+                        f_write(Fil_new, buffer, strlen(buffer), &bw);
+                        f_close(Fil_new);
+                    }
+                }
+                else{
+                    ht_comm_Buff(strbuff,sizeof(strbuff),"File %s error code = %i\r\n",fname,err);
+                    ht_commUSB_Msg(strbuff);
+                    mode_status = STT_IDLE;
+                    mode_led = LED_READY;
+                }
+            }
+            else{
+                mode_status = STT_IDLE;
+                mode_led = LED_READY;
+                ht_commUSB_Msg("Warning: Maximum save number\r\n");
+            }
+        }
+    }
+    free(Fil_last);
+    free(Fil_new);
+}
+
+void ht_mmcMetri_jsonChStart(uint8_t lr_ch){
+
+    char buffer[MMC_STR_BUFF_SIZE];
+    char fname[MMC_FNAME_SIZE];
+    FATFS FatFs;
+    FIL *Fil;
+    UINT bw;
+    FRESULT err;
+
+    Fil = (FIL*)malloc(sizeof(FIL));
+
+    if(mmc_check()!=FR_OK){return;}
+
+    if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
+
+        if(lr_ch==OUT_LEFT){
+            ht_mmc_Buff(buffer,sizeof(buffer)," \"ch_0\":{");
+        }
+        else if(lr_ch==OUT_RIGHT){
+            ht_mmc_Buff(buffer,sizeof(buffer),",\"ch_1\":{");
+        }
+
+        if(lastnum < FILE_MAX_NUM){
+            f_mount(&FatFs, "", 0);
+
+            ht_mmc_Buff(fname,sizeof(fname),"/SAV_%i.TXT",lastnum);
+            err = f_open(Fil, fname, FA_WRITE | FA_READ | FA_OPEN_ALWAYS);
+            if(err==FR_OK){
+                f_lseek(Fil, f_size(Fil));
+                f_write(Fil, buffer, strlen(buffer), &bw);
+                f_close(Fil);
+            }
+
+            f_mount(0, "", 0);
+        }
+        else{
+            mode_status = STT_IDLE;
+            mode_led = LED_READY;
+            ht_commUSB_Msg("Warning: Maximum save number\r\n");
+        }
     }
     free(Fil);
 }

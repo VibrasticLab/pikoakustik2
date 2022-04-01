@@ -25,6 +25,7 @@
 #include "ht_mmc.h"
 #include "ht_exti.h"
 #include "ht_audio.h"
+#include "ht_metri.h"
 #include "ht_console.h"
 #include "msg_my.h"
 
@@ -149,13 +150,21 @@ int main(void) {
 #endif
 
 #if USER_AUDIO
-    ht_audio_Init();
- #if USER_AUDIO_STARTUP
-    ht_audio_TestBoth();
+  ht_audio_Init();
+ #if USER_AUDIO_TEST
+  ht_audio_TestBoth();
  #endif
 #endif
 
-  esp32_InfoStatus(HT_STATE_IDLE);
+#if USER_METRI
+  ht_metri_Init();
+#endif
+
+  if(mode_led==LED_READY){
+#if USER_SERIAL
+    esp32_InfoStatus(HT_STATE_IDLE);
+#endif
+  }
 
   while (true) {
 

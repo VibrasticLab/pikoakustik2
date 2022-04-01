@@ -73,21 +73,11 @@ void ht_mmc_testWrite(void);
 void ht_mmc_testCat(void);
 
 /**
- * @brief Test write default save file in Overwrite mode
- */
-void ht_mmc_testDefault(void);
-
-/**
  * @brief List files on directory
  * @param Show option (0: No List, 1: File number, 2: File names)
  *
  */
 void ht_mmc_lsFiles(uint8_t showList);
-
-/**
- * @brief Delete All Files on media
- */
-void ht_mmc_delAllFiles(void);
 
 /**
  * @brief Read a file on directory and print
