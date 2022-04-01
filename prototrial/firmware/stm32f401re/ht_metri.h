@@ -41,6 +41,21 @@
 #define TEST_FALSE_COUNT 5
 
 /**
+ * @brief Amplitude Scale for normal ears
+ */
+#define AMPL_SCALE_NORMAL 6
+
+/**
+ * @brief Amplitude Scale for actual ears
+ */
+#define AMPL_SCALE_ACTUAL 9
+
+/**
+ * @brief Start Amplitude scale for test
+ */
+#define AMPL_SCALE_USED   AMPL_SCALE_NORMAL
+
+/**
  * @brief Function Random Initialization
  */
 void ht_metri_RndInit(void);

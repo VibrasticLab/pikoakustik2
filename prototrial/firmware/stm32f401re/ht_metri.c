@@ -101,7 +101,7 @@ static double ampl_test = FIRSTTEST_DB;
 /**
  * @brief Amplification number status
  */
-static uint8_t ampl_num = 9;
+static uint8_t ampl_num = AMPL_SCALE_USED;
 
 /**
  * @brief Frequency array ID
@@ -122,7 +122,7 @@ static void ht_metri_ResultReset(void){
     uint8_t i;
 
     for(i=0;i<TEST_MAX_COUNT;i++){
-        res_arr[i] = 9;
+        res_arr[i] = AMPL_SCALE_USED;
     }
 }
 
@@ -268,14 +268,14 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
                     }
                 }
                 else{
-                    if(ampl_num<9){
+                    if(ampl_num<AMPL_SCALE_USED){
                         ampl_test = ampl_test * 2;
                         ampl_num++;
                         curr_goDown = 0;
                     }
                 }
 
-                /** Some blind statistic here */
+                // Some blind statistic here
                 if((prev_goDown==1)&&(curr_goDown==0)){
                     upAfterDown++;
                 }
@@ -283,7 +283,7 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
                     if(upAfterDown > (TEST_FALSE_COUNT-2))upAfterDown--;
                 }
                 prev_goDown = curr_goDown;
-                /** end of some stupidity */
+                // end of some stupidity
 
                 if(ampl_test <= SMALLEST_DB || test_count==TEST_MAX_COUNT || ampl_num==0 || upAfterDown==TEST_FALSE_COUNT){
 
@@ -302,7 +302,7 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
 
                     freq_idx++;
                     ampl_test = FIRSTTEST_DB;
-                    ampl_num = 9;
+                    ampl_num = AMPL_SCALE_USED;
                     test_count = 0;
                     upAfterDown = 0;
                     ht_metri_ResultReset();

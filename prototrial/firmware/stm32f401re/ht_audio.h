@@ -79,9 +79,31 @@
 #define SMALLEST_DB     0.0031
 
 /**
+ * @brief First dB ratio for normal ears
+ * @details The value ratio follows:\n
+ *          9: ratio = 1\n
+ *          8: ratio = 0.5\n
+ *          7: ratio = 0.25\n
+ *          6: ratio = 0.125\n
+ *          5: ratio = 0.0625\n
+ *          4: ratio = 0.0312\n
+ *          3: ratio = 0.0156\n
+ *          2: ratio = 0.0078\n
+ *          1: ratio = 0.0039\n
+ * @details This current value corespond to scale 6
+ */
+#define NORMALTEST_DB   0.125
+
+/**
+ * @brief First dB ratio for actual ears
+ * @details The value follow previous documentation
+ */
+#define ACTUALTEST_DB   1
+
+/**
  * @brief First dB scale at first step on audiotest
  */
-#define FIRSTTEST_DB     1
+#define FIRSTTEST_DB     NORMALTEST_DB
 
 /**
  * @brief Initiate Audio driver via I2S
