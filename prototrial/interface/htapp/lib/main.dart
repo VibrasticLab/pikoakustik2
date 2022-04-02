@@ -1,113 +1,279 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:math';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:usb_serial/transaction.dart';
+import 'package:usb_serial/usb_serial.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(HtApp());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class DataJSON {
+  String tester;
+  double ch0F0f, ch0F1f, ch0F2f, ch1F0f, ch1F1f, ch1F2f;
+  List<dynamic> ch0F0r, ch0F1r, ch0F2r, ch1F0r, ch1F1r, ch1F2r;
+
+  DataJSON(
+    // Unit Name
+    this.tester,
+
+    ///// Channel 0 (Left) //////
+    // Frequencies
+    this.ch0F0f,
+    this.ch0F1f,
+    this.ch0F2f,
+
+    // Records
+    this.ch0F0r,
+    this.ch0F1r,
+    this.ch0F2r,
+
+    ///// Channel 1 (Right) /////
+    // Frequency
+    this.ch1F0f,
+    this.ch1F1f,
+    this.ch1F2f,
+
+    // Record
+    this.ch1F0r,
+    this.ch1F1r,
+    this.ch1F2r,
+  );
+
+  DataJSON.fromJson(Map<String, dynamic> jsonIN)
+      : tester = jsonIN['tester'], //unit name
+        //left channel
+        ch0F0f = jsonIN['ch_0']['freq_0']['freq'] * 400,
+        ch0F0r = jsonIN['ch_0']['freq_0']['record'],
+        ch0F1f = jsonIN['ch_0']['freq_1']['freq'] * 400,
+        ch0F1r = jsonIN['ch_0']['freq_1']['record'],
+        ch0F2f = jsonIN['ch_0']['freq_2']['freq'] * 400,
+        ch0F2r = jsonIN['ch_0']['freq_2']['record'],
+        //right channel
+        ch1F0f = jsonIN['ch_1']['freq_0']['freq'] * 400,
+        ch1F0r = jsonIN['ch_1']['freq_0']['record'],
+        ch1F1f = jsonIN['ch_1']['freq_1']['freq'] * 400,
+        ch1F1r = jsonIN['ch_1']['freq_1']['record'],
+        ch1F2f = jsonIN['ch_1']['freq_2']['freq'] * 400,
+        ch1F2r = jsonIN['ch_1']['freq_2']['record'];
+}
+
+class HtApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+  _HtAppState createState() => _HtAppState();
+}
+
+class _HtAppState extends State<HtApp> {
+  UsbPort _port;
+  List<Widget> _ports = [];
+  List<Widget> _serialData = [];
+  StreamSubscription<String> _subscription;
+  Transaction<String> _transaction;
+  int _deviceID;
+
+  int _isGetStatus = 0;
+  int _isGetFList = 1;
+  int _isGetJSON = 2;
+
+  // Length of Record
+  // FOllow setting from STM32 code
+  int _lenRecord = 24;
+  DataJSON _dataJson;
+
+  int _fileSelectNum = 0;
+  List<String> _fileFnum = ["0"];
+
+  List<Point> _dataPlotL = [Point(0, 0)];
+  List<Point> _dataPlotR = [Point(0, 0)];
+
+  int _freqChoiceL = 500;
+  int _freqChoiceR = 500;
+
+  double _scale2dB(double freq, int scale) {
+    double spl;
+
+    if (freq == 500) {
+      spl = 34.15 +
+          (0.09 * scale) +
+          (0.93 * pow(scale, 2)) -
+          (0.05 * pow(scale, 3));
+    } else if (freq == 1000) {
+      spl = 36.69 +
+          (1.72 * scale) +
+          (0.69 * pow(scale, 2)) -
+          (0.04 * pow(scale, 3));
+    } else if (freq == 2000) {
+      spl = 37.22 -
+          (1.58 * scale) +
+          (1.15 * pow(scale, 2)) -
+          (0.06 * pow(scale, 3));
+    }
+
+    return double.parse((spl).toStringAsFixed(2)); //2 decimals only
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  void _choicePlotL(int freq) {
+    if (freq == 500) {
+      _dataPlotL = [Point(0, _scale2dB(_dataJson.ch0F0f, _dataJson.ch0F0r[0]))];
+      for (var i = 1; i < _lenRecord; i++) {
+        _dataPlotL
+            .add(Point(i, _scale2dB(_dataJson.ch0F0f, _dataJson.ch0F0r[i])));
+      }
+    } else if (freq == 1000) {
+      _dataPlotL = [Point(0, _scale2dB(_dataJson.ch0F1f, _dataJson.ch0F1r[0]))];
+      for (var i = 1; i < _lenRecord; i++) {
+        _dataPlotL
+            .add(Point(i, _scale2dB(_dataJson.ch0F1f, _dataJson.ch0F1r[i])));
+      }
+    } else if (freq == 2000) {
+      _dataPlotL = [Point(0, _scale2dB(_dataJson.ch0F2f, _dataJson.ch0F2r[0]))];
+      for (var i = 1; i < _lenRecord; i++) {
+        _dataPlotL
+            .add(Point(i, _scale2dB(_dataJson.ch0F2f, _dataJson.ch0F2r[i])));
+      }
+    } else {
+      _dataPlotL = [Point(0, 0)];
+    }
+  }
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
+  void _choicePlotR(int freq) {
+    if (freq == 500) {
+      _dataPlotR = [Point(0, _scale2dB(_dataJson.ch1F0f, _dataJson.ch1F0r[0]))];
+      for (var i = 1; i < _lenRecord; i++) {
+        _dataPlotR
+            .add(Point(i, _scale2dB(_dataJson.ch1F0f, _dataJson.ch1F0r[i])));
+      }
+    } else if (freq == 1000) {
+      _dataPlotR = [Point(0, _scale2dB(_dataJson.ch1F1f, _dataJson.ch1F1r[0]))];
+      for (var i = 1; i < _lenRecord; i++) {
+        _dataPlotR
+            .add(Point(i, _scale2dB(_dataJson.ch1F1f, _dataJson.ch1F1r[i])));
+      }
+    } else if (freq == 2000) {
+      _dataPlotR = [Point(0, _scale2dB(_dataJson.ch1F2f, _dataJson.ch1F2r[0]))];
+      for (var i = 1; i < _lenRecord; i++) {
+        _dataPlotR
+            .add(Point(i, _scale2dB(_dataJson.ch1F2f, _dataJson.ch1F2r[i])));
+      }
+    } else {
+      _dataPlotR = [Point(0, 0)];
+    }
+  }
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+  void _updateFileList(String strSerial) {
+    List<String> _arrLine = strSerial.split(',');
+    int _lenFnum = _arrLine.length - 1;
 
-  final String title;
+    List<int> _fnum = [];
+    for (var i = 0; i < _lenFnum; i++) {
+      _fnum.add(int.parse(_arrLine[i]));
+    }
+    _fnum.sort();
 
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
+    _fileFnum.clear();
+    for (var i = 0; i < _lenFnum; i++) {
+      _fileFnum.add(_fnum[i].toString());
+    }
+    _fileSelectNum = _fnum.last;
+  }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  Future<bool> _connectTo(device) async {
+    _serialData.clear();
 
-  void _incrementCounter() {
+    if (_subscription != null) {
+      _subscription.cancel();
+      _subscription = null;
+    }
+
+    if (_transaction != null) {
+      _transaction.dispose();
+      _transaction = null;
+    }
+
+    if (_port != null) {
+      _port.close();
+      _port = null;
+    }
+
+    if (device == null) {
+      _deviceID = null;
+      return true;
+    }
+
+    _port = await device.create();
+    if (!await _port.open()) {
+      return false;
+    }
+
+    _deviceID = device.deviceId;
+    await _port.setDTR(false);
+    await _port.setRTS(false);
+    await _port.setPortParameters(
+        38400, UsbPort.DATABITS_8, UsbPort.STOPBITS_1, UsbPort.PARITY_NONE);
+
+    _transaction = Transaction.stringTerminated(
+        _port.inputStream, Uint8List.fromList([13, 10]));
+
+    _subscription = _transaction.stream.listen((String line) {
+      setState(() {
+        print(line);
+
+        if (_isGetStatus == _isGetJSON) {
+          Map<String, dynamic> dataMap = jsonDecode(line);
+          _dataJson = DataJSON.fromJson(dataMap);
+          _serialData.add(Text('Unit Name: ${_dataJson.tester}'));
+          _choicePlotL(_freqChoiceL);
+          _choicePlotR(_freqChoiceR);
+        } else if (_isGetStatus == _isGetFList) {
+          _updateFileList(line);
+        } else {
+          _serialData.add(Text(line));
+
+          //One Line info is enough
+          if (_serialData.length > 1) {
+            _serialData.removeAt(0);
+          }
+        }
+
+        _isGetStatus = 0;
+      });
+    });
+
+    return true;
+  }
+
+  void _getPorts() async {
+    _ports = [];
+
+    List<UsbDevice> devices = await UsbSerial.listDevices();
+    print(devices);
+
+    devices.forEach((device) {
+      _ports.add(ListTile(
+        leading: Icon(Icons.usb),
+        title: Text(device.productName),
+        subtitle: Text(device.manufacturerName),
+        trailing: ElevatedButton(
+          child: Text(_deviceID == device.deviceId ? "Close" : "Open"),
+          onPressed: () {
+            _connectTo(_deviceID == device.deviceId ? null : device)
+                .then((res) {
+              _getPorts();
+            });
+          },
+        ),
+      ));
+    });
+
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      print(_ports);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+    return Container();
   }
 }
