@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:usb_serial/transaction.dart';
 import 'package:usb_serial/usb_serial.dart';
+import 'package:flutter_plot/flutter_plot.dart';
 
 void main() {
   runApp(HtApp());
@@ -223,7 +224,7 @@ class _HtAppState extends State<HtApp> {
         if (_isGetStatus == _isGetJSON) {
           Map<String, dynamic> dataMap = jsonDecode(line);
           _dataJson = DataJSON.fromJson(dataMap);
-          _serialData.add(Text('Unit Name: ${_dataJson.tester}'));
+          _serialData.add(Text('Loaded Unit Name: ${_dataJson.tester}'));
           _choicePlotL(_freqChoiceL);
           _choicePlotR(_freqChoiceR);
         } else if (_isGetStatus == _isGetFList) {
@@ -279,6 +280,19 @@ class _HtAppState extends State<HtApp> {
 
     _serialData.clear();
     _isGetStatus = _isGetFList;
+    String strData = "mmc lsnum\r\n";
+    await _port.write(Uint8List.fromList(strData.codeUnits));
+  }
+
+  void _getData(int numFile) async {
+    if (_port == null) {
+      return;
+    }
+
+    _serialData.clear();
+    _isGetStatus = _isGetFList;
+    String strData = "mmc cat " + numFile.toString() + "\r\n";
+    await _port.write(Uint8List.fromList(strData.codeUnits));
   }
 
   @override
@@ -304,6 +318,128 @@ class _HtAppState extends State<HtApp> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text("Audiometri Data Viewer"),
+        ),
+        body: Center(
+          child: Column(
+            children: <Widget>[
+              ..._ports,
+              ListTile(
+                leading: Container(
+                    child: new DropdownButton<String>(
+                        value: _freqChoiceL.toString(),
+                        items: <String>['500', '1000', '2000']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String newValue) {
+                          setState(() {
+                            _freqChoiceL = int.parse(newValue);
+                          });
+                        })),
+                title:
+                    Text('L     Freq(Hz)     R', textAlign: TextAlign.center),
+                trailing: Container(
+                    child: new DropdownButton<String>(
+                        value: _freqChoiceR.toString(),
+                        items: <String>['500', '1000', '2000']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String newValue) {
+                          setState(() {
+                            _freqChoiceR = int.parse(newValue);
+                          });
+                        })),
+              ),
+              ListTile(
+                  leading: ElevatedButton(
+                    child: Text("List Files"),
+                    onPressed: _port == null
+                        ? null
+                        : () {
+                            _getFlist();
+                          },
+                  ),
+                  title: ListTile(
+                      leading: Text("Nomor file:"),
+                      title: new DropdownButton<String>(
+                          value: _fileSelectNum.toString(),
+                          items: _fileFnum
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              _fileSelectNum = int.parse(newValue);
+                            });
+                          })),
+                  trailing: ElevatedButton(
+                      child: Text("Get Data"),
+                      onPressed: _port == null
+                          ? null
+                          : () {
+                              _getData(_fileSelectNum);
+                            })),
+              ..._serialData,
+              Container(
+                child: new Plot(
+                  height: 200,
+                  data: _dataPlotL,
+                  gridSize: new Offset(1, 20),
+                  padding: const EdgeInsets.fromLTRB(40, 15, 15, 40),
+                  xTitle: 'Tone Number',
+                  yTitle: 'Left dB (SPL)',
+                  style: new PlotStyle(
+                      pointRadius: 3,
+                      outlineRadius: 1,
+                      primary: Colors.white,
+                      secondary: Colors.orange,
+                      trace: true,
+                      showCoordinates: false,
+                      trailingZeros: false,
+                      textStyle: new TextStyle(
+                          fontSize: 8,
+                          color: Colors.blueGrey,
+                          fontWeight: FontWeight.bold),
+                      axis: Colors.blueGrey[600],
+                      gridline: Colors.blueGrey[100]),
+                ),
+              ),
+              Container(
+                child: new Plot(
+                  height: 200,
+                  data: _dataPlotR,
+                  gridSize: new Offset(1, 20),
+                  padding: const EdgeInsets.fromLTRB(40, 15, 15, 40),
+                  xTitle: 'Tone Number',
+                  yTitle: 'Right dB (SPL)',
+                  style: new PlotStyle(
+                      pointRadius: 3,
+                      outlineRadius: 1,
+                      primary: Colors.white,
+                      secondary: Colors.orange,
+                      trace: true,
+                      showCoordinates: false,
+                      trailingZeros: false,
+                      textStyle: new TextStyle(
+                          fontSize: 8,
+                          color: Colors.blueGrey,
+                          fontWeight: FontWeight.bold),
+                      axis: Colors.blueGrey[600],
+                      gridline: Colors.blueGrey[100]),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

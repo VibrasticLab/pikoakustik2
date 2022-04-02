@@ -36,17 +36,17 @@ MMCDriver MMCD1;
 /**
  * @brief Save file last number variable
  */
-uint16_t lastnum=0;
+uint16_t lastnum;
 
 /**
  * @brief FatFS ready status flag
  */
-static bool filesystem_ready=true;
+static bool filesystem_ready = true;
 
 /**
  * @brief MMC SPI Peripheral status flag
  */
-static uint8_t mmc_spi_status_flag=MMC_SPI_OK;
+static uint8_t mmc_spi_status_flag = MMC_SPI_OK;
 
 /**
  * @brief SPI High-Clock NSS config
@@ -417,7 +417,7 @@ void ht_mmc_catFiles(uint16_t fnum){
                 eof=f_readline(line,sizeof(line),Fil);
                 if(eof[0]==0)break;
 
-                ht_comm_Buff(strbuff,sizeof(strbuff),"%s\r",line);
+                ht_comm_Buff(strbuff,sizeof(strbuff),"%s\r\n",line);
                 ht_commUSB_Msg(strbuff);
             }
             f_close(Fil);
@@ -460,6 +460,9 @@ void ht_mmcMetri_chkFile(void){
         if(err==FR_OK){
             strcpy(buff,"/");
             err = scanFiles(buff, &lastnum, LS_NOSHOW);
+
+            // Record save file always start at 1
+            if(lastnum==0) lastnum=1;
 
             if(lastnum < FILE_MAX_NUM){
                 ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",lastnum);
