@@ -54,7 +54,7 @@ static void page_task_loop(void *arg){
  *
  */
 void start_page(void){
-    xTaskCreate(page_task_loop, "page loop", 4096, NULL, tskIDLE_PRIORITY, NULL);
+    xTaskCreate(page_task_loop, "page loop", 4096 + 1024, NULL, tskIDLE_PRIORITY, NULL);
 }
 
 /** @} */
