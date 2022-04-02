@@ -272,8 +272,40 @@ class _HtAppState extends State<HtApp> {
     });
   }
 
+  void _getFlist() async {
+    if (_port == null) {
+      return;
+    }
+
+    _serialData.clear();
+    _isGetStatus = _isGetFList;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    UsbSerial.usbEventStream.listen((UsbEvent event) {
+      _getPorts();
+    });
+
+    _getPorts();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _connectTo(null);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("Audiometri Data Viewer"),
+        ),
+      ),
+    );
   }
 }
