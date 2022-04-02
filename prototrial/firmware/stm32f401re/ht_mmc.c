@@ -417,7 +417,7 @@ void ht_mmc_catFiles(uint16_t fnum){
                 eof=f_readline(line,sizeof(line),Fil);
                 if(eof[0]==0)break;
 
-                ht_comm_Buff(strbuff,sizeof(strbuff),"%s\r\n",line);
+                ht_comm_Buff(strbuff,sizeof(strbuff),"%s\r",line);
                 ht_commUSB_Msg(strbuff);
             }
             f_close(Fil);
@@ -533,7 +533,7 @@ void ht_mmcMetri_jsonChStart(uint8_t lr_ch){
     if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
 
         if(lr_ch==OUT_LEFT){
-            ht_mmc_Buff(buffer,sizeof(buffer)," \"ch_0\":{");
+            ht_mmc_Buff(buffer,sizeof(buffer),"\"ch_0\":{");
         }
         else if(lr_ch==OUT_RIGHT){
             ht_mmc_Buff(buffer,sizeof(buffer),",\"ch_1\":{");

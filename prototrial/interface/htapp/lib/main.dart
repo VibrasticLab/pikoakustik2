@@ -13,8 +13,30 @@ void main() {
 
 class DataJSON {
   String tester;
-  double ch0F0f, ch0F1f, ch0F2f, ch1F0f, ch1F1f, ch1F2f;
-  List<dynamic> ch0F0r, ch0F1r, ch0F2r, ch1F0r, ch1F1r, ch1F2r;
+  double ch0F0f,
+      ch0F1f,
+      ch0F2f,
+      ch0F3f,
+      ch0F4f,
+      ch0F5f,
+      ch1F0f,
+      ch1F1f,
+      ch1F2f,
+      ch1F3f,
+      ch1F4f,
+      ch1F5f;
+  List<dynamic> ch0F0r,
+      ch0F1r,
+      ch0F2r,
+      ch0F3r,
+      ch0F4r,
+      ch0F5r,
+      ch1F0r,
+      ch1F1r,
+      ch1F2r,
+      ch1F3r,
+      ch1F4r,
+      ch1F5r;
 
   DataJSON(
     // Unit Name
@@ -25,26 +47,39 @@ class DataJSON {
     this.ch0F0f,
     this.ch0F1f,
     this.ch0F2f,
+    this.ch0F3f,
+    this.ch0F4f,
+    this.ch0F5f,
 
     // Records
     this.ch0F0r,
     this.ch0F1r,
     this.ch0F2r,
+    this.ch0F3r,
+    this.ch0F4r,
+    this.ch0F5r,
 
     ///// Channel 1 (Right) /////
     // Frequency
     this.ch1F0f,
     this.ch1F1f,
     this.ch1F2f,
+    this.ch1F3f,
+    this.ch1F4f,
+    this.ch1F5f,
 
     // Record
     this.ch1F0r,
     this.ch1F1r,
     this.ch1F2r,
+    this.ch1F3r,
+    this.ch1F4r,
+    this.ch1F5r,
   );
 
   DataJSON.fromJson(Map<String, dynamic> jsonIN)
       : tester = jsonIN['tester'], //unit name
+
         //left channel
         ch0F0f = jsonIN['ch_0']['freq_0']['freq'] * 400,
         ch0F0r = jsonIN['ch_0']['freq_0']['record'],
@@ -52,13 +87,26 @@ class DataJSON {
         ch0F1r = jsonIN['ch_0']['freq_1']['record'],
         ch0F2f = jsonIN['ch_0']['freq_2']['freq'] * 400,
         ch0F2r = jsonIN['ch_0']['freq_2']['record'],
+        ch0F3f = jsonIN['ch_0']['freq_0']['freq'] * 400,
+        ch0F3r = jsonIN['ch_0']['freq_0']['record'],
+        ch0F4f = jsonIN['ch_0']['freq_1']['freq'] * 400,
+        ch0F4r = jsonIN['ch_0']['freq_1']['record'],
+        ch0F5f = jsonIN['ch_0']['freq_2']['freq'] * 400,
+        ch0F5r = jsonIN['ch_0']['freq_2']['record'],
+
         //right channel
         ch1F0f = jsonIN['ch_1']['freq_0']['freq'] * 400,
         ch1F0r = jsonIN['ch_1']['freq_0']['record'],
         ch1F1f = jsonIN['ch_1']['freq_1']['freq'] * 400,
         ch1F1r = jsonIN['ch_1']['freq_1']['record'],
         ch1F2f = jsonIN['ch_1']['freq_2']['freq'] * 400,
-        ch1F2r = jsonIN['ch_1']['freq_2']['record'];
+        ch1F2r = jsonIN['ch_1']['freq_2']['record'],
+        ch1F3f = jsonIN['ch_1']['freq_0']['freq'] * 400,
+        ch1F3r = jsonIN['ch_1']['freq_0']['record'],
+        ch1F4f = jsonIN['ch_1']['freq_1']['freq'] * 400,
+        ch1F4r = jsonIN['ch_1']['freq_1']['record'],
+        ch1F5f = jsonIN['ch_1']['freq_2']['freq'] * 400,
+        ch1F5r = jsonIN['ch_1']['freq_2']['record'];
 }
 
 class HtApp extends StatefulWidget {
@@ -69,7 +117,6 @@ class HtApp extends StatefulWidget {
 class _HtAppState extends State<HtApp> {
   UsbPort _port;
   List<Widget> _ports = [];
-  List<Widget> _serialData = [];
   StreamSubscription<String> _subscription;
   Transaction<String> _transaction;
   int _deviceID;
@@ -181,8 +228,6 @@ class _HtAppState extends State<HtApp> {
   }
 
   Future<bool> _connectTo(device) async {
-    _serialData.clear();
-
     if (_subscription != null) {
       _subscription.cancel();
       _subscription = null;
@@ -220,22 +265,16 @@ class _HtAppState extends State<HtApp> {
     _subscription = _transaction.stream.listen((String line) {
       setState(() {
         print(line);
+        print("length:");
+        print(line.length);
 
         if (_isGetStatus == _isGetJSON) {
           Map<String, dynamic> dataMap = jsonDecode(line);
           _dataJson = DataJSON.fromJson(dataMap);
-          _serialData.add(Text('Loaded Unit Name: ${_dataJson.tester}'));
           _choicePlotL(_freqChoiceL);
           _choicePlotR(_freqChoiceR);
         } else if (_isGetStatus == _isGetFList) {
           _updateFileList(line);
-        } else {
-          _serialData.add(Text(line));
-
-          //One Line info is enough
-          if (_serialData.length > 1) {
-            _serialData.removeAt(0);
-          }
         }
 
         _isGetStatus = 0;
@@ -278,7 +317,6 @@ class _HtAppState extends State<HtApp> {
       return;
     }
 
-    _serialData.clear();
     _isGetStatus = _isGetFList;
     String strData = "mmc lsnum\r\n";
     await _port.write(Uint8List.fromList(strData.codeUnits));
@@ -289,8 +327,7 @@ class _HtAppState extends State<HtApp> {
       return;
     }
 
-    _serialData.clear();
-    _isGetStatus = _isGetFList;
+    _isGetStatus = _isGetJSON;
     String strData = "mmc cat " + numFile.toString() + "\r\n";
     await _port.write(Uint8List.fromList(strData.codeUnits));
   }
@@ -389,7 +426,6 @@ class _HtAppState extends State<HtApp> {
                           : () {
                               _getData(_fileSelectNum);
                             })),
-              ..._serialData,
               Container(
                 child: new Plot(
                   height: 200,
