@@ -462,7 +462,6 @@ void ht_mmcMetri_chkFile(void){
     char buff[MMC_STR_BUFF_SIZE];
     char buffer[MMC_STR_BUFF_SIZE];
     char fname[MMC_FNAME_SIZE];
-    char tester[] = USER_TESTER;
 
     Fil_last = (FIL*)malloc(sizeof(FIL));
     Fil_new = (FIL*)malloc(sizeof(FIL));
@@ -471,7 +470,7 @@ void ht_mmcMetri_chkFile(void){
 
     if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
 
-        ht_mmc_Buff(buffer,sizeof(buffer),"{\"tester\":\"%s\",",tester);
+        ht_mmc_Buff(buffer,sizeof(buffer),"{\"audiogram\":{\n");
 
         err = f_mount(&FatFs,"",0);
         if(err==FR_OK){
@@ -760,7 +759,7 @@ void ht_mmcMetri_endResult(void){
     if(mmc_check()!=FR_OK){return;}
 
     if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
-        ht_mmc_Buff(buffer,sizeof(buffer),"\n}\n");
+        ht_mmc_Buff(buffer,sizeof(buffer),"\n}\n}");
 
         if(lastnum < FILE_MAX_NUM){
             f_mount(&FatFs, "", 0);

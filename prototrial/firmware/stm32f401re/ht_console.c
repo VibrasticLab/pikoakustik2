@@ -171,32 +171,25 @@ static void cmd_tone(BaseSequentialStream *chp, int argc, char *argv[]){
   chprintf(chp,"Finished\r\n");
 }
 
-static void cmd_metri(BaseSequentialStream *chp, int argc, char *argv[]) {
+static void cmd_virt(BaseSequentialStream *chp, int argc, char *argv[]) {
     (void)argv;
-    char tester[] = USER_TESTER;
-
-    if (argc != 1) {
+    if (argc != 0) {
       chprintf(chp, "Usage: metri [virt|who]\r\n");
       return;
     }
 
-    if(strcmp(argv[0],"virt")==0){
-      chprintf(chp, "Run Virtual Test Start\r\n");
-      chprintf(chp, "DONT PUSH ANY BUTTON\r\n");
+    chprintf(chp, "Run Virtual Test Start\r\n");
+    chprintf(chp, "DONT PUSH ANY BUTTON\r\n");
 
 #if USER_MMC
  #if USER_METRI_RECORD
-      ht_mmcMetri_chkFile();
-      ht_mmcMetri_jsonChStart(channel_stt);
+    ht_mmcMetri_chkFile();
+    ht_mmcMetri_jsonChStart(channel_stt);
  #endif
 #endif
 
-      mode_led = LED_METRI;
-      mode_status = STT_VIRT;
-    }
-    else if(strcmp(argv[0],"who")==0){
-      chprintf(chp, "tester name: \"%s\"\r\n",tester);
-    }
+    mode_led = LED_METRI;
+    mode_status = STT_VIRT;
 }
 
 /*******************************************/
@@ -210,7 +203,7 @@ static const ShellCommand commands[] = {
   {"mmc", cmd_mmc},
   {"out", cmd_out},
   {"tone", cmd_tone},
-  {"metri", cmd_metri},
+  {"virt", cmd_virt},
   {"htstate", esp32_MsgStatus},
   {NULL, NULL}
 };

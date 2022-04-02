@@ -8,8 +8,6 @@
 #ifndef HT_INCLUDES_H
 #define HT_INCLUDES_H
 
-#define USER_TESTER         "VibrasticLab"
-
 #define USER_BAUD           38400    /* Default Baudrate */
 
 #define USER_SERIAL         TRUE   /* Whether enable serial interface or not */
@@ -26,8 +24,8 @@
 
 #define USER_METRI          TRUE   /* Whether use Audiometri routine or not */
  #define USER_METRI_RECORD  TRUE   /* Whether record Audiometri session */
- #define USER_METRI_ALLFREQ TRUE  /* Whether Audiometri in all frequency or selection */
- #define USER_METRI_ONEFREQ FALSE  /* Whether Audiometri in single frequency only */
+ #define USER_METRI_ALLFREQ FALSE  /* Whether Audiometri in all frequency or selection */
+ #define USER_METRI_ONEFREQ TRUE  /* Whether Audiometri in single frequency only */
  #define USER_METRI_LONGRNG FALSE  /* Whether use long rng method or simple */
 
 #endif // HT_INCLUDES_H
