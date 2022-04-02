@@ -21,6 +21,9 @@
 #define LS_SHOWNUM      1
 #define LS_SHOWLIST     2
 
+#define CAT_SINGLE_LINE 0
+#define CAT_MULTI_LINE  1
+
 /**
  * @brief File buffer maximal size
  * @details More than 256 cause all system freeze
@@ -77,8 +80,9 @@ void ht_mmc_lsFiles(uint8_t showList);
 /**
  * @brief Read a file on directory and print
  * @param[in] uint16_t Last number of Save file
+ * @param[in] uint8_t Whether using Multiple or Single line
  */
-void ht_mmc_catFiles(uint16_t fnum);
+void ht_mmc_catFiles(uint16_t fnum, uint8_t lineType);
 
 /**
  * @brief Check save file existence before audiometri

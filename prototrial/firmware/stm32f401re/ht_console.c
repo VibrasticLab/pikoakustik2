@@ -71,7 +71,7 @@ static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
   }
   else if(strcmp(argv[0], "cat")==0){
     if(argc == 2){
-      ht_mmc_catFiles(atoi(argv[1]));
+      ht_mmc_catFiles(atoi(argv[1]),CAT_SINGLE_LINE);
     }
   }
 #else

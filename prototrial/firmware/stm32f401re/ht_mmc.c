@@ -340,9 +340,15 @@ void ht_mmc_testCat(void){
                 eof=f_readline(line,sizeof(line),Fil);
                 if(eof[0]==0)break;
 
-                ht_comm_Buff(strbuff,sizeof(strbuff),"%3i %s\r",line_num,line);
+                // remove CR+LF so string is content only
+                line[strcspn(line, "\r\n")] = 0;
+
+                ht_comm_Buff(strbuff,sizeof(strbuff),"%3i %s\r\n",line_num,line);
                 ht_commUSB_Msg(strbuff);
             }
+            ht_comm_Buff(strbuff,sizeof(strbuff),"\r");
+            ht_commUSB_Msg(strbuff);
+
             f_close(Fil);
         }
         else{
@@ -393,7 +399,7 @@ void ht_mmc_lsFiles(uint8_t showList){
     free(Fil);
 }
 
-void ht_mmc_catFiles(uint16_t fnum){
+void ht_mmc_catFiles(uint16_t fnum, uint8_t lineType){
     char strbuff[COMM_BUFF_SIZE];
     char fname[MMC_FNAME_SIZE];
     FATFS FatFs;
@@ -417,9 +423,20 @@ void ht_mmc_catFiles(uint16_t fnum){
                 eof=f_readline(line,sizeof(line),Fil);
                 if(eof[0]==0)break;
 
-                ht_comm_Buff(strbuff,sizeof(strbuff),"%s\r",line);
+                // remove CR+LF so string is content only
+                line[strcspn(line, "\r\n")] = 0;
+
+                if(lineType==CAT_SINGLE_LINE){
+                  ht_comm_Buff(strbuff,sizeof(strbuff),"%s",line);
+                }
+                else{
+                  ht_comm_Buff(strbuff,sizeof(strbuff),"%s\r\n",line);
+                }
                 ht_commUSB_Msg(strbuff);
             }
+            ht_comm_Buff(strbuff,sizeof(strbuff),"\r");
+            ht_commUSB_Msg(strbuff);
+
             f_close(Fil);
         }
         else{
@@ -533,10 +550,10 @@ void ht_mmcMetri_jsonChStart(uint8_t lr_ch){
     if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
 
         if(lr_ch==OUT_LEFT){
-            ht_mmc_Buff(buffer,sizeof(buffer),"\"ch_0\":{");
+            ht_mmc_Buff(buffer,sizeof(buffer),"\n\"ch_0\":{");
         }
         else if(lr_ch==OUT_RIGHT){
-            ht_mmc_Buff(buffer,sizeof(buffer),",\"ch_1\":{");
+            ht_mmc_Buff(buffer,sizeof(buffer),",\n\"ch_1\":{");
         }
 
         if(lastnum < FILE_MAX_NUM){
@@ -656,7 +673,7 @@ void ht_mmcMetri_hearingResult(double freq, uint8_t freqidx, uint8_t ample){
 
     if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
 
-        ht_mmc_Buff(buffer,sizeof(buffer),"\"freq_%i\":{\"freq\":%6.3f,\"ampl\":%i,", freqidx, freq, ample);
+        ht_mmc_Buff(buffer,sizeof(buffer),"\n\"freq_%i\":{\"freq\":%6.3f,\"ampl\":%i,", freqidx, freq, ample);
 
         if(lastnum < FILE_MAX_NUM){
             f_mount(&FatFs, "", 0);
@@ -743,8 +760,7 @@ void ht_mmcMetri_endResult(void){
     if(mmc_check()!=FR_OK){return;}
 
     if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
-
-        ht_mmc_Buff(buffer,sizeof(buffer),"}\r\n");
+        ht_mmc_Buff(buffer,sizeof(buffer),"\n}\n");
 
         if(lastnum < FILE_MAX_NUM){
             f_mount(&FatFs, "", 0);
@@ -754,6 +770,7 @@ void ht_mmcMetri_endResult(void){
             if(err==FR_OK){
                 f_lseek(Fil, f_size(Fil));
                 f_write(Fil, buffer, strlen(buffer), &bw);
+
                 f_close(Fil);
             }
 
