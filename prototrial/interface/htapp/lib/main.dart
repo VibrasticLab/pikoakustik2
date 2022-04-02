@@ -117,6 +117,7 @@ class HtApp extends StatefulWidget {
 class _HtAppState extends State<HtApp> {
   UsbPort _port;
   List<Widget> _ports = [];
+  List<Widget> _serialData = [];
   StreamSubscription<String> _subscription;
   Transaction<String> _transaction;
   int _deviceID;
@@ -227,6 +228,19 @@ class _HtAppState extends State<HtApp> {
     _fileSelectNum = _fnum.last;
   }
 
+  void _isJsonValid(String input) {
+    var resValid = false;
+    try {
+      json.decode(input) as Map<String, dynamic>;
+      resValid = true;
+    } on FormatException catch (e) {
+      print('JSON NOT valid');
+      print(e);
+    }
+
+    print('Decode success: $resValid');
+  }
+
   Future<bool> _connectTo(device) async {
     if (_subscription != null) {
       _subscription.cancel();
@@ -269,10 +283,13 @@ class _HtAppState extends State<HtApp> {
         print(line.length);
 
         if (_isGetStatus == _isGetJSON) {
-          Map<String, dynamic> dataMap = jsonDecode(line);
-          _dataJson = DataJSON.fromJson(dataMap);
-          _choicePlotL(_freqChoiceL);
-          _choicePlotR(_freqChoiceR);
+          _serialData.clear();
+          _isJsonValid(line);
+          _serialData.add(Text(line));
+          // Map<String, dynamic> dataMap = jsonDecode(line);
+          // _dataJson = DataJSON.fromJson(dataMap);
+          // _choicePlotL(_freqChoiceL);
+          // _choicePlotR(_freqChoiceR);
         } else if (_isGetStatus == _isGetFList) {
           _updateFileList(line);
         }
@@ -426,54 +443,55 @@ class _HtAppState extends State<HtApp> {
                           : () {
                               _getData(_fileSelectNum);
                             })),
-              Container(
-                child: new Plot(
-                  height: 200,
-                  data: _dataPlotL,
-                  gridSize: new Offset(1, 20),
-                  padding: const EdgeInsets.fromLTRB(40, 15, 15, 40),
-                  xTitle: 'Tone Number',
-                  yTitle: 'Left dB (SPL)',
-                  style: new PlotStyle(
-                      pointRadius: 3,
-                      outlineRadius: 1,
-                      primary: Colors.white,
-                      secondary: Colors.orange,
-                      trace: true,
-                      showCoordinates: false,
-                      trailingZeros: false,
-                      textStyle: new TextStyle(
-                          fontSize: 8,
-                          color: Colors.blueGrey,
-                          fontWeight: FontWeight.bold),
-                      axis: Colors.blueGrey[600],
-                      gridline: Colors.blueGrey[100]),
-                ),
-              ),
-              Container(
-                child: new Plot(
-                  height: 200,
-                  data: _dataPlotR,
-                  gridSize: new Offset(1, 20),
-                  padding: const EdgeInsets.fromLTRB(40, 15, 15, 40),
-                  xTitle: 'Tone Number',
-                  yTitle: 'Right dB (SPL)',
-                  style: new PlotStyle(
-                      pointRadius: 3,
-                      outlineRadius: 1,
-                      primary: Colors.white,
-                      secondary: Colors.orange,
-                      trace: true,
-                      showCoordinates: false,
-                      trailingZeros: false,
-                      textStyle: new TextStyle(
-                          fontSize: 8,
-                          color: Colors.blueGrey,
-                          fontWeight: FontWeight.bold),
-                      axis: Colors.blueGrey[600],
-                      gridline: Colors.blueGrey[100]),
-                ),
-              )
+              ..._serialData,
+              // Container(
+              //   child: new Plot(
+              //     height: 200,
+              //     data: _dataPlotL,
+              //     gridSize: new Offset(1, 20),
+              //     padding: const EdgeInsets.fromLTRB(40, 15, 15, 40),
+              //     xTitle: 'Tone Number',
+              //     yTitle: 'Left dB (SPL)',
+              //     style: new PlotStyle(
+              //         pointRadius: 3,
+              //         outlineRadius: 1,
+              //         primary: Colors.white,
+              //         secondary: Colors.orange,
+              //         trace: true,
+              //         showCoordinates: false,
+              //         trailingZeros: false,
+              //         textStyle: new TextStyle(
+              //             fontSize: 8,
+              //             color: Colors.blueGrey,
+              //             fontWeight: FontWeight.bold),
+              //         axis: Colors.blueGrey[600],
+              //         gridline: Colors.blueGrey[100]),
+              //   ),
+              // ),
+              // Container(
+              //   child: new Plot(
+              //     height: 200,
+              //     data: _dataPlotR,
+              //     gridSize: new Offset(1, 20),
+              //     padding: const EdgeInsets.fromLTRB(40, 15, 15, 40),
+              //     xTitle: 'Tone Number',
+              //     yTitle: 'Right dB (SPL)',
+              //     style: new PlotStyle(
+              //         pointRadius: 3,
+              //         outlineRadius: 1,
+              //         primary: Colors.white,
+              //         secondary: Colors.orange,
+              //         trace: true,
+              //         showCoordinates: false,
+              //         trailingZeros: false,
+              //         textStyle: new TextStyle(
+              //             fontSize: 8,
+              //             color: Colors.blueGrey,
+              //             fontWeight: FontWeight.bold),
+              //         axis: Colors.blueGrey[600],
+              //         gridline: Colors.blueGrey[100]),
+              //   ),
+              // )
             ],
           ),
         ),
