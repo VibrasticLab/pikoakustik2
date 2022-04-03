@@ -147,6 +147,7 @@ static THD_WORKING_AREA(waRunMetri, 4096);
 /**
  * @brief Thread for Audiometri process
  * @details Main thread that run Audiometri process
+ * @warning Any USB/UART Message should NOT be here
  */
 static ThdFunc_RunMetri(thdRunMetri, arg) {
     (void)arg;
@@ -154,14 +155,21 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
     uint8_t rndask;
 
     uint8_t freq_max = sizeof(freq_test)/sizeof(freq_test[0]);
+
+#if USER_METRI_USELOG
     char strbuff[COMM_BUFF_SIZE];
+#endif
 
     chRegSetThreadName("audiometri");
 
     while (true) {
         if(mode_status==STT_SETUP){
             chThdSleepMilliseconds(100);
+
+#if USER_METRI_USELOG
             ht_commUSB_Msg("Entering Mode: Ready\r\n");
+#endif
+
             mode_status = STT_READY;
         }
 
@@ -175,8 +183,11 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
  #endif
 #endif
 
+#if USER_METRI_USELOG
             ht_commUSB_Msg("Entering Mode: Audiometri\r\n");
             ht_commUSB_Msg("------------\r\n");
+#endif
+
             mode_led=LED_METRI;
             mode_status=STT_METRI;
         }
@@ -230,8 +241,11 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
                     mode_step=STEP_WAIT;
                 }
 
+#if USER_METRI_USELOG
                 ht_comm_Buff(strbuff,sizeof(strbuff),"freq,ampl: %6.3f, %i\r\n",freq_test[freq_idx],ampl_num);
                 ht_commUSB_Msg(strbuff);
+#endif
+
             }
 
             else if(mode_step==STEP_CHK){
@@ -239,13 +253,17 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
                     led_result_off();
                     led_resultYES();
                     test_answer = 1;
+#if USER_METRI_USELOG
                     ht_commUSB_Msg("Answer is True\r\n");
+#endif
                 }
                 else{
                     led_result_off();
                     led_resultNO();
                     test_answer = 0;
+#if USER_METRI_USELOG
                     ht_commUSB_Msg("Answer is False\r\n");
+#endif
                 }
 
                 numask = 0;
@@ -289,9 +307,11 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
 
                     if(curr_goDown==1){ampl_num++;}
 
+#if USER_METRI_USELOG
                     ht_comm_Buff(strbuff,sizeof(strbuff),"Last Amplitude Scale=%i\r\n",ampl_num);
                     ht_commUSB_Msg(strbuff);
                     ht_commUSB_Msg("A Frequency Finish\r\n");
+#endif
 
 #if USER_MMC
  #if USER_METRI_RECORD
@@ -308,7 +328,10 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
                     ht_metri_ResultReset();
 
                     if(freq_idx != freq_max){
+#if USER_METRI_USELOG
                         ht_commUSB_Msg("Continue next Frequency\r\n");
+#endif
+
 #if USER_MMC
  #if USER_METRI_RECORD
                         ht_mmcMetri_jsonComma();
@@ -319,7 +342,11 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
                         if(channel_stt!=OUT_RIGHT){
                             channel_stt = OUT_RIGHT;
                             freq_idx = 0;
+
+#if USER_METRI_USELOG
                             ht_commUSB_Msg("Continue next Channel\r\n");
+#endif
+
 
 #if USER_MMC
  #if USER_METRI_RECORD
@@ -335,7 +362,13 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
                             ht_mmcMetri_endResult();
  #endif
 #endif
-                            ht_commUSB_Msg("Testing Finish\r\n");
+
+/**************** Testing Finish **************/
+
+#if USER_METRI_USELOG
+                            ht_commUSB_Msg("Testing Finished\r\n");
+#endif
+
                             freq_idx = 0;
                             mode_status = STT_IDLE;
                             mode_led = LED_READY;
@@ -351,7 +384,6 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
 
 
 uint8_t ht_metri_RndOpt(void){
-    char strbuff[COMM_BUFF_SIZE];
     uint8_t rndnum=0, rndnumask=0;
 
     //is this pseudorandom really works?
@@ -366,25 +398,19 @@ uint8_t ht_metri_RndOpt(void){
 
     if(rndnum==0||rndnum==5||rndnum==7||rndnum==11||rndnum==13||rndnum==17||rndnum==20||rndnum==21||rndnum==25||rndnum==29||rndnum==31||rndnum==35){
         rndnumask = OPT_ASK_A;
-        ht_commUSB_Msg("Option A ");
     }
     else if(rndnum==1||rndnum==3||rndnum==8||rndnum==9||rndnum==14||rndnum==15||rndnum==18||rndnum==22||rndnum==26||rndnum==27||rndnum==32||rndnum==33){
         rndnumask = OPT_ASK_B;
-        ht_commUSB_Msg("Option B ");
     }
     else if(rndnum==2||rndnum==4||rndnum==6||rndnum==10||rndnum==12||rndnum==16||rndnum==19||rndnum==23||rndnum==24||rndnum==28||rndnum==30||rndnum==34){
         rndnumask = OPT_ASK_C;
-        ht_commUSB_Msg("Option C ");
     }
 #else
     rndnum = rand() % 3;
-    if(rndnum==0){rndnumask = OPT_ASK_A;ht_commUSB_Msg("Option A ");}
-    if(rndnum==1){rndnumask = OPT_ASK_B;ht_commUSB_Msg("Option B ");}
-    if(rndnum==2){rndnumask = OPT_ASK_C;ht_commUSB_Msg("Option C ");}
+    if(rndnum==0){rndnumask = OPT_ASK_A;}
+    if(rndnum==1){rndnumask = OPT_ASK_B;}
+    if(rndnum==2){rndnumask = OPT_ASK_C;}
 #endif
-
-    ht_comm_Buff(strbuff,sizeof(strbuff),"(%1i)\r\n", rndnum);
-    ht_commUSB_Msg(strbuff);
 
     return rndnumask;
 }
