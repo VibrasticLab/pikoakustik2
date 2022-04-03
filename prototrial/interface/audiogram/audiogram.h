@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QSerialPort>
 #include <QSerialPortInfo>
+#include <QDebug>
 
 #include <QwtPlot>
 #include <QwtSymbol>
@@ -27,10 +28,15 @@ public:
 
 private slots:
   void on_btnSerialList_clicked();
+  void on_btnSerialOpen_clicked();
+  void readData();
 
 private:
   Ui::audiogram *ui;
+
   QSerialPort *myPort;
+  QByteArray rawData;
+  QString strRawData;
 
   float pointArray[9] = {72.9, 66.9, 60.8, 54.8, 49.0, 43.5, 39.1, 36.3, 34.9};
 

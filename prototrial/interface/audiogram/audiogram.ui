@@ -40,7 +40,7 @@
       <x>440</x>
       <y>10</y>
       <width>251</width>
-      <height>101</height>
+      <height>141</height>
      </rect>
     </property>
     <property name="title">
@@ -127,6 +127,19 @@
      <property name="icon">
       <iconset theme="reload">
        <normaloff>.</normaloff>.</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnSerialOpen">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>90</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Open</string>
      </property>
     </widget>
    </widget>

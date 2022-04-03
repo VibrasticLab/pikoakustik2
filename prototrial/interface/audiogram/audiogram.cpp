@@ -7,6 +7,9 @@ audiogram::audiogram(QWidget *parent)
 {
   ui->setupUi(this);
 
+  myPort = new QSerialPort(this);
+  QObject::connect(myPort, SIGNAL(readyRead()), SLOT(readData()));
+
   addSerialPortChoice();
   plotDemo(ui->plotLeft);
   plotDemo(ui->plotRight);
@@ -17,15 +20,18 @@ audiogram::~audiogram()
   delete ui;
 }
 
+void audiogram::readData(){
+  rawData = myPort->readLine();
+  strRawData = QString::fromLocal8Bit(rawData);
+
+  qInfo() << strRawData;
+}
+
 void audiogram::addSerialPortChoice(){
   auto portInfos = QSerialPortInfo::availablePorts();
 
   for(QSerialPortInfo &portInfo : portInfos){
-#if defined(Q_OS_WIN) || defined(Q_OS_WIN32) || defined(Q_OS_WIN64)
     ui->cmbPortList->addItem(portInfo.portName());
-#elif defined(Q_OS_LINUX) || defined(Q_OS_UNIX) || defined(Q_OS_FREEBSD)
-    ui->cmbPortList->addItem("/dev/"+ portInfo.portName());
-#endif
   }
 }
 
@@ -68,3 +74,32 @@ void audiogram::plotDemo(QwtPlot *plotWidget){
   curve->setSamples(points);
   curve->attach(plotWidget);
 }
+
+void audiogram::on_btnSerialOpen_clicked()
+{
+    const QString dev_name = "ttyACM0";
+    QSerialPort::BaudRate dev_baud=QSerialPort::Baud9600;
+
+    if(ui->btnSerialOpen->text()== "Open"){
+      myPort->setPortName(dev_name);
+      myPort->setBaudRate(dev_baud, QSerialPort::AllDirections);
+      myPort->setDataBits(QSerialPort::Data8);
+      myPort->setStopBits(QSerialPort::OneStop);
+      myPort->setFlowControl(QSerialPort::NoFlowControl);
+      myPort->setParity(QSerialPort::NoParity);
+
+      if(myPort->open(QIODevice::ReadWrite)){
+        QMessageBox::information(this,"success","port success on "+dev_name );
+        ui->btnSerialOpen->setText("Close");
+      }
+      else{
+        QMessageBox::critical(this,"Failed","port failed on "+dev_name);
+        ui->btnSerialOpen->setText("Open");
+      }
+    }
+    else{
+      if(myPort->isOpen()) myPort->close();
+      ui->btnSerialOpen->setText("Open");
+    }
+}
+
