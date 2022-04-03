@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>671</width>
+    <width>700</width>
     <height>500</height>
    </rect>
   </property>
@@ -37,9 +37,9 @@
    <widget class="QGroupBox" name="grpDataSource">
     <property name="geometry">
      <rect>
-      <x>430</x>
+      <x>440</x>
       <y>10</y>
-      <width>221</width>
+      <width>251</width>
       <height>101</height>
      </rect>
     </property>
@@ -78,7 +78,7 @@
     <widget class="QPushButton" name="btnFile">
      <property name="geometry">
       <rect>
-       <x>190</x>
+       <x>210</x>
        <y>20</y>
        <width>31</width>
        <height>27</height>
@@ -88,7 +88,8 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset theme="folder"/>
+      <iconset theme="folder">
+       <normaloff>.</normaloff>.</iconset>
      </property>
     </widget>
     <widget class="QLineEdit" name="editFile">
@@ -96,7 +97,7 @@
       <rect>
        <x>60</x>
        <y>20</y>
-       <width>121</width>
+       <width>141</width>
        <height>21</height>
       </rect>
      </property>
@@ -106,7 +107,7 @@
       <rect>
        <x>70</x>
        <y>60</y>
-       <width>111</width>
+       <width>131</width>
        <height>21</height>
       </rect>
      </property>
@@ -114,7 +115,7 @@
     <widget class="QPushButton" name="btnSerialList">
      <property name="geometry">
       <rect>
-       <x>190</x>
+       <x>210</x>
        <y>60</y>
        <width>31</width>
        <height>27</height>
@@ -124,7 +125,8 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset theme="reload"/>
+      <iconset theme="reload">
+       <normaloff>.</normaloff>.</iconset>
      </property>
     </widget>
    </widget>

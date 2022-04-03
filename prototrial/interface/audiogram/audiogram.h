@@ -6,6 +6,13 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 
+#include <QwtPlot>
+#include <QwtSymbol>
+#include <QwtLegend>
+#include <QwtPlotGrid>
+#include <QwtPlotItem>
+#include <QwtPlotCurve>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class audiogram; }
 QT_END_NAMESPACE
@@ -25,6 +32,9 @@ private:
   Ui::audiogram *ui;
   QSerialPort *myPort;
 
+  float pointArray[9] = {72.9, 66.9, 60.8, 54.8, 49.0, 43.5, 39.1, 36.3, 34.9};
+
   void addSerialPortChoice(void);
+  void plotDemo(QwtPlot *plotWidget);
 };
 #endif // AUDIOGRAM_H
