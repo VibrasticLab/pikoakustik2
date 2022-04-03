@@ -9,6 +9,11 @@
 #include <QFileDialog>
 #include <QDebug>
 
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QJsonArray>
+
 #if defined(Q_OS_LINUX)
   #include <QwtPlot>
   #include <QwtSymbol>
@@ -25,6 +30,8 @@
 
 #define REQTYPE_FLIST 0
 #define REQTYPE_JSON  1
+
+#define RECORD_SIZE   24
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class audiogram; }
@@ -44,8 +51,8 @@ private slots:
   void on_btnSerialList_clicked();
   void on_btnSerialOpen_clicked();
   void on_btnSerialFlist_clicked();
-  void on_btnSerialJson_clicked();
   void on_btnBrowseFile_clicked();
+  void on_btnDataJson_clicked();
 
 private:
   Ui::audiogram *ui;
@@ -55,10 +62,13 @@ private:
   QString strRawData;
   uint8_t reqType;
 
-  float pointArray[9] = {72.9, 66.9, 60.8, 54.8, 49.0, 43.5, 39.1, 36.3, 34.9};
+  float dummyData[24] =  {6,5,4,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
   void addSerialPortChoice(void);
-  void plotDemo(QwtPlot *plotWidget);
+  void plotStart(QwtPlot *plotWidget);
   void parseFlist(QString strInput);
+  float scale2dBstr(int scale);
+  void plotFromJson(QwtPlot *plotWidget, QJsonArray scaleInput);
+  void parseJson(QJsonObject audJsonObj, QString freqLeft, QString freqRight);
 };
 #endif // AUDIOGRAM_H

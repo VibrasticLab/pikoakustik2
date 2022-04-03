@@ -234,9 +234,9 @@
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>190</y>
+      <y>180</y>
       <width>251</width>
-      <height>271</height>
+      <height>291</height>
      </rect>
     </property>
     <property name="title">
@@ -256,6 +256,126 @@
      </property>
      <property name="text">
       <string>Get JSON</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>231</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Data Left Ear</string>
+     </property>
+     <widget class="QLabel" name="lblLastAmplL">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Last Amplitude:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="editAmplL">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>50</y>
+        <width>81</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lbldbSPLL">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>50</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>dB SPL</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>231</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Data Right Ear</string>
+     </property>
+     <widget class="QLabel" name="lblLastAmplR">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Last Amplitude:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="editAmplR">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>60</y>
+        <width>81</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lbldbSPLR">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>60</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>dB SPL</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QPushButton" name="btnDataReload">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>260</y>
+       <width>231</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;reload, replot, and re-calculate&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Reload</string>
      </property>
     </widget>
    </widget>
