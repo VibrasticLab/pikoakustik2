@@ -6,14 +6,22 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 #include <QStyleFactory>
+#include <QFileDialog>
 #include <QDebug>
 
-#include <QwtPlot>
-#include <QwtSymbol>
-#include <QwtLegend>
-#include <QwtPlotGrid>
-#include <QwtPlotItem>
-#include <QwtPlotCurve>
+#if defined(Q_OS_LINUX)
+  #include <QwtPlot>
+  #include <QwtSymbol>
+  #include <QwtPlotGrid>
+  #include <QwtPlotItem>
+  #include <QwtPlotCurve>
+#elif defined (Q_OS_WIN)
+  #include "qwt_plot.h"
+  #include "qwt_symbol.h"
+  #include "qwt_plot_grid.h"
+  #include "qwt_plot_item.h"
+  #include "qwt_plot_curve.h"
+#endif
 
 #define REQTYPE_FLIST 0
 #define REQTYPE_JSON  1
@@ -31,13 +39,13 @@ public:
   ~audiogram();
 
 private slots:
+  void readData();
+
   void on_btnSerialList_clicked();
   void on_btnSerialOpen_clicked();
-
   void on_btnSerialFlist_clicked();
   void on_btnSerialJson_clicked();
-
-  void readData();
+  void on_btnBrowseFile_clicked();
 
 private:
   Ui::audiogram *ui;

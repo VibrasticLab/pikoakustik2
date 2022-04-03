@@ -7,6 +7,21 @@ audiogram::audiogram(QWidget *parent)
 {
   ui->setupUi(this);
 
+#if defined(Q_OS_LINUX)
+  ui->btnBrowseFile->setIcon(QIcon::fromTheme("folder"));
+  ui->btnSerialList->setIcon(QIcon::fromTheme("reload"));
+  ui->btnSerialFlist->setIcon(QIcon::fromTheme("reload"));
+#elif defined(Q_OS_WINDOWS)
+  ui->btnBrowseFile->setTextFormat(Qt::RichText);
+  ui->btnBrowseFile->setText("<b>D</b>");
+
+  ui->btnSerialList->setTextFormat(Qt::RichText);
+  ui->btnSerialList->setText("<b>C</b>");
+
+  ui->btnSerialFlist->setTextFormat(Qt::RichText);
+  ui->btnSerialFlist->setText("<b>C</b>");
+#endif
+
   myPort = new QSerialPort(this);
   QObject::connect(myPort, SIGNAL(readyRead()), SLOT(readData()));
 
@@ -139,3 +154,14 @@ void audiogram::parseFlist(QString strInput){
     }
   }
 }
+
+void audiogram::on_btnBrowseFile_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, "Load Save File", "Elbicare Save Data (*.TXT)");
+
+    if(fileName.isEmpty()) return;
+
+    ui->editFile->clear();
+    ui->editFile->setText(fileName);
+}
+

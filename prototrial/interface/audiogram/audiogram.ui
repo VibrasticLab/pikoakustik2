@@ -23,6 +23,9 @@
       <height>200</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Left Ear plot&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
    </widget>
    <widget class="QwtPlot" name="plotRight">
     <property name="geometry">
@@ -33,6 +36,9 @@
       <height>200</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Right Ear plot&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
    </widget>
    <widget class="QGroupBox" name="grpDataSource">
     <property name="geometry">
@@ -40,7 +46,7 @@
       <x>440</x>
       <y>10</y>
       <width>251</width>
-      <height>231</height>
+      <height>171</height>
      </rect>
     </property>
     <property name="title">
@@ -55,6 +61,9 @@
        <height>20</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use save file &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
      <property name="text">
       <string>File</string>
      </property>
@@ -68,6 +77,9 @@
        <height>20</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use device directly&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
      <property name="text">
       <string>Serial</string>
      </property>
@@ -75,7 +87,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QPushButton" name="btnFile">
+    <widget class="QPushButton" name="btnBrowseFile">
      <property name="geometry">
       <rect>
        <x>210</x>
@@ -84,12 +96,11 @@
        <height>27</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Browse for file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
      <property name="text">
       <string/>
-     </property>
-     <property name="icon">
-      <iconset theme="folder">
-       <normaloff>.</normaloff>.</iconset>
      </property>
     </widget>
     <widget class="QLineEdit" name="editFile">
@@ -101,6 +112,9 @@
        <height>21</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Save file path&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
     </widget>
     <widget class="QComboBox" name="cmbPortList">
      <property name="geometry">
@@ -110,6 +124,9 @@
        <width>131</width>
        <height>21</height>
       </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;List of available serial ports&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QPushButton" name="btnSerialList">
@@ -121,12 +138,11 @@
        <height>27</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;reload serial port list&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
      <property name="text">
       <string/>
-     </property>
-     <property name="icon">
-      <iconset theme="reload">
-       <normaloff>.</normaloff>.</iconset>
      </property>
     </widget>
     <widget class="QPushButton" name="btnSerialOpen">
@@ -138,21 +154,11 @@
        <height>31</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;open serial port&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
      <property name="text">
       <string>Open</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="btnSerialJson">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>160</y>
-       <width>61</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Get JSON</string>
      </property>
     </widget>
     <widget class="QLabel" name="lblFList">
@@ -177,6 +183,9 @@
        <height>21</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;List available save files&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
     </widget>
     <widget class="QPushButton" name="btnSerialFlist">
      <property name="geometry">
@@ -187,12 +196,11 @@
        <height>27</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;reload save file list&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
      <property name="text">
       <string/>
-     </property>
-     <property name="icon">
-      <iconset theme="reload">
-       <normaloff>.</normaloff>.</iconset>
      </property>
     </widget>
    </widget>
@@ -201,12 +209,12 @@
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>48</width>
+      <width>61</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Left Ear&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;LEFT EAR&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QLabel" name="lblRear">
@@ -214,13 +222,42 @@
      <rect>
       <x>20</x>
       <y>250</y>
-      <width>48</width>
+      <width>71</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Right Ear&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;RIGHT EAR&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>190</y>
+      <width>251</width>
+      <height>271</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Data View</string>
+    </property>
+    <widget class="QPushButton" name="btnDataJson">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>231</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Get JSON data &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Get JSON</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
