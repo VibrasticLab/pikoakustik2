@@ -25,6 +25,10 @@ void audiogram::readData(){
   strRawData = QString::fromLocal8Bit(rawData);
 
   qInfo() << strRawData;
+
+  if(reqType==REQTYPE_FLIST){
+    parseFlist(strRawData);
+  }
 }
 
 void audiogram::addSerialPortChoice(){
@@ -77,7 +81,7 @@ void audiogram::plotDemo(QwtPlot *plotWidget){
 
 void audiogram::on_btnSerialOpen_clicked()
 {
-    const QString dev_name = "ttyACM0";
+    const QString dev_name = ui->cmbPortList->currentText();
     QSerialPort::BaudRate dev_baud=QSerialPort::Baud9600;
 
     if(ui->btnSerialOpen->text()== "Open"){
@@ -103,3 +107,35 @@ void audiogram::on_btnSerialOpen_clicked()
     }
 }
 
+
+void audiogram::on_btnSerialFlist_clicked()
+{
+    if(!myPort->isOpen()) return;
+
+    QByteArray dataReq = "mmc lsnum\r\n";
+    reqType = REQTYPE_FLIST;
+    ui->cmbFlist->clear();
+    myPort->write(dataReq);
+}
+
+
+void audiogram::on_btnSerialJson_clicked()
+{
+  if(!myPort->isOpen()) return;
+
+  QByteArray dataReq = "mmc cat 1\r\n";
+  reqType = REQTYPE_JSON;
+  myPort->write(dataReq);
+}
+
+void audiogram::parseFlist(QString strInput){
+  uint16_t fnum;
+  QStringList strVal= strInput.split(",");
+
+  for(uint16_t i=0;i<strVal.count();i++){
+    fnum = strVal[i].toInt();
+    if(fnum!=0){
+      ui->cmbFlist->addItem("HT_"+QString::number(fnum)+".TXT");
+    }
+  }
+}

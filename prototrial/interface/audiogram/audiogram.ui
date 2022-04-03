@@ -40,7 +40,7 @@
       <x>440</x>
       <y>10</y>
       <width>251</width>
-      <height>141</height>
+      <height>231</height>
      </rect>
     </property>
     <property name="title">
@@ -134,12 +134,65 @@
       <rect>
        <x>10</x>
        <y>90</y>
-       <width>41</width>
+       <width>231</width>
        <height>31</height>
       </rect>
      </property>
      <property name="text">
       <string>Open</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnSerialJson">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>160</y>
+       <width>61</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Get JSON</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblFList">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>130</y>
+       <width>48</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>List Files</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="cmbFlist">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>130</y>
+       <width>131</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnSerialFlist">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>130</y>
+       <width>31</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset theme="reload">
+       <normaloff>.</normaloff>.</iconset>
      </property>
     </widget>
    </widget>
