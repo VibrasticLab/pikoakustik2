@@ -148,6 +148,7 @@ static THD_WORKING_AREA(waRunMetri, 4096);
  * @brief Thread for Audiometri process
  * @details Main thread that run Audiometri process
  * @warning Any USB/UART Message should NOT be here
+ * @warning MMC still very problematic and can cause file bomb while this loop freezed
  */
 static ThdFunc_RunMetri(thdRunMetri, arg) {
     (void)arg;

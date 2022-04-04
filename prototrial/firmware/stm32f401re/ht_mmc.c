@@ -260,6 +260,8 @@ void ht_mmc_InitCheck(void){
     }
 
     f_mount(0, "", 0);
+
+    chThdSleepMilliseconds(10);
 }
 
 /*******************************************/
@@ -304,6 +306,8 @@ void ht_mmc_testWrite(void){
         f_mount(0, "", 0);
     }
     free(Fil);
+
+    chThdSleepMilliseconds(10);
 }
 
 void ht_mmc_testCat(void){
@@ -359,6 +363,8 @@ void ht_mmc_testCat(void){
         f_mount(0, "", 0);
     }
     free(Fil);
+
+    chThdSleepMilliseconds(10);
 }
 
 /*******************************************/
@@ -397,6 +403,8 @@ void ht_mmc_lsFiles(uint8_t showList){
         f_mount(0, "", 0);
     }
     free(Fil);
+
+    chThdSleepMilliseconds(10);
 }
 
 void ht_mmc_catFiles(uint16_t fnum, uint8_t lineType){
@@ -447,6 +455,8 @@ void ht_mmc_catFiles(uint16_t fnum, uint8_t lineType){
         f_mount(0, "", 0);
     }
     free(Fil);
+
+    chThdSleepMilliseconds(10);
 }
 
 /*******************************************/
@@ -531,6 +541,8 @@ void ht_mmcMetri_chkFile(void){
     }
     free(Fil_last);
     free(Fil_new);
+
+    chThdSleepMilliseconds(10);
 }
 
 void ht_mmcMetri_jsonChStart(uint8_t lr_ch){
@@ -575,6 +587,8 @@ void ht_mmcMetri_jsonChStart(uint8_t lr_ch){
         }
     }
     free(Fil);
+
+    chThdSleepMilliseconds(10);
 }
 
 void ht_mmcMetri_jsonChClose(void){
@@ -614,6 +628,8 @@ void ht_mmcMetri_jsonChClose(void){
         }
     }
     free(Fil);
+
+    chThdSleepMilliseconds(10);
 }
 
 void ht_mmcMetri_jsonComma(void){
@@ -653,6 +669,8 @@ void ht_mmcMetri_jsonComma(void){
         }
     }
     free(Fil);
+
+    chThdSleepMilliseconds(10);
 }
 
 /*******************************************/
@@ -694,6 +712,8 @@ void ht_mmcMetri_hearingResult(double freq, uint8_t freqidx, uint8_t ample){
         }
     }
     free(Fil);
+
+    chThdSleepMilliseconds(10);
 }
 
 void ht_mmcMetri_hearingRecord(uint8_t *resArray, uint8_t lastIdx, uint8_t lastAmpl){
@@ -744,6 +764,7 @@ void ht_mmcMetri_hearingRecord(uint8_t *resArray, uint8_t lastIdx, uint8_t lastA
     }
     free(Fil);
 
+    chThdSleepMilliseconds(10);
 }
 
 void ht_mmcMetri_endResult(void){
@@ -782,6 +803,8 @@ void ht_mmcMetri_endResult(void){
         }
     }
     free(Fil);
+
+    chThdSleepMilliseconds(10);
 }
 
 /*******************************************/
@@ -796,7 +819,7 @@ void ht_mmc_Init(void){
     mmcObjectInit(&MMCD1);
     mmcStart(&MMCD1, &mmccfg);
 
-    chThdSleepMilliseconds(1000);
+    chThdSleepMilliseconds(500);
 }
 
 /** @} */
