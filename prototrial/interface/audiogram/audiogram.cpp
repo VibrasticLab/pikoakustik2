@@ -39,6 +39,9 @@ void audiogram::readData(){
   if(reqType==REQTYPE_FLIST){
     parseFlist(strRawData);
   }
+  else if(reqType==REQTYPE_JSON){
+    validateLoadJson(strRawData);
+  }
 }
 
 void audiogram::addSerialPortChoice(){
@@ -227,7 +230,7 @@ int audiogram::parseJsonAmpl(QJsonObject audJsonObj, QString strChannel, QString
   return ampl_f.toDouble();
 }
 
-void audiogram::validateJson(QString strJson){
+void audiogram::validateLoadJson(QString strJson){
   QJsonParseError jsonError;
 
   QJsonDocument docJson = QJsonDocument::fromJson(strJson.toUtf8(),&jsonError);
@@ -235,6 +238,9 @@ void audiogram::validateJson(QString strJson){
   if(docJson.isNull()){
     QString strErrJson = "JSON Error:";
     strErrJson += jsonError.errorString();
+    strErrJson += "";
+    strErrJson += "Please Try again";
+
     QMessageBox::critical(this, "JSON Invalid", strErrJson);
 
     return;
@@ -252,6 +258,16 @@ void audiogram::validateJson(QString strJson){
   return;
 }
 
+int audiogram::fnameToFnum(QString fName){
+  if(fName.isNull()) return 0;
+  if(fName.isEmpty()) return 0;
+
+  fName.remove("HT_");
+  fName.remove(".TXT");
+
+  return fName.toInt();
+}
+
 void audiogram::on_btnDataJson_clicked()
 {
   QString stringJson;
@@ -264,9 +280,23 @@ void audiogram::on_btnDataJson_clicked()
      saveFile.open(QIODevice::ReadOnly | QIODevice::Text);
      stringJson = saveFile.readAll();
      saveFile.close();
+
+     validateLoadJson(stringJson);
   }
 
-  validateJson(stringJson);
+  if(ui->rbtSerial->isChecked()){
+      int fnum;
+
+      if(!myPort->isOpen()) return;
+
+      reqType = REQTYPE_JSON;
+      fnum = fnameToFnum(ui->cmbFlist->currentText());
+
+      if(fnum != 0){
+        QByteArray dataReq = "mmc cat " + QByteArray::number(fnum) + "\r\n";
+        myPort->write(dataReq);
+      }
+  }
 }
 
 QString audiogram::indexToFrequency(int idx){
