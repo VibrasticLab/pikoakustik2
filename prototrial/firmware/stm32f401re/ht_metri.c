@@ -146,7 +146,6 @@ static THD_WORKING_AREA(waRunMetri, MAX_THD_HEAP_SIZE);
 /**
  * @brief Thread for Audiometri process
  * @details Main thread that run Audiometri process
- * @warning Any USB/UART Message should NOT be here
  * @warning MMC still very problematic and can cause file bomb while this loop freezed
  * @warning This thread is the most easily freezed
  */
