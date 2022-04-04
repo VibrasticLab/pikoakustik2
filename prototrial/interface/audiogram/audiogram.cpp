@@ -227,24 +227,46 @@ int audiogram::parseJsonAmpl(QJsonObject audJsonObj, QString strChannel, QString
   return ampl_f.toDouble();
 }
 
+void audiogram::validateJson(QString strJson){
+  QJsonParseError jsonError;
+
+  QJsonDocument docJson = QJsonDocument::fromJson(strJson.toUtf8(),&jsonError);
+
+  if(docJson.isNull()){
+    QString strErrJson = "JSON Error:";
+    strErrJson += jsonError.errorString();
+    QMessageBox::critical(this, "JSON Invalid", strErrJson);
+
+    return;
+  }
+  else{
+    QJsonObject obJson = docJson.object();
+
+    /* audiogram */
+    QJsonValue datJson = obJson.value(QString("audiogram"));
+    inputJsonObj = datJson.toObject();
+
+    QMessageBox::information(this, "JSON OK", "JSON Valid and OK");
+  }
+
+  return;
+}
+
 void audiogram::on_btnDataJson_clicked()
 {
+  QString stringJson;
+
   if(ui->rbtFile->isChecked()){
-     QString stringJson;
+
      QFile saveFile;
 
      saveFile.setFileName(ui->editFile->text());
      saveFile.open(QIODevice::ReadOnly | QIODevice::Text);
      stringJson = saveFile.readAll();
      saveFile.close();
-
-     QJsonDocument docJson = QJsonDocument::fromJson(stringJson.toUtf8());
-     QJsonObject obJson = docJson.object();
-
-     /* audiogram */
-     QJsonValue datJson = obJson.value(QString("audiogram"));
-     inputJsonObj = datJson.toObject();
   }
+
+  validateJson(stringJson);
 }
 
 QString audiogram::indexToFrequency(int idx){

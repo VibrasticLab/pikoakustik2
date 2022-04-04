@@ -82,6 +82,7 @@ private:
   void parseFlist(QString strInput);
   float scale2dBstr(int scale);
   void plotFromJson(QwtPlot *plotWidget, QJsonArray scaleInput);
+  void validateJson(QString strJson);
   QString indexToFrequency(int idx);
   QJsonArray parseJsonRecord(QJsonObject audJsonObj, QString strChannel, QString strFreq);
   int parseJsonAmpl(QJsonObject audJsonObj, QString strChannel, QString strFreq);
