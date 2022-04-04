@@ -20,7 +20,7 @@
  * @brief Shell thread working area size
  * @details Set to bigger size if necessary
  */
-#define SHELL_WA_SIZE   THD_WORKING_AREA_SIZE(MAX_THD_HEAP_SIZE)
+#define SHELL_WA_SIZE   THD_WORKING_AREA_SIZE(MAX_THD_HEAP_SIZE / 2)
 
 /**
  * @brief For easy remember, chsnprintf() defined as ht_comm_Buff()

@@ -180,11 +180,19 @@ static void cmd_virt(BaseSequentialStream *chp, int argc, char *argv[]) {
 
     chprintf(chp, "Run Virtual Test Start\r\n");
     chprintf(chp, "DONT PUSH ANY BUTTON\r\n");
+    chprintf(chp, "Keep this Serial Terminal open!!\r\n");
+    chprintf(chp, "\r\n");
 
 #if USER_MMC
  #if USER_METRI_RECORD
     ht_mmcMetri_chkFile();
+
+  #if USER_METRI_RECONCE
+    ht_mmcOnceMetri_jsonChStart(channel_stt);
+  #else
     ht_mmcMetri_jsonChStart(channel_stt);
+  #endif
+
  #endif
 #endif
 

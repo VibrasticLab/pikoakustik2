@@ -393,7 +393,7 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
 /**************** Testing Finish **************/
 
 #if USER_METRI_USELOG
-                            ht_commUSB_Msg("Testing Finished\r\n");
+                            ht_commUSB_Msg("\r\nTesting Finished\r\n");
 #endif
 
                             freq_idx = 0;
@@ -412,6 +412,10 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
 
 uint8_t ht_metri_RndOpt(void){
     uint8_t rndnum=0, rndnumask=0;
+
+#if USER_METRI_USELOG
+    char strbuff[COMM_BUFF_SIZE];
+#endif
 
     //is this pseudorandom really works?
     srand((unsigned long)chVTGetSystemTime());
@@ -437,6 +441,11 @@ uint8_t ht_metri_RndOpt(void){
     if(rndnum==0){rndnumask = OPT_ASK_A;}
     if(rndnum==1){rndnumask = OPT_ASK_B;}
     if(rndnum==2){rndnumask = OPT_ASK_C;}
+#endif
+
+#if USER_METRI_USELOG
+    ht_comm_Buff(strbuff,sizeof(strbuff),"(%1i)\r\n", rndnum);
+    ht_commUSB_Msg(strbuff);
 #endif
 
     return rndnumask;

@@ -99,6 +99,12 @@ void ht_mmc_catFiles(uint16_t fnum, uint8_t lineType);
  */
 void ht_mmcMetri_chkFile(void);
 
+/**
+ * @brief Save end of JSON on save files
+ */
+void ht_mmcMetri_endResult(void);
+
+
 /*******************************************/
 
 /**
@@ -132,11 +138,6 @@ void ht_mmcMetri_hearingResult(double freq, uint8_t freqidx, uint8_t ample);
  * @param[in] uint8_t Last Amplitude scale
  */
 void ht_mmcMetri_hearingRecord(uint8_t *resArray, uint8_t lastIdx, uint8_t lastAmpl);
-
-/**
- * @brief Save word END on save files
- */
-void ht_mmcMetri_endResult(void);
 
 /*******************************************/
 

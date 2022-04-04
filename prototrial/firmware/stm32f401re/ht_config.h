@@ -26,11 +26,11 @@
 
 #define USER_METRI          TRUE   /* Whether use Audiometri routine or not */
  #define USER_METRI_RECORD  TRUE   /* Whether record Audiometri session */
- #define USER_METRI_RECONCE TRUE  /* Whether record written all at once or not */
+ #define USER_METRI_RECONCE TRUE  /* Whether record written all at once or not. Keep enabled */
+ #define USER_METRI_USELOG  TRUE  /* Whether metri loop use debug message */
  #define USER_METRI_ALLFREQ FALSE  /* Whether Audiometri in all frequency or selection */
  #define USER_METRI_ONEFREQ TRUE  /* Whether Audiometri in single frequency only */
  #define USER_METRI_LONGRNG FALSE  /* Whether use long rng method or simple */
- #define USER_METRI_USELOG  FALSE  /* Whether metri loop use debug message. Keep disabled */
 
 #endif // HT_INCLUDES_H
 
