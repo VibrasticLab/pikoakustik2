@@ -33,6 +33,16 @@
 
 #define RECORD_SIZE   24
 
+#define CHANNEL_LEFT  "ch_0"
+#define CHANNEL_RIGHT "ch_1"
+
+#define FREQ_250  "freq_0"
+#define FREQ_500  "freq_1"
+#define FREQ_1000 "freq_2"
+#define FREQ_2000 "freq_3"
+#define FREQ_4000 "freq_4"
+#define FREQ_8000 "freq_5"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class audiogram; }
 QT_END_NAMESPACE
@@ -53,6 +63,7 @@ private slots:
   void on_btnSerialFlist_clicked();
   void on_btnBrowseFile_clicked();
   void on_btnDataJson_clicked();
+  void on_btnDataPlot_clicked();
 
 private:
   Ui::audiogram *ui;
@@ -62,6 +73,8 @@ private:
   QString strRawData;
   uint8_t reqType;
 
+  QJsonObject inputJsonObj;
+
   float dummyData[24] =  {6,5,4,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
   void addSerialPortChoice(void);
@@ -69,6 +82,8 @@ private:
   void parseFlist(QString strInput);
   float scale2dBstr(int scale);
   void plotFromJson(QwtPlot *plotWidget, QJsonArray scaleInput);
-  void parseJson(QJsonObject audJsonObj, QString freqLeft, QString freqRight);
+  QString indexToFrequency(int idx);
+  QJsonArray parseJsonRecord(QJsonObject audJsonObj, QString strChannel, QString strFreq);
+  int parseJsonAmpl(QJsonObject audJsonObj, QString strChannel, QString strFreq);
 };
 #endif // AUDIOGRAM_H

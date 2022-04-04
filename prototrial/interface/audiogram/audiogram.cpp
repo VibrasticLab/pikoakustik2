@@ -112,7 +112,6 @@ void audiogram::on_btnSerialOpen_clicked()
     }
 }
 
-
 void audiogram::on_btnSerialFlist_clicked()
 {
     if(!myPort->isOpen()) return;
@@ -194,42 +193,39 @@ void audiogram::plotFromJson(QwtPlot *plotWidget, QJsonArray scaleInput){
   plotWidget->replot();
 }
 
-void audiogram::parseJson(QJsonObject audJsonObj, QString freqLeft, QString freqRight){
-  //  ch_0: {
-  QJsonValue ch_0 = audJsonObj["ch_0"];
-  QJsonObject ob_ch_0 = ch_0.toObject();
-  //    freq_L {
-  QJsonValue freq_L = ob_ch_0[freqLeft];
-  QJsonObject ob_freq_L = freq_L.toObject();
-  //      ampl
-  QJsonValue ampl_fL = ob_freq_L["ampl"];
-  //      record [
-  QJsonArray rec_fL = ob_freq_L["record"].toArray();
-  //      ]
-  //    }
+QJsonArray audiogram::parseJsonRecord(QJsonObject audJsonObj, QString strChannel, QString strFreq){
+  // ch_x {
+  QJsonValue ch = audJsonObj[strChannel];
+  QJsonObject ob_ch = ch.toObject();
+  //  freq_y {
+  QJsonValue freq = ob_ch[strFreq];
+  QJsonObject ob_freq = freq.toObject();
+  //   ampl,
+  //   record [
+  QJsonArray rec_f = ob_freq["record"].toArray();
+  //   ]
   //  }
+  // }
 
-  ui->editAmplL->setText(QString::number(scale2dBstr(ampl_fL.toInt())));
-  plotFromJson(ui->plotLeft,rec_fL);
-
-  //  ch_1: {
-  QJsonValue ch_1 = audJsonObj["ch_1"];
-  QJsonObject ob_ch_1 = ch_1.toObject();
-  //    freq_R {
-  QJsonValue freq_R = ob_ch_1[freqRight];
-  QJsonObject ob_freq_R = freq_R.toObject();
-  //      ampl
-  QJsonValue ampl_fR = ob_freq_R["ampl"];
-  //      record [
-  QJsonArray rec_fR = ob_freq_R["record"].toArray();
-  //      ]
-  //    }
-  //  }
-
-  ui->editAmplR->setText(QString::number(scale2dBstr(ampl_fR.toInt())));
-  plotFromJson(ui->plotRight,rec_fR);
+  return rec_f;
 }
 
+int audiogram::parseJsonAmpl(QJsonObject audJsonObj, QString strChannel, QString strFreq){
+  // ch_x {
+  QJsonValue ch = audJsonObj[strChannel];
+  QJsonObject ob_ch = ch.toObject();
+  //  freq_y {
+  QJsonValue freq = ob_ch[strFreq];
+  QJsonObject ob_freq = freq.toObject();
+  //   ampl,
+  QJsonValue ampl_f = ob_freq["ampl"];
+  //   record [
+  //   ]
+  //  }
+  // }
+
+  return ampl_f.toDouble();
+}
 
 void audiogram::on_btnDataJson_clicked()
 {
@@ -247,9 +243,30 @@ void audiogram::on_btnDataJson_clicked()
 
      /* audiogram */
      QJsonValue datJson = obJson.value(QString("audiogram"));
-     QJsonObject obDatJson = datJson.toObject();
-
-     parseJson(obDatJson, "freq_0", "freq_0");
+     inputJsonObj = datJson.toObject();
   }
 }
 
+QString audiogram::indexToFrequency(int idx){
+  QString freq;
+
+  switch (idx) {
+    case 0: freq = FREQ_250; break;
+    case 1: freq = FREQ_500; break;
+    case 2: freq = FREQ_1000; break;
+    case 3: freq = FREQ_2000; break;
+    case 4: freq = FREQ_4000; break;
+    case 5: freq = FREQ_8000; break;
+  }
+
+  return freq;
+}
+
+void audiogram::on_btnDataPlot_clicked()
+{
+  ui->editAmplL->setText(QString::number(scale2dBstr(parseJsonAmpl(inputJsonObj,CHANNEL_LEFT, indexToFrequency(ui->cmbFreqL->currentIndex())))));
+  ui->editAmplR->setText(QString::number(scale2dBstr(parseJsonAmpl(inputJsonObj,CHANNEL_RIGHT, indexToFrequency(ui->cmbFreqR->currentIndex())))));
+
+  plotFromJson(ui->plotLeft,parseJsonRecord(inputJsonObj,CHANNEL_LEFT, indexToFrequency(ui->cmbFreqL->currentIndex())));
+  plotFromJson(ui->plotRight,parseJsonRecord(inputJsonObj,CHANNEL_RIGHT, indexToFrequency(ui->cmbFreqR->currentIndex())));
+}

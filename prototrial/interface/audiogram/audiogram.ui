@@ -255,10 +255,10 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Get JSON data &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="text">
-      <string>Get JSON</string>
+      <string>Get/Validate JSON</string>
      </property>
     </widget>
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="grpDataL">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -309,8 +309,74 @@
        <string>dB SPL</string>
       </property>
      </widget>
+     <widget class="QLabel" name="lblFreqL">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Frequency:</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="cmbFreqL">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>20</y>
+        <width>81</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>250</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>500</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>1000</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>2000</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>4000</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>8000</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="lblHzL">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>20</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Hz</string>
+      </property>
+     </widget>
     </widget>
-    <widget class="QGroupBox" name="groupBox_3">
+    <widget class="QGroupBox" name="grpDataR">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -361,8 +427,74 @@
        <string>dB SPL</string>
       </property>
      </widget>
+     <widget class="QLabel" name="lblFreqR">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Frequency:</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="cmbFreqR">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>30</y>
+        <width>81</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>250</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>500</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>1000</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>2000</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>4000</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>8000</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="lblHzR">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>30</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Hz</string>
+      </property>
+     </widget>
     </widget>
-    <widget class="QPushButton" name="btnDataReload">
+    <widget class="QPushButton" name="btnDataPlot">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -375,7 +507,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;reload, replot, and re-calculate&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="text">
-      <string>Reload</string>
+      <string>Plot</string>
      </property>
     </widget>
    </widget>
