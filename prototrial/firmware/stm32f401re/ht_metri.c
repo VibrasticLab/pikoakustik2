@@ -140,7 +140,6 @@ static void ht_metri_AudioPlay(uint8_t lr_stt){
     ht_audio_DisableCh();
 }
 
-/* Keep heap size at 2048 otherwise easily freeze */
 static THD_WORKING_AREA(waRunMetri, MAX_THD_HEAP_SIZE);
 #define ThdFunc_RunMetri THD_FUNCTION
 
@@ -149,6 +148,7 @@ static THD_WORKING_AREA(waRunMetri, MAX_THD_HEAP_SIZE);
  * @details Main thread that run Audiometri process
  * @warning Any USB/UART Message should NOT be here
  * @warning MMC still very problematic and can cause file bomb while this loop freezed
+ * @warning This thread is the most easily freezed
  */
 static ThdFunc_RunMetri(thdRunMetri, arg) {
     (void)arg;
