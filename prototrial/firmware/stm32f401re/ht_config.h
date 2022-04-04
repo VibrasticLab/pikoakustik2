@@ -8,7 +8,9 @@
 #ifndef HT_INCLUDES_H
 #define HT_INCLUDES_H
 
-#define USER_BAUD           38400    /* Default Baudrate */
+#define USER_BAUD           38400  /* Default Baudrate */
+
+#define MAX_THD_HEAP_SIZE   2048   /* Maximum thread heap size (for metri and shell) */
 
 #define USER_SERIAL         TRUE   /* Whether enable serial interface or not */
  #define USER_USB_DESC      TRUE   /* Whether use custom USB description or not */

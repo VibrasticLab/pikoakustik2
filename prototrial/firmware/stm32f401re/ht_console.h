@@ -9,6 +9,8 @@
 #ifndef HT_CONSOLE_H
 #define HT_CONSOLE_H
 
+#include "ht_config.h"
+
 /**
  * @brief Size off buffer for chsnprintf() on interface
  */
@@ -18,7 +20,7 @@
  * @brief Shell thread working area size
  * @details Set to bigger size if necessary
  */
-#define SHELL_WA_SIZE   THD_WORKING_AREA_SIZE(2048)
+#define SHELL_WA_SIZE   THD_WORKING_AREA_SIZE(MAX_THD_HEAP_SIZE)
 
 /**
  * @brief For easy remember, chsnprintf() defined as ht_comm_Buff()
