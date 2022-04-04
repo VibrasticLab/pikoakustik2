@@ -180,7 +180,13 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
 #if USER_MMC
  #if USER_METRI_RECORD
             ht_mmcMetri_chkFile();
+
+  #if USER_METRI_RECONCE
+            ht_mmcOnceMetri_jsonChStart(channel_stt);
+  #else
             ht_mmcMetri_jsonChStart(channel_stt);
+  #endif
+
  #endif
 #endif
 
@@ -316,8 +322,13 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
 
 #if USER_MMC
  #if USER_METRI_RECORD
+  #if USER_METRI_RECONCE
+                    ht_mmcOnceMetri_hearingResult(freq_test[freq_idx],freq_idx,ampl_num);
+                    ht_mmcOnceMetri_hearingRecord(res_arr,test_count,ampl_num);
+  #else
                     ht_mmcMetri_hearingResult(freq_test[freq_idx],freq_idx,ampl_num);
                     ht_mmcMetri_hearingRecord(res_arr,test_count,ampl_num);
+  #endif
  #endif
 #endif
 
@@ -335,7 +346,11 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
 
 #if USER_MMC
  #if USER_METRI_RECORD
+  #if USER_METRI_RECONCE
+                        ht_mmcOnceMetri_jsonComma();
+  #else
                         ht_mmcMetri_jsonComma();
+  #endif
  #endif
 #endif
                     }
@@ -351,15 +366,26 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
 
 #if USER_MMC
  #if USER_METRI_RECORD
+  #if USER_METRI_RECONCE
+                            ht_mmcOnceMetri_jsonChClose();
+                            ht_mmcOnceMetri_jsonChStart(channel_stt);
+  #else
                             ht_mmcMetri_jsonChClose();
                             ht_mmcMetri_jsonChStart(channel_stt);
+  #endif
  #endif
 #endif
                         }
                         else{
 #if USER_MMC
  #if USER_METRI_RECORD
+
+  #if USER_METRI_RECONCE
+                            ht_mmcOnceMetri_jsonChClose();
+  #else
                             ht_mmcMetri_jsonChClose();
+  #endif
+
                             ht_mmcMetri_endResult();
  #endif
 #endif

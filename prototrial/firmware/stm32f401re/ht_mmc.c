@@ -63,6 +63,11 @@ static SPIConfig ls_spicfg = {NULL, GPIOA, 15, SPI_CR1_BR_2 | SPI_CR1_BR_1, 0};
  */
 static MMCConfig mmccfg = {&SPID3, &ls_spicfg, &hs_spicfg};
 
+/**
+ * @brief Buffer to store all JSON string parts
+ */
+static char buffMetriOnce[1250];
+
 /*******************************************/
 
 /**
@@ -261,7 +266,7 @@ void ht_mmc_InitCheck(void){
 
     f_mount(0, "", 0);
 
-    chThdSleepMilliseconds(10);
+    ht_mmc_Delay();
 }
 
 /*******************************************/
@@ -307,7 +312,7 @@ void ht_mmc_testWrite(void){
     }
     free(Fil);
 
-    chThdSleepMilliseconds(10);
+    ht_mmc_Delay();
 }
 
 void ht_mmc_testCat(void){
@@ -364,7 +369,7 @@ void ht_mmc_testCat(void){
     }
     free(Fil);
 
-    chThdSleepMilliseconds(10);
+    ht_mmc_Delay();
 }
 
 /*******************************************/
@@ -404,7 +409,7 @@ void ht_mmc_lsFiles(uint8_t showList){
     }
     free(Fil);
 
-    chThdSleepMilliseconds(10);
+    ht_mmc_Delay();
 }
 
 void ht_mmc_catFiles(uint16_t fnum, uint8_t lineType){
@@ -456,18 +461,22 @@ void ht_mmc_catFiles(uint16_t fnum, uint8_t lineType){
     }
     free(Fil);
 
-    chThdSleepMilliseconds(10);
+    ht_mmc_Delay();
 }
 
 /*******************************************/
 
 void ht_mmcMetri_chkFile(void){
+
     char strbuff[COMM_BUFF_SIZE];
     FATFS FatFs;
     FIL *Fil_last;
     FIL *Fil_new;
     FRESULT err;
+
+#if !(USER_METRI_RECONCE)
     UINT bw;
+#endif
 
     char buff[MMC_STR_BUFF_SIZE];
     char buffer[MMC_STR_BUFF_SIZE];
@@ -498,32 +507,39 @@ void ht_mmcMetri_chkFile(void){
                     f_close(Fil_last);
                     ht_comm_Buff(strbuff,sizeof(strbuff),"File %s exist\r\n",fname);
                     ht_commUSB_Msg(strbuff);
-
                     lastnum++;
                     ht_commUSB_Msg("File name incremented\r\n");
-
                     ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",lastnum);
 
+#if USER_METRI_RECONCE
+                    strcpy(buffMetriOnce, buffer);
+#else
                     err = f_open(Fil_new, fname, FA_WRITE | FA_READ | FA_OPEN_ALWAYS);
                     if(err==FR_OK){
                         f_lseek(Fil_new, f_size(Fil_new));
                         f_write(Fil_new, buffer, strlen(buffer), &bw);
                         f_close(Fil_new);
                     }
+#endif
+
                 }
                 else if(err==FR_NO_FILE){
                     ht_comm_Buff(strbuff,sizeof(strbuff),"File %s not exist\r\n",fname);
                     ht_commUSB_Msg(strbuff);
-                    ht_commUSB_Msg("File name created now\r\n");
-
+                    ht_commUSB_Msg("File name start new\r\n");
                     ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",lastnum);
 
+#if USER_METRI_RECONCE
+                    strcpy(buffMetriOnce, buffer);
+#else
                     err = f_open(Fil_new, fname, FA_WRITE | FA_READ | FA_OPEN_ALWAYS);
                     if(err==FR_OK){
                         f_lseek(Fil_new, f_size(Fil_new));
                         f_write(Fil_new, buffer, strlen(buffer), &bw);
                         f_close(Fil_new);
                     }
+#endif
+
                 }
                 else{
                     ht_comm_Buff(strbuff,sizeof(strbuff),"File %s error code = %i\r\n",fname,err);
@@ -542,8 +558,10 @@ void ht_mmcMetri_chkFile(void){
     free(Fil_last);
     free(Fil_new);
 
-    chThdSleepMilliseconds(10);
+    ht_mmc_Delay();
 }
+
+/*******************************************/
 
 void ht_mmcMetri_jsonChStart(uint8_t lr_ch){
 
@@ -588,7 +606,7 @@ void ht_mmcMetri_jsonChStart(uint8_t lr_ch){
     }
     free(Fil);
 
-    chThdSleepMilliseconds(10);
+    ht_mmc_Delay();
 }
 
 void ht_mmcMetri_jsonChClose(void){
@@ -629,7 +647,7 @@ void ht_mmcMetri_jsonChClose(void){
     }
     free(Fil);
 
-    chThdSleepMilliseconds(10);
+    ht_mmc_Delay();
 }
 
 void ht_mmcMetri_jsonComma(void){
@@ -670,10 +688,8 @@ void ht_mmcMetri_jsonComma(void){
     }
     free(Fil);
 
-    chThdSleepMilliseconds(10);
+    ht_mmc_Delay();
 }
-
-/*******************************************/
 
 void ht_mmcMetri_hearingResult(double freq, uint8_t freqidx, uint8_t ample){
 
@@ -713,7 +729,7 @@ void ht_mmcMetri_hearingResult(double freq, uint8_t freqidx, uint8_t ample){
     }
     free(Fil);
 
-    chThdSleepMilliseconds(10);
+    ht_mmc_Delay();
 }
 
 void ht_mmcMetri_hearingRecord(uint8_t *resArray, uint8_t lastIdx, uint8_t lastAmpl){
@@ -764,7 +780,7 @@ void ht_mmcMetri_hearingRecord(uint8_t *resArray, uint8_t lastIdx, uint8_t lastA
     }
     free(Fil);
 
-    chThdSleepMilliseconds(10);
+    ht_mmc_Delay();
 }
 
 void ht_mmcMetri_endResult(void){
@@ -782,6 +798,10 @@ void ht_mmcMetri_endResult(void){
     if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
         ht_mmc_Buff(buffer,sizeof(buffer),"\n}\n}");
 
+#if USER_METRI_RECONCE
+        strcat(buffMetriOnce, buffer);
+#endif
+
         if(lastnum < FILE_MAX_NUM){
             f_mount(&FatFs, "", 0);
 
@@ -789,7 +809,12 @@ void ht_mmcMetri_endResult(void){
             err = f_open(Fil, fname, FA_WRITE | FA_READ | FA_OPEN_ALWAYS);
             if(err==FR_OK){
                 f_lseek(Fil, f_size(Fil));
+
+#if USER_METRI_RECONCE
+                f_write(Fil, buffMetriOnce, strlen(buffMetriOnce), &bw);
+#else
                 f_write(Fil, buffer, strlen(buffer), &bw);
+#endif
 
                 f_close(Fil);
             }
@@ -804,7 +829,60 @@ void ht_mmcMetri_endResult(void){
     }
     free(Fil);
 
-    chThdSleepMilliseconds(10);
+    ht_mmc_Delay();
+}
+
+/*******************************************/
+
+void ht_mmcOnceMetri_jsonChStart(uint8_t lr_ch){
+  char buffer[MMC_STR_BUFF_SIZE];
+
+  if(lr_ch==OUT_LEFT){
+      ht_mmc_Buff(buffer,sizeof(buffer),"\n\"ch_0\":{");
+  }
+  else if(lr_ch==OUT_RIGHT){
+      ht_mmc_Buff(buffer,sizeof(buffer),",\n\"ch_1\":{");
+  }
+
+  strcat(buffMetriOnce, buffer);
+}
+
+void ht_mmcOnceMetri_jsonChClose(void){
+  char buffer[MMC_STR_BUFF_SIZE];
+  ht_mmc_Buff(buffer,sizeof(buffer),"}");
+
+  strcat(buffMetriOnce, buffer);
+}
+
+void ht_mmcOnceMetri_jsonComma(void){
+  char buffer[MMC_STR_BUFF_SIZE];
+  ht_mmc_Buff(buffer,sizeof(buffer),",");
+
+  strcat(buffMetriOnce, buffer);
+}
+
+void ht_mmcOnceMetri_hearingResult(double freq, uint8_t freqidx, uint8_t ample){
+  char buffer[MMC_STR_BUFF_SIZE];
+  ht_mmc_Buff(buffer,sizeof(buffer),"\n\"freq_%i\":{\"freq\":%6.3f,\"ampl\":%i,", freqidx, freq, ample);
+
+  strcat(buffMetriOnce, buffer);
+}
+
+void ht_mmcOnceMetri_hearingRecord(uint8_t *resArray, uint8_t lastIdx, uint8_t lastAmpl){
+  char buffer[MMC_STR_BUFF_SIZE];
+  uint8_t i;
+
+  for(i=lastIdx;i<TEST_MAX_COUNT;i++){
+      resArray[i] = lastAmpl;
+  }
+
+  ht_mmc_Buff(buffer,sizeof(buffer),"\"record\":[%i",resArray[0]);
+  for(i=1;i<TEST_MAX_COUNT;i++){
+      ht_mmc_Buff(buffer,sizeof(buffer),"%s,%i",buffer,resArray[i]);
+  }
+  ht_mmc_Buff(buffer,sizeof(buffer),"%s]}",buffer);
+
+  strcat(buffMetriOnce, buffer);
 }
 
 /*******************************************/

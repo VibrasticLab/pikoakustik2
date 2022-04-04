@@ -51,6 +51,11 @@
 #define ht_mmc_Buff chsnprintf
 
 /**
+ * @brief Small delay to give time for MMC
+ */
+#define ht_mmc_Delay() chThdSleepMicroseconds(100)
+
+/**
  * @brief Check MMC readyness
  */
 void ht_mmc_InitCheck(void);
@@ -84,13 +89,17 @@ void ht_mmc_lsFiles(uint8_t showList);
  */
 void ht_mmc_catFiles(uint16_t fnum, uint8_t lineType);
 
+/*******************************************/
+
 /**
  * @brief Check save file existence before audiometri
  * @details If last number file already exist, create new in incremented last number
  * @details Otherwise, use current last number
- * @details Save START on save files
+ * @details Save/Add "audiogram" on save/buffer files
  */
 void ht_mmcMetri_chkFile(void);
+
+/*******************************************/
 
 /**
  * @brief Put JSON open bracket on save files
@@ -128,6 +137,41 @@ void ht_mmcMetri_hearingRecord(uint8_t *resArray, uint8_t lastIdx, uint8_t lastA
  * @brief Save word END on save files
  */
 void ht_mmcMetri_endResult(void);
+
+/*******************************************/
+
+/**
+ * @brief Put JSON open bracket on save buffer
+ * @param[in] uint8_t Channel number
+ */
+void ht_mmcOnceMetri_jsonChStart(uint8_t lr_ch);
+
+/**
+ * @brief Put JSON close bracket on save buffer
+ */
+void ht_mmcOnceMetri_jsonChClose(void);
+
+/**
+ * @brief Put JSON comma separator on save buffer
+ */
+void ht_mmcOnceMetri_jsonComma(void);
+
+/**
+ * @brief Add to buffer last amplification scale for every frequency test
+ * @param[in] double Frequency ratio
+ * @param[in] uint8_t Frequency index number
+ * @param[in] uint8_t Amplitude scaling number
+ */
+void ht_mmcOnceMetri_hearingResult(double freq, uint8_t freqidx, uint8_t ample);
+
+/**
+ * @brief Add to array array of result record
+ * @param[in] uint8_t Result array
+ * @param[in] uint8_t Last index to fill in
+ * @param[in] uint8_t Last Amplitude scale
+ */
+void ht_mmcOnceMetri_hearingRecord(uint8_t *resArray, uint8_t lastIdx, uint8_t lastAmpl);
+
 
 #endif // HT_MMC_H
 
