@@ -119,7 +119,12 @@ void audiogram::on_btnSerialFlist_clicked()
 {
     if(!myPort->isOpen()) return;
 
+#if defined(Q_OS_LINUX)
     QByteArray dataReq = "mmc lsnum\r\n";
+#elif defined(Q_OS_WINDOWS)
+    QByteArray dataReq = "mmc lsnum\r";
+#endif
+
     reqType = REQTYPE_FLIST;
     ui->cmbFlist->clear();
     myPort->write(dataReq);
@@ -231,17 +236,27 @@ int audiogram::parseJsonAmpl(QJsonObject audJsonObj, QString strChannel, QString
 }
 
 void audiogram::validateLoadJson(QString strJson){
+  QString strErrJson;
   QJsonParseError jsonError;
+
+  if(strJson.length()<9) {
+      strErrJson = "JSON not fully received";
+      strErrJson += "\n";
+      strErrJson += "Please Try again";
+
+      QMessageBox::critical(this, "JSON Too Short", strErrJson);
+  }
 
   QJsonDocument docJson = QJsonDocument::fromJson(strJson.toUtf8(),&jsonError);
 
   if(docJson.isNull()){
-    QString strErrJson = "JSON Error:";
+    strErrJson = "JSON Error:";
     strErrJson += jsonError.errorString();
-    strErrJson += "";
+    strErrJson += "\n";
     strErrJson += "Please Try again";
 
     QMessageBox::critical(this, "JSON Invalid", strErrJson);
+    qInfo() << strJson;
 
     return;
   }
@@ -293,7 +308,12 @@ void audiogram::on_btnDataJson_clicked()
       fnum = fnameToFnum(ui->cmbFlist->currentText());
 
       if(fnum != 0){
+#if defined(Q_OS_LINUX)
         QByteArray dataReq = "mmc cat " + QByteArray::number(fnum) + "\r\n";
+#elif defined(Q_OS_WINDOWS)
+        QByteArray dataReq = "mmc cat " + QByteArray::number(fnum) + "\r";
+#endif
+
         myPort->write(dataReq);
       }
   }

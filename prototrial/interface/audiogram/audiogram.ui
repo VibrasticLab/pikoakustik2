@@ -242,27 +242,11 @@
     <property name="title">
      <string>Data View</string>
     </property>
-    <widget class="QPushButton" name="btnDataJson">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>231</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Get JSON data &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-     <property name="text">
-      <string>Get/Validate JSON</string>
-     </property>
-    </widget>
     <widget class="QGroupBox" name="grpDataL">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>60</y>
+       <y>30</y>
        <width>231</width>
        <height>81</height>
       </rect>
@@ -380,7 +364,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>150</y>
+       <y>110</y>
        <width>231</width>
        <height>91</height>
       </rect>
@@ -494,21 +478,69 @@
       </property>
      </widget>
     </widget>
-    <widget class="QPushButton" name="btnDataPlot">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>260</y>
+       <y>250</y>
        <width>231</width>
-       <height>26</height>
+       <height>31</height>
       </rect>
      </property>
-     <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;reload, replot, and re-calculate&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <layout class="QHBoxLayout" name="hBtnLayout">
+      <item>
+       <widget class="QPushButton" name="btnDataPlot">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;reload, replot, and re-calculate&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Plot</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnDataSummary">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;reload, replot, and re-calculate&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Summary</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>210</y>
+       <width>231</width>
+       <height>29</height>
+      </rect>
      </property>
-     <property name="text">
-      <string>Plot</string>
-     </property>
+     <layout class="QHBoxLayout" name="hBtnData">
+      <item>
+       <widget class="QPushButton" name="btnDataReset">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Get JSON data &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Clear/Reset</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnDataJson">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Get JSON data &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Get/Validate JSON</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
   </widget>
