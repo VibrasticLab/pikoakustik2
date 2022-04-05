@@ -99,15 +99,21 @@ void audiogram::on_btnSerialOpen_clicked()
       if(myPort->open(QIODevice::ReadWrite)){
         QMessageBox::information(this,"success","port success on "+dev_name );
         ui->btnSerialOpen->setText("Close");
+        ui->cmbPortList->setEnabled(false);
+        ui->btnSerialList->setEnabled(false);
       }
       else{
         QMessageBox::critical(this,"Failed","port failed on "+dev_name);
         ui->btnSerialOpen->setText("Open");
+        ui->cmbPortList->setEnabled(true);
+        ui->btnSerialList->setEnabled(true);
       }
     }
     else{
       if(myPort->isOpen()) myPort->close();
       ui->btnSerialOpen->setText("Open");
+      ui->cmbPortList->setEnabled(true);
+      ui->btnSerialList->setEnabled(true);
     }
 }
 
@@ -151,6 +157,8 @@ void audiogram::on_btnBrowseFile_clicked()
     if(myPort->isOpen()){
         myPort->close();
         ui->btnSerialOpen->setText("Open");
+        ui->cmbPortList->setEnabled(true);
+        ui->btnSerialList->setEnabled(true);
     }
     ui->cmbPortList->setEnabled(false);
     ui->btnSerialList->setEnabled(false);
@@ -312,7 +320,7 @@ void audiogram::on_btnDataJson_clicked()
   if(ui->rbtSerial->isChecked()){
       int fnum = 0;
 
-      if(!myPort->isOpen()) return;
+      if(!myPort->isOpen())return;
 
       reqType = REQTYPE_JSON;
       fnum = fnameToFnum(ui->cmbFlist->currentText());
@@ -397,6 +405,8 @@ void audiogram::on_rbtFile_clicked()
   if(myPort->isOpen()){
       myPort->close();
       ui->btnSerialOpen->setText("Open");
+      ui->cmbPortList->setEnabled(true);
+      ui->btnSerialList->setEnabled(true);
   }
 
   ui->cmbPortList->setEnabled(false);
@@ -409,8 +419,16 @@ void audiogram::on_rbtFile_clicked()
 
 void audiogram::on_rbtSerial_clicked()
 {
-  if(myPort->isOpen()){ui->btnSerialOpen->setText("Close");}
-  else{ui->btnSerialOpen->setText("Open");}
+  if(myPort->isOpen()){
+      ui->btnSerialOpen->setText("Close");
+      ui->cmbPortList->setEnabled(false);
+      ui->btnSerialList->setEnabled(false);
+  }
+  else{
+      ui->btnSerialOpen->setText("Open");
+      ui->cmbPortList->setEnabled(true);
+      ui->btnSerialList->setEnabled(true);
+  }
 
   ui->cmbPortList->setEnabled(true);
   ui->btnSerialList->setEnabled(true);
