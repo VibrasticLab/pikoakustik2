@@ -286,6 +286,8 @@ void audiogram::validateLoadJson(QString strJson){
     ui->btnDataReset->setEnabled(true);
     ui->btnDataPlot->setEnabled(true);
     ui->btnDataSummary->setEnabled(true);
+
+    dataSummary = buildSummary(inputJsonObj);
   }
 
   return;
@@ -436,3 +438,88 @@ void audiogram::on_rbtSerial_clicked()
   ui->btnSerialOpen->setEnabled(true);
   ui->cmbFlist->setEnabled(true);
 }
+
+QString audiogram::buildSummary(QJsonObject audJsonObj){
+  QString strSummary;
+
+  strSummary = "audiogram table:\n";
+  strSummary += "----------------------\n";
+
+  strSummary += "left channel:\n";
+  strSummary += "----------------------\n";
+  strSummary += "250 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_LEFT, FREQ_250))) + " dB SPL\n";
+  strSummary += "500 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_LEFT, FREQ_500))) + " dB SPL\n";
+  strSummary += "1000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_LEFT, FREQ_1000))) + " dB SPL\n";
+  strSummary += "2000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_LEFT, FREQ_2000))) + " dB SPL\n";
+  strSummary += "4000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_LEFT, FREQ_4000))) + " dB SPL\n";
+  strSummary += "8000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_LEFT, FREQ_8000))) + " dB SPL\n";
+  strSummary += "----------------------\n";
+
+  strSummary += "right channel:\n";
+  strSummary += "----------------------\n";
+  strSummary += "250 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_RIGHT, FREQ_250))) + " dB SPL\n";
+  strSummary += "500 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_RIGHT, FREQ_500))) + " dB SPL\n";
+  strSummary += "1000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_RIGHT, FREQ_1000))) + " dB SPL\n";
+  strSummary += "2000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_RIGHT, FREQ_2000))) + " dB SPL\n";
+  strSummary += "4000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_RIGHT, FREQ_4000))) + " dB SPL\n";
+  strSummary += "8000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_RIGHT, FREQ_8000))) + " dB SPL\n";
+  strSummary += "----------------------\n";
+
+  return strSummary;
+}
+
+void audiogram::dialogSaveSummary(){
+  saveFnameSummary = QFileDialog::getSaveFileName(this, "Save Data Summary");
+
+  if(saveFnameSummary.isEmpty()) return;
+  else{
+    QFile saveSummary;
+
+    saveSummary.setFileName(saveFnameSummary);
+    if(!saveSummary.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)){
+      QMessageBox::critical(this, "Save Invalid", "File save path invalid: " + saveSummary.errorString());
+      return;
+    }
+
+    QTextStream outSave(&saveSummary);
+    outSave << dataSummary;
+
+    saveSummary.flush();
+    saveSummary.close();
+  }
+}
+
+void audiogram::dialogSummary(){
+  QDialog *dlgSummary = new QDialog();
+  dlgSummary->setFixedSize(400,600);
+
+  QVBoxLayout *vLayout = new QVBoxLayout;
+  QHBoxLayout *hLayout = new QHBoxLayout;
+
+  QLabel *label = new QLabel(dataSummary);
+  QAbstractButton *bExit = new QPushButton("Close");
+  QAbstractButton *bSave = new QPushButton("Save");
+
+  bExit->setToolTip("Close this dialog");
+  bSave->setToolTip("Save this summary data");
+
+  QFont summaryFont = label->font();
+  summaryFont.setPointSize(18);
+  label->setFont(summaryFont);
+
+  vLayout->addWidget(label);
+  hLayout->addWidget(bSave);
+  hLayout->addWidget(bExit);
+  vLayout->addLayout(hLayout);
+
+  dlgSummary->setLayout(vLayout);
+  dlgSummary->connect(bExit, SIGNAL(clicked()), dlgSummary, SLOT(close()));
+  dlgSummary->connect(bSave, SIGNAL(clicked()), this, SLOT(dialogSaveSummary()));
+  dlgSummary->show();
+}
+
+void audiogram::on_btnDataSummary_clicked()
+{
+  dialogSummary();
+}
+

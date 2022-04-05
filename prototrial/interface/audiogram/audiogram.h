@@ -57,7 +57,6 @@ public:
 
 private slots:
   void readData();
-
   void on_btnSerialList_clicked();
   void on_btnSerialOpen_clicked();
   void on_btnSerialFlist_clicked();
@@ -66,8 +65,9 @@ private slots:
   void on_btnDataPlot_clicked();
   void on_btnDataReset_clicked();
   void on_rbtFile_clicked();
-
   void on_rbtSerial_clicked();
+  void on_btnDataSummary_clicked();
+  void dialogSaveSummary(void);
 
 private:
   Ui::audiogram *ui;
@@ -78,6 +78,8 @@ private:
   uint8_t reqType;
 
   QJsonObject inputJsonObj;
+  QString dataSummary;
+  QString saveFnameSummary;
 
   float dummyData[24] =  {6,5,4,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
@@ -92,5 +94,7 @@ private:
   QString indexToFrequency(int idx);
   QJsonArray parseJsonRecord(QJsonObject audJsonObj, QString strChannel, QString strFreq);
   int parseJsonAmpl(QJsonObject audJsonObj, QString strChannel, QString strFreq);
+  void dialogSummary(void);
+  QString buildSummary(QJsonObject audJsonObj);
 };
 #endif // AUDIOGRAM_H
