@@ -87,9 +87,23 @@ static void cmd_out(BaseSequentialStream *chp, int argc, char *argv[]) {
   double vfreq=1;
 
   uint8_t lrc = 0;
-  uint16_t tone_durr = 1000;
+  uint16_t tone_durr = 500;
 
   switch(argc){
+    case 1:
+      lrc = 0;
+      in_freq = 500;
+
+      if(strcmp(argv[0],"min")==0){
+        in_ampl = 1;
+      }
+
+      if(strcmp(argv[0],"max")==0){
+        in_ampl = 9;
+      }
+
+      break;
+
     case 2:
       lrc = 0;
       in_freq = atoi(argv[0]);
