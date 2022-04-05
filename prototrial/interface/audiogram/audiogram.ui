@@ -230,7 +230,7 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;RIGHT EAR&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QGroupBox" name="groupBox">
+   <widget class="QGroupBox" name="grpDataView">
     <property name="geometry">
      <rect>
       <x>440</x>
@@ -478,7 +478,7 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="layoutWidget">
+    <widget class="QWidget" name="layBtnPlot">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -516,7 +516,7 @@
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="layoutWidget">
+    <widget class="QWidget" name="layBtnJson">
      <property name="geometry">
       <rect>
        <x>10</x>

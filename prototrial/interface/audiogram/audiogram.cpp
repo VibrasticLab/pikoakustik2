@@ -7,15 +7,9 @@ audiogram::audiogram(QWidget *parent)
 {
   ui->setupUi(this);
 
-#if defined(Q_OS_LINUX)
-  ui->btnBrowseFile->setIcon(QIcon::fromTheme("folder"));
-  ui->btnSerialList->setIcon(QIcon::fromTheme("reload"));
-  ui->btnSerialFlist->setIcon(QIcon::fromTheme("reload"));
-#elif defined(Q_OS_WINDOWS)
-  ui->btnBrowseFile->setText("D");
-  ui->btnSerialList->setText("C");
-  ui->btnSerialFlist->setText("C");
-#endif
+  ui->btnBrowseFile->setIcon(QIcon(":/icons/folder.svg"));
+  ui->btnSerialList->setIcon(QIcon(":/icons/reload.svg"));
+  ui->btnSerialFlist->setIcon(QIcon(":/icons/reload.svg"));
 
   myPort = new QSerialPort(this);
   QObject::connect(myPort, SIGNAL(readyRead()), SLOT(readData()));
@@ -424,4 +418,3 @@ void audiogram::on_rbtSerial_clicked()
   ui->btnSerialOpen->setEnabled(true);
   ui->cmbFlist->setEnabled(true);
 }
-
