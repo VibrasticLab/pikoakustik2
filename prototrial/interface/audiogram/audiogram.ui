@@ -490,6 +490,9 @@
      <layout class="QHBoxLayout" name="hBtnLayout">
       <item>
        <widget class="QPushButton" name="btnDataPlot">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;reload, replot, and re-calculate&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
@@ -500,6 +503,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="btnDataSummary">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;reload, replot, and re-calculate&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
@@ -510,7 +516,7 @@
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -522,6 +528,9 @@
      <layout class="QHBoxLayout" name="hBtnData">
       <item>
        <widget class="QPushButton" name="btnDataReset">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Get JSON data &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>

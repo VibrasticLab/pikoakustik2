@@ -64,6 +64,10 @@ private slots:
   void on_btnBrowseFile_clicked();
   void on_btnDataJson_clicked();
   void on_btnDataPlot_clicked();
+  void on_btnDataReset_clicked();
+  void on_rbtFile_clicked();
+
+  void on_rbtSerial_clicked();
 
 private:
   Ui::audiogram *ui;
@@ -78,9 +82,10 @@ private:
   float dummyData[24] =  {6,5,4,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
   void addSerialPortChoice(void);
-  void plotStart(QwtPlot *plotWidget);
   void parseFlist(QString strInput);
   float scale2dBstr(int scale);
+  void plotStart(QwtPlot *plotWidget);
+  void plotReset(QwtPlot *plotWidget);
   void plotFromJson(QwtPlot *plotWidget, QJsonArray scaleInput);
   void validateLoadJson(QString strJson);
   int fnameToFnum(QString fName);

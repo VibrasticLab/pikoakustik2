@@ -28,6 +28,8 @@ audiogram::audiogram(QWidget *parent)
 audiogram::~audiogram()
 {
   delete ui;
+
+  if(myPort->isOpen()) myPort->close();
 }
 
 void audiogram::readData(){
@@ -152,6 +154,15 @@ void audiogram::on_btnBrowseFile_clicked()
     ui->editFile->setText(fileName);
 
     ui->rbtFile->setChecked(true);
+    if(myPort->isOpen()){
+        myPort->close();
+        ui->btnSerialOpen->setText("Open");
+    }
+    ui->cmbPortList->setEnabled(false);
+    ui->btnSerialList->setEnabled(false);
+    ui->btnSerialFlist->setEnabled(false);
+    ui->btnSerialOpen->setEnabled(false);
+    ui->cmbFlist->setEnabled(false);
 }
 
 float audiogram::scale2dBstr(int scale){
@@ -245,6 +256,8 @@ void audiogram::validateLoadJson(QString strJson){
       strErrJson += "Please Try again";
 
       QMessageBox::critical(this, "JSON Too Short", strErrJson);
+
+      return;
   }
 
   QJsonDocument docJson = QJsonDocument::fromJson(strJson.toUtf8(),&jsonError);
@@ -256,7 +269,6 @@ void audiogram::validateLoadJson(QString strJson){
     strErrJson += "Please Try again";
 
     QMessageBox::critical(this, "JSON Invalid", strErrJson);
-    qInfo() << strJson;
 
     return;
   }
@@ -268,6 +280,10 @@ void audiogram::validateLoadJson(QString strJson){
     inputJsonObj = datJson.toObject();
 
     QMessageBox::information(this, "JSON OK", "JSON Valid and OK");
+
+    ui->btnDataReset->setEnabled(true);
+    ui->btnDataPlot->setEnabled(true);
+    ui->btnDataSummary->setEnabled(true);
   }
 
   return;
@@ -300,7 +316,7 @@ void audiogram::on_btnDataJson_clicked()
   }
 
   if(ui->rbtSerial->isChecked()){
-      int fnum;
+      int fnum = 0;
 
       if(!myPort->isOpen()) return;
 
@@ -342,3 +358,70 @@ void audiogram::on_btnDataPlot_clicked()
   plotFromJson(ui->plotLeft,parseJsonRecord(inputJsonObj,CHANNEL_LEFT, indexToFrequency(ui->cmbFreqL->currentIndex())));
   plotFromJson(ui->plotRight,parseJsonRecord(inputJsonObj,CHANNEL_RIGHT, indexToFrequency(ui->cmbFreqR->currentIndex())));
 }
+
+void audiogram::on_btnDataReset_clicked()
+{
+  plotReset(ui->plotLeft);
+  plotReset(ui->plotRight);
+
+  ui->btnDataReset->setEnabled(false);
+  ui->btnDataPlot->setEnabled(false);
+  ui->btnDataSummary->setEnabled(false);
+}
+
+void audiogram::plotReset(QwtPlot *plotWidget){
+  plotWidget->detachItems();
+
+  QwtPlotGrid *grid = new QwtPlotGrid();
+  grid->attach(plotWidget);
+
+  QwtPlotCurve *curve = new QwtPlotCurve();
+  curve->setPen(Qt::blue,4);
+  curve->setRenderHint(QwtPlotItem::RenderAntialiased, true);
+
+  QwtSymbol *symbol = new QwtSymbol(
+        QwtSymbol::Ellipse,
+        QBrush(Qt::yellow),
+        QPen(Qt::red,2),
+        QSize(8,8));
+  curve->setSymbol(symbol);
+
+  QPolygonF points;
+
+  for(int i=0;i<24;i++){
+    points << QPointF(i, 0.0);
+  }
+
+  curve->setSamples(points);
+  curve->attach(plotWidget);
+  plotWidget->replot();
+}
+
+
+void audiogram::on_rbtFile_clicked()
+{
+  if(myPort->isOpen()){
+      myPort->close();
+      ui->btnSerialOpen->setText("Open");
+  }
+
+  ui->cmbPortList->setEnabled(false);
+  ui->btnSerialList->setEnabled(false);
+  ui->btnSerialFlist->setEnabled(false);
+  ui->btnSerialOpen->setEnabled(false);
+  ui->cmbFlist->setEnabled(false);
+}
+
+
+void audiogram::on_rbtSerial_clicked()
+{
+  if(myPort->isOpen()){ui->btnSerialOpen->setText("Close");}
+  else{ui->btnSerialOpen->setText("Open");}
+
+  ui->cmbPortList->setEnabled(true);
+  ui->btnSerialList->setEnabled(true);
+  ui->btnSerialFlist->setEnabled(true);
+  ui->btnSerialOpen->setEnabled(true);
+  ui->cmbFlist->setEnabled(true);
+}
+
