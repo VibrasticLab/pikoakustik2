@@ -19,7 +19,8 @@
 
 #define LS_NOSHOW       0
 #define LS_SHOWNUM      1
-#define LS_SHOWLIST     2
+#define LS_JSONNUM      2
+#define LS_SHOWLIST     3
 
 #define CAT_SINGLE_LINE 0
 #define CAT_MULTI_LINE  1

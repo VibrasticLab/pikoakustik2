@@ -53,7 +53,7 @@ static void cmd_coba(BaseSequentialStream *chp, int argc, char *argv[]){
 
 static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
   if(argc < 1){
-     chprintf(chp,"usage: mmc [test|ls|lsnum|cat] <file-number>\r\n");
+     chprintf(chp,"usage: mmc [test|ls|lsnum|lsjson|cat] <file-number>\r\n");
      return;
   }
 
@@ -68,6 +68,9 @@ static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
   }
   else if(strcmp(argv[0], "lsnum")==0){
     ht_mmc_lsFiles(LS_SHOWNUM);
+  }
+  else if(strcmp(argv[0], "lsjson")==0){
+    ht_mmc_lsFiles(LS_JSONNUM);
   }
   else if(strcmp(argv[0], "cat")==0){
     if(argc == 2){

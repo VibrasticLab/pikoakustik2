@@ -130,6 +130,10 @@ static FRESULT scanFiles(char *path, uint16_t *lastfnum, uint8_t showList){
     FILINFO Fno;
     uint16_t fnum;
 
+    if(showList==LS_JSONNUM){
+        ht_commUSB_Msg("{\"filelist\": {");
+    }
+
     *lastfnum=0;
     err = f_opendir(&Dir,path);
     if(err==FR_OK){
@@ -145,7 +149,7 @@ static FRESULT scanFiles(char *path, uint16_t *lastfnum, uint8_t showList){
                   ht_comm_Buff(strbuff,sizeof(strbuff),"%s\r\n",Fno.fname);
                   ht_commUSB_Msg(strbuff);
                 }
-                else if(showList==LS_SHOWNUM){
+                else if(showList==LS_SHOWNUM || showList==LS_JSONNUM){
                     ht_comm_Buff(strbuff,sizeof(strbuff),"%i, ",fnum);
                     ht_commUSB_Msg(strbuff);
                 }
@@ -155,6 +159,10 @@ static FRESULT scanFiles(char *path, uint16_t *lastfnum, uint8_t showList){
         if(showList==LS_SHOWNUM){
           ht_comm_Buff(strbuff,sizeof(strbuff),"\r\n");
           ht_commUSB_Msg(strbuff);
+        }
+        else if(showList==LS_JSONNUM){
+            ht_comm_Buff(strbuff,sizeof(strbuff),",0}}\r\n");
+            ht_commUSB_Msg(strbuff);
         }
 
         f_closedir(&Dir);
@@ -447,7 +455,7 @@ void ht_mmc_catFiles(uint16_t fnum, uint8_t lineType){
                 }
                 ht_commUSB_Msg(strbuff);
             }
-            ht_comm_Buff(strbuff,sizeof(strbuff),"\r");
+            ht_comm_Buff(strbuff,sizeof(strbuff),"\r\n");
             ht_commUSB_Msg(strbuff);
 
             f_close(Fil);
