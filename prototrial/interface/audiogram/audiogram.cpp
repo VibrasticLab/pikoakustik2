@@ -12,7 +12,6 @@ audiogram::audiogram(QWidget *parent)
   ui->btnSerialFlist->setIcon(QIcon(":/icons/reload.svg"));
 
   myPort = new QSerialPort(this);
-  QObject::connect(myPort, SIGNAL(readyRead()), SLOT(readData()));
 
   addSerialPortChoice();
   plotStart(ui->plotLeft);
@@ -24,20 +23,6 @@ audiogram::~audiogram()
   delete ui;
 
   if(myPort->isOpen()) myPort->close();
-}
-
-void audiogram::readData(){
-  rawData = myPort->readLine();
-  strRawData = QString::fromLocal8Bit(rawData);
-
-  qInfo() << strRawData;
-
-  if(reqType==REQTYPE_FLIST){
-    parseFlist(strRawData);
-  }
-  else if(reqType==REQTYPE_JSON){
-    validateLoadJson(strRawData);
-  }
 }
 
 void audiogram::addSerialPortChoice(){
@@ -101,12 +86,16 @@ void audiogram::on_btnSerialOpen_clicked()
         ui->btnSerialOpen->setText("Close");
         ui->cmbPortList->setEnabled(false);
         ui->btnSerialList->setEnabled(false);
+        ui->cmbFlist->setEnabled(true);
+        ui->btnSerialFlist->setEnabled(true);
       }
       else{
         QMessageBox::critical(this,"Failed","port failed on "+dev_name);
         ui->btnSerialOpen->setText("Open");
         ui->cmbPortList->setEnabled(true);
         ui->btnSerialList->setEnabled(true);
+        ui->cmbFlist->setEnabled(false);
+        ui->btnSerialFlist->setEnabled(false);
       }
     }
     else{
@@ -114,6 +103,8 @@ void audiogram::on_btnSerialOpen_clicked()
       ui->btnSerialOpen->setText("Open");
       ui->cmbPortList->setEnabled(true);
       ui->btnSerialList->setEnabled(true);
+      ui->cmbFlist->setEnabled(false);
+      ui->btnSerialFlist->setEnabled(false);
     }
 }
 
@@ -121,15 +112,23 @@ void audiogram::on_btnSerialFlist_clicked()
 {
     if(!myPort->isOpen()) return;
 
-#if defined(Q_OS_LINUX)
     QByteArray dataReq = "mmc lsnum\r\n";
-#elif defined(Q_OS_WINDOWS)
-    QByteArray dataReq = "mmc lsnum\r";
-#endif
 
-    reqType = REQTYPE_FLIST;
     ui->cmbFlist->clear();
+
     myPort->write(dataReq);
+    myPort->flush();
+    myPort->waitForBytesWritten(TIMEOUT_MS);
+
+    myPort->waitForReadyRead(TIMEOUT_MS);
+    QByteArray rawData = myPort->readAll();
+    while(myPort->waitForReadyRead(TIMEOUT_MS)) rawData.append(myPort->readAll());
+
+    QString strRawData = QString::fromLocal8Bit(rawData);
+    qInfo() << strRawData;
+    parseFlist(strRawData);
+
+    QMessageBox::information(this, "Updated", "Record List File updated");
 }
 
 void audiogram::parseFlist(QString strInput){
@@ -324,17 +323,21 @@ void audiogram::on_btnDataJson_clicked()
 
       if(!myPort->isOpen())return;
 
-      reqType = REQTYPE_JSON;
       fnum = fnameToFnum(ui->cmbFlist->currentText());
 
       if(fnum != 0){
-#if defined(Q_OS_LINUX)
         QByteArray dataReq = "mmc cat " + QByteArray::number(fnum) + "\r\n";
-#elif defined(Q_OS_WINDOWS)
-        QByteArray dataReq = "mmc cat " + QByteArray::number(fnum) + "\r";
-#endif
-
         myPort->write(dataReq);
+        myPort->flush();
+        myPort->waitForBytesWritten(TIMEOUT_MS);
+
+        myPort->waitForReadyRead(TIMEOUT_MS);
+        QByteArray rawData = myPort->readAll();
+        while(myPort->waitForReadyRead(TIMEOUT_MS)) rawData.append(myPort->readAll());
+
+        QString strRawData = QString::fromLocal8Bit(rawData);
+        qInfo() << strRawData;
+        validateLoadJson(strRawData);
       }
   }
 }
@@ -425,18 +428,18 @@ void audiogram::on_rbtSerial_clicked()
       ui->btnSerialOpen->setText("Close");
       ui->cmbPortList->setEnabled(false);
       ui->btnSerialList->setEnabled(false);
+      ui->cmbFlist->setEnabled(true);
+      ui->btnSerialFlist->setEnabled(true);
   }
   else{
       ui->btnSerialOpen->setText("Open");
       ui->cmbPortList->setEnabled(true);
       ui->btnSerialList->setEnabled(true);
+      ui->cmbFlist->setEnabled(false);
+      ui->btnSerialFlist->setEnabled(false);
   }
 
-  ui->cmbPortList->setEnabled(true);
-  ui->btnSerialList->setEnabled(true);
-  ui->btnSerialFlist->setEnabled(true);
   ui->btnSerialOpen->setEnabled(true);
-  ui->cmbFlist->setEnabled(true);
 }
 
 QString audiogram::buildSummary(QJsonObject audJsonObj){

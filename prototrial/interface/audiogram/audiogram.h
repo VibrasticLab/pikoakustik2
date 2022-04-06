@@ -43,6 +43,8 @@
 #define FREQ_4000 "freq_4"
 #define FREQ_8000 "freq_5"
 
+#define TIMEOUT_MS  500
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class audiogram; }
 QT_END_NAMESPACE
@@ -56,7 +58,6 @@ public:
   ~audiogram();
 
 private slots:
-  void readData();
   void on_btnSerialList_clicked();
   void on_btnSerialOpen_clicked();
   void on_btnSerialFlist_clicked();
@@ -73,9 +74,6 @@ private:
   Ui::audiogram *ui;
 
   QSerialPort *myPort;
-  QByteArray rawData;
-  QString strRawData;
-  uint8_t reqType;
 
   QJsonObject inputJsonObj;
   QString dataSummary;

@@ -157,7 +157,7 @@ static FRESULT scanFiles(char *path, uint16_t *lastfnum, uint8_t showList){
         }
 
         if(showList==LS_SHOWNUM){
-          ht_comm_Buff(strbuff,sizeof(strbuff),"\r\n");
+          ht_comm_Buff(strbuff,sizeof(strbuff),"0\r\n");
           ht_commUSB_Msg(strbuff);
         }
         else if(showList==LS_JSONNUM){

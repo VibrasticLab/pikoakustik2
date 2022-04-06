@@ -207,6 +207,7 @@ CPPWARN = -Wall -Wextra -Wundef
 
 # List all user C define here, like -D_DEBUG=1
 UDEFS = -DSHELL_PROMPT_STR="\"\"" \
+        -DSHELL_NEWLINE_STR="\"\"" \
         -DCHPRINTF_USE_FLOAT=TRUE \
         -DSHELL_MAX_LINE_LENGTH=64 \
         -DSHELL_MAX_ARGUMENTS=4 \
