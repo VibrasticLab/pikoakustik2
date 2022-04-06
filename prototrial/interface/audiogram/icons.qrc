@@ -2,7 +2,5 @@
     <qresource prefix="/">
         <file>icons/folder.svg</file>
         <file>icons/reload.svg</file>
-        <file>icons/folder.ico</file>
-        <file>icons/reload.ico</file>
     </qresource>
 </RCC>

@@ -7,15 +7,9 @@ audiogram::audiogram(QWidget *parent)
 {
   ui->setupUi(this);
 
-#if defined(Q_OS_LINUX)
   ui->btnBrowseFile->setIcon(QIcon(":/icons/folder.svg"));
   ui->btnSerialList->setIcon(QIcon(":/icons/reload.svg"));
   ui->btnSerialFlist->setIcon(QIcon(":/icons/reload.svg"));
-#elif defined(Q_OS_WINDOWS)
-  ui->btnBrowseFile->setIcon(QIcon(":/icons/folder.ico"));
-  ui->btnSerialList->setIcon(QIcon(":/icons/reload.ico"));
-  ui->btnSerialFlist->setIcon(QIcon(":/icons/reload.ico"));
-#endif
 
   myPort = new QSerialPort(this);
 
