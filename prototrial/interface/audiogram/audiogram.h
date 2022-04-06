@@ -43,6 +43,8 @@
 #define FREQ_4000 "freq_4"
 #define FREQ_8000 "freq_5"
 
+#define CALIB_BOSE  0
+
 #define TIMEOUT_MS  500
 
 QT_BEGIN_NAMESPACE
@@ -83,7 +85,7 @@ private:
 
   void addSerialPortChoice(void);
   void parseFlist(QString strInput);
-  float scale2dBstr(int scale);
+  float scale2dBstr(int scale, int calibType);
   void plotStart(QwtPlot *plotWidget);
   void plotReset(QwtPlot *plotWidget);
   void plotFromJson(QwtPlot *plotWidget, QJsonArray scaleInput);
@@ -94,5 +96,6 @@ private:
   int parseJsonAmpl(QJsonObject audJsonObj, QString strChannel, QString strFreq);
   void dialogSummary(void);
   QString buildSummary(QJsonObject audJsonObj);
+  QString headphoneName(int calibType);
 };
 #endif // AUDIOGRAM_H

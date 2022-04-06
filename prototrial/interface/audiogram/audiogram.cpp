@@ -7,10 +7,6 @@ audiogram::audiogram(QWidget *parent)
 {
   ui->setupUi(this);
 
-  ui->btnBrowseFile->setIcon(QIcon(":/icons/folder.svg"));
-  ui->btnSerialList->setIcon(QIcon(":/icons/reload.svg"));
-  ui->btnSerialFlist->setIcon(QIcon(":/icons/reload.svg"));
-
   myPort = new QSerialPort(this);
 
   addSerialPortChoice();
@@ -166,26 +162,30 @@ void audiogram::on_btnBrowseFile_clicked()
     ui->cmbFlist->setEnabled(false);
 }
 
-float audiogram::scale2dBstr(int scale){
-  float dB;
+float audiogram::scale2dBstr(int scale, int calibType){
+  float dB = 0.0;
 
-  switch (scale) {
-    case 9: dB = 72.9; break;
-    case 8: dB = 66.9; break;
-    case 7: dB = 60.8; break;
-    case 6: dB = 54.8; break;
-    case 5: dB = 49.0; break;
-    case 4: dB = 43.5; break;
-    case 3: dB = 39.1; break;
-    case 2: dB = 36.3; break;
-    case 1: dB = 34.9; break;
-    default: dB = 0;break;
+  if(calibType==CALIB_BOSE){
+    switch (scale) {
+      case 9: dB = 72.9; break;
+      case 8: dB = 66.9; break;
+      case 7: dB = 60.8; break;
+      case 6: dB = 54.8; break;
+      case 5: dB = 49.0; break;
+      case 4: dB = 43.5; break;
+      case 3: dB = 39.1; break;
+      case 2: dB = 36.3; break;
+      case 1: dB = 34.9; break;
+      default: dB = 0;break;
+    }
   }
 
   return dB;
 }
 
 void audiogram::plotFromJson(QwtPlot *plotWidget, QJsonArray scaleInput){
+  int headPhone = ui->cmbHeadphone->currentIndex();
+
   plotWidget->detachItems();
 
   QwtPlotGrid *grid = new QwtPlotGrid();
@@ -205,7 +205,7 @@ void audiogram::plotFromJson(QwtPlot *plotWidget, QJsonArray scaleInput){
   QPolygonF points;
 
   for(int i=0;i<24;i++){
-    points << QPointF(i, scale2dBstr(scaleInput[i].toInt()));
+    points << QPointF(i, scale2dBstr(scaleInput[i].toInt(), headPhone));
   }
 
   curve->setSamples(points);
@@ -359,8 +359,10 @@ QString audiogram::indexToFrequency(int idx){
 
 void audiogram::on_btnDataPlot_clicked()
 {
-  ui->editAmplL->setText(QString::number(scale2dBstr(parseJsonAmpl(inputJsonObj,CHANNEL_LEFT, indexToFrequency(ui->cmbFreqL->currentIndex())))));
-  ui->editAmplR->setText(QString::number(scale2dBstr(parseJsonAmpl(inputJsonObj,CHANNEL_RIGHT, indexToFrequency(ui->cmbFreqR->currentIndex())))));
+  int headPhone = ui->cmbHeadphone->currentIndex();
+
+  ui->editAmplL->setText(QString::number(scale2dBstr(parseJsonAmpl(inputJsonObj,CHANNEL_LEFT, indexToFrequency(ui->cmbFreqL->currentIndex())), headPhone)));
+  ui->editAmplR->setText(QString::number(scale2dBstr(parseJsonAmpl(inputJsonObj,CHANNEL_RIGHT, indexToFrequency(ui->cmbFreqR->currentIndex())), headPhone)));
 
   plotFromJson(ui->plotLeft,parseJsonRecord(inputJsonObj,CHANNEL_LEFT, indexToFrequency(ui->cmbFreqL->currentIndex())));
   plotFromJson(ui->plotRight,parseJsonRecord(inputJsonObj,CHANNEL_RIGHT, indexToFrequency(ui->cmbFreqR->currentIndex())));
@@ -442,30 +444,41 @@ void audiogram::on_rbtSerial_clicked()
   ui->btnSerialOpen->setEnabled(true);
 }
 
+QString audiogram::headphoneName(int calibType){
+  QString hpName = "";
+
+  if(calibType==CALIB_BOSE){
+      hpName = "BOSE";
+  }
+
+  return hpName;
+}
+
 QString audiogram::buildSummary(QJsonObject audJsonObj){
   QString strSummary;
+  int headPhone = ui->cmbHeadphone->currentIndex();
 
-  strSummary = "audiogram table:\n";
+  strSummary = "headphone: " + headphoneName(headPhone) + "\n";
   strSummary += "----------------------\n";
 
   strSummary += "left channel:\n";
   strSummary += "----------------------\n";
-  strSummary += "250 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_LEFT, FREQ_250))) + " dB SPL\n";
-  strSummary += "500 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_LEFT, FREQ_500))) + " dB SPL\n";
-  strSummary += "1000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_LEFT, FREQ_1000))) + " dB SPL\n";
-  strSummary += "2000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_LEFT, FREQ_2000))) + " dB SPL\n";
-  strSummary += "4000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_LEFT, FREQ_4000))) + " dB SPL\n";
-  strSummary += "8000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_LEFT, FREQ_8000))) + " dB SPL\n";
+  strSummary += "250 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_LEFT, FREQ_250), headPhone)) + " dB SPL\n";
+  strSummary += "500 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_LEFT, FREQ_500), headPhone)) + " dB SPL\n";
+  strSummary += "1000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_LEFT, FREQ_1000), headPhone)) + " dB SPL\n";
+  strSummary += "2000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_LEFT, FREQ_2000), headPhone)) + " dB SPL\n";
+  strSummary += "4000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_LEFT, FREQ_4000), headPhone)) + " dB SPL\n";
+  strSummary += "8000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_LEFT, FREQ_8000), headPhone)) + " dB SPL\n";
   strSummary += "----------------------\n";
 
   strSummary += "right channel:\n";
   strSummary += "----------------------\n";
-  strSummary += "250 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_RIGHT, FREQ_250))) + " dB SPL\n";
-  strSummary += "500 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_RIGHT, FREQ_500))) + " dB SPL\n";
-  strSummary += "1000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_RIGHT, FREQ_1000))) + " dB SPL\n";
-  strSummary += "2000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_RIGHT, FREQ_2000))) + " dB SPL\n";
-  strSummary += "4000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_RIGHT, FREQ_4000))) + " dB SPL\n";
-  strSummary += "8000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_RIGHT, FREQ_8000))) + " dB SPL\n";
+  strSummary += "250 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_RIGHT, FREQ_250), headPhone)) + " dB SPL\n";
+  strSummary += "500 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_RIGHT, FREQ_500), headPhone)) + " dB SPL\n";
+  strSummary += "1000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_RIGHT, FREQ_1000), headPhone)) + " dB SPL\n";
+  strSummary += "2000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_RIGHT, FREQ_2000), headPhone)) + " dB SPL\n";
+  strSummary += "4000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_RIGHT, FREQ_4000), headPhone)) + " dB SPL\n";
+  strSummary += "8000 Hz: " + QString::number(scale2dBstr(parseJsonAmpl(audJsonObj,CHANNEL_RIGHT, FREQ_8000), headPhone)) + " dB SPL\n";
   strSummary += "----------------------\n";
 
   return strSummary;
