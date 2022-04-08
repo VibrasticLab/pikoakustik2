@@ -69,7 +69,7 @@
  * @brief Global Duration for Testing
  * @details Range is 1 to 250 while 100 means 1000ms
  */
-#define TEST_DURATION   10
+#define TEST_DURATION   20 // 200 ms each tone
 
 /**
  * @brief Smallest signal scale can produced as far for now

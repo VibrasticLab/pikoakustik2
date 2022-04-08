@@ -38,6 +38,7 @@ static I2SConfig i2scfg = {
 
 void ht_audio_Init(void){
     i2sStart(&I2SD2, &i2scfg);
+    ht_audio_Zero();
 
     palSetPadMode(GPIOB, 12, PAL_MODE_ALTERNATE(5));
     palSetPadMode(GPIOB, 10, PAL_MODE_ALTERNATE(5));
@@ -109,6 +110,7 @@ void ht_audio_Play(uint16_t duration){
 
     chThdSleepMilliseconds(duration*10);
 
+    ht_audio_Zero();
     i2sStopExchange(&I2SD2);
 
     stt_inPlay=FALSE;
@@ -134,48 +136,52 @@ void ht_audio_TestTone(void){
 }
 
 void ht_audio_TestBoth(void){
+    chThdSleepMilliseconds(200);
+    ht_audio_LeftCh();
     ht_audio_TestTone();
-
-    chThdSleepMilliseconds(200);
-    ht_audio_LeftCh();
     ht_audio_Play(TEST_DURATION);
 
     chThdSleepMilliseconds(200);
     ht_audio_RightCh();
+    ht_audio_TestTone();
     ht_audio_Play(TEST_DURATION);
 
     chThdSleepMilliseconds(200);
     ht_audio_LeftCh();
+    ht_audio_TestTone();
     ht_audio_Play(TEST_DURATION);
 
     chThdSleepMilliseconds(200);
     ht_audio_RightCh();
+    ht_audio_TestTone();
     ht_audio_Play(TEST_DURATION);
 
     ht_audio_DisableCh();
 }
 
 void ht_audio_TestLeft(void){
-    ht_audio_TestTone();
     ht_audio_LeftCh();
 
     chThdSleepMilliseconds(200);
+    ht_audio_TestTone();
     ht_audio_Play(TEST_DURATION);
 
     chThdSleepMilliseconds(200);
+    ht_audio_TestTone();
     ht_audio_Play(TEST_DURATION);
 
     ht_audio_DisableCh();
 }
 
 void ht_audio_TestRight(void){
-    ht_audio_TestTone();
     ht_audio_RightCh();
 
     chThdSleepMilliseconds(200);
+    ht_audio_TestTone();
     ht_audio_Play(TEST_DURATION);
 
     chThdSleepMilliseconds(200);
+    ht_audio_TestTone();
     ht_audio_Play(TEST_DURATION);
 
     ht_audio_DisableCh();
