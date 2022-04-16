@@ -93,12 +93,54 @@ void ht_audio_Tone(double freq, double ampl){
     i2scfg.size = buffsize;
 }
 
+void ht_audio_ToneNoAtt(double freq, double ampl){
+    uint16_t i;
+    uint16_t buffsize;
+    double ysin;
+    double ampl_act;
+
+    buffsize = (uint16_t) I2S_BUFF_SIZE/freq;
+
+    ampl_act = DEFAULT_ATTEN*ampl*32767;
+    if(ampl_act<=DEFAULT_AMPL_THD){ampl = 0;}
+
+    ht_audio_Zero();
+
+    for(i=0;i<buffsize;i++){
+        ysin = ampl*32767*sin(2*3.141592653589793*((double)i/(double)buffsize));
+
+        if(ysin >= 0){
+            i2s_tx_buf[i]=ysin;
+#if USE_STEREO_ARRAY
+            i2s_tx_buf[i+1]=ysin;
+#endif
+        }
+        if(ysin < 0){
+            i2s_tx_buf[i]=ysin+65535;
+#if USE_STEREO_ARRAY
+            i2s_tx_buf[i+1]=ysin+65535;
+#endif
+        }
+    }
+
+    i2scfg.size = buffsize;
+}
+
 void ht_audio_ToneScale(double freq, double scale){
     double ampl_scale;
 
     if(scale>0 && scale<=9){
         ampl_scale = 2 / pow(2,10-scale);
         ht_audio_Tone(freq,ampl_scale);
+    }
+}
+
+void ht_audio_ToneScaleNoAtt(double freq, double scale){
+    double ampl_scale;
+
+    if(scale>0 && scale<=9){
+        ampl_scale = 2 / pow(2,10-scale);
+        ht_audio_ToneNoAtt(freq,ampl_scale);
     }
 }
 

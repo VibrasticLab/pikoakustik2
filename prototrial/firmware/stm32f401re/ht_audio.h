@@ -124,12 +124,28 @@ void ht_audio_Zero(void);
 void ht_audio_Tone(double freq, double ampl);
 
 /**
+ * @brief Generate sine wave tone from halving formula with Frequency and Amplitude without any Attenuation
+ * @details This function intended to be actual implementaion of sample preparation
+ * @param[in] double Sine wave sample frequency in linear scaling from 400Hz (0.25,0.5,1,2,4,8,16,32) -> 500Hz=1.25
+ * @param[in] double Sine wave sample amplitude in linear scaling from 100dB (1 ~ 0.0001 or use ht_audio_Zero())
+ */
+void ht_audio_ToneNoAtt(double freq, double ampl);
+
+/**
  * @brief Generate sine wave tone from halving formula with Frequency and Amplitude
  * @details This function intended to be actual implementaion of sample preparation
  * @param[in] double Sine wave sample frequency in linear scaling from 400Hz (0.25,0.5,1,2,4,8,16,32) -> 500Hz=1.25
  * @param[in] double Sine wave sample amplitude scale in linear scaling from 9 to 1 (9 is loudest)
  */
 void ht_audio_ToneScale(double freq, double scale);
+
+/**
+ * @brief Generate sine wave tone from halving formula with Frequency and  without any Attenuation
+ * @details This function intended to be actual implementaion of sample preparation
+ * @param[in] double Sine wave sample frequency in linear scaling from 400Hz (0.25,0.5,1,2,4,8,16,32) -> 500Hz=1.25
+ * @param[in] double Sine wave sample amplitude scale in linear scaling from 9 to 1 (9 is loudest)
+ */
+void ht_audio_ToneScaleNoAtt(double freq, double scale);
 
 /**
  * @brief Play Audio via I2S

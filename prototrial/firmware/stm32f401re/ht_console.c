@@ -188,6 +188,86 @@ static void cmd_tone(BaseSequentialStream *chp, int argc, char *argv[]){
   chprintf(chp,"Finished\r\n");
 }
 
+static void cmd_ori(BaseSequentialStream *chp, int argc, char *argv[]) {
+  uint8_t in_ampl;
+  uint16_t in_freq;
+
+  double vfreq=1;
+
+  uint8_t lrc = 0;
+  uint16_t tone_durr = 500;
+
+  switch(argc){
+    case 1:
+      lrc = 0;
+      in_freq = 500;
+
+      if(strcmp(argv[0],"min")==0){
+        in_ampl = 1;
+      }
+
+      if(strcmp(argv[0],"max")==0){
+        in_ampl = 9;
+      }
+
+      break;
+
+    case 2:
+      lrc = 0;
+      in_freq = atoi(argv[0]);
+      in_ampl = atoi(argv[1]);
+      break;
+
+    case 3:
+      lrc = atoi(argv[0]);;
+      in_freq = atoi(argv[1]);
+      in_ampl = atoi(argv[2]);
+      break;
+
+    case 4:
+      lrc = atoi(argv[0]);
+      in_freq = atoi(argv[1]);
+      in_ampl = atoi(argv[2]);
+      tone_durr = atoi(argv[3]);
+      break;
+
+    default:
+      chprintf(chp,"usage: out <0/1> <freq> <ampl> <duration_ms>\r\n");
+      return;
+      break;
+  }
+
+  switch(lrc){
+      case OUT_LEFT:
+          ht_audio_LeftCh();
+          break;
+
+      case OUT_RIGHT:
+          ht_audio_RightCh();
+          break;
+  }
+
+  if(in_freq>=250 && in_freq<=8000){
+      vfreq = (double) in_freq / 400; // 400 is known array length as default frequency
+  }
+  else{
+      chprintf(chp,"frequency only between 250 and 8000\r\n");
+  }
+
+  if(!(in_ampl>0 && in_ampl<10)){
+      chprintf(chp,"amplitudo scaling only between 1 and 9\r\n");
+      return;
+  }
+
+  ht_audio_ToneScaleNoAtt(vfreq, in_ampl);
+  chprintf(chp,"Out: Freq:%5i Ampl:%2i\r\n",in_freq,in_ampl);
+
+  ht_audio_Play(tone_durr);
+
+  chprintf(chp,"Finished\r\n");
+  ht_audio_DisableCh();
+}
+
 static void cmd_virt(BaseSequentialStream *chp, int argc, char *argv[]) {
     (void)argv;
     if (argc != 0) {
@@ -227,6 +307,7 @@ static const ShellCommand commands[] = {
   {"coba", cmd_coba},
   {"mmc", cmd_mmc},
   {"out", cmd_out},
+  {"ori", cmd_ori},
   {"tone", cmd_tone},
   {"virt", cmd_virt},
   {"htstate", esp32_MsgStatus},
