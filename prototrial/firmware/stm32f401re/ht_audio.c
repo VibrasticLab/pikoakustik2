@@ -17,7 +17,16 @@
 
 #include "ht_audio.h"
 
+/**
+ * @brief State if DAC still playing a tone
+ */
 uint8_t stt_inPlay = FALSE;
+
+/**
+ * @brief Sine Array size.
+ * @details Should be same size as i2scfg.size
+ */
+uint16_t sineSize = 0;
 
 /**
  * @brief I2S Transmit buffer
@@ -91,6 +100,7 @@ void ht_audio_Tone(double freq, double ampl){
     }
 
     i2scfg.size = buffsize;
+    sineSize = buffsize;
 }
 
 void ht_audio_ToneNoAtt(double freq, double ampl){
@@ -124,6 +134,7 @@ void ht_audio_ToneNoAtt(double freq, double ampl){
     }
 
     i2scfg.size = buffsize;
+    sineSize = buffsize;
 }
 
 void ht_audio_ToneScale(double freq, double scale){
