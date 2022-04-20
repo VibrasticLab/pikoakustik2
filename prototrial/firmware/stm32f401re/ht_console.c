@@ -34,7 +34,7 @@ extern uint8_t channel_stt;
 extern uint8_t mode_led;
 
 extern uint16_t sineSize;
-extern uint16_t i2s_tx_buf[TOTAL_BUFF_SIZE];
+extern int16_t i2s_tx_buf[TOTAL_BUFF_SIZE];
 
 /*******************************************
  * Serial Command Callback
@@ -191,6 +191,7 @@ static void cmd_tone(BaseSequentialStream *chp, int argc, char *argv[]){
   chprintf(chp,"Finished\r\n");
 }
 
+#if USE_FULL_SINE
 static void cmd_ori(BaseSequentialStream *chp, int argc, char *argv[]) {
   uint8_t in_ampl;
   uint16_t in_freq;
@@ -270,6 +271,7 @@ static void cmd_ori(BaseSequentialStream *chp, int argc, char *argv[]) {
   chprintf(chp,"Finished\r\n");
   ht_audio_DisableCh();
 }
+#endif
 
 static void cmd_sig(BaseSequentialStream *chp, int argc, char *argv[]) {
   uint8_t in_ampl;
@@ -278,7 +280,7 @@ static void cmd_sig(BaseSequentialStream *chp, int argc, char *argv[]) {
   double vfreq=1;
 
   uint8_t lrc = 0;
-  uint8_t tone_ori = 1;
+  uint8_t tone_ori = 0;
 
   uint16_t i;
 
@@ -399,7 +401,9 @@ static const ShellCommand commands[] = {
   {"coba", cmd_coba},
   {"mmc", cmd_mmc},
   {"out", cmd_out},
+#if USE_FULL_SINE
   {"ori", cmd_ori},
+#endif
   {"sig", cmd_sig},
   {"tone", cmd_tone},
   {"virt", cmd_virt},

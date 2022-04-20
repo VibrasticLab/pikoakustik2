@@ -12,6 +12,16 @@
 #endif // HT_AUDIO_H
 
 /**
+ * @brief Whether use weird sine method or not
+ */
+#define WEIRD_SINE  FALSE
+
+/**
+ * @brief Whether use full array function or not
+ */
+#define USE_FULL_SINE FALSE
+
+/**
  * @brief GPIO Port to enables Audio DAC
  */
 #define AUDIO_IO    GPIOC
@@ -63,7 +73,7 @@
 /**
  * @brief Wheter use Left/Right or Mono array
  */
-#define USE_STEREO_ARRAY TRUE
+#define USE_STEREO_ARRAY FALSE
 
 /**
  * @brief Global Duration for Testing

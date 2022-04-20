@@ -31,7 +31,7 @@ uint16_t sineSize = 0;
 /**
  * @brief I2S Transmit buffer
  */
-static uint16_t i2s_tx_buf[TOTAL_BUFF_SIZE];
+int16_t i2s_tx_buf[TOTAL_BUFF_SIZE];
 
 /**
  * @brief I2S Protocol config struct
@@ -85,18 +85,22 @@ void ht_audio_Tone(double freq, double ampl){
     for(i=0;i<buffsize;i++){
         ysin = DEFAULT_ATTEN*ampl*32767*sin(2*3.141592653589793*((double)i/(double)buffsize));
 
+#if WEIRD_SINE
         if(ysin >= 0){
             i2s_tx_buf[i]=ysin;
-#if USE_STEREO_ARRAY
+ #if USE_STEREO_ARRAY
             i2s_tx_buf[i+1]=ysin;
-#endif
+ #endif
         }
         if(ysin < 0){
             i2s_tx_buf[i]=ysin+65535;
-#if USE_STEREO_ARRAY
+ #if USE_STEREO_ARRAY
             i2s_tx_buf[i+1]=ysin+65535;
-#endif
+ #endif
         }
+#else
+        i2s_tx_buf[i] = ysin;
+#endif
     }
 
     i2scfg.size = buffsize;
@@ -106,7 +110,7 @@ void ht_audio_Tone(double freq, double ampl){
 void ht_audio_ToneNoAtt(double freq, double ampl){
     uint16_t i;
     uint16_t buffsize;
-    double ysin;
+    int16_t ysin;
     double ampl_act;
 
     buffsize = (uint16_t) I2S_BUFF_SIZE/freq;
@@ -117,20 +121,24 @@ void ht_audio_ToneNoAtt(double freq, double ampl){
     ht_audio_Zero();
 
     for(i=0;i<buffsize;i++){
-        ysin = ampl*32767*sin(2*3.141592653589793*((double)i/(double)buffsize));
+        ysin = (int16_t) 0.5*ampl*32767*sin(2*3.141592653589793*((double)i/(double)buffsize));
 
-        if(ysin >= 0){
-            i2s_tx_buf[i]=ysin;
-#if USE_STEREO_ARRAY
-            i2s_tx_buf[i+1]=ysin;
+#if WEIRD_SINE
+          if(ysin >= 0){
+              i2s_tx_buf[i]=ysin+32767;
+  #if USE_STEREO_ARRAY
+              i2s_tx_buf[i+1]=ysin+32767;
+  #endif
+          }
+          if(ysin < 0){
+              i2s_tx_buf[i]=ysin+32767;
+  #if USE_STEREO_ARRAY
+              i2s_tx_buf[i+1]=ysin+32767;
+  #endif
+          }
+#else
+        i2s_tx_buf[i] = ysin;
 #endif
-        }
-        if(ysin < 0){
-            i2s_tx_buf[i]=ysin+65535;
-#if USE_STEREO_ARRAY
-            i2s_tx_buf[i+1]=ysin+65535;
-#endif
-        }
     }
 
     i2scfg.size = buffsize;
