@@ -6,10 +6,15 @@
 #define DEFAULT_AMPL_THD 1
 #define I2S_BUFF_SIZE   512
 #define TOTAL_BUFF_SIZE I2S_BUFF_SIZE*16
-#define DEFAULT_ATTEN 0.01
+#define DEFAULT_ATTEN 1
 
 uint16_t sineSize = 0;
+
+#if WEIRD_SINE
+uint16_t i2s_tx_buf[TOTAL_BUFF_SIZE];
+#else
 int16_t i2s_tx_buf[TOTAL_BUFF_SIZE];
+#endif
 
 static void tone_Zero(void){
     uint16_t i;
