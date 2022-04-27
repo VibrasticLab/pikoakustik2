@@ -1,3 +1,4 @@
+_minted*
 *.aux
 *.log
 *.nav
@@ -6,3 +7,4 @@
 *.snm
 *.synctex.gz
 *.toc
+*.vrb

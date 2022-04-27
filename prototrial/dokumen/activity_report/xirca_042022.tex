@@ -101,7 +101,7 @@ version={4.0},
 		\begin{exampleblock}{Review Class-D AudioDAC}
 			Audio Digital to Analog chip yang digunakan adalah seri MAX98357A yang merupakan audio amplifier kelas D.
 			Ditemukan frekuensi lebih dari satu frekuensi setiap proses \textit{tone generation} yang muncul saat diuji dengan Audio Capture.
-			Perangkat Audio Capture yang digunakan adalah MiniDSP E.A.R.S.
+			Perangkat Audio Capture yang digunakan adalah MiniDSP E.A.R.S melalui software DSSF3 buatan Yoshimasha.
 		\end{exampleblock}
 	
 		\begin{exampleblock}{MiniDSP EARS}
@@ -121,7 +121,35 @@ version={4.0},
 		\end{exampleblock}
 	\end{frame}
 	
-	\subsection{Signal Generation Code}
+	\begin{frame}[fragile]
+		\subsection{Signal Generation Code}
+		\begin{exampleblock}{Perbaikan Programming}
+			Dilakukan perbaikan \textit{programming} terkait metode \textit{tone generation}
+		\end{exampleblock}
+	
+		\begin{exampleblock}{Diff code}
+			\begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,bgcolor=LightGray,fontsize=\tiny,linenos]{diff}
+-static uint16_t i2s_tx_buf[TOTAL_BUFF_SIZE];
++int16_t i2s_tx_buf[TOTAL_BUFF_SIZE];
+
+uint16_t i;
+uint16_t buffsize;
+double ysin;
+
+for(i=0;i<buffsize;i++){
+	ysin = DEFAULT_ATTEN*ampl*32767*sin(2*3.141592653589793*((double)i/(double)buffsize));
+	
+-	if(ysin >= 0){
+-		i2s_tx_buf[i]=ysin;
+-	}
+-	if(ysin < 0){
+-		i2s_tx_buf[i]=ysin+65535;
+-	}
++ 	i2s_tx_buf[i] = ysin;
+}
+			\end{minted}
+		\end{exampleblock}
+	\end{frame}
 	
 	\subsection{Clipping Limitation}
 	

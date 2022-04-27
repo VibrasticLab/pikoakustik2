@@ -73,10 +73,11 @@ void ht_audio_Tone(double freq, double ampl){
     uint16_t i;
     uint16_t buffsize;
     double ysin;
-    double ampl_act;
 
     buffsize = (uint16_t) I2S_BUFF_SIZE/freq;
 
+    // checking lowest possible amplitude
+    double ampl_act;
     ampl_act = DEFAULT_ATTEN*ampl*32767;
     if(ampl_act<=DEFAULT_AMPL_THD){ampl = 0;}
 
@@ -110,18 +111,19 @@ void ht_audio_Tone(double freq, double ampl){
 void ht_audio_ToneNoAtt(double freq, double ampl){
     uint16_t i;
     uint16_t buffsize;
-    int16_t ysin;
-    double ampl_act;
+    double ysin;
 
     buffsize = (uint16_t) I2S_BUFF_SIZE/freq;
 
-    ampl_act = DEFAULT_ATTEN*ampl*32767;
+    // checking lowest possible amplitude
+    double ampl_act;
+    ampl_act = ampl*32767;
     if(ampl_act<=DEFAULT_AMPL_THD){ampl = 0;}
 
     ht_audio_Zero();
 
     for(i=0;i<buffsize;i++){
-        ysin = (int16_t) 0.5*ampl*32767*sin(2*3.141592653589793*((double)i/(double)buffsize));
+        ysin = ampl*32767*sin(2*3.141592653589793*((double)i/(double)buffsize));
 
 #if WEIRD_SINE
           if(ysin >= 0){
