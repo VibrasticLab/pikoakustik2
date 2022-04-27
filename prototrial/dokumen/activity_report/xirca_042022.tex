@@ -7,6 +7,15 @@
 	\setbeamercolor{block}{fg=Black,bg=Blue!10}
 }
 
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+}
+
+\usepackage[normalem]{ulem}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{xcolor}
@@ -43,6 +52,14 @@ version={4.0},
 				Kompleks Puri Syailendra.\\
 				Jl. Lemah Neundeut No. Kav-30, Sukawarna, Setrasari, Kota Bandung, Jawa Barat 40164 .
 			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+
+	\begin{frame}
+		\subsection{Dokumentasi Presensi}
+		\begin{exampleblock}{Dokumentasi Hari Terakhir}
+			\centering
+			\includegraphics[width=250pt]{images/last_day}
 		\end{exampleblock}
 	\end{frame}
 	
@@ -162,7 +179,7 @@ for(i=0;i<buffsize;i++){
 
 	\begin{frame}
 		\subsection{Clipping Limitation}
-		\begin{exampleblock}{pembacaan sinyal output penuh dan tidak (tanpa headphone)}
+		\begin{exampleblock}{pembacaan output penuh/atenuasi (OSC: Keysight MSO-X 2002A)}
 			\includegraphics[width=165pt]{images/sinefull_osc}
 			\includegraphics[width=165pt]{images/sine_osc}
 		\end{exampleblock}
@@ -175,9 +192,9 @@ for(i=0;i<buffsize;i++){
 	
 	\begin{frame}
 		\subsection{Compare to Signal Generator}
-		\begin{exampleblock}{Tes sine-wave (dengan headphone)}
-			\centering
+		\begin{exampleblock}{Tes sine-wave  (OSC: Siglent SDS 1072CML)}
 			\includegraphics[width=150pt]{images/sine_sig_test}
+			\includegraphics[width=150pt]{images/sine_sig_test_dac}
 		\end{exampleblock}
 	
 		\begin{exampleblock}{perbandingan signal generator dan class-D Audio DAC}
@@ -188,13 +205,166 @@ for(i=0;i<buffsize;i++){
 	
 	\section {Review Sementara Desain P3}
 	
+	\begin{frame}
+		\begin{exampleblock}{Progress sementara desain P3}
+			Berikut progres diagram dasar sistem untuk pengembangan prototype P3 yang di-\textit{draft} di software Altium Designer.
+			Terbagi dalam dua grup:
+			\begin{itemize}
+				\item Diagram Power
+				\item Diagram Sinyal
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+
+	\begin{frame}
+		\subsection{Diagram Power}
+		\begin{exampleblock}{Diagram Power}
+			\centering
+			\includegraphics[width=300pt]{images/diagram_power}
+		\end{exampleblock}
+	\end{frame}
+
+	\begin{frame}
+		\subsection{Diagram Signal}
+		\begin{exampleblock}{Diagram Signal}
+			\centering
+			\includegraphics[width=300pt]{images/diagram_signal}
+		\end{exampleblock}
+	\end{frame}
+	
 	\section{Upgrade Packaging P2}
+	
+	\begin{frame}
+		\subsection{Tujuan}
+		\begin{exampleblock}{Upgrade Packaging}
+			Telah dilakukan upgrade desain packaging dan merakit 3D-print desain tersebut untuk prototype P2 sehingga pengunaan menjadi lebih nyaman.
+		\end{exampleblock}
+	
+		\subsection{Hasil}
+		\begin{exampleblock}{Perbandingan packaging lama/baru}
+			\includegraphics[width=165pt]{images/pack_lama}
+			\includegraphics[width=165pt]{images/pack_jadi}
+		\end{exampleblock}
+	\end{frame}
+
+	\begin{frame}
+		\subsection{Dokumentasi}
+		\begin{exampleblock}{Dokumentasi}
+			\includegraphics[width=165pt]{images/pack_open0}
+			\includegraphics[width=165pt]{images/pack_open1}
+		\end{exampleblock}
+	
+		\begin{exampleblock}{Modifikasi PCB}
+			Beberapa modifikasi circuit P2:
+			\begin{itemize}
+				\item Ukuran/luasan fisik battery harus lebih kecil
+				\item Jack Audio 3.5mm di-\textit{wiring} di luar PCB
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
 	
 	\section{Pengadaan Inventaris}
 	
 	\subsection{Examples}
+	\begin{frame}
+		\begin{exampleblock}{Pengadaan/pembaharuan peralatan}
+			Berikut beberapa contoh peralatan yang dapat dilakukan pengadaan/pembaharuan.
+		\end{exampleblock}
+	
+		\begin{exampleblock}{Solder tipe tip Knife (K-series) plus regulator}
+			\centering
+			\includegraphics[width=165pt,angle=-90,origin=c]{images/solder0}
+			\includegraphics[width=165pt,angle=-90,origin=c]{images/solder1}
+		\end{exampleblock}
+	\end{frame}
+
+	\begin{frame}
+		\begin{exampleblock}{Timah wire dan LotFet (Tidak perlu timah Mechanical)}
+			\centering
+			\includegraphics[width=100pt,angle=-90,origin=c]{images/timah}
+			\includegraphics[width=100pt,angle=-90,origin=c]{images/lotfet}
+		\end{exampleblock}
+		
+		\begin{exampleblock}{PCB Cleaner (isopropyl alcohol dan quick-absorb tissue)}
+			\centering
+			\includegraphics[width=100pt,angle=-90,origin=c]{images/pcbclean0}
+			\includegraphics[width=100pt,angle=-90,origin=c]{images/pcbclean1}
+		\end{exampleblock}
+	\end{frame}
+
+	\begin{frame}
+		\begin{exampleblock}{Pensil kayu (membantu menahan posisi komponen QFN/QFP)}
+			\centering
+			\includegraphics[width=125pt]{images/pensil_kayu}
+		\end{exampleblock}
+
+		\begin{exampleblock}{Wire Stripper}
+			\centering
+			\includegraphics[width=125pt]{images/tang_kabel}
+		\end{exampleblock}
+	\end{frame}
+
+	\begin{frame}
+		\begin{exampleblock}{Osiloskop dan (opsional) Signal Generator}
+			\centering
+			\includegraphics[width=200pt]{images/osi_siggen}
+		\end{exampleblock}
+	
+		\begin{exampleblock}{Catatan}
+			\begin{itemize}
+				\item Osiloskop dengan sample rate di atas 300kHz (Switching Rate MAX98357A)
+				\item Signal Generator mampu untuk Low-Impedance (High Amplitude)
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
 	
 	\subsection{Wishlist}
 	
-	\section{Standar Pengerjaan}
+	\begin{frame}
+		\begin{exampleblock}{Daftar Rencana Belanja}
+			\begin{itemize}
+				\item Solder Station Cellkit 936A/936D. Rp. 312,000\\
+				\href{https://www.tokopedia.com/archive-dyahgaleryy-1630682557/solder-cellkit-936-analog-ck-936a-limited}{Tokopedia}
+				
+				\item Mata Solder Cellkit 936 Pisau (K-series). Rp. 25,000\\
+				\href{https://www.tokopedia.com/cellkit/mata-solder-cellkit-936-model-pisau-miring-rohs-lead-free}{Tokopedia}
+				
+				\item IPA 1 Liter. Rp. 45,000\\
+				\href{https://www.tokopedia.com/netafarmsurabaya/alkohol-ipa-isopropyl-alcohol-99-kemasan-1-liter}{Tokopedia}
+				
+				\item Wire Stripper. RP. 30,000\\
+				\href{https://www.tokopedia.com/gudangperkakas18/tang-kupas-kabel-tang-potong-kabel-wire-stripper-7-inch-3-in-1}{Tokopedia}
+				
+				\item Smoke Absorber. \sout{Rp. 423,000} (PO/Not-Ready)\\
+				\href{https://www.tokopedia.com/greenmall88/fa-400-solder-iron-smoke-absorber-fume-extractor-soldering-air-blower}{Tokopedia}
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+
+	\begin{frame}
+		\begin{exampleblock}{Daftar Pilihan Belanja Osiloskop}
+			\begin{itemize}
+				\item Hantek DSO5102P 100MHz 2CH. Rp. 4,400,000\\
+				\href{https://digiwarestore.com/id/oscilloscopes/digital-storage-oscilloscope-hantek-dso5102p-osiloskop-100mhz-2-ch-641135.html}{Digiware}\\
+				\href{https://www.tokopedia.com/digiware/digital-storage-oscilloscope-hantek-dso5102p-osiloskop-100mhz-2-ch}{Tokopedia}
+				
+				\item Siglent SDS 1072CML 100MHz 2CH. Rp. 6,820,000\\
+				\href{https://www.tokopedia.com/tomas123/siglent-sds-1072cml}{Tokopedia}
+				
+				\item Siglent SDS 1102CML 100MHz 2CH. Rp. 12,450,000\\
+				\href{https://www.tokopedia.com/tomas123/siglent-sds-1072cml}{Tokopedia}
+				
+				\item Siglent SDS 2102X 100MHz 2CH. RP 12,700,000\\
+				\href{https://www.tokopedia.com/infinity226/super-phosphor-oscilloscope-siglent-sds2102x}{Tokopedia}
+			\end{itemize}
+		\end{exampleblock}
+	
+		\begin{exampleblock}{Daftar Pilihan Belanja Signal/Function Generator (\textbf{Opsional})}
+			\begin{itemize}
+				\item Feeltech FY6600 High Amplitude. Rp. 2,300,000\\
+				\href{https://www.tokopedia.com/digilifeweb/signal-function-generator-feeltech-fy6600-60m-60mhz-dds-fy6600-60m}{Tokopedia}
+			\end{itemize}
+		\end{exampleblock}
+	\end{frame}
+	
 \end{document}
