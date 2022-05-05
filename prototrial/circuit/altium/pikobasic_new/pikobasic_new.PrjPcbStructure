@@ -1,1 +1,4 @@
-Record=TopLevelDocument|FileName=Diagram_Power.SchDoc
+Record=TopLevelDocument|FileName=overall.SchDoc
+Record=SheetSymbol|SourceDocument=overall.SchDoc|Designator=ESP32|SchDesignator=ESP32|FileName=esp32.SchDoc|SymbolType=Normal|RawFileName=esp32.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=overall.SchDoc|Designator=STM32|SchDesignator=STM32|FileName=stm32.SchDoc|SymbolType=Normal|RawFileName=stm32.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=overall.SchDoc|Designator=VReg|SchDesignator=VReg|FileName=vreg.SchDoc|SymbolType=Normal|RawFileName=vreg.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
