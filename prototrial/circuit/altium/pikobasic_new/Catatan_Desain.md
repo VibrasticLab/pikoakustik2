@@ -2,7 +2,7 @@ Berikut Penjelasan terkait pilihan desain yang ada di **listkoreksi.txt**
 
 ---
 
-**Q: apa tujuan penambahan R 1Mega Ohm di pin SD_mode MAX98357AETE ?** 
+**Q: apa tujuan penambahan R 1Mega Ohm di pin SD_mode MAX98357AETE ?**
 
 **A:**
 
@@ -33,7 +33,7 @@ Sejauh ini source code untuk STM2F401RE dan ESP32 sudah mampu menggunakan UART y
 
 **A:**
 
-Sebelum lebih jauh membahas, berikut penjelasan singkat pilihan desain program 
+Sebelum lebih jauh membahas, berikut penjelasan singkat pilihan desain program
 
 **ESP32**
 
@@ -43,7 +43,7 @@ Untuk ESP32, program ditulis menggunakan ESP-IDF dengan FreeRTOS untuk schedulin
     + SRAM ESP32 tidak cukup untuk dua UART Shell
     + Pin UART2 di map ke pin yang tidak selayaknya di map untuk UART2
 
-Problem pada multi-UART juga muncul di platform Arduino seperti pada [issue ini](https://github.com/espressif/arduino-esp32/issues/1314). 
+Problem pada multi-UART juga muncul di platform Arduino seperti pada [issue ini](https://github.com/espressif/arduino-esp32/issues/1314).
 
 **Kesimpulan ESP32:** Butuh re-check lagi apakah terkait sebab ESP32 crash saat dua UART Shell digunakan bersamaan. Saat ini hanya bisa UART0
 
@@ -60,7 +60,8 @@ Untuk STM32, program ditulis menggunakan ChibiOS/RT untuk scheduling dan driver,
 
 **Problem Utama:**
 
-menurut saya untuk sekarang problem utama adalah UART0 digunakan oleh ESP32 sebagai programmer, sehingga saat programming ESP32, maka chip STM32 harus ditahan reset agar UART STM32 tidak merespon UART programming dan tidak mengganggu jalannya 
+menurut saya untuk sekarang problem utama adalah UART0 digunakan oleh ESP32 sebagai programmer, sehingga saat programming ESP32,
+maka chip STM32 harus ditahan reset agar UART STM32 tidak merespon UART programming dan tidak mengganggu jalannya flashing ESP32
 
 ---
 
@@ -84,6 +85,6 @@ Sedang dikerjakan dan mencari di internet
 
 Designator yang pakai biasanya mengikuti area di sekitar chip atau grup fungsi.
 
-Semisal resistor sekitar ESP32, semua designator mengikuti pola R-ESP-, C-ESP, dimana menandakan komponen tersebut di sekitar chip ESP32 (mempermudah saya yang nyolder sendirian untuk mencari area di PCB nya)  
-  
+Semisal resistor sekitar ESP32, semua designator mengikuti pola R-ESP-, C-ESP, dimana menandakan komponen tersebut di sekitar chip ESP32 (mempermudah saya yang nyolder sendirian untuk mencari area di PCB nya)
+
   Tapi jika designator dengan anotasi angka saja adalah standar, maka saya segera perbaiki nama-nama designator mengikuti standar tersebut
