@@ -160,7 +160,7 @@ static void cmd_out(BaseSequentialStream *chp, int argc, char *argv[]) {
   ht_audio_ToneScale(vfreq, in_ampl);
   chprintf(chp,"Out: Freq:%5i Ampl:%2i\r\n",in_freq,in_ampl);
 
-  ht_audio_Play(tone_durr);
+  ht_audio_Play(5*tone_durr);
 
   chprintf(chp,"Finished\r\n");
   ht_audio_DisableCh();
@@ -186,7 +186,7 @@ static void cmd_tone(BaseSequentialStream *chp, int argc, char *argv[]){
      ht_audio_ToneScale(1.25,9);
   }
 
-  ht_audio_Play(10*TEST_DURATION);
+  ht_audio_Play(50*TEST_DURATION);
   ht_audio_DisableCh();
   chprintf(chp,"Finished\r\n");
 }
@@ -266,7 +266,7 @@ static void cmd_ori(BaseSequentialStream *chp, int argc, char *argv[]) {
   ht_audio_ToneScaleNoAtt(vfreq, in_ampl);
   chprintf(chp,"Ori: Freq:%5i Ampl:%2i\r\n",in_freq,in_ampl);
 
-  ht_audio_Play(tone_durr);
+  ht_audio_Play(5*tone_durr);
 
   chprintf(chp,"Finished\r\n");
   ht_audio_DisableCh();

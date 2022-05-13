@@ -11,7 +11,7 @@
 \hypersetup{
 	colorlinks=true,
 	linkcolor=blue,
-	filecolor=magenta,      
+	filecolor=magenta,
 	urlcolor=cyan,
 }
 
@@ -62,7 +62,7 @@ version={4.0},
 			\includegraphics[width=250pt]{images/last_day}
 		\end{exampleblock}
 	\end{frame}
-	
+
 	\section{Kelompok Pekerjaan}
 	\begin{frame}
 	    \begin{exampleblock}{Kelompok Pekerjaan}
@@ -75,14 +75,14 @@ version={4.0},
 			\end{itemize}
 	    \end{exampleblock}
 	\end{frame}
-	
+
 	\section{Assembly PCB}
 	\begin{frame}
 		\subsection{Tujuan}
 		\begin{exampleblock}{Assembly PCB}
 			Merakit 1 unit tambahan PCB untuk desain Audiometri P2.
 		\end{exampleblock}
-	
+
 		\subsection{Hasil}
 		\begin{exampleblock}{Assembly PCB}
 			Unit tambahan telah terakit
@@ -92,7 +92,7 @@ version={4.0},
 		\end{exampleblock}
 	\end{frame}
 
-	
+
 	\begin{frame}
 		\subsection{Dokumentasi}
 		\begin{exampleblock}{Memulai Assembly}
@@ -112,7 +112,7 @@ version={4.0},
 	\end{frame}
 
 	\section{Review Class-D Audio DAC}
-	
+
 	\begin{frame}
 		\subsection{Tujuan}
 		\begin{exampleblock}{Review Class-D AudioDAC}
@@ -120,7 +120,7 @@ version={4.0},
 			Ditemukan frekuensi lebih dari satu frekuensi setiap proses \textit{tone generation} yang muncul saat diuji dengan Audio Capture.
 			Perangkat Audio Capture yang digunakan adalah MiniDSP E.A.R.S melalui software DSSF3 buatan Yoshimasha.
 		\end{exampleblock}
-	
+
 		\begin{exampleblock}{MiniDSP EARS}
 			\begin{center}
 				\includegraphics[width=150pt]{images/ears}
@@ -137,13 +137,13 @@ version={4.0},
 			\end{center}
 		\end{exampleblock}
 	\end{frame}
-	
+
 	\begin{frame}[fragile]
 		\subsection{Signal Generation Code}
 		\begin{exampleblock}{Perbaikan Programming}
 			Dilakukan perbaikan \textit{programming} terkait metode \textit{tone generation}
 		\end{exampleblock}
-	
+
 		\begin{exampleblock}{Diff code}
 			\begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,bgcolor=LightGray,fontsize=\tiny,linenos]{diff}
 -static uint16_t i2s_tx_buf[TOTAL_BUFF_SIZE];
@@ -155,7 +155,7 @@ double ysin;
 
 for(i=0;i<buffsize;i++){
 	ysin = DEFAULT_ATTEN*ampl*32767*sin(2*3.141592653589793*((double)i/(double)buffsize));
-	
+
 -	if(ysin >= 0){
 -		i2s_tx_buf[i]=ysin;
 -	}
@@ -183,28 +183,28 @@ for(i=0;i<buffsize;i++){
 			\includegraphics[width=165pt]{images/sinefull_osc}
 			\includegraphics[width=165pt]{images/sine_osc}
 		\end{exampleblock}
-		
+
 		\begin{exampleblock}{prinsip Fourier series pada square wave}
 			\centering
 			\includegraphics[width=150pt]{images/square_wave_fourier}
 		\end{exampleblock}
 	\end{frame}
-	
+
 	\begin{frame}
 		\subsection{Compare to Signal Generator}
 		\begin{exampleblock}{Tes sine-wave  (OSC: Siglent SDS 1072CML)}
 			\includegraphics[width=150pt]{images/sine_sig_test}
 			\includegraphics[width=150pt]{images/sine_sig_test_dac}
 		\end{exampleblock}
-	
+
 		\begin{exampleblock}{perbandingan signal generator dan class-D Audio DAC}
 			\includegraphics[width=165pt]{images/sine_sig_gen}
 			\includegraphics[width=165pt]{images/sine_sig_dac}
 		\end{exampleblock}
 	\end{frame}
-	
+
 	\section {Review Sementara Desain P3}
-	
+
 	\begin{frame}
 		\begin{exampleblock}{Progress sementara desain P3}
 			Berikut progres diagram dasar sistem untuk pengembangan prototype P3 yang di-\textit{draft} di software Altium Designer.
@@ -231,15 +231,15 @@ for(i=0;i<buffsize;i++){
 			\includegraphics[width=300pt]{images/diagram_signal}
 		\end{exampleblock}
 	\end{frame}
-	
+
 	\section{Upgrade Packaging P2}
-	
+
 	\begin{frame}
 		\subsection{Tujuan}
 		\begin{exampleblock}{Upgrade Packaging}
 			Telah dilakukan upgrade desain packaging dan merakit 3D-print desain tersebut untuk prototype P2 sehingga pengunaan menjadi lebih nyaman.
 		\end{exampleblock}
-	
+
 		\subsection{Hasil}
 		\begin{exampleblock}{Perbandingan packaging lama/baru}
 			\includegraphics[width=165pt]{images/pack_lama}
@@ -253,7 +253,7 @@ for(i=0;i<buffsize;i++){
 			\includegraphics[width=165pt]{images/pack_open0}
 			\includegraphics[width=165pt]{images/pack_open1}
 		\end{exampleblock}
-	
+
 		\begin{exampleblock}{Modifikasi PCB}
 			Beberapa modifikasi circuit P2:
 			\begin{itemize}
@@ -262,15 +262,15 @@ for(i=0;i<buffsize;i++){
 			\end{itemize}
 		\end{exampleblock}
 	\end{frame}
-	
+
 	\section{Pengadaan Inventaris}
-	
+
 	\subsection{Examples}
 	\begin{frame}
 		\begin{exampleblock}{Pengadaan/pembaharuan peralatan}
 			Berikut beberapa contoh peralatan yang dapat dilakukan pengadaan/pembaharuan.
 		\end{exampleblock}
-	
+
 		\begin{exampleblock}{Solder tipe tip Knife (K-series) plus regulator}
 			\centering
 			\includegraphics[width=165pt,angle=-90,origin=c]{images/solder0}
@@ -284,7 +284,7 @@ for(i=0;i<buffsize;i++){
 			\includegraphics[width=100pt,angle=-90,origin=c]{images/timah}
 			\includegraphics[width=100pt,angle=-90,origin=c]{images/lotfet}
 		\end{exampleblock}
-		
+
 		\begin{exampleblock}{PCB Cleaner (isopropyl alcohol dan quick-absorb tissue)}
 			\centering
 			\includegraphics[width=100pt,angle=-90,origin=c]{images/pcbclean0}
@@ -309,7 +309,7 @@ for(i=0;i<buffsize;i++){
 			\centering
 			\includegraphics[width=200pt]{images/osi_siggen}
 		\end{exampleblock}
-	
+
 		\begin{exampleblock}{Catatan}
 			\begin{itemize}
 				\item Osiloskop dengan sample rate di atas 300kHz (Switching Rate MAX98357A)
@@ -317,24 +317,24 @@ for(i=0;i<buffsize;i++){
 			\end{itemize}
 		\end{exampleblock}
 	\end{frame}
-	
+
 	\subsection{Wishlist}
-	
+
 	\begin{frame}
 		\begin{exampleblock}{Daftar Rencana Belanja}
 			\begin{itemize}
 				\item Solder Station Cellkit 936A/936D. Rp. 312,000\\
-				\href{https://www.tokopedia.com/archive-dyahgaleryy-1630682557/solder-cellkit-936-analog-ck-936a-limited}{Tokopedia}
-				
+				\href{https://www.tokopedia.com/ngemplakrejo/solder-station-cellkit-936-analog-ck-936a}{Tokopedia}
+
 				\item Mata Solder Cellkit 936 Pisau (K-series). Rp. 25,000\\
 				\href{https://www.tokopedia.com/cellkit/mata-solder-cellkit-936-model-pisau-miring-rohs-lead-free}{Tokopedia}
-				
+
 				\item IPA 1 Liter. Rp. 45,000\\
 				\href{https://www.tokopedia.com/netafarmsurabaya/alkohol-ipa-isopropyl-alcohol-99-kemasan-1-liter}{Tokopedia}
-				
+
 				\item Wire Stripper. RP. 30,000\\
 				\href{https://www.tokopedia.com/gudangperkakas18/tang-kupas-kabel-tang-potong-kabel-wire-stripper-7-inch-3-in-1}{Tokopedia}
-				
+
 				\item Smoke Absorber. \sout{Rp. 423,000} (PO/Not-Ready)\\
 				\href{https://www.tokopedia.com/greenmall88/fa-400-solder-iron-smoke-absorber-fume-extractor-soldering-air-blower}{Tokopedia}
 			\end{itemize}
@@ -347,18 +347,18 @@ for(i=0;i<buffsize;i++){
 				\item Hantek DSO5102P 100MHz 2CH. Rp. 4,400,000\\
 				\href{https://digiwarestore.com/id/oscilloscopes/digital-storage-oscilloscope-hantek-dso5102p-osiloskop-100mhz-2-ch-641135.html}{Digiware}\\
 				\href{https://www.tokopedia.com/digiware/digital-storage-oscilloscope-hantek-dso5102p-osiloskop-100mhz-2-ch}{Tokopedia}
-				
+
 				\item Siglent SDS 1072CML 100MHz 2CH. Rp. 6,820,000\\
 				\href{https://www.tokopedia.com/tomas123/siglent-sds-1072cml}{Tokopedia}
-				
+
 				\item Siglent SDS 1102CML 100MHz 2CH. Rp. 12,450,000\\
 				\href{https://www.tokopedia.com/tomas123/siglent-sds-1072cml}{Tokopedia}
-				
+
 				\item Siglent SDS 2102X 100MHz 2CH. RP 12,700,000\\
 				\href{https://www.tokopedia.com/infinity226/super-phosphor-oscilloscope-siglent-sds2102x}{Tokopedia}
 			\end{itemize}
 		\end{exampleblock}
-	
+
 		\begin{exampleblock}{Daftar Pilihan Belanja Signal/Function Generator (\textbf{Opsional})}
 			\begin{itemize}
 				\item Feeltech FY6600 High Amplitude. Rp. 2,300,000\\
@@ -366,5 +366,5 @@ for(i=0;i<buffsize;i++){
 			\end{itemize}
 		\end{exampleblock}
 	\end{frame}
-	
+
 \end{document}

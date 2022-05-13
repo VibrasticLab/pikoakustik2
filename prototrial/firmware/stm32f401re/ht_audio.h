@@ -19,7 +19,7 @@
 /**
  * @brief Whether use full array function or not
  */
-#define USE_FULL_SINE FALSE
+#define USE_FULL_SINE TRUE
 
 /**
  * @brief GPIO Port to enables Audio DAC
