@@ -47,12 +47,6 @@
 #define OUT_RIGHT   1
 
 /**
- * @brief Default Attenuation scale
- * @details Dont increase as it will make noise more prominent
- */
-#define DEFAULT_ATTEN 0.01
-
-/**
  * @brief Default Minimum threshold of 16-bit amplitude
  */
 #define DEFAULT_AMPL_THD 1
@@ -82,38 +76,34 @@
 #define TEST_DURATION   20 // 200 ms each tone
 
 /**
+ * @brief Default Attenuation scale
+ * @details Dont increase as it will make noise more prominent
+ */
+#define DEFAULT_ATTEN 0.01
+
+/**
  * @brief Smallest signal scale can produced as far for now
  * @details Note this use DEFAULT_ATTEN at 0.01
  * @details So signal value is SMALLEST_DB*DEFAULT_ATTEN*32767=1
  */
-#define SMALLEST_DB     0.0031
-
-/**
- * @brief First dB ratio for normal ears
- * @details The value ratio follows:\n
- *          9: ratio = 1\n
- *          8: ratio = 0.5\n
- *          7: ratio = 0.25\n
- *          6: ratio = 0.125\n
- *          5: ratio = 0.0625\n
- *          4: ratio = 0.0312\n
- *          3: ratio = 0.0156\n
- *          2: ratio = 0.0078\n
- *          1: ratio = 0.0039\n
- * @details This current value corespond to scale 6
- */
-#define NORMALTEST_DB   0.125
-
-/**
- * @brief First dB ratio for actual ears
- * @details The value follow previous documentation
- */
-#define ACTUALTEST_DB   1
+#define SMALLEST_DB     0.0008
 
 /**
  * @brief First dB scale at first step on audiotest
+ * @details The value ratio follows:\n
+ *          11: ratio = 1\n
+ *          10: ratio = 0.5\n
+ *           9: ratio = 0.25\n
+ *           8: ratio = 0.125\n
+ *           7: ratio = 0.0625\n
+ *           6: ratio = 0.0312\n
+ *           5: ratio = 0.0156\n
+ *           4: ratio = 0.0078\n
+ *           3: ratio = 0.0039\n
+ *           2: ratio = 0.0019\n
+ *           1: ratio = 0.0009\n
  */
-#define FIRSTTEST_DB     NORMALTEST_DB
+#define FIRSTTEST_DB     1
 
 /**
  * @brief Initiate Audio driver via I2S

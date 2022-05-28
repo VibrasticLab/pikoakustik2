@@ -25,10 +25,11 @@
 #define USER_LED_BUTTON     TRUE   /* Whether use LED and Button modules */
 
 #define USER_METRI          TRUE   /* Whether use Audiometri routine or not */
+ #define USER_METRI_ENABLED TRUE   /* Whether use Audiometri can be entered or not */
  #define USER_METRI_RECORD  TRUE   /* Whether record Audiometri session */
- #define USER_METRI_RECONCE TRUE  /* Whether record written all at once or not. Keep enabled */
- #define USER_METRI_USELOG  TRUE  /* Whether metri loop use debug message */
- #define USER_METRI_ALLFREQ TRUE  /* Whether Audiometri in all frequency or selection */
+ #define USER_METRI_RECONCE TRUE   /* Whether record written all at once or not. Keep enabled */
+ #define USER_METRI_USELOG  TRUE   /* Whether metri loop use debug message */
+ #define USER_METRI_ALLFREQ TRUE   /* Whether Audiometri in all frequency or selection */
  #define USER_METRI_ONEFREQ FALSE  /* Whether Audiometri in single frequency only */
  #define USER_METRI_LONGRNG FALSE  /* Whether use long rng method or simple */
 

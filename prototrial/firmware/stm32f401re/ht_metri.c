@@ -89,7 +89,7 @@ static double freq_test[] = {0.625, 1.25, 2.5, 5, 10, 20};
  #if USER_METRI_ONEFREQ
 static double freq_test[] = {2.5};
  #else
-static double freq_test[] = {1.25, 2.5, 5};
+static double freq_test[] = {1.25, 2.5, 5, 10};
  #endif
 #endif
 
@@ -194,8 +194,10 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
             ht_commUSB_Msg("------------\r\n");
 #endif
 
+#if USER_METRI_ENABLED
             mode_led=LED_METRI;
             mode_status=STT_METRI;
+#endif
         }
 
         else if(mode_status==STT_METRI || mode_status==STT_VIRT){

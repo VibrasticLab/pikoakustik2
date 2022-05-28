@@ -150,8 +150,8 @@ void ht_audio_ToneNoAtt(double freq, double ampl){
 void ht_audio_ToneScale(double freq, double scale){
     double ampl_scale;
 
-    if(scale>0 && scale<=9){
-        ampl_scale = 2 / pow(2,10-scale);
+    if(scale>0 && scale<=11){
+        ampl_scale = 2 / pow(2,12-scale);
         ht_audio_Tone(freq,ampl_scale);
     }
 }
@@ -159,8 +159,8 @@ void ht_audio_ToneScale(double freq, double scale){
 void ht_audio_ToneScaleNoAtt(double freq, double scale){
     double ampl_scale;
 
-    if(scale>0 && scale<=9){
-        ampl_scale = 2 / pow(2,10-scale);
+    if(scale>0 && scale<=11){
+        ampl_scale = 2 / pow(2,12-scale);
         ht_audio_ToneNoAtt(freq,ampl_scale);
     }
 }

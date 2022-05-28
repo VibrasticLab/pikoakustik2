@@ -54,12 +54,12 @@
 /**
  * @brief Amplitude Scale for actual ears
  */
-#define AMPL_SCALE_ACTUAL 9
+#define AMPL_SCALE_ACTUAL 11
 
 /**
  * @brief Start Amplitude scale for test
  */
-#define AMPL_SCALE_USED   AMPL_SCALE_NORMAL
+#define AMPL_SCALE_USED   AMPL_SCALE_ACTUAL
 
 /**
  * @brief Function Random Initialization

@@ -152,8 +152,8 @@ static void cmd_out(BaseSequentialStream *chp, int argc, char *argv[]) {
       chprintf(chp,"frequency only between 250 and 8000\r\n");
   }
 
-  if(!(in_ampl>0 && in_ampl<10)){
-      chprintf(chp,"amplitudo scaling only between 1 and 9\r\n");
+  if(!(in_ampl>0 && in_ampl<12)){
+      chprintf(chp,"amplitudo scaling only between 1 and 11\r\n");
       return;
   }
 
@@ -258,8 +258,8 @@ static void cmd_ori(BaseSequentialStream *chp, int argc, char *argv[]) {
       chprintf(chp,"frequency only between 250 and 8000\r\n");
   }
 
-  if(!(in_ampl>0 && in_ampl<10)){
-      chprintf(chp,"amplitudo scaling only between 1 and 9\r\n");
+  if(!(in_ampl>0 && in_ampl<12)){
+      chprintf(chp,"amplitudo scaling only between 1 and 11\r\n");
       return;
   }
 
@@ -341,8 +341,8 @@ static void cmd_sig(BaseSequentialStream *chp, int argc, char *argv[]) {
       chprintf(chp,"frequency only between 250 and 8000\r\n");
   }
 
-  if(!(in_ampl>0 && in_ampl<10)){
-      chprintf(chp,"amplitudo scaling only between 1 and 9\r\n");
+  if(!(in_ampl>0 && in_ampl<12)){
+      chprintf(chp,"amplitudo scaling only between 1 and 11\r\n");
       return;
   }
 
