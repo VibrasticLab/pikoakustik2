@@ -5,6 +5,12 @@ f303rc/board/board.mk
 f303rc/chconf.h
 f303rc/halconf.h
 f303rc/mcuconf.h
+piko/ht_config.h
+piko/ht_console.c
+piko/ht_console.h
+piko/ht_led.c
 piko/ht_led.h
+piko/ht_usb.c
+piko/ht_usb.h
 piko/main.c
 piko/piko.mk
