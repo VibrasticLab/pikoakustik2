@@ -1,0 +1,8 @@
+f303rc
+f303rc/board
+piko
+/opt/chibios/ext/fatfs/src
+/opt/chibios/os/rt/include
+/opt/chibios/os/hal/include
+/opt/chibios/os/various/shell
+/opt/chibios/os/hal/lib/streams

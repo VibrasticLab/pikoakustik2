@@ -4,13 +4,15 @@
 #
 
 # Compiler options here.
+# nano/nosys specs: for 'sbrk' linker
 ifeq ($(USE_OPT),)
-  USE_OPT = -O2 -ggdb -fomit-frame-pointer -falign-functions=16
+  USE_OPT = -Os -fomit-frame-pointer -falign-functions=16 \
+            -specs=nano.specs -specs=nosys.specs
 endif
 
 # C specific options here (added to USE_OPT).
 ifeq ($(USE_COPT),)
-  USE_COPT =
+  USE_COPT = 
 endif
 
 # C++ specific options here (added to USE_OPT).
@@ -25,12 +27,13 @@ endif
 
 # Linker extra options here.
 ifeq ($(USE_LDOPT),)
-  USE_LDOPT =
+  USE_LDOPT = 
 endif
 
 # Enable this if you want link time optimizations (LTO)
+# Warning: DO NOT ENABLED or system crash at big memory usage
 ifeq ($(USE_LTO),)
-  USE_LTO = yes
+  USE_LTO = no
 endif
 
 # If enabled, this option allows to compile the application in THUMB mode.
@@ -71,7 +74,7 @@ endif
 
 # Enables the use of FPU (no, softfp, hard).
 ifeq ($(USE_FPU),)
-  USE_FPU = no
+  USE_FPU = hard
 endif
 
 #
@@ -92,12 +95,17 @@ include $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_stm32f3xx.m
 # HAL-OSAL files (optional).
 include $(CHIBIOS)/os/hal/hal.mk
 include $(CHIBIOS)/os/hal/ports/STM32/STM32F3xx/platform.mk
-include ./board/board.mk
+include board/board.mk
 include $(CHIBIOS)/os/hal/osal/rt/osal.mk
+#include $(CHIBIOS)/os/various/fatfs_bindings/fatfs.mk
 # RTOS files (optional).
 include $(CHIBIOS)/os/rt/rt.mk
 include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v7m.mk
 # Other files (optional).
+ARMNONEEABIINC = /usr/arm-none-eabi/include
+include $(CHIBIOS)/os/hal/lib/streams/streams.mk
+include $(CHIBIOS)/os/various/shell/shell.mk
+include ../piko/piko.mk
 
 # Define linker script file here
 LDSCRIPT= $(STARTUPLD)/STM32F303xC.ld
@@ -111,7 +119,10 @@ CSRC = $(STARTUPSRC) \
        $(HALSRC) \
        $(PLATFORMSRC) \
        $(BOARDSRC) \
-       main.c
+       $(STREAMSSRC) \
+       $(SHELLSRC) \
+       $(FATFSSRC) \
+       $(PIKOSRC)
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
@@ -143,8 +154,8 @@ ASMXSRC = $(STARTUPASM) $(PORTASM) $(OSALASM)
 
 INCDIR = $(CHIBIOS)/os/license \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
-         $(HALINC) $(PLATFORMINC) $(BOARDINC) \
-         $(CHIBIOS)/os/various
+         $(HALINC) $(PLATFORMINC) $(BOARDINC) $(FATFSINC) \
+         $(STREAMSINC) $(SHELLINC) $(ARMNONEEABIINC) $(PIKOINC)
 
 #
 # Project, sources and paths
@@ -174,7 +185,7 @@ HEX  = $(CP) -O ihex
 BIN  = $(CP) -O binary
 
 # ARM-specific options here
-AOPT =
+AOPT = 
 
 # THUMB-specific options here
 TOPT = -mthumb -DTHUMB
@@ -194,7 +205,16 @@ CPPWARN = -Wall -Wextra -Wundef
 #
 
 # List all user C define here, like -D_DEBUG=1
-UDEFS =
+UDEFS = -DSHELL_PROMPT_STR="\"\"" \
+        -DSHELL_NEWLINE_STR="\"\"" \
+        -DCHPRINTF_USE_FLOAT=TRUE \
+        -DSHELL_MAX_LINE_LENGTH=64 \
+        -DSHELL_MAX_ARGUMENTS=4 \
+        -DSHELL_CMD_TEST_ENABLED=FALSE \
+        -DSHELL_CMD_EXIT_ENABLED=FALSE \
+        -DSHELL_CMD_ECHO_ENABLED=FALSE \
+        -DSHELL_CMD_SYSTIME_ENABLED=FALSE \
+        -DLQFP64_F303
 
 # Define ASM defines here
 UADEFS =
@@ -206,7 +226,8 @@ UINCDIR =
 ULIBDIR =
 
 # List all user libraries here
-ULIBS =
+# -lm: for libmath
+ULIBS = -lm
 
 #
 # End of user defines
