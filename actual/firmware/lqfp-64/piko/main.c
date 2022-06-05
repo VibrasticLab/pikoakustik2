@@ -22,6 +22,8 @@
 #include "ht_config.h"
 
 #include "ht_led.h"
+#include "ht_mmc.h"
+#include "ht_console.h"
 
 extern uint8_t mode_led;
 
@@ -91,13 +93,35 @@ int main(void) {
 //  ht_exti_Init();
 #endif
 
-  mode_led = LED_READY;
+#if USER_SERIAL
+  shellInit();
+  ht_commUSB_Init();
+  ht_commUART_Init();
+#endif
+
+#if USER_MMC
+//   ht_mmc_Init();
+//   ht_mmc_InitCheck();
+#else
+  mode_led=LED_READY;
+#endif
+
+  if(mode_led==LED_READY){
+#if USER_SERIAL
+//    esp32_InfoStatus(HT_STATE_IDLE);
+#endif
+  }
 
   while (true) {
-      if(stt_readyAll==FALSE){
-        chThdCreateStatic(waRunLed, sizeof(waRunLed),NORMALPRIO, thdRunLed, NULL);
-        stt_readyAll = TRUE;
-      }
+#if USER_SERIAL
+    ht_commUSB_shInit();
+    ht_commUART_shInit();
+#endif
+
+    if(stt_readyAll==FALSE){
+      chThdCreateStatic(waRunLed, sizeof(waRunLed),NORMALPRIO, thdRunLed, NULL);
+      stt_readyAll = TRUE;
+    }
 
       chThdSleepMilliseconds(1000);
   }

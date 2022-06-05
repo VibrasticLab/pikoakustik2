@@ -62,11 +62,25 @@ static const ShellCommand commands[] = {
 static thread_t *shelltp_usb = NULL;
 
 /**
+ * @brief UART Shell Console pointer
+ */
+static thread_t *shelltp_uart = NULL;
+
+/**
  * @brief Shell Driver Config
  * @details Serial Interface using USB1 (SDU1)
  */
 static const ShellConfig shell_usb_cfg = {
   (BaseSequentialStream *)&SDU1,
+  commands
+};
+
+/**
+ * @brief Shell Driver Config
+ * @details Serial Interface using UART1 (SD1)
+ */
+static const ShellConfig shell_uart_cfg = {
+  (BaseSequentialStream *)&SD1,
   commands
 };
 
@@ -97,6 +111,28 @@ void ht_commUSB_Msg(char *string){
     if(SDU1.config->usbp->state == USB_ACTIVE){
         chprintf((BaseSequentialStream *)&SDU1,string);
     }
+}
+
+void ht_commUART_Init(void){
+    palSetPadMode(GPIOA, 9,PAL_MODE_ALTERNATE(7)); //TX
+    palSetPadMode(GPIOA,10,PAL_MODE_ALTERNATE(7)); //RX
+    sdStart(&SD1,NULL);
+}
+
+void ht_commUART_shInit(void){
+    if (!shelltp_uart) {
+      shelltp_uart = chThdCreateFromHeap(NULL, SHELL_WA_SIZE, "shell_uart", NORMALPRIO, shellThread, (void *)&shell_uart_cfg);
+    }
+    else {
+      if (chThdTerminatedX(shelltp_uart)) {
+          chThdRelease(shelltp_uart);
+          shelltp_uart = NULL;
+      }
+    }
+}
+
+void ht_commUART_Msg(char *string){
+    chprintf((BaseSequentialStream *)&SD1,string);
 }
 
 /** @{ */

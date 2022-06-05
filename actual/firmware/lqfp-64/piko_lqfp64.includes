@@ -6,3 +6,4 @@ piko
 /opt/chibios/os/hal/include
 /opt/chibios/os/various/shell
 /opt/chibios/os/hal/lib/streams
+.

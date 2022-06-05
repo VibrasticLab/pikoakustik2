@@ -10,6 +10,8 @@ piko/ht_console.c
 piko/ht_console.h
 piko/ht_led.c
 piko/ht_led.h
+piko/ht_mmc.c
+piko/ht_mmc.h
 piko/ht_usb.c
 piko/ht_usb.h
 piko/main.c
