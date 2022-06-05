@@ -30,7 +30,7 @@
  * Board identifier.
  */
 #define BOARD_ST_STM32F3_DISCOVERY
-#define BOARD_NAME                  "STMicroelectronics STM32F3-Discovery"
+#define BOARD_NAME                  "Portable Audiometri F303RC"
 
 /*
  * Board oscillators-related settings.

@@ -86,7 +86,7 @@ endif
 #
 
 # Define project name here
-PROJECT = pikof303
+PROJECT = pikof303rc
 
 # Imported source files and paths
 CHIBIOS = /opt/chibios

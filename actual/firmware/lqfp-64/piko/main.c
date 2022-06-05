@@ -23,6 +23,9 @@
 
 #include "ht_led.h"
 #include "ht_mmc.h"
+#include "ht_exti.h"
+#include "ht_audio.h"
+#include "ht_metri.h"
 #include "ht_console.h"
 
 extern uint8_t mode_led;
@@ -90,7 +93,7 @@ int main(void) {
 #if USER_LED_BUTTON
   ht_led_Init();
   ht_led_Test();
-//  ht_exti_Init();
+  ht_exti_Init();
 #endif
 
 #if USER_SERIAL
@@ -100,10 +103,21 @@ int main(void) {
 #endif
 
 #if USER_MMC
-//   ht_mmc_Init();
-//   ht_mmc_InitCheck();
+   ht_mmc_Init();
+   ht_mmc_InitCheck();
 #else
   mode_led=LED_READY;
+#endif
+
+#if USER_AUDIO
+  ht_audio_Init();
+ #if USER_AUDIO_TEST
+  ht_audio_TestBoth();
+ #endif
+#endif
+
+#if USER_METRI
+  ht_metri_Init();
 #endif
 
   if(mode_led==LED_READY){

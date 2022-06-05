@@ -21,6 +21,8 @@
 
 #include "ht_mmc.h"
 #include "ht_led.h"
+#include "ht_audio.h"
+#include "ht_metri.h"
 #include "ht_console.h"
 
 extern uint8_t mode_led;
