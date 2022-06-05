@@ -5,6 +5,13 @@ f303rc/board/board.mk
 f303rc/chconf.h
 f303rc/halconf.h
 f303rc/mcuconf.h
+f401re/Makefile
+f401re/board/board.c
+f401re/board/board.h
+f401re/board/board.mk
+f401re/chconf.h
+f401re/halconf.h
+f401re/mcuconf.h
 piko/ffconf.h
 piko/ht_audio.c
 piko/ht_audio.h

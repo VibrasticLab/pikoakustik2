@@ -9,7 +9,7 @@
 #ifndef HT_USB_H
 #define HT_USB_H
 
-#ifdef LQFP64_F303
+#ifdef LQFP64_F303RC
 #define usb_lld_connect_bus(usbp)
 #define usb_lld_disconnect_bus(usbp)
 #endif

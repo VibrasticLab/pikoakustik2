@@ -7,3 +7,5 @@ piko
 /opt/chibios/os/various/shell
 /opt/chibios/os/hal/lib/streams
 .
+f401re/board
+f401re

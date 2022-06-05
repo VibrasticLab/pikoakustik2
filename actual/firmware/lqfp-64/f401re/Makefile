@@ -86,15 +86,16 @@ endif
 #
 
 # Define project name here
-PROJECT = pikof303rc
+PROJECT = pikof401re
 
 # Imported source files and paths
 CHIBIOS = /opt/chibios
+
 # Startup files.
-include $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_stm32f3xx.mk
+include $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_stm32f4xx.mk
 # HAL-OSAL files (optional).
 include $(CHIBIOS)/os/hal/hal.mk
-include $(CHIBIOS)/os/hal/ports/STM32/STM32F3xx/platform.mk
+include $(CHIBIOS)/os/hal/ports/STM32/STM32F4xx/platform.mk
 include board/board.mk
 include $(CHIBIOS)/os/hal/osal/rt/osal.mk
 include $(CHIBIOS)/os/various/fatfs_bindings/fatfs.mk
@@ -108,7 +109,7 @@ include $(CHIBIOS)/os/various/shell/shell.mk
 include ../piko/piko.mk
 
 # Define linker script file here
-LDSCRIPT= $(STARTUPLD)/STM32F303xC.ld
+LDSCRIPT= $(STARTUPLD)/STM32F401xE.ld
 
 # C sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
@@ -214,7 +215,7 @@ UDEFS = -DSHELL_PROMPT_STR="\"\"" \
         -DSHELL_CMD_EXIT_ENABLED=FALSE \
         -DSHELL_CMD_ECHO_ENABLED=FALSE \
         -DSHELL_CMD_SYSTIME_ENABLED=FALSE \
-        -DLQFP64_F303RC
+        -DLQFP64_F401RE
 
 # Define ASM defines here
 UADEFS =

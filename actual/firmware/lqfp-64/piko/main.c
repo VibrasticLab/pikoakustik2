@@ -27,6 +27,7 @@
 #include "ht_audio.h"
 #include "ht_metri.h"
 #include "ht_console.h"
+#include "msg_my.h"
 
 extern uint8_t mode_led;
 
@@ -72,18 +73,12 @@ static ThdFunc_RunLED(thdRunLed, arg) {
   }
 }
 
-/*
- * Application entry point.
+/**
+ * @brief Main Function as start entry
+ * @return Nothing
  */
 int main(void) {
 
-  /*
-   * System initializations.
-   * - HAL initialization, this also initializes the configured device drivers
-   *   and performs the board-specific initializations.
-   * - Kernel initialization, the main() function becomes a thread and the
-   *   RTOS is active.
-   */
   halInit();
   chSysInit();
 
@@ -122,11 +117,12 @@ int main(void) {
 
   if(mode_led==LED_READY){
 #if USER_SERIAL
-//    esp32_InfoStatus(HT_STATE_IDLE);
+    esp32_InfoStatus(HT_STATE_IDLE);
 #endif
   }
 
   while (true) {
+
 #if USER_SERIAL
     ht_commUSB_shInit();
     ht_commUART_shInit();
@@ -137,6 +133,6 @@ int main(void) {
       stt_readyAll = TRUE;
     }
 
-      chThdSleepMilliseconds(1000);
+    chThdSleepMilliseconds(1000);
   }
 }
