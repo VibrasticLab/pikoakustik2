@@ -49,9 +49,21 @@ void ht_audio_Init(void){
     i2sStart(&I2SD2, &i2scfg);
     ht_audio_Zero();
 
+#ifdef LQFP64_F401RE
     palSetPadMode(GPIOB, 12, PAL_MODE_ALTERNATE(5));
     palSetPadMode(GPIOB, 10, PAL_MODE_ALTERNATE(5));
     palSetPadMode(GPIOC, 3 , PAL_MODE_ALTERNATE(5));
+    palSetPadMode(GPIOB, 13, PAL_MODE_RESET);
+    palSetPadMode(GPIOB, 15, PAL_MODE_RESET);
+#endif
+
+#ifdef LQFP64_F303RC
+    palSetPadMode(GPIOB, 12, PAL_MODE_ALTERNATE(5));
+    palSetPadMode(GPIOB, 13, PAL_MODE_ALTERNATE(5));
+    palSetPadMode(GPIOB, 15, PAL_MODE_ALTERNATE(5));
+    palSetPadMode(GPIOB, 10, PAL_MODE_RESET);
+    palSetPadMode(GPIOC, 3 , PAL_MODE_RESET);
+#endif
 
     palSetPadMode(AUDIO_IO,AUDIO_L,PAL_MODE_OUTPUT_PUSHPULL);
     palSetPadMode(AUDIO_IO,AUDIO_R,PAL_MODE_OUTPUT_PUSHPULL);
