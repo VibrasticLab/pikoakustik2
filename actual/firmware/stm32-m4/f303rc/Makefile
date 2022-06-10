@@ -114,6 +114,7 @@ include $(CHIBIOS)/tools/mk/autobuild.mk
 ARMNONEEABIINC = /usr/arm-none-eabi/include
 include $(CHIBIOS)/os/hal/lib/streams/streams.mk
 include $(CHIBIOS)/os/various/shell/shell.mk
+include $(CHIBIOS)/os/various/fatfs_bindings/fatfs.mk
 include board/board.mk
 include ../piko/piko.mk
 

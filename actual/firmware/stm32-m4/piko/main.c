@@ -14,7 +14,10 @@
 #include "ht_config.h"
 
 #include "ht_led.h"
+#include "ht_mmc.h"
 #include "ht_audio.h"
+#include "ht_metri.h"
+#include "ht_console.h"
 
 extern uint8_t mode_led;
 
@@ -89,7 +92,7 @@ int main(void) {
 
 #if USER_MMC
    ht_mmc_Init();
-   ht_mmc_InitCheck();
+//   ht_mmc_InitCheck();
 #else
   mode_led=LED_READY;
 #endif
