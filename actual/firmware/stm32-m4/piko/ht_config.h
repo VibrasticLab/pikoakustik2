@@ -17,7 +17,7 @@
  #define USER_SER_SCALE     TRUE   /* Whether use tone test out in scale or not */
 
 /** MOST ANNOYING PART EVER */
-#define USER_MMC            TRUE  /* Whether use memory card or not */
+#define USER_MMC            TRUE   /* Whether use memory card or not */
 
 #define USER_AUDIO          TRUE   /* Whether use Audio module or not */
  #define USER_AUDIO_TEST    TRUE   /* Whether use Audio test at startup */

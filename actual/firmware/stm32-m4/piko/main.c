@@ -92,7 +92,7 @@ int main(void) {
 
 #if USER_MMC
    ht_mmc_Init();
-//   ht_mmc_InitCheck();
+   ht_mmc_InitCheck();
 #else
   mode_led=LED_READY;
 #endif

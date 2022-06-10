@@ -49,14 +49,28 @@ static bool filesystem_ready = true;
 static uint8_t mmc_spi_status_flag = MMC_SPI_OK;
 
 /**
- * @brief SPI High-Clock NSS config
+ * @brief Maximum speed SPI configuration (18MHz, CPHA=0, CPOL=0, MSb first).
  */
-static SPIConfig hs_spicfg = {NULL, GPIOA, 15, 0, 0};
+const SPIConfig hs_spicfg = {
+  false,
+  NULL,
+  GPIOA,
+  15,
+  0,
+  SPI_CR2_DS_2 | SPI_CR2_DS_1 | SPI_CR2_DS_0
+};
 
 /**
- * @brief SPI Low-Clock NSS config
+ * @brief Low speed SPI configuration (140.625kHz, CPHA=0, CPOL=0, MSb first).
  */
-static SPIConfig ls_spicfg = {NULL, GPIOA, 15, SPI_CR1_BR_2 | SPI_CR1_BR_1, 0};
+const SPIConfig ls_spicfg = {
+  false,
+  NULL,
+  GPIOA,
+  15,
+  SPI_CR1_BR_2 | SPI_CR1_BR_1,
+  SPI_CR2_DS_2 | SPI_CR2_DS_1 | SPI_CR2_DS_0
+};
 
 /**
  * @brief MMC config struct
@@ -915,9 +929,9 @@ void ht_mmcOnceMetri_hearingRecord(uint8_t *resArray, uint8_t lastIdx, uint8_t l
 /*******************************************/
 
 void ht_mmc_Init(void){
-    palSetPadMode(GPIOC, 12, PAL_MODE_ALTERNATE(6)); //MOSI
-    palSetPadMode(GPIOC, 11, PAL_MODE_ALTERNATE(6)); //MISO
-    palSetPadMode(GPIOC, 10, PAL_MODE_ALTERNATE(6)); //SCK
+    palSetPadMode(GPIOC, 12, PAL_MODE_ALTERNATE(6));    //MOSI
+    palSetPadMode(GPIOC, 11, PAL_MODE_ALTERNATE(6));    //MISO
+    palSetPadMode(GPIOC, 10, PAL_MODE_ALTERNATE(6));    //SCK
     palSetPadMode(GPIOA, 15, PAL_MODE_OUTPUT_PUSHPULL); //NSS
     palSetPad(GPIOA, 15);
 
