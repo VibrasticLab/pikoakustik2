@@ -12,7 +12,7 @@ endif
 
 # C specific options here (added to USE_OPT).
 ifeq ($(USE_COPT),)
-  USE_COPT = 
+  USE_COPT =
 endif
 
 # C++ specific options here (added to USE_OPT).
@@ -27,7 +27,7 @@ endif
 
 # Linker extra options here.
 ifeq ($(USE_LDOPT),)
-  USE_LDOPT = 
+  USE_LDOPT =
 endif
 
 # Enable this if you want link time optimizations (LTO)
@@ -89,7 +89,7 @@ endif
 PROJECT = stm32ht
 
 # Imported source files and paths
-CHIBIOS = /opt/chibios
+CHIBIOS = /opt/chibios17
 
 # Startup files.
 include $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_stm32f4xx.mk
@@ -186,7 +186,7 @@ HEX  = $(CP) -O ihex
 BIN  = $(CP) -O binary
 
 # ARM-specific options here
-AOPT = 
+AOPT =
 
 # THUMB-specific options here
 TOPT = -mthumb -DTHUMB
