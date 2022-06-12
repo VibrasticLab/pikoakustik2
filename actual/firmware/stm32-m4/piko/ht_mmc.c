@@ -49,7 +49,8 @@ static bool filesystem_ready = true;
 static uint8_t mmc_spi_status_flag = MMC_SPI_OK;
 
 /**
- * @brief Maximum speed SPI configuration (18MHz, CPHA=0, CPOL=0, MSb first).
+ * @brief Maximum speed SPI config
+ * @details 18MHz, CPHA=0, CPOL=0, MSb first.
  */
 const SPIConfig hs_spicfg = {
   false,
@@ -61,7 +62,8 @@ const SPIConfig hs_spicfg = {
 };
 
 /**
- * @brief Low speed SPI configuration (140.625kHz, CPHA=0, CPOL=0, MSb first).
+ * @brief Low speed SPI config
+ * @details 140.625kHz, CPHA=0, CPOL=0, MSb first.
  */
 const SPIConfig ls_spicfg = {
   false,

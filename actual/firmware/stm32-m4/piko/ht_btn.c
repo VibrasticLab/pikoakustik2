@@ -90,31 +90,31 @@ static void exti_stdby_cb(void){
 
   chSysLockFromISR();
 
-	if(mode_status==STT_IDLE){
-		led_answer_off();
-		led_answerA();
-		mode_btnA=1;
+    if(mode_status==STT_IDLE){
+        led_answer_off();
+        led_answerA();
+        mode_btnA=1;
 
-		ht_commUSB_Msg("Entering Mode: Setup\r\n");
-		mode_status = STT_SETUP;
-	}
-	else if(mode_status==STT_READY){
-		if(mode_btnA==0){
-			if((mode_btnB==1)||(mode_btnC==1)){
-				exti_idle_cb();
-				mode_btnA=1;
-			}
-		}
-	}
-	else if(mode_status==STT_STDBY){
-		if(mode_btnA==0){exti_stdby_cb();}
-	}
-	else if(mode_status==STT_METRI){
-		if(mode_step==STEP_WAIT){
-			numresp = BTN_ANS_A;
-			mode_step = STEP_CHK;
-		}
-	}
+        ht_commUSB_Msg("Entering Mode: Setup\r\n");
+        mode_status = STT_SETUP;
+    }
+    else if(mode_status==STT_READY){
+        if(mode_btnA==0){
+            if((mode_btnB==1)||(mode_btnC==1)){
+                exti_idle_cb();
+                mode_btnA=1;
+            }
+        }
+    }
+    else if(mode_status==STT_STDBY){
+        if(mode_btnA==0){exti_stdby_cb();}
+    }
+    else if(mode_status==STT_METRI){
+        if(mode_step==STEP_WAIT){
+            numresp = BTN_ANS_A;
+            mode_step = STEP_CHK;
+        }
+    }
 
   chSysUnlockFromISR();
 }
@@ -213,7 +213,7 @@ void ht_btn_Init(void){
 	palEnableLineEvent(PAL_LINE(GPIOC, 2), PAL_EVENT_MODE_FALLING_EDGE);
 	palSetLineCallback(PAL_LINE(GPIOC, 2), btnC_cb, NULL);
 
-	mode_btnA=0;
+    mode_btnA=0;
     mode_btnB=0;
     mode_btnC=0;
 }
