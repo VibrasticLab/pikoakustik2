@@ -26,7 +26,7 @@
 #define USER_BUTTON         FALSE  /* Whether use Button modules */
 
 #define USER_METRI          FALSE  /* Whether use Audiometri routine or not */
- #define USER_METRI_ENABLED TRUE   /* Whether use Audiometri can be entered or not */
+ #define USER_METRI_ENABLED FALSE  /* Whether use Audiometri can be entered or not */
  #define USER_METRI_RECORD  TRUE   /* Whether record Audiometri session */
  #define USER_METRI_RECONCE TRUE   /* Whether record written all at once or not. Keep enabled */
  #define USER_METRI_USELOG  TRUE   /* Whether metri loop use debug message */

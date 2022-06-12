@@ -15,6 +15,7 @@
 
 #include "ht_led.h"
 #include "ht_mmc.h"
+#include "ht_btn.h"
 #include "ht_audio.h"
 #include "ht_metri.h"
 #include "ht_console.h"
@@ -81,7 +82,7 @@ int main(void) {
 #endif
 
 #if USER_BUTTON
-  ht_exti_Init();
+  ht_btn_Init();
 #endif
 
 #if USER_SERIAL
