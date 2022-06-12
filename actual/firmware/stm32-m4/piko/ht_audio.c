@@ -49,16 +49,22 @@ void ht_audio_Init(void){
     i2sStart(&I2SD2, &i2scfg);
     ht_audio_Zero();
 
-#ifdef LQFP64_F401RE
+/* NOTES:
+ * I2S2 on F401RE can also using F303RC's I2S2 pins
+ */
+#ifdef PCB_P3_I2S
     palSetPadMode(GPIOB, 12, PAL_MODE_ALTERNATE(5));
-    palSetPadMode(GPIOB, 10, PAL_MODE_ALTERNATE(5));
-    palSetPadMode(GPIOC, 3 , PAL_MODE_ALTERNATE(5));
-
-    palSetPadMode(GPIOB, 13, PAL_MODE_RESET);
-    palSetPadMode(GPIOB, 15, PAL_MODE_RESET);
+    palSetPadMode(GPIOB, 13, PAL_MODE_ALTERNATE(5));
+    palSetPadMode(GPIOB, 15, PAL_MODE_ALTERNATE(5));
 #endif
 
-#ifdef LQFP64_F303RC
+#ifdef PCB_P2_I2S_ORIGINAL
+    palSetPadMode(GPIOB, 10, PAL_MODE_ALTERNATE(5));
+    palSetPadMode(GPIOB, 12, PAL_MODE_ALTERNATE(5));
+    palSetPadMode(GPIOC, 3 , PAL_MODE_ALTERNATE(5));
+#endif
+
+#ifdef PCB_P2_I2S_MODIFIED
     palSetPadMode(GPIOB, 12, PAL_MODE_ALTERNATE(5));
     palSetPadMode(GPIOB, 13, PAL_MODE_ALTERNATE(5));
     palSetPadMode(GPIOB, 15, PAL_MODE_ALTERNATE(5));
