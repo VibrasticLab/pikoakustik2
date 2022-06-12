@@ -157,10 +157,6 @@ static void ht_audio_Init(void){
     i2sStart(&I2SD2, &i2scfg);
     ht_audio_Zero();
 
-//    palSetPadMode(GPIOB, 12, PAL_MODE_ALTERNATE(5));
-//    palSetPadMode(GPIOB, 10, PAL_MODE_ALTERNATE(5));
-//    palSetPadMode(GPIOC, 3 , PAL_MODE_ALTERNATE(5));
-
     palSetPadMode(GPIOB, 12, PAL_MODE_ALTERNATE(5));
     palSetPadMode(GPIOB, 13, PAL_MODE_ALTERNATE(5));
     palSetPadMode(GPIOB, 15, PAL_MODE_ALTERNATE(5));
@@ -177,9 +173,6 @@ static void ht_audio_Init(void){
     ht_audio_DisableCh();
 }
 
-/*
- * Blinker thread #1.
- */
 THD_WORKING_AREA(waBlink, 128);
 THD_FUNCTION(Blink, arg) {
 
@@ -192,37 +185,81 @@ THD_FUNCTION(Blink, arg) {
   }
 }
 
-/*
- * Application entry point.
- */
+/****************************** EXTI Test ************/
+
+/* LED Answer ON */
+#define led_answerA() palClearPad(GPIOA,4)
+#define led_answerB() palClearPad(GPIOB,0)
+#define led_answerC() palClearPad(GPIOB,1)
+
+static void led_answer_off(void){
+    palSetPad(GPIOA,4);
+    palSetPad(GPIOB,0);
+    palSetPad(GPIOB,1);
+}
+
+static void btnA_cb(void *arg) {
+
+  (void)arg;
+
+  chSysLockFromISR();
+  led_answer_off();
+  led_answerA();
+  chSysUnlockFromISR();
+}
+
+static void btnB_cb(void *arg) {
+
+  (void)arg;
+
+  chSysLockFromISR();
+  led_answer_off();
+  led_answerB();
+  chSysUnlockFromISR();
+}
+
+static void btnC_cb(void *arg) {
+
+  (void)arg;
+
+  chSysLockFromISR();
+  led_answer_off();
+  led_answerC();
+  chSysUnlockFromISR();
+}
+
+/*****************************************************/
+
 int main(void) {
 
-  /*
-   * System initializations.
-   * - HAL initialization, this also initializes the configured device drivers
-   *   and performs the board-specific initializations.
-   * - Kernel initialization, the main() function becomes a thread and the
-   *   RTOS is active.
-   */
   halInit();
   chSysInit();
 
   palSetPadMode(GPIOA,LED_RUN,PAL_MODE_OUTPUT_PUSHPULL);
   palClearPad(GPIOA,LED_RUN);
 
+  palSetPadMode(GPIOA,4,PAL_MODE_OUTPUT_PUSHPULL);
+  palSetPadMode(GPIOB,0,PAL_MODE_OUTPUT_PUSHPULL);
+  palSetPadMode(GPIOB,1,PAL_MODE_OUTPUT_PUSHPULL);
+
   ht_audio_Init();
   ht_audio_TestBoth();
 
-  /*
-   * Creates the example threads.
-   */
+  palSetPadMode(GPIOC, 0, PAL_MODE_INPUT_PULLUP);
+  palSetPadMode(GPIOC, 1, PAL_MODE_INPUT_PULLUP);
+  palSetPadMode(GPIOC, 2, PAL_MODE_INPUT_PULLUP);
+
+  palEnableLineEvent(PAL_LINE(GPIOC, 0), PAL_EVENT_MODE_FALLING_EDGE);
+  palSetLineCallback(PAL_LINE(GPIOC, 0), btnA_cb, NULL);
+
+  palEnableLineEvent(PAL_LINE(GPIOC, 1), PAL_EVENT_MODE_FALLING_EDGE);
+  palSetLineCallback(PAL_LINE(GPIOC, 1), btnB_cb, NULL);
+
+  palEnableLineEvent(PAL_LINE(GPIOC, 2), PAL_EVENT_MODE_FALLING_EDGE);
+  palSetLineCallback(PAL_LINE(GPIOC, 2), btnC_cb, NULL);
+
   chThdCreateStatic(waBlink, sizeof(waBlink), NORMALPRIO, Blink, NULL);
 
-  /*
-   * Normal main() thread activity, in this demo it does nothing except
-   * sleeping in a loop and check the button state, when the button is
-   * pressed the test procedure is launched.
-   */
   while (true) {
     chThdSleepMilliseconds(500);
   }
