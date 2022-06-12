@@ -25,10 +25,10 @@
  #define USER_AUDIO_TEST    TRUE   /* Whether use Audio test at startup */
 
 #define USER_LED            TRUE   /* Whether use LED modules */
-#define USER_BUTTON         TRUE  /* Whether use Button modules */
+#define USER_BUTTON         TRUE   /* Whether use Button modules */
 
-#define USER_METRI          TRUE  /* Whether use Audiometri routine or not */
- #define USER_METRI_ENABLED FALSE  /* Whether use Audiometri can be entered or not */
+#define USER_METRI          TRUE   /* Whether use Audiometri routine or not */
+ #define USER_METRI_ENABLED TRUE   /* Whether use RUN mode can be entered or not */
  #define USER_METRI_RECORD  TRUE   /* Whether record Audiometri session */
  #define USER_METRI_RECONCE TRUE   /* Whether record written all at once or not. Keep enabled */
  #define USER_METRI_USELOG  TRUE   /* Whether metri loop use debug message */
