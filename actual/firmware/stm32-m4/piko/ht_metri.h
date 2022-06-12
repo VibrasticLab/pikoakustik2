@@ -62,17 +62,6 @@
 #define AMPL_SCALE_USED   AMPL_SCALE_ACTUAL
 
 /**
- * @brief Function Random Initialization
- */
-void ht_metri_RndInit(void);
-
-/**
- * @brief Function Random Number Generation
- * @return uint32_t random number
- */
-uint32_t ht_metri_RndGen(void);
-
-/**
  * @brief Random number to choose answer position
  * @return Answer number position
  */

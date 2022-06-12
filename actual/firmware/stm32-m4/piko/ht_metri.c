@@ -424,28 +424,10 @@ uint8_t ht_metri_RndOpt(void){
     //is this pseudorandom really works?
     srand((unsigned long)chVTGetSystemTime());
 
-#if USER_METRI_LONGRNG
-    uint8_t last_rnd;
-
-    rndnum = rand() % 36;
-    while(rndnum==last_rnd){rndnum = rand() % 36;}
-    last_rnd = rndnum;
-
-    if(rndnum==0||rndnum==5||rndnum==7||rndnum==11||rndnum==13||rndnum==17||rndnum==20||rndnum==21||rndnum==25||rndnum==29||rndnum==31||rndnum==35){
-        rndnumask = OPT_ASK_A;
-    }
-    else if(rndnum==1||rndnum==3||rndnum==8||rndnum==9||rndnum==14||rndnum==15||rndnum==18||rndnum==22||rndnum==26||rndnum==27||rndnum==32||rndnum==33){
-        rndnumask = OPT_ASK_B;
-    }
-    else if(rndnum==2||rndnum==4||rndnum==6||rndnum==10||rndnum==12||rndnum==16||rndnum==19||rndnum==23||rndnum==24||rndnum==28||rndnum==30||rndnum==34){
-        rndnumask = OPT_ASK_C;
-    }
-#else
     rndnum = rand() % 3;
     if(rndnum==0){rndnumask = OPT_ASK_A;}
     if(rndnum==1){rndnumask = OPT_ASK_B;}
     if(rndnum==2){rndnumask = OPT_ASK_C;}
-#endif
 
 #if USER_METRI_USELOG
     ht_comm_Buff(strbuff,sizeof(strbuff),"(%1i)\r\n", rndnum);
