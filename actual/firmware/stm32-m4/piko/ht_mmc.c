@@ -50,25 +50,26 @@ static uint8_t mmc_spi_status_flag = MMC_SPI_OK;
 
 /**
  * @brief Maximum speed SPI config
- * @details 18MHz, CPHA=0, CPOL=0, MSb first.
+ * @details CPHA=0, CPOL=0, MSb first.
  */
 const SPIConfig hs_spicfg = {
   false,
   NULL,
   GPIOA,
   15,
+
 #ifdef PCB_P2_I2S_ORIGINAL
   0, 0
 #endif
 
 #ifdef PCB_P2_I2S_MODIFIED
-  0, SPI_CR2_DS_2 | SPI_CR2_DS_1 | SPI_CR2_DS_0,
+  0, SPI_CR2_DS_2 | SPI_CR2_DS_1 | SPI_CR2_DS_0
 #endif
 };
 
 /**
  * @brief Low speed SPI config
- * @details 140.625kHz, CPHA=0, CPOL=0, MSb first.
+ * @details CPHA=0, CPOL=0, MSb first.
  */
 const SPIConfig ls_spicfg = {
   false,
@@ -943,10 +944,10 @@ void ht_mmcOnceMetri_hearingRecord(uint8_t *resArray, uint8_t lastIdx, uint8_t l
 /*******************************************/
 
 void ht_mmc_Init(void){
-    palSetPadMode(GPIOC, 12, PAL_MODE_ALTERNATE(6));    //MOSI
-    palSetPadMode(GPIOC, 11, PAL_MODE_ALTERNATE(6));    //MISO
-    palSetPadMode(GPIOC, 10, PAL_MODE_ALTERNATE(6));    //SCK
-    palSetPadMode(GPIOA, 15, PAL_MODE_OUTPUT_PUSHPULL); //NSS
+    palSetPadMode(GPIOC, 12, PAL_MODE_ALTERNATE(6) | PAL_STM32_OSPEED_HIGHEST);    //MOSI
+    palSetPadMode(GPIOC, 11, PAL_MODE_ALTERNATE(6) | PAL_STM32_OSPEED_HIGHEST);    //MISO
+    palSetPadMode(GPIOC, 10, PAL_MODE_ALTERNATE(6) | PAL_STM32_OSPEED_HIGHEST);    //SCK
+    palSetPadMode(GPIOA, 15, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_HIGHEST); //NSS
     palSetPad(GPIOA, 15);
 
     mmcObjectInit(&MMCD1);
