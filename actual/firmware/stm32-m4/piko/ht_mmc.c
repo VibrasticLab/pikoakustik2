@@ -57,8 +57,13 @@ const SPIConfig hs_spicfg = {
   NULL,
   GPIOA,
   15,
-  0,
-  SPI_CR2_DS_2 | SPI_CR2_DS_1 | SPI_CR2_DS_0
+#ifdef PCB_P2_I2S_ORIGINAL
+  0, 0
+#endif
+
+#ifdef PCB_P2_I2S_MODIFIED
+  0, SPI_CR2_DS_2 | SPI_CR2_DS_1 | SPI_CR2_DS_0,
+#endif
 };
 
 /**
@@ -70,8 +75,15 @@ const SPIConfig ls_spicfg = {
   NULL,
   GPIOA,
   15,
+
+#ifdef PCB_P2_I2S_ORIGINAL
+  SPI_CR1_BR_2 | SPI_CR1_BR_1, 0
+#endif
+
+#ifdef PCB_P2_I2S_MODIFIED
   SPI_CR1_BR_2 | SPI_CR1_BR_1,
   SPI_CR2_DS_2 | SPI_CR2_DS_1 | SPI_CR2_DS_0
+#endif
 };
 
 /**
