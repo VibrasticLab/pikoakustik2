@@ -197,6 +197,9 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
 #if USER_METRI_ENABLED
             mode_led=LED_METRI;
             mode_status=STT_METRI;
+#else
+            mode_status = STT_IDLE;
+            mode_led = LED_READY;
 #endif
         }
 
