@@ -944,10 +944,10 @@ void ht_mmcOnceMetri_hearingRecord(uint8_t *resArray, uint8_t lastIdx, uint8_t l
 /*******************************************/
 
 void ht_mmc_Init(void){
-    palSetPadMode(GPIOC, 12, PAL_MODE_ALTERNATE(6) | PAL_STM32_OSPEED_HIGHEST);    //MOSI
-    palSetPadMode(GPIOC, 11, PAL_MODE_ALTERNATE(6) | PAL_STM32_OSPEED_HIGHEST);    //MISO
-    palSetPadMode(GPIOC, 10, PAL_MODE_ALTERNATE(6) | PAL_STM32_OSPEED_HIGHEST);    //SCK
-    palSetPadMode(GPIOA, 15, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_HIGHEST); //NSS
+    palSetPadMode(GPIOC, 12, PAL_MODE_ALTERNATE(6));    //MOSI
+    palSetPadMode(GPIOC, 11, PAL_MODE_ALTERNATE(6));    //MISO
+    palSetPadMode(GPIOC, 10, PAL_MODE_ALTERNATE(6));    //SCK
+    palSetPadMode(GPIOA, 15, PAL_MODE_OUTPUT_PUSHPULL); //NSS
     palSetPad(GPIOA, 15);
 
     mmcObjectInit(&MMCD1);
