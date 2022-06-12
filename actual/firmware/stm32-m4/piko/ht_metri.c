@@ -18,7 +18,7 @@
 
 #include "ht_led.h"
 #include "ht_mmc.h"
-#include "ht_exti.h"
+#include "ht_btn.h"
 #include "ht_audio.h"
 #include "ht_metri.h"
 #include "ht_console.h"

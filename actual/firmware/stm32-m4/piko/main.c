@@ -20,6 +20,8 @@
 #include "ht_metri.h"
 #include "ht_console.h"
 
+#include "msg_my.h"
+
 extern uint8_t mode_led;
 
 /**
@@ -87,8 +89,14 @@ int main(void) {
 
 #if USER_SERIAL
   shellInit();
+
+  #if USER_SER_USB
   ht_commUSB_Init();
+  #endif
+
+  #if USER_SER_UART
   ht_commUART_Init();
+  #endif
 #endif
 
 #if USER_MMC
@@ -111,15 +119,22 @@ int main(void) {
 
   if(mode_led==LED_READY){
 #if USER_SERIAL
+  #if USER_SER_UART
     esp32_InfoStatus(HT_STATE_IDLE);
+  #endif
 #endif
   }
 
   while (true) {
 
 #if USER_SERIAL
+  #if USER_SER_USB
     ht_commUSB_shInit();
+  #endif
+
+  #if USER_SER_UART
     ht_commUART_shInit();
+  #endif
 #endif
 
     if(stt_readyAll==FALSE){
