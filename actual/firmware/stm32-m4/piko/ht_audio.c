@@ -94,7 +94,7 @@ void ht_audio_Tone(double freq, double ampl){
     uint16_t buffsize;
     double ysin;
 
-    buffsize = (uint16_t) I2S_BUFF_SIZE/freq;
+    buffsize = (uint16_t) I2S_BUFF_SIZE/(FREQ_SCALE*freq);
 
     // checking lowest possible amplitude
     double ampl_act;
@@ -133,7 +133,7 @@ void ht_audio_ToneNoAtt(double freq, double ampl){
     uint16_t buffsize;
     double ysin;
 
-    buffsize = (uint16_t) I2S_BUFF_SIZE/freq;
+    buffsize = (uint16_t) I2S_BUFF_SIZE/(FREQ_SCALE*freq);
 
     // checking lowest possible amplitude
     double ampl_act;

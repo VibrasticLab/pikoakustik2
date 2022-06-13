@@ -62,7 +62,13 @@
  * @brief Total buffer size
  * @details Just fill it below 44100
  */
-#define TOTAL_BUFF_SIZE I2S_BUFF_SIZE*16
+#define TOTAL_BUFF_SIZE I2S_BUFF_SIZE*64
+
+/**
+ * @brief Scaling Frequency for I2S Clock
+ * @details Use 1 if using 96MHz or 2 if using 48MHz
+ */
+#define FREQ_SCALE	2
 
 /**
  * @brief Wheter use Left/Right or Mono array
