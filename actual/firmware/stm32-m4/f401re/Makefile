@@ -90,6 +90,7 @@ PROJECT = pikof401re
 
 # Imported source files and paths
 # ChibiOS/RT 17.6.x
+# ChibiOS/RT 20.3.x freeze on i2sStartExchange() at F401RE
 CHIBIOS = /opt/chibios17
 
 # Startup files.
