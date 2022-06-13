@@ -33,6 +33,8 @@
 
 #include "mcuconf.h"
 
+#include "ht_config.h"
+
 /**
  * @brief   Enables the PAL subsystem.
  */
@@ -401,7 +403,7 @@
  *          default configuration.
  */
 #if !defined(SERIAL_DEFAULT_BITRATE) || defined(__DOXYGEN__)
-#define SERIAL_DEFAULT_BITRATE              38400
+#define SERIAL_DEFAULT_BITRATE              USER_BAUD
 #endif
 
 /**

@@ -1,5 +1,5 @@
 /*
-    ChibiOS - Copyright (C) 2006..2018 Giovanni Di Sirio
+    ChibiOS - Copyright (C) 2006..2016 Giovanni Di Sirio
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -13,6 +13,14 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 */
+
+/**
+ * @file    mcuconf.h
+ * @brief   Platform Spesific Board header.
+ *
+ * @addtogroup Platform
+ * @{
+ */
 
 #ifndef MCUCONF_H
 #define MCUCONF_H
@@ -59,28 +67,10 @@
 #define STM32_MCO2PRE                       STM32_MCO2PRE_DIV5
 #define STM32_I2SSRC                        STM32_I2SSRC_PLLI2S
 #define STM32_PLLI2SN_VALUE                 288
-#define STM32_PLLI2SR_VALUE                 6  // 48MHz for I2S
+#define STM32_PLLI2SR_VALUE                 6 // 6 for 48MHz or 3 for 96MHz
 #define STM32_PVD_ENABLE                    FALSE
 #define STM32_PLS                           STM32_PLS_LEV0
 #define STM32_BKPRAM_ENABLE                 FALSE
-
-/*
- * IRQ system settings.
- */
-#define STM32_IRQ_EXTI0_PRIORITY            6
-#define STM32_IRQ_EXTI1_PRIORITY            6
-#define STM32_IRQ_EXTI2_PRIORITY            6
-#define STM32_IRQ_EXTI3_PRIORITY            6
-#define STM32_IRQ_EXTI4_PRIORITY            6
-#define STM32_IRQ_EXTI5_9_PRIORITY          6
-#define STM32_IRQ_EXTI10_15_PRIORITY        6
-#define STM32_IRQ_EXTI16_PRIORITY           6
-#define STM32_IRQ_EXTI17_PRIORITY           15
-#define STM32_IRQ_EXTI18_PRIORITY           6
-#define STM32_IRQ_EXTI19_PRIORITY           6
-#define STM32_IRQ_EXTI20_PRIORITY           6
-#define STM32_IRQ_EXTI21_PRIORITY           15
-#define STM32_IRQ_EXTI22_PRIORITY           15
 
 /*
  * ADC driver system settings.
@@ -91,6 +81,22 @@
 #define STM32_ADC_ADC1_DMA_PRIORITY         2
 #define STM32_ADC_IRQ_PRIORITY              6
 #define STM32_ADC_ADC1_DMA_IRQ_PRIORITY     6
+
+/*
+ * EXT driver system settings.
+ */
+#define STM32_EXT_EXTI0_IRQ_PRIORITY        6
+#define STM32_EXT_EXTI1_IRQ_PRIORITY        6
+#define STM32_EXT_EXTI2_IRQ_PRIORITY        6
+#define STM32_EXT_EXTI3_IRQ_PRIORITY        6
+#define STM32_EXT_EXTI4_IRQ_PRIORITY        6
+#define STM32_EXT_EXTI5_9_IRQ_PRIORITY      6
+#define STM32_EXT_EXTI10_15_IRQ_PRIORITY    6
+#define STM32_EXT_EXTI16_IRQ_PRIORITY       6
+#define STM32_EXT_EXTI17_IRQ_PRIORITY       15
+#define STM32_EXT_EXTI18_IRQ_PRIORITY       6
+#define STM32_EXT_EXTI19_IRQ_PRIORITY       6
+#define STM32_EXT_EXTI22_IRQ_PRIORITY       15
 
 /*
  * GPT driver system settings.
@@ -136,8 +142,6 @@
  */
 #define STM32_I2S_USE_SPI2                  TRUE
 #define STM32_I2S_USE_SPI3                  FALSE
-#define STM32_I2S_SPI2_MODE                 (STM32_I2S_MODE_MASTER | STM32_I2S_MODE_TX)
-#define STM32_I2S_SPI3_MODE                 (STM32_I2S_MODE_MASTER | STM32_I2S_MODE_TX)
 #define STM32_I2S_SPI2_IRQ_PRIORITY         10
 #define STM32_I2S_SPI3_IRQ_PRIORITY         10
 #define STM32_I2S_SPI2_DMA_PRIORITY         1
@@ -146,6 +150,10 @@
 #define STM32_I2S_SPI2_TX_DMA_STREAM        STM32_DMA_STREAM_ID(1, 4)
 #define STM32_I2S_SPI3_RX_DMA_STREAM        STM32_DMA_STREAM_ID(1, 0)
 #define STM32_I2S_SPI3_TX_DMA_STREAM        STM32_DMA_STREAM_ID(1, 7)
+#define STM32_I2S_SPI2_MODE                 (STM32_I2S_MODE_MASTER |        \
+                                             STM32_I2S_MODE_TX)
+#define STM32_I2S_SPI3_MODE                 (STM32_I2S_MODE_MASTER |        \
+                                             STM32_I2S_MODE_TX)
 #define STM32_I2S_DMA_ERROR_HOOK(i2sp)      osalSysHalt("DMA failure")
 
 /*
@@ -242,7 +250,7 @@
  */
 #define STM32_USB_USE_OTG1                  TRUE
 #define STM32_USB_OTG1_IRQ_PRIORITY         14
-#define STM32_USB_OTG1_RX_FIFO_SIZE         512
+#define STM32_USB_OTG1_RX_FIFO_SIZE         1024
 #define STM32_USB_OTG_THREAD_PRIO           LOWPRIO
 #define STM32_USB_OTG_THREAD_STACK_SIZE     128
 #define STM32_USB_OTGFIFO_FILL_BASEPRI      0

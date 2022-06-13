@@ -53,7 +53,10 @@ static uint8_t mmc_spi_status_flag = MMC_SPI_OK;
  * @details CPHA=0, CPOL=0, MSb first.
  */
 const SPIConfig hs_spicfg = {
+#ifdef PCB_P2_I2S_MODIFIED
   false,
+#endif
+
   NULL,
   GPIOA,
   15,
@@ -72,7 +75,10 @@ const SPIConfig hs_spicfg = {
  * @details CPHA=0, CPOL=0, MSb first.
  */
 const SPIConfig ls_spicfg = {
+#ifdef PCB_P2_I2S_MODIFIED
   false,
+#endif
+
   NULL,
   GPIOA,
   15,
