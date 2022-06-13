@@ -53,22 +53,23 @@
 
 /**
  * @brief I2S protocol buffer size
- * @details If I2S-SPI and MMC-SPI use same DMA stream, set to 512.
- *          Please check DMA stream ID on both SPI peripherals.
+ * @details Changing this value will also change output frequency
+ * @details Recommended value are either 512 or 1024
  */
-#define I2S_BUFF_SIZE   512
+#define I2S_BUFF_SIZE   1024
 
 /**
  * @brief Total buffer size
  * @details Just fill it below 44100
  */
-#define TOTAL_BUFF_SIZE I2S_BUFF_SIZE*64
+#define TOTAL_BUFF_SIZE I2S_BUFF_SIZE*32
 
 /**
  * @brief Scaling Frequency for I2S Clock
- * @details Use 1 if using 96MHz or 2 if using 48MHz
+ * @details For buffer 512: Use 1 if using 96MHz or 2 if using 48MHz
+ * @details For buffer 1024: Use 2 if using 96MHz or 4 if using 48MHz
  */
-#define FREQ_SCALE	2
+#define FREQ_SCALE	4
 
 /**
  * @brief Wheter use Left/Right or Mono array
