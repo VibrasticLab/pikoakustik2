@@ -58,11 +58,13 @@ static void reset_ledbutton(void){
  */
 static void exti_idle_cb(void){
     ht_commUSB_Msg("Entering Mode: Standby\r\n");
-    mode_status=STT_STDBY;
 
     reset_ledbutton();
 
-    led_resultYES();
+    if(mode_led==LED_READY){
+        mode_status=STT_STDBY;
+        led_resultYES();
+    }
 }
 
 /**
