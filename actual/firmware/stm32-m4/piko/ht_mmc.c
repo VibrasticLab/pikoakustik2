@@ -53,7 +53,7 @@ static uint8_t mmc_spi_status_flag = MMC_SPI_OK;
  * @details CPHA=0, CPOL=0, MSb first.
  */
 const SPIConfig hs_spicfg = {
-#ifdef PCB_P2_I2S_MODIFIED
+#ifdef CH_20
   false,
 #endif
 
@@ -61,11 +61,11 @@ const SPIConfig hs_spicfg = {
   GPIOA,
   15,
 
-#ifdef PCB_P2_I2S_ORIGINAL
+#ifdef ST_F401RE
   0, 0
 #endif
 
-#ifdef PCB_P2_I2S_MODIFIED
+#ifdef ST_F303RC
   0, SPI_CR2_DS_2 | SPI_CR2_DS_1 | SPI_CR2_DS_0
 #endif
 };
@@ -75,7 +75,7 @@ const SPIConfig hs_spicfg = {
  * @details CPHA=0, CPOL=0, MSb first.
  */
 const SPIConfig ls_spicfg = {
-#ifdef PCB_P2_I2S_MODIFIED
+#ifdef CH_20
   false,
 #endif
 
@@ -83,11 +83,11 @@ const SPIConfig ls_spicfg = {
   GPIOA,
   15,
 
-#ifdef PCB_P2_I2S_ORIGINAL
+#ifdef ST_F401RE
   SPI_CR1_BR_2 | SPI_CR1_BR_1, 0
 #endif
 
-#ifdef PCB_P2_I2S_MODIFIED
+#ifdef ST_F303RC
   SPI_CR1_BR_2 | SPI_CR1_BR_1,
   SPI_CR2_DS_2 | SPI_CR2_DS_1 | SPI_CR2_DS_0
 #endif

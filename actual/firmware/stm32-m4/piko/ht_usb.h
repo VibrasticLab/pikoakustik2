@@ -9,7 +9,7 @@
 #ifndef HT_USB_H
 #define HT_USB_H
 
-#ifdef PCB_P2_I2S_MODIFIED
+#ifdef ST_F303RC
 #define usb_lld_connect_bus(usbp)
 #define usb_lld_disconnect_bus(usbp)
 #endif

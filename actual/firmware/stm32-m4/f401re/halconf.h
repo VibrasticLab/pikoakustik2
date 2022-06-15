@@ -296,7 +296,7 @@
  *          default configuration.
  */
 #if !defined(SERIAL_DEFAULT_BITRATE) || defined(__DOXYGEN__)
-#define SERIAL_DEFAULT_BITRATE      USER_BAUD
+#define SERIAL_DEFAULT_BITRATE      USER_SER_BAUD
 #endif
 
 /**

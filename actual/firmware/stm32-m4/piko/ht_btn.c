@@ -78,7 +78,7 @@ static void exti_stdby_cb(void){
     reset_ledbutton();
 }
 
-/**************** Modified GPIO Interrupt **************/
+/**************** ChibiOS/RT 20.3.x GPIO Interrupt **************/
 
 /**
  * @brief Button answer A callback
@@ -197,8 +197,9 @@ static void exti_stdby_cb(void){
   chSysUnlockFromISR();
 }
 
-/**************** Original GPIO Interrupt **************/
+/**************** ChibiOS/RT 17.6.x GPIO Interrupt **************/
 
+#ifdef CH_17
 /**
  * @brief Button answer EXTI A callback
  * @details Enumerated and not called directly by any normal thread
@@ -235,7 +236,9 @@ static void extiAnsA(EXTDriver *extp, expchannel_t channel) {
 
     return;
 }
+#endif
 
+#ifdef CH_17
 /**
  * @brief Button answer EXTI B callback
  * @details Enumerated and not called directly by any normal thread
@@ -272,7 +275,9 @@ static void extiAnsB(EXTDriver *extp, expchannel_t channel) {
 
     return;
 }
+#endif
 
+#ifdef CH_17
 /**
  * @brief Button answer EXTI C callback
  * @details Enumerated and not called directly by any normal thread
@@ -309,10 +314,11 @@ static void extiAnsC(EXTDriver *extp, expchannel_t channel) {
 
     return;
 }
+#endif
 
 /*******************************************/
 
-#ifdef PCB_P2_I2S_ORIGINAL
+#ifdef CH_17
 /**
  * @brief External Interrupt Channel Config
  */
@@ -352,7 +358,7 @@ void ht_btn_Init(void){
 	palSetPadMode(GPIOC, 1, PAL_MODE_INPUT_PULLUP);
 	palSetPadMode(GPIOC, 2, PAL_MODE_INPUT_PULLUP);
 
-#ifdef PCB_P2_I2S_MODIFIED
+#ifdef CH_20
 	palEnableLineEvent(PAL_LINE(GPIOC, 0), PAL_EVENT_MODE_FALLING_EDGE);
 	palSetLineCallback(PAL_LINE(GPIOC, 0), btnA_cb, NULL);
 
@@ -363,7 +369,7 @@ void ht_btn_Init(void){
 	palSetLineCallback(PAL_LINE(GPIOC, 2), btnC_cb, NULL);
 #endif
 
-#ifdef PCB_P2_I2S_ORIGINAL
+#ifdef CH_17
     extStart(&EXTD1, &extcfg);
     extChannelEnable(&EXTD1, 0);
     extChannelEnable(&EXTD1, 1);

@@ -113,9 +113,9 @@ include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v7m.mk
 include $(CHIBIOS)/tools/mk/autobuild.mk
 # Other files (optional).
 ARMNONEEABIINC = /usr/arm-none-eabi/include
+include $(CHIBIOS)/os/various/fatfs_bindings/fatfs.mk
 include $(CHIBIOS)/os/hal/lib/streams/streams.mk
 include $(CHIBIOS)/os/various/shell/shell.mk
-include $(CHIBIOS)/os/various/fatfs_bindings/fatfs.mk
 include board/board.mk
 include ../piko/piko.mk
 
@@ -137,7 +137,7 @@ ASMSRC = $(ALLASMSRC)
 ASMXSRC = $(ALLXASMSRC)
 
 # Inclusion directories.
-INCDIR = $(CONFDIR) $(ALLINC) $(PIKOINC)
+INCDIR = $(CONFDIR) $(ALLINC) $(ARMNONEEABIINC) $(PIKOINC)
 
 # Define C warning options here.
 CWARN = -Wall -Wextra -Wundef -Wstrict-prototypes
@@ -163,7 +163,7 @@ UDEFS = -DSHELL_PROMPT_STR="\"\"" \
         -DSHELL_CMD_EXIT_ENABLED=FALSE \
         -DSHELL_CMD_ECHO_ENABLED=FALSE \
         -DSHELL_CMD_SYSTIME_ENABLED=FALSE \
-        -DPCB_P2_I2S_MODIFIED
+        -DCH_20 -DPCB_P2 -DST_F303RC
 
 # Define ASM defines here
 UADEFS =

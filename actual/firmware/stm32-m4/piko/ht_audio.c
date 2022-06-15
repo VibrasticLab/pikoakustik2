@@ -52,25 +52,27 @@ void ht_audio_Init(void){
 /* NOTES:
  * I2S2 on F401RE can also using F303RC's I2S2 pins
  */
-#ifdef PCB_P3_I2S
+#ifdef PCB_P3
     palSetPadMode(GPIOB, 12, PAL_MODE_ALTERNATE(5));
     palSetPadMode(GPIOB, 13, PAL_MODE_ALTERNATE(5));
     palSetPadMode(GPIOB, 15, PAL_MODE_ALTERNATE(5));
 #endif
 
-#ifdef PCB_P2_I2S_ORIGINAL
-    palSetPadMode(GPIOB, 10, PAL_MODE_ALTERNATE(5));
-    palSetPadMode(GPIOB, 12, PAL_MODE_ALTERNATE(5));
-    palSetPadMode(GPIOC, 3 , PAL_MODE_ALTERNATE(5));
-#endif
-
-#ifdef PCB_P2_I2S_MODIFIED
+#ifdef PCB_P2
+  #ifdef ST_F303RC
     palSetPadMode(GPIOB, 12, PAL_MODE_ALTERNATE(5));
     palSetPadMode(GPIOB, 13, PAL_MODE_ALTERNATE(5));
     palSetPadMode(GPIOB, 15, PAL_MODE_ALTERNATE(5));
 
     palSetPadMode(GPIOB, 10, PAL_MODE_RESET);
     palSetPadMode(GPIOC, 3 , PAL_MODE_RESET);
+  #endif
+
+  #ifdef ST_F401RE
+    palSetPadMode(GPIOB, 10, PAL_MODE_ALTERNATE(5));
+    palSetPadMode(GPIOB, 12, PAL_MODE_ALTERNATE(5));
+    palSetPadMode(GPIOC, 3 , PAL_MODE_ALTERNATE(5));
+  #endif
 #endif
 
     palSetPadMode(AUDIO_IO,AUDIO_L,PAL_MODE_OUTPUT_PUSHPULL);
