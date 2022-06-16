@@ -6,7 +6,7 @@
 # Compiler options here.
 # nano/nosys specs: for 'sbrk' linker
 ifeq ($(USE_OPT),)
-  USE_OPT = -Os -fomit-frame-pointer -falign-functions=16 \
+  USE_OPT = -Os -ggdb -fomit-frame-pointer -falign-functions=16 \
             -specs=nano.specs -specs=nosys.specs
 endif
 
