@@ -13,6 +13,7 @@
 
 #include "ch.h"
 #include "hal.h"
+#include "ff.h"
 
 #include "shell.h"
 #include "chprintf.h"
@@ -28,6 +29,7 @@
 #include "msg_my.h"
 
 extern uint8_t lastnum;
+extern FRESULT mmc_init_status;
 
 extern uint8_t mode_status;
 extern uint8_t channel_stt;
@@ -56,7 +58,7 @@ static void cmd_coba(BaseSequentialStream *chp, int argc, char *argv[]){
 
 static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
   if(argc < 1){
-     chprintf(chp,"usage: mmc [test|ls|lsnum|lsjson|cat] <file-number>\r\n");
+     chprintf(chp,"usage: mmc [test|ls|lsnum|lsjson|cat|stt] <file-number>\r\n");
      return;
   }
 
@@ -79,6 +81,9 @@ static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
     if(argc == 2){
       ht_mmc_catFiles(atoi(argv[1]),CAT_SINGLE_LINE);
     }
+  }
+  else if(strcmp(argv[0], "stt")==0){
+    chprintf(chp,"MMC Status %2i\r\n", mmc_init_status);
   }
 #else
   (void) argv;

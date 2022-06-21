@@ -39,6 +39,11 @@ MMCDriver MMCD1;
 uint16_t lastnum;
 
 /**
+ * @brief Gobal MMC Initialization Status
+ */
+FRESULT mmc_init_status = FR_OK;
+
+/**
  * @brief FatFS ready status flag
  */
 static bool filesystem_ready = true;
@@ -228,7 +233,6 @@ static FRESULT mmc_check(void){
 
 void ht_mmc_InitCheck(void){
     FATFS FatFs;
-    FRESULT err;
 
     uint32_t clusters;
     FATFS *fsp;
@@ -238,15 +242,15 @@ void ht_mmc_InitCheck(void){
 
     if(mmcConnect(&MMCD1)){
         filesystem_ready = true;
-        err = f_mount(&FatFs, "", 0);
-        if(err != FR_OK){
+        mmc_init_status = f_mount(&FatFs, "", 0);
+        if(mmc_init_status != FR_OK){
             if(mode_led!=LED_METRI)mode_led=LED_FAIL;
             return;
         }
     }
     else{
-        err = f_mount(&FatFs, "", 0);
-        if(err == FR_OK){
+        mmc_init_status = f_mount(&FatFs, "", 0);
+        if(mmc_init_status == FR_OK){
             filesystem_ready = true;
         }
         else{
@@ -262,8 +266,8 @@ void ht_mmc_InitCheck(void){
     }
 
     mmc_spi_status_flag=MMC_SPI_ERROR;
-    err = f_getfree("", &clusters, &fsp);
-    if(err == FR_OK){
+    mmc_init_status = f_getfree("", &clusters, &fsp);
+    if(mmc_init_status == FR_OK){
         mmc_spi_status_flag=MMC_SPI_OK;
         if(mode_led!=LED_METRI)mode_led=LED_READY;
     }
