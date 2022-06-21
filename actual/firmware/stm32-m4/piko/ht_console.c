@@ -29,7 +29,7 @@
 #include "msg_my.h"
 
 extern uint8_t lastnum;
-extern FRESULT mmc_init_status;
+extern FRESULT mmc_check_status;
 
 extern uint8_t mode_status;
 extern uint8_t channel_stt;
@@ -83,7 +83,7 @@ static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
     }
   }
   else if(strcmp(argv[0], "stt")==0){
-    chprintf(chp,"MMC Status %2i\r\n", mmc_init_status);
+    chprintf(chp,"MMC Status %2i\r\n", mmc_check_status);
   }
 #else
   (void) argv;
@@ -381,7 +381,15 @@ static void cmd_virt(BaseSequentialStream *chp, int argc, char *argv[]) {
 
 #if USER_MMC
  #if USER_METRI_RECORD
-    ht_mmcMetri_chkFile();
+    ht_mmc_InitCheck();
+    if(mmc_check_status==FR_OK){
+      ht_mmcMetri_chkFile();
+    }
+    else{
+      chprintf(chp, "MMC Failed\r\n");
+      chprintf(chp,"MMC Status %2i\r\n", mmc_check_status);
+      return;
+    }
 
   #if USER_METRI_RECONCE
     ht_mmcOnceMetri_jsonChStart(channel_stt);

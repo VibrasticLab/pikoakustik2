@@ -11,6 +11,7 @@
 
 #include "ch.h"
 #include "hal.h"
+#include "ff.h"
 
 #include "chprintf.h"
 
@@ -24,6 +25,8 @@
 #include "ht_console.h"
 
 extern uint8_t mode_led;
+
+extern FRESULT mmc_check_status;
 
 /**
  * @brief Device mode variable
@@ -178,7 +181,15 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
             ht_metri_ResultReset();
 #if USER_MMC
  #if USER_METRI_RECORD
-            ht_mmcMetri_chkFile();
+            ht_mmc_InitCheck();
+            if(mmc_check_status==FR_OK){
+              ht_mmcMetri_chkFile();
+            }
+            else{
+  #if USER_METRI_USELOG
+              ht_commUSB_Msg("MMC Failed\r\n");
+  #endif
+            }
 
   #if USER_METRI_RECONCE
             ht_mmcOnceMetri_jsonChStart(channel_stt);
@@ -195,8 +206,19 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
 #endif
 
 #if USER_METRI_ENABLED
-            mode_led=LED_METRI;
-            mode_status=STT_METRI;
+ #if USER_MMC
+  #if USER_METRI_RECORD
+            if(mmc_check_status==FR_OK){
+  #else
+            if(mode_status!=STT_METRI){
+  #endif
+ #endif
+                mode_led=LED_METRI;
+                mode_status=STT_METRI;
+            }
+#else
+            mode_status = STT_IDLE;
+            mode_led = LED_READY;
 #endif
         }
 
