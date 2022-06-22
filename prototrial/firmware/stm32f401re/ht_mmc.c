@@ -476,6 +476,21 @@ void ht_mmc_catFiles(uint16_t fnum, uint8_t lineType){
     ht_mmc_Delay();
 }
 
+void ht_mmc_formatFS(void){
+    char strbuff[COMM_BUFF_SIZE];
+    FRESULT err;
+    BYTE work[FF_MAX_SS];
+
+    err = f_mkfs("", FM_FAT32, 0, work, sizeof work);
+    if(err==FR_OK){
+        ht_commUSB_Msg("Formatting Completed\r\n");
+    }
+    else{
+        ht_comm_Buff(strbuff,sizeof(strbuff),"MMC Error %2i\r\n",err);
+        ht_commUSB_Msg(strbuff);
+    }
+}
+
 /*******************************************/
 
 void ht_mmcMetri_chkFile(void){

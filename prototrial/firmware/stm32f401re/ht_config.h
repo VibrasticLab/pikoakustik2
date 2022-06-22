@@ -18,6 +18,7 @@
 
 /** MOST ANNOYING PART EVER */
 #define USER_MMC            TRUE   /* Whether use memory card or not */
+ #define USER_MMC_MKFS      TRUE   /* Whether use disk formatting or not */
 
 #define USER_AUDIO          TRUE   /* Whether use Audio module or not */
  #define USER_AUDIO_TEST    TRUE   /* Whether use Audio test at startup */
@@ -25,7 +26,7 @@
 #define USER_LED_BUTTON     TRUE   /* Whether use LED and Button modules */
 
 #define USER_METRI          TRUE   /* Whether use Audiometri routine or not */
- #define USER_METRI_ENABLED TRUE   /* Whether use Audiometri can be entered or not */
+ #define USER_METRI_ENABLED FALSE   /* Whether use Audiometri can be entered or not */
  #define USER_METRI_RECORD  TRUE   /* Whether record Audiometri session */
  #define USER_METRI_RECONCE TRUE   /* Whether record written all at once or not. Keep enabled */
  #define USER_METRI_USELOG  TRUE   /* Whether metri loop use debug message */
