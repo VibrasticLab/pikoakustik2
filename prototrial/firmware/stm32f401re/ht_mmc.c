@@ -481,7 +481,7 @@ void ht_mmc_formatFS(void){
     FRESULT err;
     BYTE work[FF_MAX_SS];
 
-    err = f_mkfs("", FM_FAT32, 0, work, sizeof work);
+    err = f_mkfs("", FM_ANY, 0, work, sizeof work);
     if(err==FR_OK){
         ht_commUSB_Msg("Formatting Completed\r\n");
     }
