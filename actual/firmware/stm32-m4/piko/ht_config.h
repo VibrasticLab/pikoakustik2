@@ -18,6 +18,7 @@
  #define USER_SER_BAUD		38400  /* Default Baudrate */
 
 #define USER_MMC            TRUE   /* Whether use memory card or not */
+ #define USER_MMC_MKFS      TRUE   /* Whether use disk formatting or not */
 
 #define USER_AUDIO          TRUE   /* Whether use Audio module or not */
  #define USER_AUDIO_TEST    TRUE   /* Whether use Audio test at startup */

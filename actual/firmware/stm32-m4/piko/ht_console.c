@@ -58,7 +58,7 @@ static void cmd_coba(BaseSequentialStream *chp, int argc, char *argv[]){
 
 static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
   if(argc < 1){
-     chprintf(chp,"usage: mmc [test|ls|lsnum|lsjson|cat|stt] <file-number>\r\n");
+     chprintf(chp,"usage: mmc [test|ls|lsnum|lsjson|cat|stt|mkfs] <file-number>\r\n");
      return;
   }
 
@@ -84,6 +84,12 @@ static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
   }
   else if(strcmp(argv[0], "stt")==0){
     chprintf(chp,"MMC Status %2i\r\n", mmc_check_status);
+  }
+  else if(strcmp(argv[0], "mkfs")==0){
+ #if USER_MMC_MKFS
+    chprintf(chp,"Formatting MMC\r\n");
+    ht_mmc_formatFS();
+ #endif
   }
 #else
   (void) argv;
