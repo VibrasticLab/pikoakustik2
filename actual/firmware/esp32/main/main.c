@@ -34,10 +34,10 @@ void app_main(void){
     while(1) {
 #if MY_USE_UART
  #if MY_UART_DUMB
-  my_shellLoop();
+        my_shellLoop();
  #else
-  int shloop = my_shellLoop();
-  if(shloop==1)("Empty Command\r\n");
+        int shloop = my_shellLoop();
+        if(shloop==1)("Empty Command\r\n");
  #endif
 #endif
 

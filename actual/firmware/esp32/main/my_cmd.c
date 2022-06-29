@@ -85,7 +85,11 @@ static int set_leddelay(int argc, char **argv)
     if(argc==2){
         led_delay = atoi(argv[1]);
         if(led_delay<=20) led_delay = 20;
+
+#if MY_UART_SILENT
+#else
         printf("led delay %i\n",led_delay);
+#endif
     }
     return 0;
 }

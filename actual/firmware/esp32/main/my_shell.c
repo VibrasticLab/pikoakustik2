@@ -59,7 +59,10 @@ void my_shellInit(void){
 
   my_registerCommands();
 
+#if MY_UART_SILENT
+#else
   printf("System Configured\n");
+#endif
 
 #if MY_UART_DUMB
   linenoiseSetDumbMode(1);
