@@ -13,13 +13,13 @@
  * @brief UART baudrate value
  *
  */
-#define MY_UART_BAUDRATE   115200
+#define MY_UART_BAUDRATE   38400
 
 /**
  * @brief UART shell buffer size
  *
  */
-#define MY_UART_BUFF_SIZE 256
+#define MY_UART_BUFF_SIZE 1024
 
 void my_shellInit(void);
 int my_shellLoop(void);

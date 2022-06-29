@@ -9,11 +9,7 @@
 #include "my_includes.h"
 
 #if MY_UART_USE_PROMPT
- #if MY_UART_SILENT
-const char* prompt = "";
- #else
 const char* prompt = "esp32> ";
- #endif
 #else
 const char* prompt = "";
 #endif
@@ -84,6 +80,7 @@ int my_shellLoop(void){
   esp_console_run(line, &ret);
 #else
   esp_err_t err = esp_console_run(line, &ret);
+  printf("Command: %s\n",line);
 
   if (err == ESP_ERR_NOT_FOUND) {
       printf("Unrecognized command\n");
