@@ -6,15 +6,6 @@
  * @{
  */
 
-/* Console example — various system commands
-
-   This example code is in the Public Domain (or CC0 licensed, at your option.)
-
-   Unless required by applicable law or agreed to in writing, this
-   software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied.
-*/
-
 #include "my_includes.h"
 
 extern uint16_t led_delay;
@@ -22,10 +13,6 @@ extern uint16_t led_delay;
 static void register_version(void);
 static void register_leddelay(void);
 
-/**
- * @brief Register all basic commands
- *
- */
 void my_registerCommands(void)
 {
     register_version();

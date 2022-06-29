@@ -12,6 +12,10 @@
 #define MY_LED_GPIO    2
 #define MY_LED_DELAY   500
 
+/**
+ * @brief Initialize LED subsystem
+ *
+ */
 void my_ledInit(void);
 
 #endif

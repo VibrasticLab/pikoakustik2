@@ -19,10 +19,10 @@ const char* prompt = "";
 #endif
 
 /**
- * @brief UART Console Start
+ * @brief UART0 Console Start
  *
  */
-static void consoleInit(void){
+static void console0_Init(void){
     fflush(stdout);
     fsync(fileno(stdout));
     setvbuf(stdin, NULL,_IONBF, 0);
@@ -54,7 +54,7 @@ static void consoleInit(void){
 }
 
 void my_shellInit(void){
-  consoleInit();
+  console0_Init();
   esp_console_register_help_command();
 
   my_registerCommands();
@@ -71,15 +71,15 @@ void my_shellInit(void){
 
 int my_shellLoop(void){
   char* line = linenoise(prompt);
-    if(line==NULL){
-        return 1;
-    }
+  if(line==NULL){
+      return 1;
+  }
 
-    if(strlen(line)>0){
-        linenoiseHistoryAdd(line);
-    }
+  if(strlen(line)>0){
+      linenoiseHistoryAdd(line);
+  }
 
-    int ret;
+  int ret;
 #if MY_UART_SILENT
   esp_console_run(line, &ret);
 #else

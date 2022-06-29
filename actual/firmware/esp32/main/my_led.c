@@ -10,6 +10,11 @@
 
 uint16_t led_delay = 500;
 
+/**
+ * @brief LED Task Loop
+ *
+ * @param pvParameter
+ */
 static void ledTask(void *pvParameter){
     while (1) {
         gpio_set_level(MY_LED_GPIO, 0);

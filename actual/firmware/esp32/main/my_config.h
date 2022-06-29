@@ -12,13 +12,13 @@
 #define TRUE    1
 #define FALSE   0
 
-#define MY_USE_LED              TRUE
-#define MY_USE_NVS              TRUE
+#define MY_USE_LED              TRUE /* Whether LED subsystem activated or not */
+#define MY_USE_NVS              TRUE /* Always enable NVS subsystem */
 
-#define MY_USE_UART            TRUE
- #define MY_UART_USE_PROMPT    TRUE
- #define MY_UART_SILENT        TRUE  /* Pull down IO15 for UART0 complete silent */
- #define MY_UART_DUMB          TRUE
+#define MY_USE_UART             TRUE /* Whether UART subsystem activated or not */
+ #define MY_UART_USE_PROMPT     TRUE /* Whether UART use prompt or not */
+ #define MY_UART_SILENT         TRUE /* Pull down IO15 for UART0 complete silent */
+ #define MY_UART_DUMB           TRUE /* Always use console in DUMB mode */
 
 #endif
 

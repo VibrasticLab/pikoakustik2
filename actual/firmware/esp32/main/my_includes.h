@@ -6,10 +6,6 @@
  * @{
  */
 
-/**
- * Just include everything necessary
- */
-
 #ifndef _MY_INCLUDES_H_
 #define _MY_INCLUDES_H_
 

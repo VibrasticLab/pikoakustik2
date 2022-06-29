@@ -11,11 +11,13 @@
 
 /**
  * @brief UART baudrate value
+ *
  */
 #define MY_UART_BAUDRATE   115200
 
 /**
  * @brief UART shell buffer size
+ *
  */
 #define MY_UART_BUFF_SIZE 256
 
