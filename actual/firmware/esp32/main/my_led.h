@@ -10,7 +10,7 @@
 #define _MY_LED_H_
 
 #define MY_LED_GPIO    2
-#define MY_LED_DELAY   100
+#define MY_LED_DELAY   500
 
 void my_ledInit(void);
 

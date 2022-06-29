@@ -8,13 +8,15 @@
 
 #include "my_includes.h"
 
+uint16_t led_delay = 500;
+
 static void ledTask(void *pvParameter){
     while (1) {
         gpio_set_level(MY_LED_GPIO, 0);
-        vTaskDelay(MY_LED_DELAY / portTICK_PERIOD_MS);
+        vTaskDelay(led_delay / portTICK_PERIOD_MS);
 
         gpio_set_level(MY_LED_GPIO, 1);
-        vTaskDelay(MY_LED_DELAY / portTICK_PERIOD_MS);
+        vTaskDelay(led_delay / portTICK_PERIOD_MS);
     }
 }
 
