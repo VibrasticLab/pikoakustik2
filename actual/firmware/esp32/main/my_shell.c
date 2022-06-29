@@ -22,13 +22,13 @@ const char* prompt = "";
  * @brief UART0 Console Start
  *
  */
-static void console0_Init(void){
+static void console_Init(void){
     fflush(stdout);
     fsync(fileno(stdout));
     setvbuf(stdin, NULL,_IONBF, 0);
 
-    esp_vfs_dev_uart_port_set_rx_line_endings(UART_NUM_0, ESP_LINE_ENDINGS_CR);
-    esp_vfs_dev_uart_port_set_tx_line_endings(UART_NUM_0, ESP_LINE_ENDINGS_CRLF);
+    esp_vfs_dev_uart_port_set_rx_line_endings(UART_NUM_1, ESP_LINE_ENDINGS_CR);
+    esp_vfs_dev_uart_port_set_tx_line_endings(UART_NUM_1, ESP_LINE_ENDINGS_CRLF);
 
     const uart_config_t uartConf = {
         .baud_rate = MY_UART_BAUDRATE,
@@ -38,9 +38,9 @@ static void console0_Init(void){
         .source_clk = UART_SCLK_REF_TICK,
     };
 
-    ESP_ERROR_CHECK(uart_driver_install(UART_NUM_0, MY_UART_BUFF_SIZE, 0, 0, NULL, 0));
-    ESP_ERROR_CHECK(uart_param_config(UART_NUM_0, &uartConf));
-    esp_vfs_dev_uart_use_driver(UART_NUM_0);
+    ESP_ERROR_CHECK(uart_driver_install(UART_NUM_1, MY_UART_BUFF_SIZE, 0, 0, NULL, 0));
+    ESP_ERROR_CHECK(uart_param_config(UART_NUM_1, &uartConf));
+    esp_vfs_dev_uart_use_driver(UART_NUM_1);
 
     const esp_console_config_t consoleConf = {
         .max_cmdline_args = 8,
@@ -54,7 +54,7 @@ static void console0_Init(void){
 }
 
 void my_shellInit(void){
-  console0_Init();
+  console_Init();
   esp_console_register_help_command();
 
   my_registerCommands();
