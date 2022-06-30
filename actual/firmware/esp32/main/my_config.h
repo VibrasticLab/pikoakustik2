@@ -20,6 +20,9 @@
  #define MY_UART_SILENT         TRUE    /* Pull down IO15 for UART complete silent */
  #define MY_UART_DUMB           TRUE    /* Always use console in DUMB mode */
 
+#define MY_USE_OLCD             TRUE    /* Whether use OLED LCD subsystem or not */
+
+
 #endif
 
 /** @} */

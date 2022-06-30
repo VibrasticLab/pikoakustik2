@@ -44,12 +44,17 @@
 #include "argtable3/argtable3.h"
 
 #include "driver/gpio.h"
+#include "driver/i2c.h"
 
 #include "my_config.h"
+
+#include "fonts.h"
+#include "ssd1306i2c.h"
 
 #include "my_nvs.h"
 #include "my_led.h"
 #include "my_cmd.h"
+#include "my_olcd.h"
 #include "my_shell.h"
 
 #endif

@@ -11,11 +11,13 @@
 extern uint16_t led_delay;
 
 static void register_version(void);
+static void register_restart(void);
 static void register_leddelay(void);
 
 void my_registerCommands(void)
 {
     register_version();
+    register_restart();
     register_leddelay();
 }
 
@@ -56,6 +58,34 @@ static void register_version(void)
         .help = "Get version of chip and SDK",
         .hint = NULL,
         .func = &get_version,
+    };
+    esp_console_cmd_register(&cmd);
+}
+
+/**
+ * @brief Restart system
+ *
+ * @param argc
+ * @param argv
+ * @return int
+ */
+static int restart(int argc, char **argv)
+{
+    printf("Restarting");
+    esp_restart();
+}
+
+/**
+ * @brief Register restart system command
+ *
+ */
+static void register_restart(void)
+{
+    const esp_console_cmd_t cmd = {
+        .command = "rst",
+        .help = "Software reset of the chip",
+        .hint = NULL,
+        .func = &restart,
     };
     esp_console_cmd_register(&cmd);
 }

@@ -23,6 +23,11 @@ void app_main(void){
     my_nvsInit();
 #endif
 
+#if MY_USE_OLCD
+    my_oledInit();
+    my_olcdtest_img();
+#endif
+
 #if MY_USE_LED
     my_ledInit();
 #endif
