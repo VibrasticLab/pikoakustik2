@@ -35,6 +35,10 @@
 #include "esp_tls.h"
 #include "esp_http_client.h"
 
+#include "lwip/err.h"
+#include "lwip/sys.h"
+#include "lwip/dns.h"
+
 #include "nvs.h"
 #include "nvs_flash.h"
 
@@ -56,6 +60,8 @@
 #include "my_cmd.h"
 #include "my_olcd.h"
 #include "my_shell.h"
+#include "my_wifiap.h"
+#include "my_wifista.h"
 
 #endif
 
