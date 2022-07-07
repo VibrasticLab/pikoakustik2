@@ -6,6 +6,11 @@
  * @{
  */
 
- void my_wifiInitSTA(void);
+#ifndef _MY_WIFISTA_H_
+#define _MY_WIFISTA_H_
 
- /** @} */
+void my_wifiInitSTA(void);
+
+#endif
+
+/** @} */

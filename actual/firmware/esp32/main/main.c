@@ -16,6 +16,8 @@ void app_main(void){
 
 #if MY_UART_SILENT
     esp_log_level_set("*", ESP_LOG_NONE);
+#else
+    esp_log_level_set("*", ESP_LOG_VERBOSE);
 #endif
 
 /** must first before other module */
@@ -31,18 +33,21 @@ void app_main(void){
     my_shellInit();
 #endif
 
-#if MY_USE_WIFI
- #if MY_WIFI_STA
-    my_wifiInitSTA();
- #endif
- #if MY_WIFI_AP
-    my_wifiInitAP();
- #endif
-#endif
-
 #if MY_USE_OLCD
     my_oledInit();
     my_olcdtest_img();
+#endif
+
+#if MY_USE_WIFI
+ #if MY_WIFI_ONCMD
+ #else
+  #if MY_WIFI_STA
+    my_wifiInitSTA();
+  #endif
+  #if MY_WIFI_AP
+    my_wifiInitAP();
+  #endif
+ #endif
 #endif
 
     while(1) {

@@ -13,12 +13,14 @@ extern uint16_t led_delay;
 static void register_version(void);
 static void register_restart(void);
 static void register_leddelay(void);
+static void register_wifion(void);
 
 void my_registerCommands(void)
 {
     register_version();
     register_restart();
     register_leddelay();
+    register_wifion();
 }
 
 /**
@@ -122,6 +124,60 @@ static void register_leddelay(void)
         .help = "Set LED Delay: led <delay in ms>",
         .hint = NULL,
         .func = &set_leddelay,
+    };
+    esp_console_cmd_register(&cmd);
+}
+
+/**
+ * @brief Activate the Wifi
+ *
+ * @param argc
+ * @param argv
+ * @return int
+ */
+static int wifion(int argc, char **argv)
+{
+    uint8_t wifi_flag = 0;
+
+    if(argc==2){
+        wifi_flag = atoi(argv[1]);
+
+        if(wifi_flag==1){
+            printf("Activating WiFi");
+#if MY_WIFI_ONCMD
+ #if MY_WIFI_STA
+            my_wifiInitSTA();
+ #endif
+ #if MY_WIFI_AP
+            my_wifiInitAP();
+ #endif
+#else
+            printf("WiFi activated at startup");
+#endif
+        }
+        else{
+#if MY_WIFI_ONCMD
+            printf("Deactivating WiFi");
+            ESP_ERROR_CHECK(esp_wifi_stop() );
+#else
+            printf("WiFi always activated at startup");
+#endif
+        }
+    }
+    return 0;
+}
+
+/**
+ * @brief Activate the Wifi command
+ *
+ */
+static void register_wifion(void)
+{
+    const esp_console_cmd_t cmd = {
+        .command = "wifi",
+        .help = "Activate the WiFi",
+        .hint = NULL,
+        .func = &wifion,
     };
     esp_console_cmd_register(&cmd);
 }

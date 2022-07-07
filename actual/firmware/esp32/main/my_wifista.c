@@ -8,8 +8,22 @@
 
 #include "my_includes.h"
 
-#define EXAMPLE_ESP_WIFI_SSID      "vibrastic"
-#define EXAMPLE_ESP_WIFI_PASS      "bismillah"
+/**
+ * @brief STA WIFI SSID
+ *
+ */
+#define EXAMPLE_ESP_WIFI_SSID      "AchmadiWifi"
+
+/**
+ * @brief STA WIFI Passwrod
+ *
+ */
+#define EXAMPLE_ESP_WIFI_PASS      "stardust"
+
+/**
+ * @brief STA WIFI Connection Trial
+ *
+ */
 #define EXAMPLE_ESP_MAXIMUM_RETRY  5
 
 static EventGroupHandle_t s_wifi_event_group;

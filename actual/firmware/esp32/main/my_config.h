@@ -16,8 +16,8 @@
 #define MY_USE_NVS              TRUE    /* Always enable NVS subsystem */
 
 #define MY_USE_UART             TRUE    /* Whether UART subsystem activated or not */
- #define MY_UART_USE_PROMPT     FALSE   /* Whether UART use shell prompt or not */
- #define MY_UART_SILENT         TRUE    /* Pull down IO15 for UART complete silent */
+ #define MY_UART_USE_PROMPT     TRUR    /* Whether UART use shell prompt or not */
+ #define MY_UART_SILENT         FALSE   /* Pull down IO15 for UART complete silent */
  #define MY_UART_DUMB           TRUE    /* Always use console in DUMB mode */
 
 #define MY_USE_OLCD             TRUE    /* Whether use OLED LCD subsystem or not */
@@ -25,6 +25,7 @@
 #define MY_USE_WIFI             TRUE    /* Whether use WiFi subsystem or not */
  #define MY_WIFI_AP             FALSE   /* Whether use WiFi as Access Point or not */
  #define MY_WIFI_STA            TRUE    /* Whether use WiFi as Client Station or not */
+ #define MY_WIFI_ONCMD          FALSE   /* Whether use WiFi ON on command or not */
 
 #endif
 
