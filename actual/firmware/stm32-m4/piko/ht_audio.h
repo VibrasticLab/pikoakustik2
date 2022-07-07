@@ -12,11 +12,6 @@
 #endif // HT_AUDIO_H
 
 /**
- * @brief Whether use weird sine method or not
- */
-#define WEIRD_SINE  FALSE
-
-/**
  * @brief Whether use full array function or not
  */
 #define USE_FULL_SINE TRUE

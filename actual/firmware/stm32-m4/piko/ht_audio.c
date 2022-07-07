@@ -136,26 +136,18 @@ void ht_audio_ToneNoAtt(double freq, double ampl){
 
     ht_audio_Zero();
 
+#if USE_STEREO_ARRAY
+    for(i=0;i<buffsize;i=i+2){
+        ysin = ampl*32767*sin(2*3.141592653589793*((double)i/(double)buffsize));
+        i2s_tx_buf[i] = ysin;
+        i2s_tx_buf[i+1] = ysin;
+    }
+#else
     for(i=0;i<buffsize;i++){
         ysin = ampl*32767*sin(2*3.141592653589793*((double)i/(double)buffsize));
-
-#if WEIRD_SINE
-          if(ysin >= 0){
-              i2s_tx_buf[i]=ysin+32767;
-  #if USE_STEREO_ARRAY
-              i2s_tx_buf[i+1]=ysin+32767;
-  #endif
-          }
-          if(ysin < 0){
-              i2s_tx_buf[i]=ysin+32767;
-  #if USE_STEREO_ARRAY
-              i2s_tx_buf[i+1]=ysin+32767;
-  #endif
-          }
-#else
         i2s_tx_buf[i] = ysin;
-#endif
     }
+#endif
 
     i2scfg.size = buffsize;
     sineSize = buffsize;
