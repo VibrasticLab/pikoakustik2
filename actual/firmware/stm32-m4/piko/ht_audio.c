@@ -114,17 +114,7 @@ void ht_audio_Tone(double freq, double ampl){
 #else
     for(i=0;i<buffsize;i++){
         ysin = DEFAULT_ATTEN*ampl*32767*sin(2*3.141592653589793*((double)i/(double)buffsize));
-
- #if WEIRD_SINE
-        if(ysin >= 0){
-            i2s_tx_buf[i]=ysin;
-        }
-        if(ysin < 0){
-            i2s_tx_buf[i]=ysin+65535;
-        }
- #else
         i2s_tx_buf[i] = ysin;
- #endif
     }
 #endif
 
