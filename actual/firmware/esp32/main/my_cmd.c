@@ -73,7 +73,7 @@ static void register_version(void)
  */
 static int restart(int argc, char **argv)
 {
-    printf("Restarting");
+    printf("Restarting\r\n");
     esp_restart();
 }
 
@@ -143,7 +143,7 @@ static int wifion(int argc, char **argv)
         wifi_flag = atoi(argv[1]);
 
         if(wifi_flag==1){
-            printf("Activating WiFi");
+            printf("Activating WiFi\r\n");
 #if MY_WIFI_ONCMD
  #if MY_WIFI_STA
             my_wifiInitSTA();
@@ -152,15 +152,15 @@ static int wifion(int argc, char **argv)
             my_wifiInitAP();
  #endif
 #else
-            printf("WiFi activated at startup");
+            printf("WiFi activated at startup\r\n");
 #endif
         }
         else{
 #if MY_WIFI_ONCMD
-            printf("Deactivating WiFi");
+            printf("Deactivating WiFi\r\n");
             ESP_ERROR_CHECK(esp_wifi_stop() );
 #else
-            printf("WiFi always activated at startup");
+            printf("WiFi always activated at startup\r\n");
 #endif
         }
     }
