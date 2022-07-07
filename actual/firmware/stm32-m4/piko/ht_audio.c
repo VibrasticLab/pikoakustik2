@@ -105,26 +105,28 @@ void ht_audio_Tone(double freq, double ampl){
 
     ht_audio_Zero();
 
+#if USE_STEREO_ARRAY
+    for(i=0;i<buffsize;i=i+2){
+        ysin = DEFAULT_ATTEN*ampl*32767*sin(2*3.141592653589793*((double)i/(double)buffsize));
+        i2s_tx_buf[i] = ysin;
+        i2s_tx_buf[i+1] = ysin;
+    }
+#else
     for(i=0;i<buffsize;i++){
         ysin = DEFAULT_ATTEN*ampl*32767*sin(2*3.141592653589793*((double)i/(double)buffsize));
 
-#if WEIRD_SINE
+ #if WEIRD_SINE
         if(ysin >= 0){
             i2s_tx_buf[i]=ysin;
- #if USE_STEREO_ARRAY
-            i2s_tx_buf[i+1]=ysin;
- #endif
         }
         if(ysin < 0){
             i2s_tx_buf[i]=ysin+65535;
- #if USE_STEREO_ARRAY
-            i2s_tx_buf[i+1]=ysin+65535;
- #endif
         }
-#else
+ #else
         i2s_tx_buf[i] = ysin;
-#endif
+ #endif
     }
+#endif
 
     i2scfg.size = buffsize;
     sineSize = buffsize;
