@@ -1,5 +1,5 @@
 /**
- * @file my_wifi.h
+ * @file my_wifiap.h
  * @brief WIFI AP header
  *
  * @addtogroup WIFI

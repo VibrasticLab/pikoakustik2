@@ -62,6 +62,9 @@
 #include "my_shell.h"
 #include "my_wifiap.h"
 #include "my_wifista.h"
+#include "my_pagehome.h"
+
+#include "msg_ht.h"
 
 #endif
 

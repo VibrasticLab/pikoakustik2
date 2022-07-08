@@ -29,13 +29,13 @@ void app_main(void){
     my_ledInit();
 #endif
 
-#if MY_USE_UART
-    my_shellInit();
-#endif
-
 #if MY_USE_OLCD
     my_oledInit();
     my_olcdtest_img();
+#endif
+
+#if MY_USE_UART
+    my_shellInit();
 #endif
 
 #if MY_USE_WIFI

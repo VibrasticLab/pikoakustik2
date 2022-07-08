@@ -6,8 +6,8 @@
  * @{
  */
 
-#ifndef _MY_WIFISTA_H_
-#define _MY_WIFISTA_H_
+#ifndef MY_WIFISTA_H
+#define MY_WIFISTA_H
 
 void my_wifiInitSTA(void);
 

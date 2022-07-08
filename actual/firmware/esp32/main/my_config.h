@@ -21,6 +21,7 @@
  #define MY_UART_DUMB           TRUE    /* Always use console in DUMB mode */
 
 #define MY_USE_OLCD             TRUE    /* Whether use OLED LCD subsystem or not */
+ #define MY_USE_HOME            TRUE    /* Whether use Home Display or not */
 
 #define MY_USE_WIFI             TRUE    /* Whether use WiFi subsystem or not */
  #define MY_WIFI_AP             FALSE   /* Whether use WiFi as Access Point or not */

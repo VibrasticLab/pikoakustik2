@@ -1,5 +1,5 @@
 /**
- * @file my_wifi.c
+ * @file my_wifiap.c
  * @brief WIFI AP source
  *
  * @addtogroup WIFI
