@@ -34,6 +34,7 @@
 #include "esp_wifi.h"
 #include "esp_tls.h"
 #include "esp_http_client.h"
+#include "esp_adc_cal.h"
 
 #include "lwip/err.h"
 #include "lwip/sys.h"
@@ -49,6 +50,7 @@
 
 #include "driver/gpio.h"
 #include "driver/i2c.h"
+#include "driver/adc.h"
 
 #include "my_config.h"
 
@@ -58,6 +60,7 @@
 #include "my_nvs.h"
 #include "my_led.h"
 #include "my_cmd.h"
+#include "my_adc.h"
 #include "my_olcd.h"
 #include "my_shell.h"
 #include "my_wifiap.h"

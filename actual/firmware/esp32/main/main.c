@@ -14,7 +14,7 @@
  */
 void app_main(void){
 
-#if MY_UART_SILENT
+#if MY_UART_NOLOG
     esp_log_level_set("*", ESP_LOG_NONE);
 #else
     esp_log_level_set("*", ESP_LOG_VERBOSE);
@@ -32,10 +32,17 @@ void app_main(void){
 #if MY_USE_OLCD
     my_oledInit();
     my_olcdtest_img();
+ #if MY_PAGE_HOME
+    my_pageHome();
+ #endif
 #endif
 
 #if MY_USE_UART
     my_shellInit();
+#endif
+
+#if MY_USE_ADC
+    my_adcInit();
 #endif
 
 #if MY_USE_WIFI

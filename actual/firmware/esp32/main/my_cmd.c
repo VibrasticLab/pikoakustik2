@@ -13,6 +13,7 @@ extern uint16_t led_delay;
 static void register_version(void);
 static void register_restart(void);
 static void register_leddelay(void);
+static void register_adctest(void);
 static void register_wifion(void);
 
 void my_registerCommands(void)
@@ -20,6 +21,7 @@ void my_registerCommands(void)
     register_version();
     register_restart();
     register_leddelay();
+    register_adctest();
     register_wifion();
 }
 
@@ -128,6 +130,33 @@ static void register_leddelay(void)
     esp_console_cmd_register(&cmd);
 }
 
+/**
+ * @brief Get Single ADC value
+ *
+ * @param argc
+ * @param argv
+ * @return int
+ */
+static int adctest(int argc, char **argv)
+{
+   my_adcValue();
+   return 0;
+}
+
+/**
+ * @brief Register Get ADC command
+ *
+ */
+static void register_adctest(void)
+{
+    const esp_console_cmd_t cmd = {
+        .command = "adc",
+        .help = "Get single ADC value",
+        .hint = NULL,
+        .func = &adctest,
+    };
+    esp_console_cmd_register(&cmd);
+}
 /**
  * @brief Activate the Wifi
  *

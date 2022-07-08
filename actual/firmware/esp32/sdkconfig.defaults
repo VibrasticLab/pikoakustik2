@@ -2,12 +2,14 @@
 CONFIG_MBEDTLS_CERTIFICATE_BUNDLE_DEFAULT_CMN=y
 
 # disable bootloader log output
+# For ESP_LOGx functions
 # dont forget to: make bootloader-flash
 CONFIG_BOOTLOADER_LOG_LEVEL_NONE=y
 CONFIG_BOOTLOADER_LOG_LEVEL_INFO=n
 CONFIG_BOOTLOADER_LOG_LEVEL=0
 
 # disable app log output
+# For ESP_LOGx functions
 # dont forget to: make app-flash
 CONFIG_LOG_DEFAULT_LEVEL_NONE=y
 CONFIG_LOG_DEFAULT_LEVEL_INFO=n
