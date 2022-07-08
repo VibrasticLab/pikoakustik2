@@ -31,7 +31,7 @@ uint16_t sineSize = 0;
 /**
  * @brief I2S Transmit buffer
  */
-int16_t i2s_tx_buf[TOTAL_BUFF_SIZE];
+int16_t i2s_tx_buf[I2S_BUFF_SIZE];
 
 /**
  * @brief I2S Protocol config struct
@@ -86,7 +86,7 @@ void ht_audio_Init(void){
 
 void ht_audio_Zero(void){
     uint16_t i;
-    for(i=0;i<TOTAL_BUFF_SIZE;i++){
+    for(i=0;i<I2S_BUFF_SIZE;i++){
         i2s_tx_buf[i] = 0;
     }
 }

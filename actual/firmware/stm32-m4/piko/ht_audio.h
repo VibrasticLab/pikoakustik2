@@ -48,22 +48,15 @@
 
 /**
  * @brief I2S protocol buffer size
- * @details Keep in 512 for frequency calibration
+ * @details Adjust frequency calibration everytime this changed
  */
-#define I2S_BUFF_SIZE   1024
-
-/**
- * @brief Total buffer size
- * @details If too big SRAM gonna overlow
- * @details Value 512*32 is too big for 40kB SRAM
- */
-#define TOTAL_BUFF_SIZE I2S_BUFF_SIZE*8
+#define I2S_BUFF_SIZE   4096
 
 /**
  * @brief Scaling Frequency for I2S Clock
- * @details For buffer 512: Use 1 if using 96MHz or 2 if using 48MHz
+ * @details For buffer 4096: Use 8 if using 96MHz or 16 if using 48MHz
  */
-#define FREQ_SCALE	2
+#define FREQ_SCALE	16
 
 /**
  * @brief Wheter use Left/Right or Mono array
