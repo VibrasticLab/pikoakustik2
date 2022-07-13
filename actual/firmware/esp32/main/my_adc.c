@@ -64,6 +64,7 @@ void my_adcValue(void){
     if (vcal_enabled) {
             voltage = esp_adc_cal_raw_to_voltage(adc_raw[0][0], &adc1_chars);
             ESP_LOGI(TAG_CH[0][0], "cali data: %d mV", voltage);
+            printf("cali data: %d mV\r\n", voltage);
     }
 #endif
 }
