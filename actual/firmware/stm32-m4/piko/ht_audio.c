@@ -56,6 +56,9 @@ void ht_audio_Init(void){
     palSetPadMode(GPIOB, 12, PAL_MODE_ALTERNATE(5));
     palSetPadMode(GPIOB, 13, PAL_MODE_ALTERNATE(5));
     palSetPadMode(GPIOB, 15, PAL_MODE_ALTERNATE(5));
+
+    palSetPadMode(GPIOB,AUDIO_LR,PAL_MODE_OUTPUT_PUSHPULL);
+    palClearPad(GPIOB,AUDIO_LR);
 #endif
 
 #ifdef PCB_P2
@@ -73,13 +76,13 @@ void ht_audio_Init(void){
     palSetPadMode(GPIOB, 12, PAL_MODE_ALTERNATE(5));
     palSetPadMode(GPIOC, 3 , PAL_MODE_ALTERNATE(5));
   #endif
+
+    palSetPadMode(GPIOC,AUDIO_L,PAL_MODE_OUTPUT_PUSHPULL);
+    palSetPadMode(GPIOC,AUDIO_R,PAL_MODE_OUTPUT_PUSHPULL);
+
+    palClearPad(GPIOC,AUDIO_L);
+    palClearPad(GPIOC,AUDIO_R);
 #endif
-
-    palSetPadMode(AUDIO_IO,AUDIO_L,PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(AUDIO_IO,AUDIO_R,PAL_MODE_OUTPUT_PUSHPULL);
-
-    palClearPad(AUDIO_IO,AUDIO_L);
-    palClearPad(AUDIO_IO,AUDIO_R);
 
     ht_audio_DisableCh();
 }
@@ -186,18 +189,30 @@ void ht_audio_Play(uint16_t duration){
 }
 
 void ht_audio_DisableCh(void){
-    palClearPad(AUDIO_IO,AUDIO_L);
-    palClearPad(AUDIO_IO,AUDIO_R);
+#ifdef PCB_P2
+    palClearPad(GPIOC,AUDIO_L);
+    palClearPad(GPIOC,AUDIO_R);
+#endif
 }
 
 void ht_audio_LeftCh(void){
+#ifdef PCB_P3
+    palClearPad(GPIOB,AUDIO_LR);
+#endif
+#ifdef PCB_P2
     ht_audio_DisableCh();
-    palSetPad(AUDIO_IO,AUDIO_L);
+    palSetPad(GPIOC,AUDIO_L);
+#endif
 }
 
 void ht_audio_RightCh(void){
+#ifdef PCB_P3
+    palSetPad(GPIOB,AUDIO_LR);
+#endif
+#ifdef PCB_P2
     ht_audio_DisableCh();
-    palSetPad(AUDIO_IO,AUDIO_R);
+    palSetPad(GPIOC,AUDIO_R);
+#endif
 }
 
 void ht_audio_TestTone(void){

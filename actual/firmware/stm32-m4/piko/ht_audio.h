@@ -17,11 +17,6 @@
 #define USE_FULL_SINE TRUE
 
 /**
- * @brief GPIO Port to enables Audio DAC
- */
-#define AUDIO_IO    GPIOC
-
-/**
  * @brief Pin to enables LEFT Audio DAC on GPIOC.9
  */
 #define AUDIO_L     9
@@ -30,6 +25,11 @@
  * @brief Pin to enables RIGHT Audio DAC on GPIOC.8
  */
 #define AUDIO_R     8
+
+/**
+ * @brief Pin to select Left/Right on GPIOB.6
+ */
+#define AUDIO_LR    6
 
 /**
  * @brief Play Left Audio DAC
