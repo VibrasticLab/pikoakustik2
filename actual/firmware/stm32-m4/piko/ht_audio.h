@@ -14,7 +14,7 @@
 /**
  * @brief Whether use full array function or not
  */
-#define USE_FULL_SINE TRUE
+#define USE_FULL_SINE FALSE
 
 /**
  * @brief Pin to enables LEFT Audio DAC on GPIOC.9

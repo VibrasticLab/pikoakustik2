@@ -21,7 +21,7 @@
  #define USER_MMC_MKFS      FALSE  /* Whether use disk formatting or not */
 
 #define USER_AUDIO          TRUE   /* Whether use Audio module or not */
- #define USER_AUDIO_TEST    TRUE   /* Whether use Audio test at startup */
+ #define USER_AUDIO_TEST    TRUE  /* Whether use Audio test at startup */
 
 #define USER_LED            TRUE   /* Whether use LED modules */
 #define USER_BUTTON         TRUE   /* Whether use Button modules */

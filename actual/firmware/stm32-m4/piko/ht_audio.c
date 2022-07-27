@@ -241,6 +241,9 @@ void ht_audio_TestBoth(void){
     ht_audio_Play(TEST_DURATION);
 
     ht_audio_DisableCh();
+#ifdef PCB_P3
+    ht_audio_LeftCh();
+#endif
 }
 
 void ht_audio_TestLeft(void){
@@ -255,6 +258,9 @@ void ht_audio_TestLeft(void){
     ht_audio_Play(TEST_DURATION);
 
     ht_audio_DisableCh();
+#ifdef PCB_P3
+    ht_audio_LeftCh();
+#endif
 }
 
 void ht_audio_TestRight(void){
@@ -269,6 +275,9 @@ void ht_audio_TestRight(void){
     ht_audio_Play(TEST_DURATION);
 
     ht_audio_DisableCh();
+#ifdef PCB_P3
+    ht_audio_LeftCh();
+#endif
 }
 
 /** @} */
