@@ -408,6 +408,13 @@ static void cmd_virt(BaseSequentialStream *chp, int argc, char *argv[]) {
 
     mode_led = LED_METRI;
     mode_status = STT_VIRT;
+
+#if USER_ESP32
+  #if USER_ESPIOSTT
+    my_iosttSTMrun(TRUE);
+  #endif
+#endif
+
 }
 
 /*******************************************/

@@ -26,9 +26,16 @@ void my_iosttSTMready(uint8_t iostatus){
   else if(iostatus==1)palSetPad(GPIOC, STATUS_RDY_PIN);
 }
 
+void my_iosttSTMrun(uint8_t iostatus){
+  if(iostatus==0)palClearPad(GPIOC, STATUS_RUN_PIN);
+  else if(iostatus==1)palSetPad(GPIOC, STATUS_RUN_PIN);
+}
+
 void my_iosttInit(void){
   palSetPadMode(GPIOC, STATUS_RDY_PIN, PAL_MODE_OUTPUT_PUSHPULL);
+  palSetPadMode(GPIOC, STATUS_RUN_PIN, PAL_MODE_OUTPUT_PUSHPULL);
   palClearPad(GPIOC, STATUS_RDY_PIN);
+  palClearPad(GPIOC, STATUS_RUN_PIN);
 }
 
 /** @} */

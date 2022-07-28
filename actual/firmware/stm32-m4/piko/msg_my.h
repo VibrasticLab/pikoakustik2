@@ -25,6 +25,13 @@
 void my_iosttSTMready(uint8_t iostatus);
 
 /**
+ * @brief Set Run Status IO
+ * @details Value 0 means Idle and 1 means Run
+ *
+ */
+void my_iosttSTMrun(uint8_t iostatus);
+
+/**
  * @brief Initiate GPIO Status group
  *
  */

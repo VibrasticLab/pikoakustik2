@@ -24,6 +24,8 @@
 #include "ht_metri.h"
 #include "ht_console.h"
 
+#include "msg_my.h"
+
 extern uint8_t mode_led;
 
 extern FRESULT mmc_check_status;
@@ -215,6 +217,13 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
  #endif
                 mode_led=LED_METRI;
                 mode_status=STT_METRI;
+
+  #if USER_ESP32
+    #if USER_ESPIOSTT
+                my_iosttSTMrun(TRUE);
+    #endif
+  #endif
+
             }
 #else
             mode_status = STT_IDLE;
@@ -423,6 +432,11 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
                             mode_status = STT_IDLE;
                             mode_led = LED_READY;
                             channel_stt = OUT_LEFT;
+#if USER_ESP32
+  #if USER_ESPIOSTT
+                            my_iosttSTMrun(FALSE);
+  #endif
+#endif
                         }
                     }
                 }

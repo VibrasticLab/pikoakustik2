@@ -19,8 +19,11 @@ static void stm32statusTask(void *pvParameter){
   while (1) {
     vTaskDelay(100 / portTICK_PERIOD_MS);
 
-    if(gpio_get_level(PIN_STMSTT_READY)==1)runIdle=HT_STATE_IDLE;
-    else if(gpio_get_level(PIN_STMSTT_READY)==0)runIdle=HT_STATE_PREP;
+    if(gpio_get_level(PIN_STMSTT_RUN)==1)runIdle=HT_STATE_RUN;
+    else if(gpio_get_level(PIN_STMSTT_RUN)==0){
+      if(gpio_get_level(PIN_STMSTT_READY)==1)runIdle=HT_STATE_IDLE;
+      else if(gpio_get_level(PIN_STMSTT_READY)==0)runIdle=HT_STATE_PREP;
+    }
   }
 }
 
