@@ -25,7 +25,9 @@
 
 #define USER_LED            TRUE   /* Whether use LED modules */
 #define USER_BUTTON         TRUE   /* Whether use Button modules */
-#define USER_IOSTATUS       TRUE   /* Whether use GPIO status modules */
+
+#define USER_ESP32			TRUE   /* Whether use ESP32 modules */
+ #define USER_ESPIOSTT      TRUE   /* Whether use GPIO status modules */
 
 #define USER_METRI          TRUE   /* Whether use Audiometri routine or not */
  #define USER_METRI_ENABLED TRUE   /* Whether use RUN mode can be entered or not */

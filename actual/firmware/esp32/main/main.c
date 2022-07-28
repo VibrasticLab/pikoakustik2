@@ -34,8 +34,13 @@ void app_main(void){
 #if MY_USE_OLCD
     my_oledInit();
     my_olcdtest_img();
+
  #if MY_PAGE_HOME
     my_pageHome();
+ #endif
+
+ #if MY_PAGE_LOOP
+    my_pageLoop();
  #endif
 #endif
 
@@ -45,6 +50,16 @@ void app_main(void){
 
 #if MY_USE_ADC
     my_adcInit();
+#endif
+
+#if MY_USE_I2SMIC
+    my_i2smicInit();
+#endif
+
+#if MY_USE_STM32
+ #if MY_USE_STMIOSTT
+    msg_htiosttInit();
+ #endif
 #endif
 
 #if MY_USE_WIFI

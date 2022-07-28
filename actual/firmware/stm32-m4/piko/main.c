@@ -78,8 +78,10 @@ int main(void) {
   palSetPadMode(GPIOA,LED_RUN,PAL_MODE_OUTPUT_PUSHPULL);
   palClearPad(GPIOA,LED_RUN);
 
-#if USER_IOSTATUS
+#if USER_ESP32
+ #if USER_ESPIOSTT
   my_iosttInit();
+ #endif
 #endif
 
 #if USER_LED
@@ -122,8 +124,10 @@ int main(void) {
 #endif
 
   if(mode_led==LED_READY){
-#if USER_IOSTATUS
+#if USER_ESP32
+ #if USER_ESPIOSTT
     my_iosttSTMready(TRUE);
+ #endif
 #endif
   }
 

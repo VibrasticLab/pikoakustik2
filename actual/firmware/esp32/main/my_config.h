@@ -23,14 +23,22 @@
 
 #define MY_USE_OLCD             TRUE    /* Whether use OLED LCD subsystem or not */
  #define MY_PAGE_HOME           TRUE    /* Whether use Home Page Display or not */
+ #define MY_PAGE_LOOP           TRUE    /* Whether use Loop Page Display or not */
 
 #define MY_USE_ADC              TRUE    /* Whether use ADC subsystem or not */
  #define MY_ADC_VCAL            TRUE    /* Whether use calibrated Vref or not */
+
+#define MY_USE_I2SMIC           TRUE    /* Whether use I2S Mic or not */
+ #define MY_USE_MICTASK         TRUE    /* Whether use I2S Mic Task or not */
+ #define MY_USE_MICCMD          TRUE    /* Whether use I2S Mic command or not */
 
 #define MY_USE_WIFI             TRUE   /* Whether use WiFi subsystem or not */
  #define MY_WIFI_AP             FALSE   /* Whether use WiFi as Access Point or not */
  #define MY_WIFI_STA            TRUE    /* Whether use WiFi as Client Station or not */
  #define MY_WIFI_ONCMD          FALSE   /* Whether use WiFi ON on command or not */
+
+#define MY_USE_STM32			TRUE   /* Whether use STM32 subsystem or not */
+ #define MY_USE_STMIOSTT		TRUE   /* Whether use STM32 GPIO Status or not */
 
 #endif
 

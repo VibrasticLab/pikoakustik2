@@ -28,6 +28,7 @@ void my_iosttSTMready(uint8_t iostatus){
 
 void my_iosttInit(void){
   palSetPadMode(GPIOC, STATUS_RDY_PIN, PAL_MODE_OUTPUT_PUSHPULL);
+  palClearPad(GPIOC, STATUS_RDY_PIN);
 }
 
 /** @} */

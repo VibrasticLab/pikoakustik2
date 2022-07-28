@@ -50,6 +50,7 @@
 
 #include "driver/gpio.h"
 #include "driver/i2c.h"
+#include "driver/i2s.h"
 #include "driver/adc.h"
 
 #include "my_config.h"
@@ -63,9 +64,11 @@
 #include "my_adc.h"
 #include "my_olcd.h"
 #include "my_shell.h"
+#include "my_i2smic.h"
 #include "my_wifiap.h"
 #include "my_wifista.h"
 #include "my_pagehome.h"
+#include "my_pageloop.h"
 
 #include "msg_ht.h"
 
