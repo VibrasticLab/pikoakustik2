@@ -18,7 +18,7 @@
 #define MY_USE_UART             TRUE    /* Whether UART subsystem activated or not */
  #define MY_UART_USE_PROMPT     TRUE    /* Whether UART use shell prompt or not */
  #define MY_UART_SILENT         TRUE    /* Pull down IO15 for UART complete silent */
- #define MY_UART_NOLOG          TRUR    /* Whether use ESP-IDF log routines or not */
+ #define MY_UART_NOLOG          TRUE    /* Whether use ESP-IDF log routines or not */
  #define MY_UART_DUMB           TRUE    /* Always use console in DUMB mode */
 
 #define MY_USE_OLCD             TRUE    /* Whether use OLED LCD subsystem or not */
@@ -26,7 +26,7 @@
  #define MY_PAGE_LOOP           TRUE    /* Whether use Loop Page Display or not */
 
 #define MY_USE_ADC              TRUE    /* Whether use ADC subsystem or not */
- #define MY_ADC_VCAL            TRUE    /* Whether use calibrated Vref or not */
+ #define MY_ADC_VCAL            FALSE   /* Whether use calibrated Vref or not */
 
 #define MY_USE_I2SMIC           TRUE    /* Whether use I2S Mic or not */
  #define MY_USE_MICTASK         TRUE    /* Whether use I2S Mic Task or not */

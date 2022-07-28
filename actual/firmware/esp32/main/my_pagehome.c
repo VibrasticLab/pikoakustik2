@@ -75,6 +75,8 @@ static void page_batt_half(const ssd1306_t *dev, uint8_t *fb){
 static void page_info_batt(const ssd1306_t *dev, uint8_t *fb){
     char strBattPercent[5];
 
+    my_adcGetBatt();
+
     sprintf(strBattPercent,"%3i%%",battPercent);
     ssd1306_draw_string(dev,
                         fb,

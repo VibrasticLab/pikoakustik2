@@ -103,15 +103,18 @@ static void register_restart(void)
  */
 static int set_leddelay(int argc, char **argv)
 {
+#if MY_USE_LED
     if(argc==2){
         led_delay = atoi(argv[1]);
         if(led_delay<=20) led_delay = 20;
 
-#if MY_UART_SILENT
-#else
+ #if MY_UART_SILENT
+ #else
         printf("led delay %i\n",led_delay);
-#endif
+ #endif
     }
+#endif
+
     return 0;
 }
 
@@ -139,7 +142,10 @@ static void register_leddelay(void)
  */
 static int adctest(int argc, char **argv)
 {
+#if MY_USE_ADC
    my_adcValue();
+#endif
+
    return 0;
 }
 

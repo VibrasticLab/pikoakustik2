@@ -6,7 +6,15 @@
  * @{
  */
 
+#ifndef _MY_ADC_H_
+#define _MY_ADC_H_
+
+#define ADC_REFF_VAL	4096
+
 void my_adcInit(void);
 void my_adcValue(void);
+void my_adcGetBatt(void);
+
+#endif
 
  /** @} */

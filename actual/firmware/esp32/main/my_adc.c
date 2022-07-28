@@ -11,13 +11,17 @@
 #define ADC1_EXAMPLE_CHAN0          ADC1_CHANNEL_6 // IO34
 #define ADC_EXAMPLE_ATTEN           ADC_ATTEN_DB_11
 
+extern uint8_t battPercent;
+
 static const char *TAG_CH[1][10] = {{"ADC1_CH6"}};
 
 static int adc_raw[1][10];
 static const char *TAG = "ADC_BATT";
 
+#if MY_ADC_VCAL
 static esp_adc_cal_characteristics_t adc1_chars;
 static uint32_t voltage = 0;
+#endif
 
 #if MY_ADC_VCAL
 #define ADC_EXAMPLE_CALI_SCHEME     ESP_ADC_CAL_VAL_EFUSE_VREF
@@ -67,6 +71,10 @@ void my_adcValue(void){
             printf("cali data: %d mV\r\n", voltage);
     }
 #endif
+}
+
+void my_adcGetBatt(void){
+    battPercent = (uint8_t) adc1_get_raw(ADC1_EXAMPLE_CHAN0) / ADC_REFF_VAL;
 }
 
  /** @} */
