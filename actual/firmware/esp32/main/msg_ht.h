@@ -15,8 +15,12 @@
 #define HT_STATE_IDLE 1
 #define HT_STATE_RUN  2
 
-#endif // MSG_HT_H
+#define PIN_STMSTT_READY	33
+
+#define IO_STMSTT_IN ((1ULL<<PIN_STMSTT_READY))
 
 void msg_htiosttInit(void);
+
+#endif // MSG_HT_H
 
 /** @} */
