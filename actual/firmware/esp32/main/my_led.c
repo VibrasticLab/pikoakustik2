@@ -32,4 +32,10 @@ void my_ledInit(void){
     xTaskCreate(&ledTask, "led_task", 1024, NULL, tskIDLE_PRIORITY, NULL);
 }
 
+void my_ledDisabled(void){
+    gpio_reset_pin(MY_LED_GPIO);
+    gpio_set_direction(MY_LED_GPIO, GPIO_MODE_OUTPUT);
+    gpio_set_level(MY_LED_GPIO, 1);
+}
+
 /** @} */

@@ -11,23 +11,24 @@
 
 #include <stdint.h>
 
-#define HT_STATE_PREP 0
-#define HT_STATE_IDLE 1
-#define HT_STATE_RUN  2
+/* Status GPIO MACRO */
+#define STATUS_MPAN_PIN 9 // PC.9 0: MPAN_OK | 1: MPAN_NO
+#define STATUS_RDY_PIN  8 // PC.8 0: RDY_OK  | 1: RDY_NO
+#define STATUS_BAT_PIN  7 // PC.7 0: BAT_OK  | 1: BAT_LOW
+#define STATUS_RUN_PIN  6 // PC.6 0: IDLE    | 1: RUN
 
 /**
- * @brief Response if ESP32 asking about current status
- * @param chp
- * @param argc
- * @param argv
+ * @brief Set Ready Status IO
+ * @details Value 0 means Not Ready and 1 means Ready
+ *
  */
-void esp32_MsgStatus(BaseSequentialStream *chp, int argc, char *argv[]);
+void my_iosttSTMready(uint8_t iostatus);
 
 /**
- * @brief Sending info to ESP32 about current status
- * @param status
+ * @brief Initiate GPIO Status group
+ *
  */
-void esp32_InfoStatus(uint8_t status);
+void my_iosttInit(void);
 
 #endif // MSG_MY_H
 

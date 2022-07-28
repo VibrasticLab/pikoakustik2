@@ -27,6 +27,8 @@ void app_main(void){
 
 #if MY_USE_LED
     my_ledInit();
+#else
+    my_ledDisabled();
 #endif
 
 #if MY_USE_OLCD

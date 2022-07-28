@@ -18,6 +18,12 @@
  */
 void my_ledInit(void);
 
+/**
+ * @brief Initialize LED subsystem as Disabled
+ *
+ */
+void my_ledDisabled(void);
+
 #endif
 
 /** @} */

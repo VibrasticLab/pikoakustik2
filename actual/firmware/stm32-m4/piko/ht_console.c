@@ -426,7 +426,6 @@ static const ShellCommand commands[] = {
   {"sig", cmd_sig},
   {"tone", cmd_tone},
   {"virt", cmd_virt},
-  {"htstate", esp32_MsgStatus},
   {NULL, NULL}
 };
 

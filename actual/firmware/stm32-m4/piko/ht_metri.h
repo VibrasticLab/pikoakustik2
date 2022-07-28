@@ -9,12 +9,6 @@
 #ifndef HT_METRI_H
 #define HT_METRI_H
 
-/* Status GPIO MACRO */
-#define STATUS_MPAN_PIN 9 // PC.9 0: MPAN_OK | 1: MPAN_NO
-#define STATUS_RDY_PIN  8 // PC.8 0: RDY_OK  | 1: RDY_NO
-#define STATUS_BAT_PIN  7 // PC.7 0: BAT_OK  | 1: BAT_LOW
-#define STATUS_RUN_PIN  6 // PC.6 0: IDLE    | 1: RUN
-
 #define STT_IDLE    0
 #define STT_SETUP   1
 #define STT_READY   2
