@@ -432,6 +432,11 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
                             mode_status = STT_IDLE;
                             mode_led = LED_READY;
                             channel_stt = OUT_LEFT;
+
+#ifdef PCB_P3
+                            ht_audio_LeftCh();
+#endif
+
 #if USER_ESP32
   #if USER_ESPIOSTT
                             my_iosttSTMrun(FALSE);

@@ -175,6 +175,9 @@ static void cmd_out(BaseSequentialStream *chp, int argc, char *argv[]) {
 
   chprintf(chp,"Finished\r\n");
   ht_audio_DisableCh();
+#ifdef PCB_P3
+  ht_audio_LeftCh();
+#endif
 }
 
 static void cmd_tone(BaseSequentialStream *chp, int argc, char *argv[]){
@@ -199,6 +202,9 @@ static void cmd_tone(BaseSequentialStream *chp, int argc, char *argv[]){
 
   ht_audio_Play(50*TEST_DURATION);
   ht_audio_DisableCh();
+#ifdef PCB_P3
+  ht_audio_LeftCh();
+#endif
   chprintf(chp,"Finished\r\n");
 }
 
@@ -281,6 +287,9 @@ static void cmd_ori(BaseSequentialStream *chp, int argc, char *argv[]) {
 
   chprintf(chp,"Finished\r\n");
   ht_audio_DisableCh();
+ #ifdef PCB_P3
+  ht_audio_LeftCh();
+ #endif
 }
 #endif
 
