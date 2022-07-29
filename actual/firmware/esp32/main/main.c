@@ -31,6 +31,10 @@ void app_main(void){
     my_ledDisabled();
 #endif
 
+#if MY_USE_BTN
+    my_btnInit();
+#endif
+
 #if MY_USE_OLCD
     my_oledInit();
     my_olcdtest_img();

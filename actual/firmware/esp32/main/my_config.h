@@ -14,6 +14,7 @@
 
 #define MY_USE_LED              FALSE   /* Whether LED subsystem activated or not */
 #define MY_USE_NVS              TRUE    /* Always enable NVS subsystem */
+#define MY_USE_BTN              TRUE    /* Whether use Button one ESP32 or not */
 
 #define MY_USE_UART             TRUE    /* Whether UART subsystem activated or not */
  #define MY_UART_NUM1           TRUE    /* Whether UART use NUM_1 or default NUM_0 */
@@ -26,6 +27,7 @@
 #define MY_USE_OLCD             TRUE    /* Whether use OLED LCD subsystem or not */
  #define MY_PAGE_HOME           TRUE    /* Whether use Home Page Display or not */
  #define MY_PAGE_LOOP           TRUE    /* Whether use Loop Page Display or not */
+ #define MY_PAGE_FILE           TRUE    /* Whether use File Page Display or not */
 
 #define MY_USE_ADC              TRUE    /* Whether use ADC subsystem or not */
  #define MY_ADC_VCAL            FALSE   /* Whether use calibrated Vref or not */

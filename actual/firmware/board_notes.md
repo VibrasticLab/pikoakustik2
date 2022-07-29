@@ -13,6 +13,7 @@
     + STM32 Reset
     + ESP32 Flash
     + ESP32 Reset
+- Charging process status/indicator/detection
 
 ## Komponen yang kurang di unit P3
 

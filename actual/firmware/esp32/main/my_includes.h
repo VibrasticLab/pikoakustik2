@@ -62,6 +62,7 @@
 #include "my_led.h"
 #include "my_cmd.h"
 #include "my_adc.h"
+#include "my_btn.h"
 #include "my_olcd.h"
 #include "my_shell.h"
 #include "my_i2smic.h"
@@ -69,6 +70,7 @@
 #include "my_wifista.h"
 #include "my_pagehome.h"
 #include "my_pageloop.h"
+#include "my_pagefile.h"
 
 #include "msg_ht.h"
 

@@ -19,7 +19,7 @@
  * @brief Page Files index number
  *
  */
-#define PAGE_FILES  1
+#define PAGE_FILE   1
 
 /**
  * @brief Page Plot index number

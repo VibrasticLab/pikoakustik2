@@ -31,9 +31,9 @@ static void page_task_loop(void *arg){
 #endif
             break;
 
-        case PAGE_FILES:
-#if MY_PAGE_FILES
-            page_files_demo();
+        case PAGE_FILE:
+#if MY_PAGE_FILE
+            my_pageFile_demo();
 #endif
             break;
 
@@ -62,7 +62,7 @@ static void page_task_loop(void *arg){
  *
  */
 void my_pageLoop(void){
-    xTaskCreate(page_task_loop, "page_page", 4096 + 1024, NULL, tskIDLE_PRIORITY, NULL);
+    xTaskCreate(page_task_loop, "page_page", 4096, NULL, tskIDLE_PRIORITY, NULL);
 }
 
 /** @} */
