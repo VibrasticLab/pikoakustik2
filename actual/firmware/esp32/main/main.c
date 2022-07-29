@@ -57,7 +57,7 @@ void app_main(void){
 #endif
 
 #if MY_USE_STM32
- #if MY_USE_STMIOSTT
+ #if MY_STM32_IOSTATUS
     msg_htiosttInit();
  #endif
 #endif

@@ -60,10 +60,22 @@ void my_adcInit(void){
 }
 
 void my_adcValue(void){
+    int adcVolt;
+    int adcVoltRange;
+
     adc_raw[0][0] = adc1_get_raw(ADC1_EXAMPLE_CHAN0);
     ESP_LOGI(TAG_CH[0][0], "raw  data: %d", adc_raw[0][0]);
     printf("raw  data: %d\r\n", adc_raw[0][0]);
-    printf("batt data: %d\r\n", adc_raw[0][0] * 100 / ADC_REFF_VAL);
+
+    if((adc_raw[0][0]>=ADC_BATT_EMTY) && (adc_raw[0][0]<ADC_BATT_FULL)){
+        adcVolt = adc_raw[0][0] - ADC_BATT_EMTY;
+        adcVoltRange = ADC_BATT_FULL - ADC_BATT_EMTY;
+        battPercent = adcVolt * 100 / adcVoltRange;
+        printf("batt value: %d\r\n", battPercent);
+    }
+    else{
+        printf("batt value out of range\r\n");
+    }
 
 #if MY_ADC_VCAL
     if (vcal_enabled) {
@@ -75,8 +87,19 @@ void my_adcValue(void){
 }
 
 void my_adcGetBatt(void){
+    int adcVolt;
+    int adcVoltRange;
+
     adc_raw[0][0] = adc1_get_raw(ADC1_EXAMPLE_CHAN0);
-    battPercent = adc_raw[0][0] * 100 / ADC_REFF_VAL;
+    if((adc_raw[0][0]>=ADC_BATT_EMTY) && (adc_raw[0][0]<ADC_BATT_FULL)){
+        adcVolt = adc_raw[0][0] - ADC_BATT_EMTY;
+        adcVoltRange = ADC_BATT_FULL - ADC_BATT_EMTY;
+        battPercent = adcVolt * 100 / adcVoltRange;
+    }
+    else{
+        if(adc_raw[0][0]>=ADC_BATT_FULL) battPercent = 100;
+        if(adc_raw[0][0]<ADC_BATT_EMTY) battPercent = 0;
+    }
 }
 
  /** @} */

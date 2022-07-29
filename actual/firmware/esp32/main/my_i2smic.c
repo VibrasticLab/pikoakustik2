@@ -100,7 +100,7 @@ static uint16_t micMax(void){
     return valMax;
 }
 
-#if MY_USE_MICCMD
+#if MY_MIC_CMD
 /**
  * @brief Print raw read buffer command
  *
@@ -155,7 +155,7 @@ static void micRegister(void){
 }
 #endif
 
-#if MY_USE_MICTASK
+#if MY_MIC_TASK
 /**
  * @brief Get Max value dB routine
  *
@@ -207,11 +207,11 @@ void my_i2smicInit(void){
 
     ambientDB = micMax();
 
-#if MY_USE_MICTASK
+#if MY_MIC_TASK
     xTaskCreate(&micMaxTask, "mic_task", 4096, NULL, tskIDLE_PRIORITY, NULL);
 #endif
 
-#if MY_USE_MICCMD
+#if MY_MIC_CMD
     micRegister();
 #endif
 }

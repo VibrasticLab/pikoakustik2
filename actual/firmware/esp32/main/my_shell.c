@@ -8,16 +8,16 @@
 
 #include "my_includes.h"
 
-#if MY_USE_UART_BAUDNEW
+#if MY_UART_BAUDCUSTOM
 #define MY_UART_BAUDRATE   38400
 #else
 #define MY_UART_BAUDRATE   115200
 #endif
 
-#if MY_UART_USE_PROMPT
-const char* prompt = "esp32> ";
-#else
+#if MY_UART_NOPROMPT
 const char* prompt = "";
+#else
+const char* prompt = "esp32> ";
 #endif
 
 /**
@@ -42,7 +42,7 @@ static void console_Init(void){
     fsync(fileno(stdout));
     setvbuf(stdin, NULL,_IONBF, 0);
 
-#if MY_USE_UART_NUM1
+#if MY_UART_NUM1
     esp_vfs_dev_uart_port_set_rx_line_endings(UART_NUM_1, ESP_LINE_ENDINGS_CR);
     esp_vfs_dev_uart_port_set_tx_line_endings(UART_NUM_1, ESP_LINE_ENDINGS_CRLF);
 
