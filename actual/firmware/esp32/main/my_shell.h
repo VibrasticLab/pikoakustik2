@@ -10,12 +10,6 @@
 #define _MY_SHELL_H_
 
 /**
- * @brief UART baudrate value
- *
- */
-#define MY_UART_BAUDRATE   38400
-
-/**
  * @brief UART shell buffer size
  *
  */
