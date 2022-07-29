@@ -18,7 +18,7 @@ extern tcpip_adapter_ip_info_t ipInfo;
  * @brief Battery percent
  *
  */
-uint8_t battPercent = 69;
+int battPercent = 69;
 
 /**
  * @brief Ambient dB
@@ -77,7 +77,7 @@ static void page_info_batt(const ssd1306_t *dev, uint8_t *fb){
 
     my_adcGetBatt();
 
-    sprintf(strBattPercent,"%3i%%",battPercent);
+    sprintf(strBattPercent,"%3d%%",battPercent);
     ssd1306_draw_string(dev,
                         fb,
                         font_builtin_fonts[FONT_FACE_TERMINUS_12X24_ISO8859_1],
