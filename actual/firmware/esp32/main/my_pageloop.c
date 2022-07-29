@@ -62,7 +62,7 @@ static void page_task_loop(void *arg){
  *
  */
 void my_pageLoop(void){
-    xTaskCreate(page_task_loop, "page_page", 4096, NULL, tskIDLE_PRIORITY, NULL);
+    xTaskCreate(page_task_loop, "page_page", 4096 + 1024, NULL, tskIDLE_PRIORITY, NULL);
 }
 
 /** @} */

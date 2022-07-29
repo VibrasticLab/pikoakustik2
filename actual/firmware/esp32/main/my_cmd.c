@@ -9,9 +9,11 @@
 #include "my_includes.h"
 
 extern uint16_t led_delay;
+extern uint8_t pageNum;
 
 static void register_version(void);
 static void register_restart(void);
+static void register_pagehome(void);
 static void register_leddelay(void);
 static void register_adctest(void);
 static void register_wifion(void);
@@ -20,6 +22,7 @@ void my_registerCommands(void)
 {
     register_version();
     register_restart();
+    register_pagehome();
     register_leddelay();
     register_adctest();
     register_wifion();
@@ -90,6 +93,34 @@ static void register_restart(void)
         .help = "Software reset of the chip",
         .hint = NULL,
         .func = &restart,
+    };
+    esp_console_cmd_register(&cmd);
+}
+
+/**
+ * @brief Go Page Home
+ *
+ * @param argc
+ * @param argv
+ * @return int
+ */
+static int gopagehome(int argc, char **argv)
+{
+    pageNum = PAGE_HOME;
+    return 0;
+}
+
+/**
+ * @brief Register Go Page Home command
+ *
+ */
+static void register_pagehome(void)
+{
+    const esp_console_cmd_t cmd = {
+        .command = "home",
+        .help = "Go Page Home",
+        .hint = NULL,
+        .func = &gopagehome,
     };
     esp_console_cmd_register(&cmd);
 }

@@ -10,12 +10,6 @@
 #define MY_BTN_H
 
 /**
- * @brief Interrupt Flag number
- *
- */
-#define ESP_INTR_FLAG_DEFAULT 0
-
-/**
  * @brief Switch Page Loop pin
  *
  */

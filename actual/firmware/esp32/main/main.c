@@ -35,6 +35,14 @@ void app_main(void){
     my_btnInit();
 #endif
 
+#if MY_USE_ADC
+    my_adcInit();
+#endif
+
+#if MY_USE_I2SMIC
+    my_i2smicInit();
+#endif
+
 #if MY_USE_OLCD
     my_oledInit();
     my_olcdtest_img();
@@ -50,14 +58,6 @@ void app_main(void){
 
 #if MY_USE_UART
     my_shellInit();
-#endif
-
-#if MY_USE_ADC
-    my_adcInit();
-#endif
-
-#if MY_USE_I2SMIC
-    my_i2smicInit();
 #endif
 
 #if MY_USE_STM32

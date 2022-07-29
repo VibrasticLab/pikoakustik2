@@ -27,6 +27,7 @@
 ### 03
 - LCD OLED
 - Bent White House Header untuk Battery
+- VDD STM32 di 4v
 
 ### 04
 - LCD OLED
