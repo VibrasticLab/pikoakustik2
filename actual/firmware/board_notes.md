@@ -41,3 +41,9 @@
 - Modul Mic INMP441
 - Power SW SPDT
 - ESP-32 Chip
+
+## Casing
+- Tombol A gak 100% aligned
+- Akrilik LED masih timbul
+- Celah USB Port masih bercelah
+- Mic Hole disesuaikan
