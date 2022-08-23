@@ -24,6 +24,7 @@
  #define USER_AUDIO_TEST    TRUE  /* Whether use Audio test at startup */
 
 #define USER_LED            TRUE   /* Whether use LED modules */
+ #define USER_LED_RUN		FALSE  /* Whether use LED Run indicator or not */
 #define USER_BUTTON         TRUE   /* Whether use Button modules */
 
 #define USER_ESP32			TRUE   /* Whether use ESP32 modules */

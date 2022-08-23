@@ -104,7 +104,7 @@ static void cmd_out(BaseSequentialStream *chp, int argc, char *argv[]) {
   double vfreq=1;
 
   uint8_t lrc = 0;
-  uint16_t tone_durr = 500;
+  uint16_t tone_durr = 250;
 
   switch(argc){
     case 1:
@@ -171,7 +171,7 @@ static void cmd_out(BaseSequentialStream *chp, int argc, char *argv[]) {
   ht_audio_ToneScale(vfreq, in_ampl);
   chprintf(chp,"Out: Freq:%5i Ampl:%2i\r\n",in_freq,in_ampl);
 
-  ht_audio_Play(5*tone_durr);
+  ht_audio_Play(2*tone_durr);
 
   chprintf(chp,"Finished\r\n");
   ht_audio_DisableCh();

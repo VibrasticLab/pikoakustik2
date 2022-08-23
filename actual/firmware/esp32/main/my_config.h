@@ -19,15 +19,16 @@
 #define MY_USE_UART             TRUE    /* Whether UART subsystem activated or not */
  #define MY_UART_NUM1           FALSE    /* Whether UART use NUM_1 or default NUM_0 */
  #define MY_UART_BAUDCUSTOM     FALSE    /* Whether UART use custom 38400 or default 115200 */
- #define MY_UART_NOPROMPT       FALSE    /* Whether UART use shell prompt or not */
- #define MY_UART_SILENT         FALSE    /* Pull down IO15 for UART complete silent */
- #define MY_UART_NOLOG          FALSE    /* Whether use ESP-IDF log routines or not */
+ #define MY_UART_NOPROMPT       TRUE    /* Whether UART use shell prompt or not */
+ #define MY_UART_SILENT         TRUE    /* Pull down IO15 for UART complete silent */
+ #define MY_UART_NOLOG          TRUE    /* Whether use ESP-IDF log routines or not */
  #define MY_UART_DUMB           TRUE    /* Always use console in DUMB mode */
 
 #define MY_USE_OLCD             TRUE    /* Whether use OLED LCD subsystem or not */
  #define MY_PAGE_HOME           TRUE    /* Whether use Home Page Display or not */
  #define MY_PAGE_LOOP           TRUE    /* Whether use Loop Page Display or not */
  #define MY_PAGE_FILE           TRUE    /* Whether use File Page Display or not */
+ #define MY_PAGE_PLOT           TRUE    /* Whether use Plot Page Display or not */
 
 #define MY_USE_ADC              TRUE    /* Whether use ADC subsystem or not */
  #define MY_ADC_VCAL            FALSE   /* Whether use calibrated Vref or not */

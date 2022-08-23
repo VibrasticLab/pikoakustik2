@@ -71,6 +71,7 @@
 #include "my_pagehome.h"
 #include "my_pageloop.h"
 #include "my_pagefile.h"
+#include "my_pageplot.h"
 
 #include "msg_ht.h"
 

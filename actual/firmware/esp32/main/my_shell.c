@@ -99,7 +99,7 @@ int my_shellLoop(void){
   esp_console_run(line, &ret);
 #else
   esp_err_t err = esp_console_run(line, &ret);
-  printf("Command: %s\n",line);
+  printf("Command: %s\r\n",line);
 
   if (err == ESP_ERR_NOT_FOUND) {
       printf("Unrecognized command\n");
