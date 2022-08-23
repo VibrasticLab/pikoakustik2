@@ -1,0 +1,165 @@
+
+\documentclass[a4paper,12pt,oneside,pdflatex,italian,final,twocolumn]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{parallel}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+
+\usepackage[export]{adjustbox}
+\usepackage[margin=0.5in]{geometry}
+\addtolength{\topmargin}{0in}
+
+\usepackage{libertine}
+\renewcommand*\familydefault{\sfdefault}  %% Only if the base font of the document is to be sans serif
+\usepackage[T1]{fontenc}
+
+
+
+
+
+
+
+\title{ElbiCare Audiometri}
+\author{Achmadi ST MT}
+\date{August 2022}
+
+\begin{document}
+
+\pagestyle{fancy}
+
+\lhead{VibrasticLab}
+\chead {\today}
+\rhead{Specification Document v1.0}
+
+
+\onecolumn
+
+\begin{figure}
+\begin{minipage}{0.47\textwidth}
+\centering
+
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\raggedleft
+\Huge \textbf{Portable Audiometri v3.0}
+\end{minipage}
+\end{figure}
+
+
+\begin{figure}
+\begin{minipage}{0.47\textwidth}
+
+\section{Overview}
+    \begin{itemize}
+        \item Standardized 3-Force Choice Method
+        \item Fast hearing screening
+        \item Portable handheld
+        \item Cloud connected
+        \item Easy to use
+    \end{itemize}
+
+
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[width=0.7\textwidth,right]{images/audiometri.png}
+
+\end{minipage}
+\end{figure}
+
+
+
+\section{Description}
+\begin{itemize}
+
+\item Hearing screening using 3-Force Choice Method to minimize biased result
+
+\item Each screening session approximately can be done in roughly 10 minutes.
+
+\item Battery operated apparatus with very ergonomic handheld design
+
+\item Screening results stored locally on Micro-SD Card and can also be uploaded to cloud-storage for futher analysis and longer-term record.
+
+\item No need complex settings and can be used right away.
+
+\item Equipped with embbedded MEMS microphone for boothless usage.
+
+\item Easy to maintenance without any disassembly process required.
+
+\end{itemize}
+
+\section{Technical specification}
+\centering
+\begin{tabular}{lcr}
+\toprule
+Parts & Unit & Value \\
+\midrule
+Power voltage & $V$ & 5 \\
+Dimensions & $mm*mm*mm$ & xx*yy*zz (without cable) \\
+Weight & $g$ & x \\
+Network & & IEEE 802.11b/g/n 2.4GHz \\
+Storage & & Micro-SD Slot \\
+Audio Port & & 3.5mm TRS \\
+USB  Data Interface & & USB-CDC Serial \\
+\bottomrule
+\end{tabular}
+
+\raggedright
+
+\section{Measured Output Tone}
+
+\centering
+\begin{tabular}{lcr}
+\toprule
+  Frequency & Tone Range(*) \\
+\midrule
+250 Hz & 17-55 dBA \\
+500 Hz & 20-60 dBA \\
+1000 Hz & 31-68 dBA \\
+2000 Hz & 28-64 dBA \\
+4000 Hz & 42-80 dBA \\
+6000 Hz & 33-72 dBA \\
+\bottomrule
+\end{tabular}
+
+(*): Tested on JBL T500 headphone unit
+
+
+
+\raggedright
+\section{User Interfaces}
+\centering
+\begin{figure} [h]
+\centering
+\includegraphics[width=0.5\textwidth,]{images/useriface.png}
+\end{figure}
+
+\begin{figure} [h]
+\centering
+\includegraphics[width=0.5\textwidth,]{images/portuser.png}
+\end{figure}
+
+\raggedright
+\section{Interface Mode}
+
+\begin{figure} [h]
+    \centering
+    \includegraphics[width=0.35\textwidth,]{images/display-home.jpg}
+    \includegraphics[width=0.35\textwidth,]{images/display-file.jpg}
+    \includegraphics[width=0.35\textwidth,]{images/display-plot.jpg}
+\end{figure}
+
+%\begin{figure} [h]
+%    \centering
+
+%\end{figure}
+
+\end{document}
+
+
+
+
