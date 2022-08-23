@@ -1,0 +1,166 @@
+
+\documentclass[a4paper,12pt,oneside,pdflatex,italian,final,twocolumn]{article}
+
+
+
+\usepackage[utf8]{inputenc}
+\usepackage{parallel}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+
+\usepackage[export]{adjustbox}
+\usepackage[margin=0.5in]{geometry}
+\addtolength{\topmargin}{0in}
+
+\usepackage{libertine}
+\renewcommand*\familydefault{\sfdefault}  %% Only if the base font of the document is to be sans serif
+\usepackage[T1]{fontenc}
+
+
+
+
+
+
+
+\title{BSPD 2019}
+\author{arsphotographika }
+\date{April 2019}
+
+\begin{document}
+
+\pagestyle{fancy}
+
+\lhead{Q-Tronic Engineering}
+\chead {\today}
+\rhead{BSPD FSG 2019 v0.3}
+
+
+\onecolumn
+
+\begin{figure}
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[width=.7\textwidth,left,]{logo.png}
+
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\raggedleft
+\Huge \textbf{BSPD FSG 2019 v0.3}
+\end{minipage}
+\end{figure}
+
+
+\begin{figure}
+\begin{minipage}{0.47\textwidth}
+
+\section{Overview}
+    \begin{itemize}
+        \item 2 input signal 0-5V
+        \item Lower treshold 0,45V
+        \item Upper treshold adjustable
+        \item EV e CV Cars
+        \item Auto reset after 10s
+    \end{itemize}
+
+
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[width=0.7\textwidth,right]{bspd_fsg2019.jpg}
+
+\end{minipage}
+\end{figure}
+
+
+
+\section{Description}
+\begin{itemize}
+
+\item  The BSPD has the role of turning off the engine in the event of sudden braking and
+acceleration of more than 10\% at the same time.
+\item  It compliants the 2019 rules of FSG.
+The circuit works with active low logic 5V.
+\item  The BRAKE COMPARATOR checks that the pressure in the brake circuit is within an interval
+(0 = error).
+\item  The THROTTLE COMPARATOR checks that the throttle is open beyond a minimum
+threshold but less than 10\% (0 = error).
+\item The output signals of the two comparators are in NOR (1 = error).
+The resistor R = 39 k\si{\ohm} and the capacitor C = 10 uF operate a time constant of 390 ms.
+\item  The TIME 1 COMPARATOR determines a delay of about 500ms (496ms) in the activation of the system (0 = error).
+The resistance R = 560 k\si{\ohm} and the capacitor C = 10uF operate a time constant of 5600ms.
+\item  The TIME 2 COMPARATOR determines a delay of about 9900ms after which the BSPD is
+deactivated (RESET CONDITION) and the engine can be restarted (0 = error).
+The NO RELAY performs the coupling with the car's powerline.
+\item Both the brake signal and the accelerator signal are compared with two
+thresholds, one upper and one lower.
+\item Lower threshold: 0.45V set via resistors R102 / R116 (100 \si{\ohm}, pull-up) and R112 / R121 (10 k\si{\ohm}, pull-down).
+\item Upper threshold: adjustable from 0.02 V to 5 V Set by a potentiometer M64X203KB40 R101 / R115 (10 \si{\ohm} to 2.2 M\si{\ohm}, pull-up) and a resistor (10 k\si{\ohm}, pull-down).
+\item  Diodes inversely polarized operate a protection against peaks on all the signals.
+\item  Although in the board is written "BSPD v0.2", don't worry, the version produced is v0.3 avalaible on the official site of FSG.
+\end{itemize}
+
+\section{Technical specification}
+\centering
+\begin{tabular}{lcr}
+\toprule
+ & Unit & Value \\
+\midrule
+Power voltage & $V$ & 13.8 \\
+Maximum current  through SC & $A$ & 3 \\
+Dimensions & $mm*mm*mm$ & 44*36*11 (without cable) \\
+Weight & $g$ & 13 \\
+Temperature range & $°C$ & -20 ÷ 60\\
+n° of inputs & $--$ & 2 \\
+Voltage range signal input & $V$ & 0 ÷ 5 \\
+\bottomrule
+\end{tabular}
+
+\raggedright
+
+\section{Pinout}
+
+\centering
+\begin{tabular}{lcr}
+\toprule
+  Pin & Signal \\
+\midrule
+1 & Power 13.8 V  \\
+2 & SC\_IN (Power line of the car)  \\
+3 & SC\_OUT (Power line of the car)   \\
+4 & S1 (Sensor, brake or throttle)  \\
+5 & S2 (Sensor, brake or throttle) \\
+6 & GND  \\
+\bottomrule
+\end{tabular}
+
+
+
+\raggedright
+\section{Measures}
+\centering
+\begin{figure} [h]
+\centering
+\includegraphics[width=0.7\textwidth,]{measures.png}
+
+\end{figure}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,left,]{schematic.png}
+
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,left,]{board.png}
+
+\end{figure}
+\end{document}
+
+
+
+
