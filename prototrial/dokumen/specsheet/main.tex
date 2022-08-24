@@ -6,6 +6,8 @@
 \usepackage{siunitx}
 \usepackage{booktabs}
 \usepackage{fancyhdr}
+\usepackage{subcaption}
+\usepackage{listings}
 
 \usepackage[export]{adjustbox}
 \usepackage[margin=0.5in]{geometry}
@@ -76,7 +78,7 @@
 \section{Description}
 \begin{itemize}
 
-\item Hearing screening using 3-Force Choice Method to minimize biased result
+\item Hearing screening using 3-Force Choice Method to minimize biased results
 
 \item Each screening session approximately can be done in roughly 10 minutes.
 
@@ -126,7 +128,8 @@ USB  Data Interface & & USB-CDC Serial \\
 \bottomrule
 \end{tabular}
 
-(*): Tested on JBL T500 headphone unit
+\vspace{5pt}
+\footnotesize{(*): Tested on JBL T500 headphone unit}
 
 
 
@@ -135,22 +138,35 @@ USB  Data Interface & & USB-CDC Serial \\
 \centering
 \begin{figure} [h]
 \centering
-\includegraphics[width=0.5\textwidth,]{images/useriface.png}
+\includegraphics[width=0.55\textwidth,]{images/useriface.png}
+\caption{General User Interface and Features}
 \end{figure}
 
 \begin{figure} [h]
 \centering
-\includegraphics[width=0.5\textwidth,]{images/portuser.png}
+\includegraphics[width=0.55\textwidth,]{images/portuser.png}
+\caption{Data and Power Ports}
 \end{figure}
 
 \raggedright
-\section{Interface Mode}
+\subsection{User Mode Button selection}
 
-\begin{figure} [h]
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.35\textwidth,]{images/display-home.jpg}
-    \includegraphics[width=0.35\textwidth,]{images/display-file.jpg}
-    \includegraphics[width=0.35\textwidth,]{images/display-plot.jpg}
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{images/display-home.jpg}
+        \caption{Home Display}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{images/display-file.jpg}
+        \caption{File List}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{images/display-plot.jpg}
+        \caption{Audiogram Preview}
+    \end{subfigure}
 \end{figure}
 
 \newpage
@@ -161,7 +177,8 @@ USB  Data Interface & & USB-CDC Serial \\
 
 \begin{figure} [h]
     \centering
-    \includegraphics[width=0.5\textwidth,]{images/3fc_start.png}
+    \includegraphics[width=0.4\textwidth,]{images/3fc_start.png}
+    \caption{Starting screening session buy press 3-Force Buttons sequentially}
 \end{figure}
 
 \subsection{Answering}
@@ -169,7 +186,68 @@ USB  Data Interface & & USB-CDC Serial \\
 \begin{figure} [h]
     \centering
     \includegraphics[width=0.7\textwidth,]{images/3fc_answer.png}
+    \caption{Answering 3-Force Choice by pressing button adjacent to a LED which light-up when a tone has been heard}
 \end{figure}
+
+\raggedright
+\section{Charging}
+
+\begin{figure} [h]
+    \centering
+    \includegraphics[width=0.4\textwidth,]{images/charging.png}
+    \caption{Operated on rechargeable battery (please do not charging while using the apparatus)}
+\end{figure}
+
+\newpage
+\raggedright
+\section{Screening Result Determination}
+
+Example of internal Micro-SD card record file:
+
+\begin{lstlisting}
+{"audiogram":{
+
+"ch_0":{
+"freq_0":{"freq": 0.625,"ampl":1,"record":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},
+"freq_1":{"freq": 1.250,"ampl":1,"record":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},
+"freq_2":{"freq": 2.500,"ampl":1,"record":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},
+"freq_3":{"freq": 5.000,"ampl":1,"record":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},
+"freq_4":{"freq":10.000,"ampl":1,"record":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},
+"freq_5":{"freq":20.000,"ampl":1,"record":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1]}},
+"ch_1":{
+"freq_0":{"freq": 0.625,"ampl":1,"record":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},
+"freq_1":{"freq": 1.250,"ampl":1,"record":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},
+"freq_2":{"freq": 2.500,"ampl":1,"record":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},
+"freq_3":{"freq": 5.000,"ampl":1,"record":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},
+"freq_4":{"freq":10.000,"ampl":1,"record":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},
+"freq_5":{"freq":20.000,"ampl":1,"record":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1]}}
+}
+}
+\end{lstlisting}
+
+For each frequency, tone scale record can be plotted (see figures below)
+and test determination can be made based-on how many true-after-false occured.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{images/plot_record_perfect.png}
+        \caption{Virtual Simulated}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{images/plot_record_normal.png}
+        \caption{Normal (test stop at scale 4 or lower)}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{images/plot_record_mild.png}
+        \caption{Not Normal (test stop at scale 7 or higher)}
+    \end{subfigure}
+
+    \caption{Example plot of tone-scale record for a tone in each frequency}
+\end{figure}
+
 
 \end{document}
 
