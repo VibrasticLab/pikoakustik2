@@ -38,7 +38,7 @@
 /**
  * @brief Maximum number of false counter
  */
-#define TEST_FALSE_COUNT 5
+#define TEST_FALSE_COUNT 3
 
 /**
  * @brief Amplitude Scale for normal ears
