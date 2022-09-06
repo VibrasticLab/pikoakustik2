@@ -33,7 +33,7 @@
 /**
  * @brief Maximum number for each frequency test
  */
-#define TEST_MAX_COUNT   24
+#define TEST_MAX_COUNT   16
 
 /**
  * @brief Maximum number of false counter
