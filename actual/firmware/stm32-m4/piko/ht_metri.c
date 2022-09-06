@@ -83,6 +83,11 @@ static uint8_t prev_goDown = 1;
 static uint8_t upAfterDown = 0;
 
 /**
+ * @brief Variable counting false in rows
+ */
+static uint8_t falseInRows = 0;
+
+/**
  * @brief calibrated array ratio for frequency
  * @details Last Calibrated: 1.25 = 500 Hz
  * @details Requirement: 250,500,1000,2000,4000,8000
@@ -292,6 +297,7 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
                     led_result_off();
                     led_resultYES();
                     test_answer = 1;
+                    falseInRows = 0;
 #if USER_METRI_USELOG
                     ht_commUSB_Msg("Answer is True\r\n");
 #endif
@@ -300,6 +306,7 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
                     led_result_off();
                     led_resultNO();
                     test_answer = 0;
+                    falseInRows++;
 #if USER_METRI_USELOG
                     ht_commUSB_Msg("Answer is False\r\n");
 #endif
@@ -342,7 +349,7 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
                 prev_goDown = curr_goDown;
                 // end of some stupidity
 
-                if(ampl_test <= SMALLEST_DB || test_count==TEST_MAX_COUNT || ampl_num==0 || upAfterDown==TEST_FALSE_COUNT){
+                if(ampl_test <= SMALLEST_DB || test_count==TEST_MAX_COUNT || ampl_num==0 || upAfterDown==TEST_FALSE_COUNT || falseInRows>= 3){
 
                     if(curr_goDown==1){ampl_num++;}
 

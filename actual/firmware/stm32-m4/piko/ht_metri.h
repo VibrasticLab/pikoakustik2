@@ -31,14 +31,14 @@
 #define TEST_SPEED_DELAY 500
 
 /**
- * @brief Maximum number for each frequency test
- */
-#define TEST_MAX_COUNT   16
-
-/**
  * @brief Maximum number of false counter
  */
 #define TEST_FALSE_COUNT 3
+
+/**
+ * @brief Maximum number false on row
+ */
+#define TEST_FALSE_INROW 3
 
 /**
  * @brief Amplitude Scale for normal ears
@@ -54,6 +54,11 @@
  * @brief Start Amplitude scale for test
  */
 #define AMPL_SCALE_USED   AMPL_SCALE_ACTUAL
+
+/**
+ * @brief Maximum number for each frequency test
+ */
+#define TEST_MAX_COUNT    AMPL_SCALE_USED+1
 
 /**
  * @brief Random number to choose answer position
