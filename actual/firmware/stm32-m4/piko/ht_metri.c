@@ -349,7 +349,11 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
                 prev_goDown = curr_goDown;
                 // end of some stupidity
 
-                if(ampl_test <= SMALLEST_DB || test_count==TEST_MAX_COUNT || ampl_num==0 || upAfterDown==TEST_FALSE_COUNT || falseInRows>= 3){
+#if USER_METRI_TESTROW
+                if(ampl_test <= SMALLEST_DB || test_count==TEST_MAX_COUNT || ampl_num==0 || upAfterDown==TEST_FALSE_COUNT || falseInRows>=3){
+#else
+                if(ampl_test <= SMALLEST_DB || test_count==TEST_MAX_COUNT || ampl_num==0 || upAfterDown==TEST_FALSE_COUNT){
+#endif
 
                     if(curr_goDown==1){ampl_num++;}
 

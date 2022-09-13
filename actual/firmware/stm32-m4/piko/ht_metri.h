@@ -33,10 +33,10 @@
 /**
  * @brief Maximum number of false counter
  */
-#define TEST_FALSE_COUNT 3
+#define TEST_FALSE_COUNT 5
 
 /**
- * @brief Maximum number false on row
+ * @brief Maximum number false in row
  */
 #define TEST_FALSE_INROW 3
 
@@ -58,7 +58,7 @@
 /**
  * @brief Maximum number for each frequency test
  */
-#define TEST_MAX_COUNT    AMPL_SCALE_USED+1
+#define TEST_MAX_COUNT    24
 
 /**
  * @brief Random number to choose answer position
