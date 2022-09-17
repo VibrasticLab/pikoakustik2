@@ -56,6 +56,42 @@ static void cmd_coba(BaseSequentialStream *chp, int argc, char *argv[]){
     chprintf(chp,"Serial Console at %d & buffer size %d bit\r\n",SERIAL_DEFAULT_BITRATE,SERIAL_BUFFERS_SIZE);
 }
 
+static void cmd_led(BaseSequentialStream *chp, int argc, char *argv[]){
+    (void)argv;
+
+    if (argc != 1) {
+      chprintf(chp, "Usage: led [a|b|c|1|0]\r\n");
+      return;
+    }
+
+    if(mode_led==LED_READY){
+      led_answer_off();
+      led_result_off();
+
+      if(strcmp(argv[0], "a")==0){
+        led_answerA();
+      }
+      else if(strcmp(argv[0], "b")==0){
+        led_answerB();
+      }
+      else if(strcmp(argv[0], "c")==0){
+        led_answerC();
+      }
+      else if(strcmp(argv[0], "1")==0){
+        led_resultYES();
+      }
+      else if(strcmp(argv[0], "0")==0){
+        led_resultNO();
+      }
+      else{
+        chprintf(chp, "Usage: led [a|b|c|1|0]\r\n");
+      }
+    }
+    else{
+      chprintf(chp,"Only Works in IDLE mode\r\n");
+    }
+}
+
 static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
   if(argc < 1){
      chprintf(chp,"usage: mmc [test|ls|lsnum|lsjson|cat|stt|mkfs] <file-number>\r\n");
@@ -439,6 +475,7 @@ static const ShellCommand commands[] = {
 #if USE_FULL_SINE
   {"ori", cmd_ori},
 #endif
+  {"led", cmd_led},
   {"sig", cmd_sig},
   {"tone", cmd_tone},
   {"virt", cmd_virt},

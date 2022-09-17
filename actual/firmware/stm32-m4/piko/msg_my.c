@@ -32,6 +32,12 @@ void my_iosttSTMrun(uint8_t iostatus){
 }
 
 void my_iosttInit(void){
+  palSetPadMode(GPIOB, STATUS_IO_0, PAL_MODE_OUTPUT_PUSHPULL);
+  palSetPadMode(GPIOB, STATUS_IO_1, PAL_MODE_OUTPUT_PUSHPULL);
+  palSetPadMode(GPIOB, STATUS_IO_2, PAL_MODE_OUTPUT_PUSHPULL);
+  palSetPad(GPIOB, STATUS_IO_1); // should always be high if connected to ESP32 IO-05
+  palClearPad(GPIOB, STATUS_IO_2); // should always be low if connected to ESP32 IO-12
+
   palSetPadMode(GPIOC, STATUS_RDY_PIN, PAL_MODE_OUTPUT_PUSHPULL);
   palSetPadMode(GPIOC, STATUS_RUN_PIN, PAL_MODE_OUTPUT_PUSHPULL);
   palClearPad(GPIOC, STATUS_RDY_PIN);
