@@ -1,0 +1,65 @@
+\documentclass{book} % Definisi jenis dokumen
+
+%%%%% Definisi paket-paket yang seharusnya digunakan %%%%%
+\usepackage[utf8]{inputenc} % paket encoding input utf8
+\usepackage[T1]{fontenc} % paket encoding huruf latin
+\usepackage{tocbibind} % paket toc terdaftar dalam toc
+
+%%%%% Definisi paket-paket yang digunakan sesuai kebutuhan %%%%%
+\usepackage[yyyymmdd,hhmmss]{datetime} % paket tanggal-waktu
+\usepackage{geometry} % paket ukuran kertas dan margin
+\usepackage{graphicx} % paket grafik/gambar
+
+%%%%% Pengaturan ukuran kertas dan margin %%%%%
+\geometry{
+    a4paper,
+    left=10mm,
+    right=10mm,
+    top=15mm,
+    bottom=15mm,
+}
+
+%%%%% Pengaturan perintah informasi perangkat lunak (hanya untuk GNU/Linux) %%%%%
+\newcommand{\ShowOsVersion}{
+    \immediate\write18{\unexpanded{foo=`uname -sro` && echo "${foo}" > tmp.tex}}
+    \input{tmp}\immediate\write18{rm tmp.tex}
+}
+
+\newcommand{\ShowTexVersion}{
+    \immediate\write18{\unexpanded{foo=`pdflatex -version | head -n1 | cut -d' ' -f1,2` && echo "${foo}" > tmp.tex}}
+    \input{tmp}\immediate\write18{rm tmp.tex}
+}
+
+\begin{document}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \frontmatter % untuk halaman cover
+
+    \begin{titlepage}
+
+        \centering % untuk membuat tengah teks
+
+        {
+            \LARGE % pakai font besar
+            \bf % pakai font BOLD
+            Rangkuman Improvement Prototype P2 dan P3
+        }
+
+        \bigskip
+        {\Large \bf Achmadi ST MT}
+        \vfill % menambahkan ruang kosong vertikal
+
+        \includegraphics[width=300pt]{images/elbicare-logo}
+        \vfill
+
+        \raggedright
+        \noindent Dokumen ini ditulis dengan:\\ % tanda \\ menambahkan garis baru
+        OS : \ShowOsVersion \\
+        TeX : \ShowTexVersion \\
+        Update: {\today} at \currenttime\\
+    \end{titlepage}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

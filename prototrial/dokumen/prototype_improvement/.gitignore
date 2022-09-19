@@ -1,0 +1,11 @@
+_minted*
+*.aux
+*.log
+*.nav
+*.out
+*.pdf
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+images/original/
