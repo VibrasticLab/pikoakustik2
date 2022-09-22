@@ -5,6 +5,7 @@
 - STM32 USB-CDC pindah resistor pull-up dari jalur DM ke jalur DP
 - ESP32 header programming cukup RX0, TX0, dan GND
 - Cari pengganti Slot MMC yang serupa dan kompatibel
+- STM32 USB-CDC ditambahkan ESD Protection
 - Ada header terhubung ke
     + ESP32 TX1 -- STM32 RX1
     + ESP32 RX1 -- STM32 TX1
