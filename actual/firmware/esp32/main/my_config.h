@@ -37,13 +37,16 @@
  #define MY_MIC_TASK            TRUE    /* Whether use I2S Mic Task or not */
  #define MY_MIC_CMD             TRUE    /* Whether use I2S Mic command or not */
 
-#define MY_USE_WIFI             FALSE   /* Whether use WiFi subsystem or not */
- #define MY_WIFI_AP             FALSE   /* Whether use WiFi as Access Point or not */
- #define MY_WIFI_STA            TRUE    /* Whether use WiFi as Client Station or not */
+#define MY_USE_WIFI             TRUE    /* Whether use WiFi subsystem or not */
+ #define MY_WIFI_AP             TRUE    /* Whether use WiFi as Access Point or not */
+ #define MY_WIFI_STA            FALSE   /* Whether use WiFi as Client Station or not */
  #define MY_WIFI_ONCMD          FALSE   /* Whether use WiFi ON on command or not */
 
-#define MY_USE_STM32			TRUE   /* Whether use STM32 subsystem or not */
- #define MY_STM32_IOSTATUS		TRUE   /* Whether use STM32 GPIO Status or not */
+#define MY_USE_STM32			TRUE    /* Whether use STM32 subsystem or not */
+ #define MY_STM32_IOSTATUS		TRUE    /* Whether use STM32 GPIO Status or not */
+
+#define MY_USE_HTTPD            TRUE    /* Whether use HTTP server or not */
+ #define MY_HTTP_ON_CONNECT     TRUE    /* Whether HTTP start/stop on connect or not */
 
 #endif
 

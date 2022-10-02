@@ -33,8 +33,14 @@
 #include "esp_now.h"
 #include "esp_wifi.h"
 #include "esp_tls.h"
+#include "esp_tls_crypto.h"
 #include "esp_http_client.h"
 #include "esp_adc_cal.h"
+#include "esp_netif.h"
+#include "esp_eth.h"
+#include "esp_http_server.h"
+
+#include "sys/param.h"
 
 #include "lwip/err.h"
 #include "lwip/sys.h"
@@ -65,6 +71,7 @@
 #include "my_btn.h"
 #include "my_olcd.h"
 #include "my_shell.h"
+#include "my_httpd.h"
 #include "my_i2smic.h"
 #include "my_wifiap.h"
 #include "my_wifista.h"
