@@ -5,6 +5,9 @@ static const char *TAG = "httpd";
 
 static char hello_info[RESP_STR_LEN];
 
+// I'm using online JSON Stringify
+static char *strTestData = "{\"audiogram\":{\n\n\"ch_0\":{\n\"freq_0\":{\"freq\": 0.625,\"ampl\":1,\"record\":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1]},\n\"freq_1\":{\"freq\": 1.250,\"ampl\":1,\"record\":[11,10,9,8,7,6,5,6,5,4,3,2,1,1,1,1]},\n\"freq_2\":{\"freq\": 2.500,\"ampl\":1,\"record\":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1]},\n\"freq_3\":{\"freq\": 5.000,\"ampl\":1,\"record\":[11,10,9,8,7,6,7,6,5,4,3,2,1,1,1,1]},\n\"freq_4\":{\"freq\":10.000,\"ampl\":1,\"record\":[11,10,9,8,7,6,5,4,3,2,3,2,1,1,1,1]},\n\"freq_5\":{\"freq\":20.000,\"ampl\":1,\"record\":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1]}},\n\"ch_1\":{\n\"freq_0\":{\"freq\": 0.625,\"ampl\":1,\"record\":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1]},\n\"freq_1\":{\"freq\": 1.250,\"ampl\":1,\"record\":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1]},\n\"freq_2\":{\"freq\": 2.500,\"ampl\":1,\"record\":[11,10,9,8,7,6,5,4,5,4,5,4,3,2,1,1]},\n\"freq_3\":{\"freq\": 5.000,\"ampl\":1,\"record\":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1]},\n\"freq_4\":{\"freq\":10.000,\"ampl\":1,\"record\":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1]},\n\"freq_5\":{\"freq\":20.000,\"ampl\":1,\"record\":[11,10,9,8,7,6,5,4,3,2,1,1,1,1,1,1]}}\n}\n}";
+
 static httpd_handle_t http_server = NULL;
 
 /**
@@ -44,6 +47,43 @@ static esp_err_t hello_get_hndl(httpd_req_t *req){
     return ESP_OK;
 }
 
+/**
+ * @brief HTTP GET Test Data handler
+ *
+ */
+static esp_err_t testdat_get_hndl(httpd_req_t *req){
+    char *buf;
+    size_t buf_len;
+
+    buf_len = httpd_req_get_hdr_value_len(req, "Host") + 1;
+    if(buf_len > 1){
+        buf = malloc(buf_len);
+        if(httpd_req_get_hdr_value_str(req,"Host",buf,buf_len)==ESP_OK){
+            ESP_LOGI(TAG, "Found header -> Host %s", buf);
+        }
+        free(buf);
+    }
+
+    buf_len = httpd_req_get_url_query_len(req) + 1;
+    if(buf_len>1){
+        buf = malloc(buf_len);
+        if(httpd_req_get_url_query_str(req,buf,buf_len)==ESP_OK){
+            ESP_LOGI(TAG, "Found URL query -> %s",buf);
+        }
+        free(buf);
+    }
+
+    //const char *resp_str=(const char*) req->user_ctx;
+    const char *resp_str=(const char*) strTestData;
+    httpd_resp_send(req,resp_str,HTTPD_RESP_USE_STRLEN);
+
+    if(httpd_req_get_hdr_value_len(req,"Host")==0){
+        ESP_LOGI(TAG,"Request headers lost");
+    }
+
+    return ESP_OK;
+}
+
 static void hello_version(){
     esp_chip_info_t info;
     esp_chip_info(&info);
@@ -68,11 +108,23 @@ static const httpd_uri_t hello = {
     .user_ctx = "Hello World"
 };
 
+static const httpd_uri_t testdat = {
+    .uri = "/testdat",
+    .method = HTTP_GET,
+    .handler = testdat_get_hndl,
+    .user_ctx = "Test Data"
+};
+
 /**
  * @brief An error handler function
  */
 esp_err_t http_404_err_hndl(httpd_req_t *req, httpd_err_code_t err){
     if(strcmp("/hello", req->uri)==0){
+        httpd_resp_send_err(req,HTTPD_404_NOT_FOUND,"hello URI is not found");
+        return ESP_OK;
+    }
+
+    if(strcmp("/testdat", req->uri)==0){
         httpd_resp_send_err(req,HTTPD_404_NOT_FOUND,"hello URI is not found");
         return ESP_OK;
     }
@@ -90,6 +142,7 @@ static httpd_handle_t start_webserver(void){
     if(httpd_start(&server,&config)==ESP_OK){
         ESP_LOGI(TAG, "Register URI handlers");
         httpd_register_uri_handler(server,&hello);
+        httpd_register_uri_handler(server,&testdat);
         return server;
     }
 
