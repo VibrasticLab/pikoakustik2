@@ -7,7 +7,6 @@
  */
 
 #include "my_includes.h"
-#include "my_wifiap.h"
 
 extern uint8_t my_wifi_type;
 

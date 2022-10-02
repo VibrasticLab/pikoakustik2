@@ -6,9 +6,7 @@
  * @{
  */
 
-#include "my_httpd.h"
 #include "my_includes.h"
-#include "my_wifiap.h"
 
 extern uint16_t led_delay;
 extern uint8_t pageNum;
