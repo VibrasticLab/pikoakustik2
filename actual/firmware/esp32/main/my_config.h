@@ -14,7 +14,7 @@
 
 #define MY_USE_NVS              TRUE    /* Always enable NVS subsystem */
 #define MY_USE_LED              FALSE    /* Whether LED subsystem activated or not */
-#define MY_USE_BTN              FALSE   /* Whether use Button one ESP32 or not */
+#define MY_USE_BTN              TRUE   /* Whether use Button one ESP32 or not */
 
 #define MY_USE_UART             TRUE   /* Whether UART subsystem activated or not */
  #define MY_UART_SILENT         TRUE   /* Pull down IO15 for UART complete silent */

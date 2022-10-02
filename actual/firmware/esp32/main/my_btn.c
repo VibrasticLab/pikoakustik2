@@ -6,7 +6,9 @@
  * @{
  */
 
+#include "my_btn.h"
 #include "my_includes.h"
+#include "my_wifiap.h"
 
 extern uint8_t pageNum;
 extern uint8_t my_wifi_type;
@@ -44,6 +46,18 @@ static void btnpageTask(void *pvParameter){
 		if(btnlock_Page==1) btnlock_Page=0;
 	}
 
+	// BUTTON_ACT_X
+	if(gpio_get_level(BUTTON_ACT_X)==0){
+		if(btnlock_ActA==0){
+			btnlock_ActA=1;
+
+			if(my_wifi_type==WIFI_TYPE_OFF) my_wifiInitAP();
+		}
+	}
+    else if(gpio_get_level(BUTTON_ACT_X)==1){
+		if(btnlock_ActA==1) btnlock_ActA=0;
+	}
+
 	// end button check loop
   }
 }
@@ -62,7 +76,7 @@ void my_btnInit(void){
     btn_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
     gpio_config(&btn_conf);
 
-    xTaskCreate(&btnpageTask, "btnpageTask", 1024, NULL, tskIDLE_PRIORITY, NULL);
+    xTaskCreate(&btnpageTask, "btnpageTask", 2048, NULL, tskIDLE_PRIORITY, NULL);
 }
 
 /** @} */
