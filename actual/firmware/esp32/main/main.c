@@ -8,6 +8,8 @@
 
 #include "my_includes.h"
 
+extern uint8_t my_wifi_type;
+
 /**
  * @brief Main entry function
  * @details First main function app
@@ -15,9 +17,7 @@
 void app_main(void){
 
 #if MY_UART_NOLOG
-    esp_log_level_set("*", ESP_LOG_NONE);
-#else
-    esp_log_level_set("*", ESP_LOG_VERBOSE);
+     esp_log_level_set("*", ESP_LOG_NONE);
 #endif
 
 /** must first before other module */
@@ -67,7 +67,8 @@ void app_main(void){
 #endif
 
 #if MY_USE_WIFI
- #if MY_WIFI_ONCMD
+ #if MY_WIFI_ONBTN || MY_WIFI_ONCMD
+    my_wifi_type = WIFI_TYPE_OFF;
  #else
   #if MY_WIFI_STA
     my_wifiInitSTA();
@@ -78,7 +79,13 @@ void app_main(void){
  #endif
 #endif
 
+#if MY_USE_HTTPD
+    my_httpdInit();
+#endif
+
     while(1) {
+        // keep this delay to avoid thread-race error
+        vTaskDelay(10 / portTICK_PERIOD_MS);
 #if MY_USE_UART
  #if MY_UART_DUMB
         my_shellLoop();
@@ -87,7 +94,6 @@ void app_main(void){
         if(shloop==1)("Empty Command\r\n");
  #endif
 #endif
-
     }
 }
 
