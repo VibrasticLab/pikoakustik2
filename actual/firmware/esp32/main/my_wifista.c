@@ -8,6 +8,8 @@
 
 #include "my_includes.h"
 
+extern uint8_t my_wifi_type;
+
 /**
  * @brief STA WIFI SSID
  *
@@ -116,6 +118,13 @@ void my_wifiInitSTA(void){
     if (bits & WIFI_CONNECTED_BIT) {
         ESP_LOGI(TAG, "connected to ap SSID:%s password:%s",
                  EXAMPLE_ESP_WIFI_SSID, EXAMPLE_ESP_WIFI_PASS);
+
+        my_wifi_type = WIFI_TYPE_STA;
+#if MY_USE_HTTPD
+ #if MY_HTTP_ON_WIFISTA  
+        if(my_wifi_type==WIFI_TYPE_STA) my_httpdInit();
+ #endif
+#endif
     } else if (bits & WIFI_FAIL_BIT) {
         ESP_LOGI(TAG, "Failed to connect to SSID:%s, password:%s",
                  EXAMPLE_ESP_WIFI_SSID, EXAMPLE_ESP_WIFI_PASS);

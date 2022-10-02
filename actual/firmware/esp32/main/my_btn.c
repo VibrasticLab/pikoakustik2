@@ -9,6 +9,7 @@
 #include "my_includes.h"
 
 extern uint8_t pageNum;
+extern uint8_t my_wifi_type;
 
 /**
  * @brief Flag if page switchable or not
@@ -23,6 +24,7 @@ bool pageSWable = true;
  */
 static void btnpageTask(void *pvParameter){
   uint8_t btnlock_Page = 0;
+  uint8_t btnlock_ActA = 0;
 
   while (1){
     vTaskDelay(100 / portTICK_PERIOD_MS);
@@ -38,7 +40,7 @@ static void btnpageTask(void *pvParameter){
 			}
 		}
 	}
-	else if(gpio_get_level(BUTTON_PAGE_LOOP)==1){
+    else if(gpio_get_level(BUTTON_PAGE_LOOP)==1){
 		if(btnlock_Page==1) btnlock_Page=0;
 	}
 

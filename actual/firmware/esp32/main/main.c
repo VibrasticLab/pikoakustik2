@@ -7,6 +7,7 @@
  */
 
 #include "my_includes.h"
+#include "my_wifiap.h"
 
 extern uint8_t my_wifi_type;
 
@@ -77,10 +78,6 @@ void app_main(void){
     my_wifiInitAP();
   #endif
  #endif
-#endif
-
-#if MY_USE_HTTPD
-    my_httpdInit();
 #endif
 
     while(1) {

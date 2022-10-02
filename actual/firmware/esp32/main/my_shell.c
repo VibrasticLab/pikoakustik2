@@ -8,12 +8,6 @@
 
 #include "my_includes.h"
 
-#if MY_UART_BAUDCUSTOM
-#define MY_UART_BAUDRATE   38400
-#else
-#define MY_UART_BAUDRATE   115200
-#endif
-
 #if MY_UART_NOPROMPT
 const char* prompt = "";
 #else
@@ -26,7 +20,7 @@ const char* prompt = "esp32> ";
  */
 static void console_Init(void){
     const uart_config_t uartConf = {
-        .baud_rate = MY_UART_BAUDRATE,
+        .baud_rate = 115200,
         .data_bits = UART_DATA_8_BITS,
         .parity = UART_PARITY_DISABLE,
         .stop_bits = UART_STOP_BITS_1,

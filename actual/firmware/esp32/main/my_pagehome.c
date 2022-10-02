@@ -11,7 +11,7 @@
 extern ssd1306_t oled_dev;
 extern uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
 
-extern bool wifi_ap;
+extern uint8_t my_wifi_type;
 extern tcpip_adapter_ip_info_t ipInfo;
 
 /**
@@ -110,7 +110,15 @@ static void page_info_wifimode(const ssd1306_t *dev, uint8_t *fb){
                         OLED_COLOR_WHITE,
                         OLED_COLOR_BLACK);
 
-    if(wifi_ap){
+    if(my_wifi_type==WIFI_TYPE_OFF){
+        ssd1306_draw_string(dev,
+                            fb,
+                            font_builtin_fonts[FONT_FACE_TERMINUS_BOLD_8X14_ISO8859_1],
+                            64, 10, "WiFiOFF",
+                            OLED_COLOR_WHITE,
+                            OLED_COLOR_BLACK);
+    }
+    else if(my_wifi_type==WIFI_TYPE_AP){
         ssd1306_draw_string(dev,
                             fb,
                             font_builtin_fonts[FONT_FACE_TERMINUS_BOLD_8X14_ISO8859_1],
@@ -118,7 +126,7 @@ static void page_info_wifimode(const ssd1306_t *dev, uint8_t *fb){
                             OLED_COLOR_WHITE,
                             OLED_COLOR_BLACK);
     }
-    else{
+    else if(my_wifi_type==WIFI_TYPE_STA){
         ssd1306_draw_string(dev,
                             fb,
                             font_builtin_fonts[FONT_FACE_TERMINUS_BOLD_8X14_ISO8859_1],

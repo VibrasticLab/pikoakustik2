@@ -14,6 +14,8 @@
 #include "ch.h"
 #include "hal.h"
 
+#include "hal_pal.h"
+#include "hal_pal_lld.h"
 #include "shell.h"
 #include "chprintf.h"
 
@@ -35,8 +37,9 @@ void my_iosttInit(void){
   palSetPadMode(GPIOB, STATUS_IO_0, PAL_MODE_OUTPUT_PUSHPULL);
   palSetPadMode(GPIOB, STATUS_IO_1, PAL_MODE_OUTPUT_PUSHPULL);
   palSetPadMode(GPIOB, STATUS_IO_2, PAL_MODE_OUTPUT_PUSHPULL);
-  palSetPad(GPIOB, STATUS_IO_1); // should always be high if connected to ESP32 IO-05
-  palClearPad(GPIOB, STATUS_IO_2); // should always be low if connected to ESP32 IO-12
+  palClearPad(GPIOB, STATUS_IO_0);
+  palSetPad(GPIOB, STATUS_IO_1); // (ESP-IO5 - should always be high)
+  palClearPad(GPIOB, STATUS_IO_2); // (ESP-IO12 - should always be low)
 
   palSetPadMode(GPIOC, STATUS_RDY_PIN, PAL_MODE_OUTPUT_PUSHPULL);
   palSetPadMode(GPIOC, STATUS_RUN_PIN, PAL_MODE_OUTPUT_PUSHPULL);

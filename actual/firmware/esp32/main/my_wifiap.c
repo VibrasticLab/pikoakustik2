@@ -27,10 +27,10 @@
 #define EXAMPLE_MAX_STA_CONN    2
 
 /**
- * @brief Flag if using AP or STA mode
+ * @brief Flag if using OFF, AP or STA mode
  *
  */
-bool wifi_ap = true;
+uint8_t my_wifi_type = WIFI_TYPE_OFF;
 
 /**
  * @brief Device IP info variable
@@ -113,6 +113,13 @@ void my_wifiInitAP(void){
     ESP_LOGI(TAG, "SoftAP OK. SSID:%s password:%s",EXAMPLE_ESP_WIFI_SSID, EXAMPLE_ESP_WIFI_PASS);
 
     getIP_wifiAP();
+
+    my_wifi_type = WIFI_TYPE_AP;
+#if MY_USE_HTTPD
+ #if MY_HTTP_ON_WIFIAP  
+    if(my_wifi_type==WIFI_TYPE_AP) my_httpdInit();
+ #endif
+#endif
 }
 
 /** @} */

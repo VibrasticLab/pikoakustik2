@@ -1,8 +1,11 @@
+#include "my_httpd.h"
 #include "my_includes.h"
 
 static const char *TAG = "httpd";
 
 static char hello_info[RESP_STR_LEN];
+
+static httpd_handle_t http_server = NULL;
 
 /**
  * @brief HTTP GET handler
@@ -94,11 +97,11 @@ static httpd_handle_t start_webserver(void){
     return NULL;
 }
 
-#if HTTPD_START_ON_CONNECT
 static esp_err_t stop_webserver(httpd_handle_t server){
     return httpd_stop(server);
 }
 
+#if HTTPD_START_ON_CONNECT
 static void disconn_hndl(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data)
 {
     httpd_handle_t* server = (httpd_handle_t*) arg;
@@ -123,15 +126,20 @@ static void conn_handler(void* arg, esp_event_base_t event_base,int32_t event_id
 #endif
 
 void my_httpdInit(void){
-   static httpd_handle_t server = NULL;
-
    hello_version();
 
-   server = start_webserver();
-   if(server==NULL){
+   http_server = start_webserver();
+   if(http_server==NULL){
        ESP_LOGI(TAG, "Webserver Failed");
    }
    else{
        ESP_LOGI(TAG, "Webserver Success");
    }
+}
+
+void my_httpdStop(void){
+    if(http_server!=NULL){
+        stop_webserver(http_server);
+        http_server = NULL;
+    }
 }

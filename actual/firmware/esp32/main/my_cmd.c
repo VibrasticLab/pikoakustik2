@@ -6,10 +6,13 @@
  * @{
  */
 
+#include "my_httpd.h"
 #include "my_includes.h"
+#include "my_wifiap.h"
 
 extern uint16_t led_delay;
 extern uint8_t pageNum;
+extern uint8_t my_wifi_type;
 
 static void register_version(void);
 static void register_restart(void);
@@ -212,10 +215,10 @@ static int wifion(int argc, char **argv)
             printf("Activating WiFi\r\n");
 #if MY_WIFI_ONCMD
  #if MY_WIFI_STA
-            my_wifiInitSTA();
+            if(my_wifi_type!=WIFI_TYPE_STA) my_wifiInitSTA();
  #endif
  #if MY_WIFI_AP
-            my_wifiInitAP();
+            if(my_wifi_type!=WIFI_TYPE_AP) my_wifiInitAP();
  #endif
 #else
             printf("WiFi activated at startup\r\n");
@@ -224,7 +227,9 @@ static int wifion(int argc, char **argv)
         else{
 #if MY_WIFI_ONCMD
             printf("Deactivating WiFi\r\n");
+            my_httpdStop();
             ESP_ERROR_CHECK(esp_wifi_stop() );
+
 #else
             printf("WiFi always activated at startup\r\n");
 #endif

@@ -15,7 +15,7 @@
  #define USER_SER_UART		TRUE   /* Whether enable UART part serial or not */
  #define USER_USB_DESC      TRUE   /* Whether use custom USB description or not */
  #define USER_SER_SCALE     TRUE   /* Whether use tone test out in scale or not */
- #define USER_SER_BAUD		38400  /* Default Baudrate */
+ #define USER_SER_BAUD		115200 /* Default Baudrate following ESP32*/
 
 #define USER_MMC            TRUE   /* Whether use memory card or not */
  #define USER_MMC_MKFS      FALSE  /* Whether use disk formatting or not */
