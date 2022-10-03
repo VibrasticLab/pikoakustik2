@@ -25,7 +25,7 @@
  make sure update sdkconfig.defaults
  delete sdkconfig and run defconfig
  before re-building the app binary */
- #define MY_UART_NUM1           FALSE   /* Whether UART use NUM_1 or not */
+ #define MY_UART_NUM1           TRUE   /* Whether UART use NUM_1 or not */
 
 #define MY_USE_OLCD             TRUE    /* Whether use OLED LCD subsystem or not */
  #define MY_PAGE_HOME           TRUE    /* Whether use Home Page Display or not */

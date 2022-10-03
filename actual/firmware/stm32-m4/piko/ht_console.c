@@ -421,7 +421,7 @@ static void cmd_sig(BaseSequentialStream *chp, int argc, char *argv[]) {
 static void cmd_virt(BaseSequentialStream *chp, int argc, char *argv[]) {
     (void)argv;
     if (argc != 0) {
-      chprintf(chp, "Usage: metri [virt|who]\r\n");
+      chprintf(chp, "Usage: virt\r\n");
       return;
     }
 
@@ -437,7 +437,7 @@ static void cmd_virt(BaseSequentialStream *chp, int argc, char *argv[]) {
       ht_mmcMetri_chkFile();
     }
     else{
-      chprintf(chp, "MMC Failed\r\n");
+      chprintf(chp,"MMC Failed\r\n");
       chprintf(chp,"MMC Status %2i\r\n", mmc_check_status);
       return;
     }
@@ -464,6 +464,23 @@ static void cmd_virt(BaseSequentialStream *chp, int argc, char *argv[]) {
 
 /*******************************************/
 
+#if USER_ESP32
+static void cmd_esp(BaseSequentialStream *chp, int argc, char *argv[]) {
+    if(argc!=1){
+        chprintf(chp,"Usage: esp [wifi]\r\n");
+        return;
+    }
+
+    if(strcmp(argv[0],"wifi")==0){
+        ht_commUSB_Msg("wifi 1\r\n");
+        ht_commUART_Msg("wifi 1\r\n");
+    }
+
+}
+#endif
+
+/*******************************************/
+
 /**
  * @brief Shell command and it's callback enumeration
  * @details Extending from internal shell's callback
@@ -479,6 +496,9 @@ static const ShellCommand commands[] = {
   {"sig", cmd_sig},
   {"tone", cmd_tone},
   {"virt", cmd_virt},
+#if USER_ESP32
+  {"esp", cmd_esp},
+#endif
   {NULL, NULL}
 };
 
