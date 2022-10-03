@@ -68,19 +68,6 @@ static void micRaw(void){
 }
 
 /**
- * @brief Print buffer array
- *
- */
-static void micGet(void){
-    micZero();
-    micRaw();
-
-    for(int i=0 ; i< SAMPLES_NUM ; i++){
-        printf("%i,",i2s_readraw_buff[i]);
-    }
-}
-
-/**
  * @brief Get maximum value as dB
  *
  * @return uint16_t Max value (dB)
@@ -101,6 +88,19 @@ static uint16_t micMax(void){
 }
 
 #if MY_MIC_CMD
+/**
+ * @brief Print buffer array
+ *
+ */
+static void micGet(void){
+    micZero();
+    micRaw();
+
+    for(int i=0 ; i< SAMPLES_NUM ; i++){
+        printf("%i,",i2s_readraw_buff[i]);
+    }
+}
+
 /**
  * @brief Print raw read buffer command
  *
