@@ -10,6 +10,9 @@
 \usepackage{geometry} % paket ukuran kertas dan margin
 \usepackage{graphicx} % paket grafik/gambar
 \usepackage{subcaption} % paket untuk subfigure
+\usepackage{minted} % paket untuk source code
+\usepackage{xcolor} % paket buat warna
+\usepackage{hyperref} % paket buat link-link an
 
 %%%%% Pengaturan ukuran kertas dan margin %%%%%
 \geometry{
@@ -30,6 +33,8 @@
     \immediate\write18{\unexpanded{foo=`pdflatex -version | head -n1 | cut -d' ' -f1,2` && echo "${foo}" > tmp.tex}}
     \input{tmp}\immediate\write18{rm tmp.tex}
 }
+
+\definecolor{LightGray}{gray}{0.95}
 
 \begin{document}
 
@@ -356,5 +361,121 @@
 	\end{figure}
     
     \chapter{Firmware}
+    
+    Berikut dijabarkan singkat beberapa upgrade esensial pada programm di dalam chip (firmware).
+    
+    \section{Komunikasi chip STM32 dan ESP32}
+    
+    Berikut potongan kode yang membangun komunikasi antar chip:
+    
+    \begin{minted}[frame=lines,framesep=2mm,fontsize=\small,bgcolor=LightGray]{c}
+#if USER_ESP32
+static void cmd_esp(BaseSequentialStream *chp, int argc, char *argv[]) {
+	if(argc!=1){
+		chprintf(chp,"Usage: esp [wifi]\r\n");
+		return;
+	}
+	
+	if(strcmp(argv[0],"wifi")==0){
+		ht_commUSB_Msg("wifi 1\r\n");
+		ht_commUART_Msg("wifi 1\r\n");
+	}
+	
+}
+#endif
+    \end{minted}
+
+	Catatan commit dapat dilihat pada tautan berikut: \\
+	\url{https://github.com/VibrasticLab/pikoakustik2/commit/1fb3d2bbe1bf70bc83f9fc04626da6788534853a}
+	
+	\section{Status GPIO}
+	
+	Berikut potongan kode dimana chip ESP32 mengawasi status STM32 melalui nilai logika pin.
+	
+	\begin{minted}[frame=lines,framesep=2mm,fontsize=\small,bgcolor=LightGray]{c}
+#define PIN_STMSTT_READY	33
+
+#define IO_STMSTT_IN ((1ULL<<PIN_STMSTT_READY))
+
+extern uint8_t runIdle;
+
+static void stm32statusTask(void *pvParameter){
+	while (1) {
+		vTaskDelay(100 / portTICK_PERIOD_MS);
+		
+		if(gpio_get_level(PIN_STMSTT_READY)==1)runIdle=HT_STATE_IDLE;
+		else if(gpio_get_level(PIN_STMSTT_READY)==0)runIdle=HT_STATE_PREP;
+	}
+}
+
+void msg_htiosttInit(void){
+	gpio_config_t stm32iostt_conf;
+	
+	stm32iostt_conf.intr_type = GPIO_INTR_DISABLE;
+	stm32iostt_conf.mode = GPIO_MODE_INPUT;
+	stm32iostt_conf.pin_bit_mask = IO_STMSTT_IN;
+	stm32iostt_conf.pull_down_en = GPIO_PULLDOWN_ENABLE;
+	stm32iostt_conf.pull_up_en = GPIO_PULLUP_DISABLE;
+	gpio_config(&stm32iostt_conf);
+	
+	xTaskCreate(&stm32statusTask, "stm32status_task", 1024, NULL, tskIDLE_PRIORITY, NULL);
+}
+	\end{minted}
+
+	Catatan commit dapat dilihat pada tautan berikut: \\
+	\url{https://github.com/VibrasticLab/pikoakustik2/commit/ea8ad4c23ea734fd0c6e4667258446635624f307}
+	
+	\section{ESP32 HTTPD}
+	
+	Disediakan WIFI server untuk membantu pengguna melakukan pengaturan dan operasi unit untuk
+	proses yang tidak berkaitan dengan sesi Audiometri langsung
+	
+	\begin{minted}[frame=lines,framesep=2mm,fontsize=\small,bgcolor=LightGray]{c}
+static httpd_handle_t start_webserver(void){
+	httpd_handle_t server = NULL;
+	httpd_config_t config = HTTPD_DEFAULT_CONFIG();
+	config.lru_purge_enable = true;
+	
+	ESP_LOGI(TAG,"Starting server on port: %d",config.server_port);
+	if(httpd_start(&server,&config)==ESP_OK){
+		ESP_LOGI(TAG, "Register URI handlers");
+		httpd_register_uri_handler(server,&hello);
+		return server;
+	}
+	
+	ESP_LOGI(TAG, "Server start error");
+	return NULL;
+}
+	\end{minted}
+
+	Catatan commit dapat dilihat pada tautan berikut: \\
+	\url{https://github.com/VibrasticLab/pikoakustik2/commit/0610ab66aaa5b126126c506176e9d01e94bd3d4f}
+
+	\section{Pengawas Battery}
+	
+	ESP32 melaksanakan tugas pengawasan muatan battery dengan memantau nilai tegangan battery melalui fitur ADC
+	yang dimiliki.
+	
+	\begin{minted}[frame=lines,framesep=2mm,fontsize=\small,bgcolor=LightGray]{c}
+void my_adcGetBatt(void){
+	int adcVolt;
+	int adcVoltRange;
+	
+	adc_raw[0][0] = adc1_get_raw(ADC1_EXAMPLE_CHAN0);
+	battPercent = adc_raw[0][0] * 100 / ADC_REFF_VAL;
+	if((adc_raw[0][0]>=ADC_BATT_EMTY) && (adc_raw[0][0]<ADC_BATT_FULL)){
+		adcVolt = adc_raw[0][0] - ADC_BATT_EMTY;
+		adcVoltRange = ADC_BATT_FULL - ADC_BATT_EMTY;
+		battPercent = adcVolt * 100 / adcVoltRange;
+	}
+	else{
+		if(adc_raw[0][0]>=ADC_BATT_FULL) battPercent = 100;
+		if(adc_raw[0][0]<ADC_BATT_EMTY) battPercent = 0;
+	}
+}
+	\end{minted}
+
+	Catatan commit dapat dilihat pada tautan berikut: \\
+	\url{https://github.com/VibrasticLab/pikoakustik2/commit/43d9589735e2824f7ac6ef5610cf95006735dce6}
 
 \end{document}
