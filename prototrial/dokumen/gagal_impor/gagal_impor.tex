@@ -9,7 +9,7 @@
 \usepackage{graphicx} % paket grafik/gambar
 \usepackage[english]{babel} % paket modifikasi label/caption pada bahasa tertentu
 \usepackage{geometry} % paket ukuran kertas dan margin
-\usepackage{tikz} % paket menggambar di latex
+\usepackage{pdfpages}
 
 %%%%% Pengaturan ukuran kertas dan margin %%%%%
 \geometry{
@@ -37,7 +37,43 @@
 	\end{titlepage}
 
 	\newpage
-	\section{Lampiran Kronologi Email}
+	\section{Deskripsi}
+	
+	Berikut kami jabarkan permasalahan impor barang penelitian kami yang masih tertahan di warehouse PT Chanda Adhi Sentosa (CAS) selaku broker PT UPS Cardig International.\\
+	
+	Perlu disampaikan bahwa:
+	\begin{itemize}
+		\item Tidak ada dari tim riset yang memahami proses clearance impor.
+		\item Tidak ada dari tim riset yang memahami bahwa entitas ITS, ITS PTN-BH, dan Bapak Dhany Arifianto seharusnya diperlukan sebagai entitas yang berbeda dalam administrasi impor.
+		\item Tidak ada dari tim riset yang memahami terkait NIB atau identitas usaha lain, yang notabene baik ITS dan Bapak Dhany Arifianto sama-sama tidak memiliki dokumen tersebut. 
+	\end{itemize}
+
+	Produk yang bermasalah adalah Simulator Telinga dari vendor 3DIO yang berada di US.
+	Untuk dokumen terkait telah dilampirkan pada dokumen ini.
+	
+	\section{Tabel Kronologi Proses Impor}
+	
+	\begin{table}[!ht]
+		\begin{tabular}{|l|l|l|}
+		\hline	
+		\textbf{Tanggal}	& \textbf{Deskripsi} & \textbf{Keterangan}  \\ \hline
+		5 September 2022	& Barang telah sampai di Indonesia &  \\ \hline
+		14 September 2022	& UPS/CAS mengontak ITS & Tidak respon oleh ITS \\ \hline
+		16-23 September 2022	& UPS/CAS kembali mengontak ITS & Tidak respon oleh ITS \\ \hline
+		28 September 2022	& Tim Peneliti secara mandiri mengontak UPS & Dokumen shipment kami terima \\ \hline
+		28 September 2022	& Barang dikonfirmasi sebagai milik ITS &  \\ \hline
+		28 September 2022	& Peneliti diminta melengkapi NPWP dan NIB milik ITS & Peneliti belum paham terkait NIB  \\ \hline
+		29 September 2022	& Peneliti diminta mengurus dokumen redress ITS ke ITS PTN BH &  \\ \hline
+		8 Oktober 2022	& Email shipper untuk redress telah kami terima &  \\ \hline
+		13 Oktober 2022	& CAS kembali konfirmasi NIB &  ITS tidak memiliki NIB \\ \hline
+		20 Oktober 2022 & Proses Redress berubah ke nama Peneliti &  \\ \hline
+		21 Oktober 2022 & Peneliti perjalanan konferensi ke Korea & Pengurusan Redress tertahan  \\ \hline
+		25 Oktober 2022 & CAS meminta dokumen POS BCF 1.5 & Shipment sudah lebih dari 30 hari   \\ \hline
+		\end{tabular}
+	\end{table}
+
+	\newpage
+	\section{Lampiran Screenshot Kronologi Email}
 	
 	\begin{itemize}
 		\item Menurut Tracking UPS, barang telah sampai di Indonesia tanggal 5 September 2022
@@ -73,6 +109,8 @@
 			\centering
 			\includegraphics[width=400pt]{images/impor_3}
 		\end{figure}
+	
+		Disini dokumen shipment dan notice of arrival telah diterima peneliti.
 	
 		\item Pihak CAS menanyakan konfirmasi terkait kepemilikian barang
 		
@@ -170,4 +208,25 @@
 		\end{figure}
 	
 	\end{itemize}
+
+	\section{Dokumen Terkait}
+	
+	\subsection{Screenshot Pembelian}
+	
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=400pt]{images/pesan3DIO}
+	\end{figure}
+
+	\subsection{Dokumen Shipment}
+	
+	Berikut dilampirkan dokumen shipment dan notice of arrival dari produk yang dibeli oleh peneliti.
+	
+	\includepdf[pages=-]{pdfs/R4337WBLLDW_NOA.pdf}
+	\includepdf[pages={1}]{pdfs/R4337WBLLDW.pdf}
+	
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=400pt]{images/shipment}
+	\end{figure}
 \end{document}
