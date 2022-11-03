@@ -2,7 +2,7 @@
  * @file msg_ht.c
  * @brief STM32 message package code
  *
- * @addtogroup Console
+ * @addtogroup STM32
  * @{
  */
 
