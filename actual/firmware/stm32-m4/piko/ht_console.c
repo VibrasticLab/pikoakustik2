@@ -477,6 +477,27 @@ static void cmd_esp(BaseSequentialStream *chp, int argc, char *argv[]) {
     }
 
 }
+
+static void cmd_aud(BaseSequentialStream *chp, int argc, char *argv[]) {
+    uint8_t audPercent;
+    uint8_t runPercent;
+    char strProgress[10];
+
+    if(argc!=1){
+        chprintf(chp,"Usage: aud [percent]\r\n");
+        return;
+    }
+
+    audPercent = atoi(argv[0]);
+    if(audPercent<=0) {runPercent=0;}
+    else if(audPercent>=100) {runPercent=100;}
+    else{runPercent=audPercent;}
+
+    ht_comm_Buff(strProgress, sizeof(strProgress),"aud %i\r\n", runPercent);
+    ht_commUSB_Msg(strProgress);
+    ht_commUART_Msg(strProgress);
+}
+
 #endif
 
 /*******************************************/
@@ -498,6 +519,7 @@ static const ShellCommand commands[] = {
   {"virt", cmd_virt},
 #if USER_ESP32
   {"esp", cmd_esp},
+  {"aud", cmd_aud},
 #endif
   {NULL, NULL}
 };
