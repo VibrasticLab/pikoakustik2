@@ -15,6 +15,11 @@ extern uint8_t my_wifi_type;
 extern tcpip_adapter_ip_info_t ipInfo;
 
 /**
+ * @brief Progress Percent
+ */
+uint8_t runPercent = 0;
+
+/**
  * @brief Battery percent
  *
  */
@@ -97,19 +102,30 @@ static void page_info_batt(const ssd1306_t *dev, uint8_t *fb){
 }
 
 /**
+ * @brief Draw Audiometri Progress Percent
+ *
+ * @param dev LCD device object
+ * @param fb frame buffer array
+ */
+static void page_info_progress(const ssd1306_t *dev, uint8_t *fb){
+    char strPercent[10];
+
+    sprintf(strPercent,"Run: %3i%%",runPercent);
+    ssd1306_draw_string(dev,
+                        fb,
+                        font_builtin_fonts[FONT_FACE_GLCD5x7],
+                        64, 3, strPercent,
+                        OLED_COLOR_WHITE,
+                        OLED_COLOR_BLACK);
+}
+
+/**
  * @brief Draw WIFI mode
  *
  * @param dev LCD device object
  * @param fb frame buffer array
  */
 static void page_info_wifimode(const ssd1306_t *dev, uint8_t *fb){
-    ssd1306_draw_string(dev,
-                        fb,
-                        font_builtin_fonts[FONT_FACE_GLCD5x7],
-                        64, 3, "WiFi Mode:",
-                        OLED_COLOR_WHITE,
-                        OLED_COLOR_BLACK);
-
     if(my_wifi_type==WIFI_TYPE_OFF){
         ssd1306_draw_string(dev,
                             fb,
@@ -197,22 +213,12 @@ static void page_info_ip(const ssd1306_t *dev, uint8_t *fb){
     char strIP[30];
 
     sprintf(strIP,"IP: %s",ip4addr_ntoa(&ipInfo.ip));
-    if(strlen(strIP)>0){
-        ssd1306_draw_string(dev,
-                            fb,
-                            font_builtin_fonts[FONT_FACE_GLCD5x7],
-                            0, 50, strIP,
-                            OLED_COLOR_WHITE,
-                            OLED_COLOR_BLACK);
-    }
-    else{
-        ssd1306_draw_string(dev,
-                            fb,
-                            font_builtin_fonts[FONT_FACE_GLCD5x7],
-                            0, 50, "IP: unavailable",
-                            OLED_COLOR_WHITE,
-                            OLED_COLOR_BLACK);
-    }
+    ssd1306_draw_string(dev,
+                        fb,
+                        font_builtin_fonts[FONT_FACE_GLCD5x7],
+                        0, 50, strIP,
+                        OLED_COLOR_WHITE,
+                        OLED_COLOR_BLACK);
 }
 
 /**
@@ -223,6 +229,7 @@ void my_pageHome(void){
     ssd1306_clear_buffer(lcdbuff,0,sizeof(lcdbuff));
 
     page_info_batt(&oled_dev,lcdbuff);
+    page_info_progress(&oled_dev,lcdbuff);
     page_info_wifimode(&oled_dev,lcdbuff);
     page_info_runmode(&oled_dev,lcdbuff);
     page_info_ambient(&oled_dev, lcdbuff);

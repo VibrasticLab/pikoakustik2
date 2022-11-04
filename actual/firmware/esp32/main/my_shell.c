@@ -15,7 +15,7 @@ const char* prompt = "esp32> ";
 #endif
 
 /**
- * @brief UART0 Console Start
+ * @brief UART Console Start
  *
  */
 static void console_Init(void){

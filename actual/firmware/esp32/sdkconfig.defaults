@@ -19,7 +19,7 @@ CONFIG_LOG_DEFAULT_LEVEL=0
 # default 115200-8-N-1 without any flow control
 # make sure update config macros
 # delete sdkconfig and run defconfig
-# before re-building the app binary
+# before clean-make the bootloader/app binary
 CONFIG_ESP_CONSOLE_UART_DEFAULT=n
 CONFIG_ESP_CONSOLE_UART_CUSTOM=y
 CONFIG_ESP_CONSOLE_UART_CUSTOM_NUM_1=y

@@ -17,14 +17,14 @@
 #define MY_USE_BTN              TRUE   /* Whether use Button one ESP32 or not */
 
 #define MY_USE_UART             TRUE   /* Whether UART subsystem activated or not */
- #define MY_UART_SILENT         TRUE   /* Pull down IO15 for UART complete silent */
  #define MY_UART_NOLOG          TRUE   /* Whether use ESP-IDF log routines or not */
+ #define MY_UART_NOPROMPT       TRUE    /* Whether UART use shell prompt or not */
+ #define MY_UART_SILENT         TRUE   /* Pull down IO15 for UART complete silent */
  #define MY_UART_DUMB           TRUE   /* Always use console in DUMB mode */
- #define MY_UART_NOPROMPT       TRUE   /* Whether UART use shell prompt or not */
  /*
  make sure update sdkconfig.defaults
  delete sdkconfig and run defconfig
- before re-building the app binary */
+ before clean-make the bootloader/app binary */
  #define MY_UART_NUM1           TRUE   /* Whether UART use NUM_1 or not */
 
 #define MY_USE_OLCD             TRUE    /* Whether use OLED LCD subsystem or not */

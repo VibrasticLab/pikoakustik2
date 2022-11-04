@@ -11,6 +11,7 @@
 extern uint16_t led_delay;
 extern uint8_t pageNum;
 extern uint8_t my_wifi_type;
+extern uint8_t runPercent;
 
 static void register_version(void);
 static void register_restart(void);
@@ -18,6 +19,7 @@ static void register_pagehome(void);
 static void register_leddelay(void);
 static void register_adctest(void);
 static void register_wifion(void);
+static void register_audpercent(void);
 
 void my_registerCommands(void)
 {
@@ -27,6 +29,7 @@ void my_registerCommands(void)
     register_leddelay();
     register_adctest();
     register_wifion();
+    register_audpercent();
 }
 
 /**
@@ -151,7 +154,7 @@ static int set_leddelay(int argc, char **argv)
 }
 
 /**
- * @brief Register system version command
+ * @brief Register led delay command
  *
  */
 static void register_leddelay(void)
@@ -247,6 +250,40 @@ static void register_wifion(void)
         .help = "Activate the WiFi",
         .hint = NULL,
         .func = &wifion,
+    };
+    esp_console_cmd_register(&cmd);
+}
+
+/**
+ * @brief Set the Audiometri Progress Percent
+ *
+ * @param argc
+ * @param argv
+ * @return int
+ */
+static int set_audpercent(int argc, char **argv)
+{
+    uint8_t audPercent;
+
+    audPercent = atoi(argv[1]);
+    if(audPercent<=0) {runPercent=0;}
+    else if(audPercent>=100) {runPercent=100;}
+    else{runPercent=audPercent;}
+
+    return 0;
+}
+
+/**
+ * @brief Register the Audiometri Progress command
+ *
+ */
+static void register_audpercent(void)
+{
+    const esp_console_cmd_t cmd = {
+        .command = "aud",
+        .help = "Set Audiometri Progress: aud <percent>",
+        .hint = NULL,
+        .func = &set_audpercent,
     };
     esp_console_cmd_register(&cmd);
 }
