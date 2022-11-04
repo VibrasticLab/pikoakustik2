@@ -68,6 +68,11 @@ uint8_t test_answer;
 uint8_t channel_stt=OUT_LEFT;
 
 /**
+ * @brief Frequency Counter for Progress
+ */
+uint8_t freq_count = 0;
+
+/**
  * @brief Variable indicate amplitude scale going down
  */
 static uint8_t curr_goDown = 1;
@@ -220,6 +225,10 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
             if(mode_status!=STT_METRI){
   #endif
  #endif
+
+                freq_count = 0;
+                ht_metri_Progress(freq_count);
+
                 mode_led=LED_METRI;
                 mode_status=STT_METRI;
 
@@ -363,6 +372,10 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
                     ht_commUSB_Msg("A Frequency Finish\r\n");
 #endif
 
+                    /* progress counter */
+                    freq_count++;
+                    ht_metri_Progress(freq_count);
+
 #if USER_MMC
  #if USER_METRI_RECORD
   #if USER_METRI_RECONCE
@@ -462,6 +475,18 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
     }
 }
 
+void ht_metri_Progress(uint8_t progress_counter){
+    char strProgress[10];
+
+    uint8_t freq_count_max = 2 * sizeof(freq_test)/sizeof(freq_test[0]);;
+    uint8_t freq_progress = (uint8_t) 100 * progress_counter/freq_count_max;
+
+    ht_comm_Buff(strProgress, sizeof(strProgress), "aud %i\r\n",freq_progress);
+    ht_commUSB_Msg(strProgress);
+#if USER_ESP32
+    ht_commUART_Msg(strProgress);
+#endif
+}
 
 uint8_t ht_metri_RndOpt(void){
     uint8_t rndnum=0, rndnumask=0;

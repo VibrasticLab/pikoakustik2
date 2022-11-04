@@ -61,6 +61,12 @@
 #define TEST_MAX_COUNT    24
 
 /**
+ * @brief Count Show Audiometri Progress
+ * @param[in] uint8_t Frequency Progress Counter
+ */
+void ht_metri_Progress(uint8_t progress_counter);
+
+/**
  * @brief Random number to choose answer position
  * @return Answer number position
  */

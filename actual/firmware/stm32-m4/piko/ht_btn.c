@@ -26,6 +26,7 @@ extern uint8_t mode_status;
 extern uint8_t mode_step;
 extern uint8_t mode_led;
 extern uint8_t numresp;
+extern uint8_t freq_count;
 
 /**
  * @brief Mode button combination for entering next mode

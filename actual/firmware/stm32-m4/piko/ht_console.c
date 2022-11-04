@@ -34,6 +34,7 @@ extern FRESULT mmc_check_status;
 extern uint8_t mode_status;
 extern uint8_t channel_stt;
 extern uint8_t mode_led;
+extern uint8_t freq_count;
 
 extern uint16_t sineSize;
 extern int16_t i2s_tx_buf[I2S_BUFF_SIZE];
@@ -450,6 +451,9 @@ static void cmd_virt(BaseSequentialStream *chp, int argc, char *argv[]) {
 
  #endif
 #endif
+
+    freq_count = 0;
+    ht_metri_Progress(freq_count);
 
     mode_led = LED_METRI;
     mode_status = STT_VIRT;
