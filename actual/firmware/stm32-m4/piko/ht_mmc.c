@@ -616,6 +616,82 @@ void ht_mmcMetri_chkFile(void){
     ht_mmc_Delay();
 }
 
+void ht_mmcMetri_chkFileBuffer(void){
+#if USER_METRI_USELOG
+    char strbuff[COMM_BUFF_SIZE];
+#endif
+
+    FATFS FatFs;
+    FIL *Fil_last;
+    FIL *Fil_new;
+    FRESULT err;
+
+    char buff[MMC_STR_BUFF_SIZE];
+    char fname[MMC_FNAME_SIZE];
+
+    Fil_last = (FIL*)malloc(sizeof(FIL));
+    Fil_new = (FIL*)malloc(sizeof(FIL));
+
+    if(mmc_check()!=FR_OK){return;}
+
+    if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
+
+        err = f_mount(&FatFs,"",0);
+        if(err==FR_OK){
+            strcpy(buff,"/");
+            err = scanFiles(buff, &lastnum, LS_NOSHOW);
+
+            // Record save file always start at 1
+            if(lastnum==0) lastnum=1;
+
+            if(lastnum < FILE_MAX_NUM){
+                ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",lastnum);
+
+                err = f_open(Fil_last, fname, FA_READ | FA_OPEN_EXISTING);
+                if(err==FR_OK){
+                    f_close(Fil_last);
+                    lastnum++;
+
+#if USER_METRI_USELOG
+                    ht_comm_Buff(strbuff,sizeof(strbuff),"File %s exist\r\n",fname);
+                    ht_commUSB_Msg(strbuff);
+                    ht_commUSB_Msg("File name incremented\r\n");
+#endif
+                    ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",lastnum);
+                }
+                else if(err==FR_NO_FILE){
+#if USER_METRI_USELOG
+                    ht_comm_Buff(strbuff,sizeof(strbuff),"File %s not exist\r\n",fname);
+                    ht_commUSB_Msg(strbuff);
+                    ht_commUSB_Msg("File name start new\r\n");
+#endif
+                    ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",lastnum);
+                }
+                else{
+#if USER_METRI_USELOG
+                    ht_comm_Buff(strbuff,sizeof(strbuff),"File %s error code = %i\r\n",fname,err);
+                    ht_commUSB_Msg(strbuff);
+#endif
+                    mode_status = STT_IDLE;
+                    mode_led = LED_READY;
+                }
+            }
+            else{
+                mode_status = STT_IDLE;
+                mode_led = LED_READY;
+
+#if USER_METRI_USELOG
+                ht_commUSB_Msg("Warning: Maximum save number\r\n");
+#endif
+            }
+        }
+    }
+    free(Fil_last);
+    free(Fil_new);
+
+    ht_mmc_Delay();
+}
+
 void ht_mmcMetri_endResult(void){
     char buffer[MMC_STR_BUFF_SIZE];
     char fname[MMC_FNAME_SIZE];
@@ -659,11 +735,7 @@ void ht_mmcMetri_endResult(void){
     ht_mmc_Delay();
 }
 
-/*******************************************/
-
-void ht_mmcMetri_jsonChStart(uint8_t lr_ch){
-
-    char buffer[MMC_STR_BUFF_SIZE];
+void ht_mmcMetri_bufferSave(void){
     char fname[MMC_FNAME_SIZE];
     FATFS FatFs;
     FIL *Fil;
@@ -675,14 +747,6 @@ void ht_mmcMetri_jsonChStart(uint8_t lr_ch){
     if(mmc_check()!=FR_OK){return;}
 
     if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
-
-        if(lr_ch==OUT_LEFT){
-            ht_mmc_Buff(buffer,sizeof(buffer),"\n\"ch_0\":{");
-        }
-        else if(lr_ch==OUT_RIGHT){
-            ht_mmc_Buff(buffer,sizeof(buffer),",\n\"ch_1\":{");
-        }
-
         if(lastnum < FILE_MAX_NUM){
             f_mount(&FatFs, "", 0);
 
@@ -690,7 +754,8 @@ void ht_mmcMetri_jsonChStart(uint8_t lr_ch){
             err = f_open(Fil, fname, FA_WRITE | FA_READ | FA_OPEN_ALWAYS);
             if(err==FR_OK){
                 f_lseek(Fil, f_size(Fil));
-                f_write(Fil, buffer, strlen(buffer), &bw);
+                ht_commUSB_Msg(buffMetriOnce);
+                f_write(Fil, buffMetriOnce, strlen(buffMetriOnce), &bw);
                 f_close(Fil);
             }
 
@@ -699,7 +764,10 @@ void ht_mmcMetri_jsonChStart(uint8_t lr_ch){
         else{
             mode_status = STT_IDLE;
             mode_led = LED_READY;
+
+#if USER_METRI_USELOG
             ht_commUSB_Msg("Warning: Maximum save number\r\n");
+#endif
         }
     }
     free(Fil);
@@ -707,178 +775,8 @@ void ht_mmcMetri_jsonChStart(uint8_t lr_ch){
     ht_mmc_Delay();
 }
 
-void ht_mmcMetri_jsonChClose(void){
-
-    char buffer[MMC_STR_BUFF_SIZE];
-    char fname[MMC_FNAME_SIZE];
-    FATFS FatFs;
-    FIL *Fil;
-    UINT bw;
-    FRESULT err;
-
-    Fil = (FIL*)malloc(sizeof(FIL));
-
-    if(mmc_check()!=FR_OK){return;}
-
-    if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
-
-        ht_mmc_Buff(buffer,sizeof(buffer),"}");
-
-        if(lastnum < FILE_MAX_NUM){
-            f_mount(&FatFs, "", 0);
-
-            ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",lastnum);
-            err = f_open(Fil, fname, FA_WRITE | FA_READ | FA_OPEN_ALWAYS);
-            if(err==FR_OK){
-                f_lseek(Fil, f_size(Fil));
-                f_write(Fil, buffer, strlen(buffer), &bw);
-                f_close(Fil);
-            }
-
-            f_mount(0, "", 0);
-        }
-        else{
-            mode_status = STT_IDLE;
-            mode_led = LED_READY;
-            ht_commUSB_Msg("Warning: Maximum save number\r\n");
-        }
-    }
-    free(Fil);
-
-    ht_mmc_Delay();
-}
-
-void ht_mmcMetri_jsonComma(void){
-
-    char buffer[MMC_STR_BUFF_SIZE];
-    char fname[MMC_FNAME_SIZE];
-    FATFS FatFs;
-    FIL *Fil;
-    UINT bw;
-    FRESULT err;
-
-    Fil = (FIL*)malloc(sizeof(FIL));
-
-    if(mmc_check()!=FR_OK){return;}
-
-    if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
-
-        ht_mmc_Buff(buffer,sizeof(buffer),",");
-
-        if(lastnum < FILE_MAX_NUM){
-            f_mount(&FatFs, "", 0);
-
-            ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",lastnum);
-            err = f_open(Fil, fname, FA_WRITE | FA_READ | FA_OPEN_ALWAYS);
-            if(err==FR_OK){
-                f_lseek(Fil, f_size(Fil));
-                f_write(Fil, buffer, strlen(buffer), &bw);
-                f_close(Fil);
-            }
-
-            f_mount(0, "", 0);
-        }
-        else{
-            mode_status = STT_IDLE;
-            mode_led = LED_READY;
-            ht_commUSB_Msg("Warning: Maximum save number\r\n");
-        }
-    }
-    free(Fil);
-
-    ht_mmc_Delay();
-}
-
-void ht_mmcMetri_hearingResult(double freq, uint8_t freqidx, uint8_t ample){
-
-    char buffer[MMC_STR_BUFF_SIZE];
-    char fname[MMC_FNAME_SIZE];
-    FATFS FatFs;
-    FIL *Fil;
-    UINT bw;
-    FRESULT err;
-
-    Fil = (FIL*)malloc(sizeof(FIL));
-
-    if(mmc_check()!=FR_OK){return;}
-
-    if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
-
-        ht_mmc_Buff(buffer,sizeof(buffer),"\n\"freq_%i\":{\"freq\":%6.3f,\"ampl\":%i,", freqidx, freq, ample);
-
-        if(lastnum < FILE_MAX_NUM){
-            f_mount(&FatFs, "", 0);
-
-            ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",lastnum);
-            err = f_open(Fil, fname, FA_WRITE | FA_READ | FA_OPEN_ALWAYS);
-            if(err==FR_OK){
-                f_lseek(Fil, f_size(Fil));
-                f_write(Fil, buffer, strlen(buffer), &bw);
-                f_close(Fil);
-            }
-
-            f_mount(0, "", 0);
-        }
-        else{
-            mode_status = STT_IDLE;
-            mode_led = LED_READY;
-            ht_commUSB_Msg("Warning: Maximum save number\r\n");
-        }
-    }
-    free(Fil);
-
-    ht_mmc_Delay();
-}
-
-void ht_mmcMetri_hearingRecord(uint8_t *resArray, uint8_t lastIdx, uint8_t lastAmpl){
-
-    char buffer[MMC_STR_BUFF_SIZE];
-    char fname[MMC_FNAME_SIZE];
-    FATFS FatFs;
-    FIL *Fil;
-    UINT bw;
-    FRESULT err;
-
-    uint8_t i;
-
-    Fil = (FIL*)malloc(sizeof(FIL));
-
-    if(mmc_check()!=FR_OK){return;}
-
-    if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
-
-        for(i=lastIdx;i<TEST_MAX_COUNT;i++){
-            resArray[i] = lastAmpl;
-        }
-
-        ht_mmc_Buff(buffer,sizeof(buffer),"\"record\":[%i",resArray[0]);
-        for(i=1;i<TEST_MAX_COUNT;i++){
-            ht_mmc_Buff(buffer,sizeof(buffer),"%s,%i",buffer,resArray[i]);
-        }
-        ht_mmc_Buff(buffer,sizeof(buffer),"%s]}",buffer);
-
-        if(lastnum < FILE_MAX_NUM){
-            f_mount(&FatFs, "", 0);
-
-            ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",lastnum);
-            err = f_open(Fil, fname, FA_WRITE | FA_READ | FA_OPEN_ALWAYS);
-            if(err==FR_OK){
-                f_lseek(Fil, f_size(Fil));
-                f_write(Fil, buffer, strlen(buffer), &bw);
-                f_close(Fil);
-            }
-
-            f_mount(0, "", 0);
-        }
-        else{
-            mode_status = STT_IDLE;
-            mode_led = LED_READY;
-            ht_commUSB_Msg("Warning: Maximum save number\r\n");
-        }
-    }
-    free(Fil);
-
-    ht_mmc_Delay();
+void ht_mmcMetri_bufferShow(void){
+    ht_commUSB_Msg(buffMetriOnce);
 }
 
 /*******************************************/

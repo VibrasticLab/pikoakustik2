@@ -106,44 +106,27 @@ void ht_mmc_formatFS(void);
 void ht_mmcMetri_chkFile(void);
 
 /**
+ * @brief Check save file existence before audiometri
+ * @details If last number file already exist, create new in incremented last number
+ * @details Otherwise, use current last number
+ */
+void ht_mmcMetri_chkFileBuffer(void);
+
+/**
  * @brief Save end of JSON on save files
  */
 void ht_mmcMetri_endResult(void);
 
-
-/*******************************************/
-
 /**
- * @brief Put JSON open bracket on save files
- * @param[in] uint8_t Channel number
+ * @brief Dump/Save Buffer into MMC
  */
-void ht_mmcMetri_jsonChStart(uint8_t lr_ch);
+void ht_mmcMetri_bufferSave(void);
 
-/**
- * @brief Put JSON close bracket on save files
+/*
+ * @brief Show Buffer content
  */
-void ht_mmcMetri_jsonChClose(void);
+void ht_mmcMetri_bufferShow(void);
 
-/**
- * @brief Put JSON comma separator on save files
- */
-void ht_mmcMetri_jsonComma(void);
-
-/**
- * @brief Save last amplification scale for every frequency test
- * @param[in] double Frequency ratio
- * @param[in] uint8_t Frequency index number
- * @param[in] uint8_t Amplitude scaling number
- */
-void ht_mmcMetri_hearingResult(double freq, uint8_t freqidx, uint8_t ample);
-
-/**
- * @brief Save array of result record
- * @param[in] uint8_t Result array
- * @param[in] uint8_t Last index to fill in
- * @param[in] uint8_t Last Amplitude scale
- */
-void ht_mmcMetri_hearingRecord(uint8_t *resArray, uint8_t lastIdx, uint8_t lastAmpl);
 
 /*******************************************/
 

@@ -95,7 +95,7 @@ static void cmd_led(BaseSequentialStream *chp, int argc, char *argv[]){
 
 static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
   if(argc < 1){
-     chprintf(chp,"usage: mmc [test|ls|lsnum|lsjson|cat|stt|mkfs] <file-number>\r\n");
+     chprintf(chp,"usage: mmc [test|ls|lsnum|lsjson|cat|stt|dump|mkfs] <file-number>\r\n");
      return;
   }
 
@@ -122,10 +122,19 @@ static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
   else if(strcmp(argv[0], "stt")==0){
     chprintf(chp,"MMC Status %2i\r\n", mmc_check_status);
   }
+  else if(strcmp(argv[0], "dump")==0){
+    chprintf(chp,"Dumping Session Buffer to MMC\r\n");
+    ht_mmcMetri_chkFileBuffer();
+    ht_mmcMetri_bufferSave();
+    chprintf(chp,"Buffer Dumping Done\r\n");
+  }
+
   else if(strcmp(argv[0], "mkfs")==0){
  #if USER_MMC_MKFS
     chprintf(chp,"Formatting MMC\r\n");
     ht_mmc_formatFS();
+ #else
+    chprintf(chp, "MMC Formatting is disabled\r\n");
  #endif
   }
 #else
@@ -462,6 +471,16 @@ static void cmd_virt(BaseSequentialStream *chp, int argc, char *argv[]) {
 
 }
 
+static void cmd_bufr(BaseSequentialStream *chp, int argc, char *argv[]) {
+    (void) argv;
+    if (argc != 0){
+        chprintf(chp, "Usage: bufr\r\n");
+    }
+
+    ht_mmcMetri_bufferShow();
+}
+
+
 /*******************************************/
 
 #if USER_ESP32
@@ -517,6 +536,7 @@ static const ShellCommand commands[] = {
   {"sig", cmd_sig},
   {"tone", cmd_tone},
   {"virt", cmd_virt},
+  {"bufr", cmd_bufr},
 #if USER_ESP32
   {"esp", cmd_esp},
   {"aud", cmd_aud},
