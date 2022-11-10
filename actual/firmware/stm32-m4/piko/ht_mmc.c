@@ -776,6 +776,7 @@ void ht_mmcMetri_bufferSave(void){
 }
 
 void ht_mmcMetri_bufferShow(void){
+    ht_commUSB_Msg("Buffer Content:\r\n");
     ht_commUSB_Msg(buffMetriOnce);
 }
 

@@ -25,6 +25,8 @@ bool pageSWable = true;
 static void btnpageTask(void *pvParameter){
   uint8_t btnlock_Page = 0;
   uint8_t btnlock_ActA = 0;
+  uint8_t btnlock_ActB = 0;
+
 
   while (1){
     vTaskDelay(100 / portTICK_PERIOD_MS);
@@ -45,7 +47,7 @@ static void btnpageTask(void *pvParameter){
 	}
 
 	// BUTTON_ACT_X
-	if(gpio_get_level(BUTTON_ACT_X)==0){
+    if(gpio_get_level(BUTTON_ACT_X)==0){
 		if(btnlock_ActA==0){
 			btnlock_ActA=1;
 
@@ -54,6 +56,22 @@ static void btnpageTask(void *pvParameter){
 	}
     else if(gpio_get_level(BUTTON_ACT_X)==1){
 		if(btnlock_ActA==1) btnlock_ActA=0;
+	}
+
+    // BUTTON_ACT_Y
+    if(gpio_get_level(BUTTON_ACT_Y)==0){
+		if(btnlock_ActB==0){
+			btnlock_ActB=1;
+
+            gpio_reset_pin(MY_LED_GPIO);
+            gpio_set_direction(MY_LED_GPIO, GPIO_MODE_OUTPUT);
+            gpio_set_level(MY_LED_GPIO, 0);
+
+            printf("tes\n");
+		}
+	}
+    else if(gpio_get_level(BUTTON_ACT_Y)==1){
+		if(btnlock_ActB==1) btnlock_ActB=0;
 	}
 
 	// end button check loop

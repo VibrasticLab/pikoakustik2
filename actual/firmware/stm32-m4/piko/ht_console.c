@@ -42,6 +42,7 @@ extern int16_t i2s_tx_buf[I2S_BUFF_SIZE];
 /*******************************************
  * Serial Command Callback
  *******************************************/
+
 /**
  * @brief Test command callback
  * @details Enumerated and not called directly by any normal thread
@@ -55,6 +56,23 @@ static void cmd_coba(BaseSequentialStream *chp, int argc, char *argv[]){
       return;
     }
     chprintf(chp,"Serial Console at %d & buffer size %d bit\r\n",SERIAL_DEFAULT_BITRATE,SERIAL_BUFFERS_SIZE);
+}
+
+/**
+ * @brief Test command callback in both UART and USB-CDC
+ * @details Enumerated and not called directly by any normal thread
+ */
+static void cmd_tes(BaseSequentialStream *chp, int argc, char *argv[]){
+    (void)argc;
+    (void)argv;
+
+    if (argc > 0) {
+      chprintf(chp, "Usage: tes\r\n");
+      return;
+    }
+
+    ht_commUART_Msg("Serial Comm in UART\r\n");
+    ht_commUSB_Msg("Serial Comm in USB\r\n");
 }
 
 static void cmd_led(BaseSequentialStream *chp, int argc, char *argv[]){
@@ -529,6 +547,7 @@ static const ShellCommand commands[] = {
   {"coba", cmd_coba},
   {"mmc", cmd_mmc},
   {"out", cmd_out},
+  {"tes",cmd_tes},
 #if USE_FULL_SINE
   {"ori", cmd_ori},
 #endif
