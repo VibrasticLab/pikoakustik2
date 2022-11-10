@@ -9,6 +9,8 @@
 #ifndef HT_METRI_H
 #define HT_METRI_H
 
+#include <stdint.h>
+
 #define STT_IDLE    0
 #define STT_SETUP   1
 #define STT_READY   2

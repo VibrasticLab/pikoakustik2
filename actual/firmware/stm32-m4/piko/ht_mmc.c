@@ -545,10 +545,6 @@ void ht_mmcMetri_chkFile(void){
     FIL *Fil_new;
     FRESULT err;
 
-#if !(USER_METRI_RECONCE)
-    UINT bw;
-#endif
-
     char buff[MMC_STR_BUFF_SIZE];
     char buffer[MMC_STR_BUFF_SIZE];
     char fname[MMC_FNAME_SIZE];
@@ -583,42 +579,17 @@ void ht_mmcMetri_chkFile(void){
                     ht_commUSB_Msg(strbuff);
                     ht_commUSB_Msg("File name incremented\r\n");
 #endif
-
                     ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",lastnum);
-
-#if USER_METRI_RECONCE
                     strcpy(buffMetriOnce, buffer);
-#else
-                    err = f_open(Fil_new, fname, FA_WRITE | FA_READ | FA_OPEN_ALWAYS);
-                    if(err==FR_OK){
-                        f_lseek(Fil_new, f_size(Fil_new));
-                        f_write(Fil_new, buffer, strlen(buffer), &bw);
-                        f_close(Fil_new);
-                    }
-#endif
-
                 }
                 else if(err==FR_NO_FILE){
-
 #if USER_METRI_USELOG
                     ht_comm_Buff(strbuff,sizeof(strbuff),"File %s not exist\r\n",fname);
                     ht_commUSB_Msg(strbuff);
                     ht_commUSB_Msg("File name start new\r\n");
 #endif
-
                     ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",lastnum);
-
-#if USER_METRI_RECONCE
                     strcpy(buffMetriOnce, buffer);
-#else
-                    err = f_open(Fil_new, fname, FA_WRITE | FA_READ | FA_OPEN_ALWAYS);
-                    if(err==FR_OK){
-                        f_lseek(Fil_new, f_size(Fil_new));
-                        f_write(Fil_new, buffer, strlen(buffer), &bw);
-                        f_close(Fil_new);
-                    }
-#endif
-
                 }
                 else{
 #if USER_METRI_USELOG
@@ -659,11 +630,7 @@ void ht_mmcMetri_endResult(void){
 
     if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
         ht_mmc_Buff(buffer,sizeof(buffer),"\n}\n}");
-
-#if USER_METRI_RECONCE
         strcat(buffMetriOnce, buffer);
-#endif
-
         if(lastnum < FILE_MAX_NUM){
             f_mount(&FatFs, "", 0);
 
@@ -671,14 +638,8 @@ void ht_mmcMetri_endResult(void){
             err = f_open(Fil, fname, FA_WRITE | FA_READ | FA_OPEN_ALWAYS);
             if(err==FR_OK){
                 f_lseek(Fil, f_size(Fil));
-
-#if USER_METRI_RECONCE
                 ht_commUSB_Msg(buffMetriOnce);
                 f_write(Fil, buffMetriOnce, strlen(buffMetriOnce), &bw);
-#else
-                f_write(Fil, buffer, strlen(buffer), &bw);
-#endif
-
                 f_close(Fil);
             }
 

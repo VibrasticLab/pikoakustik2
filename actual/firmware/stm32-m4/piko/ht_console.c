@@ -443,11 +443,7 @@ static void cmd_virt(BaseSequentialStream *chp, int argc, char *argv[]) {
       return;
     }
 
-  #if USER_METRI_RECONCE
     ht_mmcOnceMetri_jsonChStart(channel_stt);
-  #else
-    ht_mmcMetri_jsonChStart(channel_stt);
-  #endif
 
  #endif
 #endif
