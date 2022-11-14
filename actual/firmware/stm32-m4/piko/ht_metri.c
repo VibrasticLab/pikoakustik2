@@ -155,7 +155,7 @@ static void ht_metri_AudioPlay(uint8_t lr_stt){
     ht_audio_DisableCh();
 }
 
-static THD_WORKING_AREA(waRunMetri, MAX_THD_HEAP_SIZE);
+static THD_WORKING_AREA(waRunMetri, METRI_HEAP_SIZE);
 #define ThdFunc_RunMetri THD_FUNCTION
 
 /**

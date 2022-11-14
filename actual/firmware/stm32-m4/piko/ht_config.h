@@ -9,6 +9,7 @@
 #define HT_INCLUDES_H
 
 #define MAX_THD_HEAP_SIZE   4096   /* Maximum thread heap size (for metri and shell) */
+#define METRI_HEAP_SIZE     MAX_THD_HEAP_SIZE+64
 
 #define USER_SERIAL         TRUE   /* Whether enable serial interface or not */
  #define USER_SER_USB		TRUE   /* Whether enable USB part serial or not */

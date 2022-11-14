@@ -106,6 +106,7 @@ int main(void) {
 
   #if USER_SER_UART
   ht_commUART_Init();
+  ht_commUART_Msg("UART OK\r\n");
   #endif
 #endif
 
@@ -152,6 +153,6 @@ int main(void) {
       stt_readyAll = TRUE;
     }
 
-    chThdSleepMilliseconds(1000);
+    chThdSleepMilliseconds(500);
   }
 }

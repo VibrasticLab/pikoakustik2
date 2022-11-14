@@ -6,14 +6,17 @@
 - ESP32 header programming cukup RX0, TX0, dan GND
 - Cari pengganti Slot MMC yang serupa dan kompatibel
 - STM32 USB-CDC ditambahkan ESD Protection
+- STM32 RX (PA10) tidak boleh ada resistor pull-up
+- STM32 MMC NSS tidak perlu ada resistor pull-up
+- STM32 BOOT-0 dan BOOT-1 pake resistor pull-down
 - Ada header terhubung ke
     + ESP32 TX1 -- STM32 RX1
     + ESP32 RX1 -- STM32 TX1
     + ESP32 GND -- STM32 GND
 - Smaller Push-Button:
-    + STM32 Reset (Not actually need)
+    + STM32 Reset
     + ESP32 Flash
-    + ESP32 Reset (pake dipswitch?)
+    + ESP32 Reset
 - Charging process status/indicator/detection
 - ESP32 IO-12 must be low during boot
 - ESP32 IO-05 must be low during boot
@@ -25,24 +28,24 @@
 ### 01
 - Bent White House Header untuk Battery
 
-### 02XX0H32XX0H32
-- LCD OLED
+### 02
+- Kiriman Xirca bulan Agustus
 - Bent White House Header untuk Battery
+- Broken STM32 chip
+- Charging LED off
 
 ### 03
-- LCD OLED
 - Bent White House Header untuk Battery
 - VDD STM32 di 4v
+- STM32 RX robek
 
 ### 04
-- LCD OLED
 - Bent White House Header untuk Battery
 - Modul Mic INMP441
 - Power SW SPDT
 - Check kompatibilitas ESP32-D
 
 ### 05
-- LCD OLED
 - Bent White House Header untuk Battery
 - Modul Mic INMP441
 - Power SW SPDT
