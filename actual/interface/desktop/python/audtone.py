@@ -9,7 +9,7 @@
 import sys
 from pathlib import Path
 from PyQt5.QtWidgets import QApplication,QWidget,QPushButton
-from PyQt5.QtWidgets import QLabel,QFileDialog
+from PyQt5.QtWidgets import QLabel,QFileDialog,QMessageBox
 
 # The Main Class
 class AudiometriViewer():
@@ -38,6 +38,7 @@ class AudiometriViewer():
         self.btn_about = QPushButton("About",self.win)
         self.btn_about.setToolTip("Show Some Info")
         self.btn_about.move(205,10)
+        self.btn_about.clicked.connect(self.about_dlg)
 
         self.lbl_openData = QLabel(self.win)
         self.lbl_openData.setText(self.stt_fOpenData)
@@ -73,6 +74,14 @@ class AudiometriViewer():
             self.lbl_openCalib.setText(self.stt_fOpenCalib)
             self.lbl_openCalib.adjustSize()
 
+# About Dialog
+    def about_dlg(self):
+        msginfo = QMessageBox()
+        msginfo.setIcon(QMessageBox.Information)
+        msginfo.setText("Audiometri Data Viewer")
+        msginfo.setWindowTitle("About this program")
+        msginfo.setStandardButtons(QMessageBox.Ok)
+        msginfo.exec()
 
 # Build the GUI
     def gui_run(self):
