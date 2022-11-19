@@ -7,6 +7,7 @@
 
 # Imports
 import sys
+import json
 from pathlib import Path
 from PyQt5.QtWidgets import QApplication,QWidget,QPushButton
 from PyQt5.QtWidgets import QLabel,QFileDialog,QMessageBox
@@ -48,6 +49,12 @@ class AudiometriViewer():
         self.lbl_openCalib.setText(self.stt_fOpenCalib)
         self.lbl_openCalib.move(10,80)
 
+# JSON loading
+    def json_load(self,fName):
+        with open(fName) as json_file:
+            json_data = json.load(json_file)
+        return json_data
+
 # Shorten File Path for label only
     def shorten_path(self,file_path,length):
         return Path(*Path(file_path).parts[-length:])
@@ -62,6 +69,10 @@ class AudiometriViewer():
             self.stt_fOpenData = "Data Open: %s" % (self.shorten_path(fName,3))
             self.lbl_openData.setText(self.stt_fOpenData)
             self.lbl_openData.adjustSize()
+
+            self.jsonOpenData = self.json_load(self.openDataFName)
+            print(self.jsonOpenData['audiogram']['ch_0']['freq_0'])
+
 
 # Open Calibration
     def calib_open(self):
