@@ -11,6 +11,7 @@ import json
 from pathlib import Path
 from PyQt5.QtWidgets import QApplication,QWidget,QPushButton
 from PyQt5.QtWidgets import QLabel,QFileDialog,QMessageBox
+import pyqtgraph as pg
 
 # The Main Class
 class AudiometriViewer():
@@ -55,6 +56,21 @@ class AudiometriViewer():
             json_data = json.load(json_file)
         return json_data
 
+# Test Data Plot using PyQtGraph
+    def test_plot(self):
+        plt = pg.plot()
+        plt.setBackground('w')
+        plt.showGrid(x=True, y=True)
+
+        hour = [1,2,3,4,5,6,7,8,9,10]
+        temp = [30,32,34,32,33,31,29,32,35,45]
+        temp2 = [50,52,54,52,53,51,49,52,55,65]
+
+        plt.plot(hour,temp,pen='r',symbol='x',symbolPen='g')
+        plt.plot(hour,temp2,pen='b',symbol='x',symbolPen='k')
+        
+        plt.show()
+
 # Shorten File Path for label only
     def shorten_path(self,file_path,length):
         return Path(*Path(file_path).parts[-length:])
@@ -97,6 +113,7 @@ class AudiometriViewer():
 # Build the GUI
     def gui_run(self):
         self.win.show()
+        self.test_plot()
         sys.exit(self.app.exec_())
 
 if __name__ == "__main__":
