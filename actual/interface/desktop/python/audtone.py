@@ -10,11 +10,13 @@ import sys
 import json
 from pathlib import Path
 from PyQt5.QtWidgets import QApplication,QWidget,QPushButton
-from PyQt5.QtWidgets import QLabel,QFileDialog,QMessageBox
+from PyQt5.QtWidgets import QLabel,QFileDialog,QMessageBox,QGridLayout
 import pyqtgraph as pg
 
 # The Main Class
 class AudiometriViewer():
+
+
     def __init__(self):
         self.stt_fOpenData = "Data Open: "
         self.openDataFName = ""
@@ -62,13 +64,15 @@ class AudiometriViewer():
         plt.setBackground('w')
         plt.showGrid(x=True, y=True)
 
-        hour = [1,2,3,4,5,6,7,8,9,10]
-        temp = [30,32,34,32,33,31,29,32,35,45]
-        temp2 = [50,52,54,52,53,51,49,52,55,65]
+        freq = [250,500,1000,2000,4000,8000]
+        dbaL = [54,59,68,64,80,69]
+        dbaR = [50,55,64,60,76,65]
+        plt.plot(freq,dbaL,pen='r',symbol='x',symbolPen='g')
+        plt.plot(freq,dbaR,pen='b',symbol='x',symbolPen='k')
 
-        plt.plot(hour,temp,pen='r',symbol='x',symbolPen='g')
-        plt.plot(hour,temp2,pen='b',symbol='x',symbolPen='k')
-        
+        plt.setYRange(-30, 120)
+
+        plt.addLegend()
         plt.show()
 
 # Shorten File Path for label only
@@ -100,6 +104,9 @@ class AudiometriViewer():
             self.stt_fOpenCalib = "Calibration Open: %s" % (self.shorten_path(fName,3))
             self.lbl_openCalib.setText(self.stt_fOpenCalib)
             self.lbl_openCalib.adjustSize()
+
+            self.jsonOpenCalib = self.json_load(self.openCalibFName)
+            print(self.jsonOpenCalib["1000Hz"])
 
 # About Dialog
     def about_dlg(self):
