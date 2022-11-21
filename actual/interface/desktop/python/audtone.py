@@ -6,6 +6,7 @@
 # @brief This program convert tone scale JSON into actual dB-SPL, dBA, or dB-HL
 
 # Imports
+import os
 import sys
 import json
 from pathlib import Path
@@ -16,12 +17,13 @@ import pyqtgraph as pg
 # The Main Class
 class AudiometriViewer():
 
-
+# build basic gui
     def __init__(self):
         self.stt_fOpenData = "Data Open: "
-        self.openDataFName = ""
-        self.stt_fOpenCalib = "Calibration Open: "
-        self.openCalibFName = ""
+        self.openCalibFName = os.getcwd() + "/calib_example.json"
+        self.stt_fOpenCalib = "Calibration Open: %s" %  self.shorten_path(self.openCalibFName,3)
+
+        self.freq = [250,500,1000,2000,4000,8000]
 
         self.app = QApplication(sys.argv)
 
@@ -56,6 +58,7 @@ class AudiometriViewer():
     def json_load(self,fName):
         with open(fName) as json_file:
             json_data = json.load(json_file)
+        json_file.close()
         return json_data
 
 # Test Data Plot using PyQtGraph
@@ -64,16 +67,64 @@ class AudiometriViewer():
         plt.setBackground('w')
         plt.showGrid(x=True, y=True)
 
-        freq = [250,500,1000,2000,4000,8000]
         dbaL = [54,59,68,64,80,69]
         dbaR = [50,55,64,60,76,65]
-        plt.plot(freq,dbaL,pen='r',symbol='x',symbolPen='g')
-        plt.plot(freq,dbaR,pen='b',symbol='x',symbolPen='k')
+        plt.plot(self.freq,dbaL,pen='r',symbol='x',symbolPen='g',symbolBrush=0.2,ame='Left Ear')
+        plt.plot(self.freq,dbaR,pen='b',symbol='x',symbolPen='k',symbolBrush=0.2,name='Right Ear')
 
         plt.setYRange(-30, 120)
 
         plt.addLegend()
+
+        plt.setLabel('left', 'Output', units ='dB')
+        plt.setLabel('bottom', 'Frequency')
+
         plt.show()
+
+# Plot JSON using PyQtGraph
+    def json_plot(self,jsonDataFName):
+        if self.openCalibFName == "":
+            msgerr = QMessageBox()
+            msgerr.setIcon(QMessageBox.Critical)
+            msgerr.setText("Calibration File is not set")
+            msgerr.setWindowTitle("No Calibration File")
+            msgerr.setStandardButtons(QMessageBox.Ok)
+            msgerr.exec()
+        else:
+            jsonData = self.json_load(jsonDataFName)
+            jsonCalib = self.json_load(self.openCalibFName)
+
+            dBL = [
+                    jsonCalib["250Hz"][int(jsonData["audiogram"]["ch_0"]["freq_0"]["ampl"])],
+                    jsonCalib["500Hz"][int(jsonData["audiogram"]["ch_0"]["freq_1"]["ampl"])],
+                    jsonCalib["1000Hz"][int(jsonData["audiogram"]["ch_0"]["freq_2"]["ampl"])],
+                    jsonCalib["2000Hz"][int(jsonData["audiogram"]["ch_0"]["freq_3"]["ampl"])],
+                    jsonCalib["4000Hz"][int(jsonData["audiogram"]["ch_0"]["freq_4"]["ampl"])],
+                    jsonCalib["8000Hz"][int(jsonData["audiogram"]["ch_0"]["freq_5"]["ampl"])]
+                    ]
+            dBR = [
+                    jsonCalib["250Hz"][int(jsonData["audiogram"]["ch_1"]["freq_0"]["ampl"])],
+                    jsonCalib["500Hz"][int(jsonData["audiogram"]["ch_1"]["freq_1"]["ampl"])],
+                    jsonCalib["1000Hz"][int(jsonData["audiogram"]["ch_1"]["freq_2"]["ampl"])],
+                    jsonCalib["2000Hz"][int(jsonData["audiogram"]["ch_1"]["freq_3"]["ampl"])],
+                    jsonCalib["4000Hz"][int(jsonData["audiogram"]["ch_1"]["freq_4"]["ampl"])],
+                    jsonCalib["8000Hz"][int(jsonData["audiogram"]["ch_1"]["freq_5"]["ampl"])]
+                    ]
+
+            plt = pg.plot()
+            plt.setBackground('w')
+            plt.showGrid(x=True, y=True)
+            plt.plot(self.freq,dBL,pen='r',symbol='x',symbolPen='g',symbolBrush=0.2,name='Left Ear')
+            plt.plot(self.freq,dBR,pen='b',symbol='x',symbolPen='k',symbolBrush=0.2,name='Right Ear')
+
+            plt.setYRange(-30, 120)
+
+            plt.addLegend()
+
+            plt.setLabel('left', 'Output', units ='dB')
+            plt.setLabel('bottom', 'Frequency')
+
+            plt.show()
 
 # Shorten File Path for label only
     def shorten_path(self,file_path,length):
@@ -85,14 +136,11 @@ class AudiometriViewer():
         opts |= QFileDialog.DontUseNativeDialog
         fName,_ = QFileDialog.getOpenFileName(None,"Audiometri Data Record","","All Files (*)",options=opts)
         if fName:
-            self.openDataFName = fName
             self.stt_fOpenData = "Data Open: %s" % (self.shorten_path(fName,3))
             self.lbl_openData.setText(self.stt_fOpenData)
             self.lbl_openData.adjustSize()
 
-            self.jsonOpenData = self.json_load(self.openDataFName)
-            print(self.jsonOpenData['audiogram']['ch_0']['freq_0'])
-
+            self.json_plot(fName)
 
 # Open Calibration
     def calib_open(self):
@@ -104,9 +152,6 @@ class AudiometriViewer():
             self.stt_fOpenCalib = "Calibration Open: %s" % (self.shorten_path(fName,3))
             self.lbl_openCalib.setText(self.stt_fOpenCalib)
             self.lbl_openCalib.adjustSize()
-
-            self.jsonOpenCalib = self.json_load(self.openCalibFName)
-            print(self.jsonOpenCalib["1000Hz"])
 
 # About Dialog
     def about_dlg(self):
@@ -120,7 +165,6 @@ class AudiometriViewer():
 # Build the GUI
     def gui_run(self):
         self.win.show()
-        self.test_plot()
         sys.exit(self.app.exec_())
 
 if __name__ == "__main__":
