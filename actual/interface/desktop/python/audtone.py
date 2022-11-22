@@ -108,6 +108,11 @@ class AudiometriViewer():
             mplt.xlabel("Frequency Hz")
             mplt.xticks([])
 
+            calibText = "CALIBRATION: %s by %s at %s" % (jsonCalib["headphone"],jsonCalib["author"],jsonCalib["tanggal"])
+            mplt.title(calibText, fontsize=8)
+
+            mplt.legend(loc='best')
+
             mplt.show()
 
 
