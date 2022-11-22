@@ -12,6 +12,7 @@ import json
 from pathlib import Path
 from PyQt5.QtWidgets import QApplication,QWidget,QPushButton
 from PyQt5.QtWidgets import QLabel,QFileDialog,QMessageBox,QGridLayout
+from numpy.lib.index_tricks import unravel_index
 import pyqtgraph as pg
 
 # The Main Class
@@ -61,26 +62,6 @@ class AudiometriViewer():
         json_file.close()
         return json_data
 
-# Test Data Plot using PyQtGraph
-    def test_plot(self):
-        plt = pg.plot()
-        plt.setBackground('w')
-        plt.showGrid(x=True, y=True)
-
-        dbaL = [54,59,68,64,80,69]
-        dbaR = [50,55,64,60,76,65]
-        plt.plot(self.freq,dbaL,pen='r',symbol='x',symbolPen='g',symbolBrush=0.2,ame='Left Ear')
-        plt.plot(self.freq,dbaR,pen='b',symbol='x',symbolPen='k',symbolBrush=0.2,name='Right Ear')
-
-        plt.setYRange(-30, 120)
-
-        plt.addLegend()
-
-        plt.setLabel('left', 'Output', units ='dB')
-        plt.setLabel('bottom', 'Frequency')
-
-        plt.show()
-
 # Plot JSON using PyQtGraph
     def json_plot(self,jsonDataFName):
         if self.openCalibFName == "":
@@ -113,16 +94,19 @@ class AudiometriViewer():
 
             plt = pg.plot()
             plt.setBackground('w')
-            plt.showGrid(x=True, y=True)
+            plt.showGrid(x=False, y=True)
+            plt.setLogMode(x=True)
             plt.plot(self.freq,dBL,pen='r',symbol='x',symbolPen='g',symbolBrush=0.2,name='Left Ear')
             plt.plot(self.freq,dBR,pen='b',symbol='x',symbolPen='k',symbolBrush=0.2,name='Right Ear')
 
-            plt.setYRange(-30, 120)
+            plt.setYRange(0, 90)
 
-            plt.addLegend()
+            ax = plt.getAxis('bottom')
+            dx = [(value, str(value)) for value in list((range(int(min(self.freq)), int(max(self.freq)+1))))]
+            ax.setTicks([dx, []])
 
             plt.setLabel('left', 'Output', units ='dB')
-            plt.setLabel('bottom', 'Frequency')
+            plt.setLabel('bottom', 'Frequency (Hz)')
 
             plt.show()
 
