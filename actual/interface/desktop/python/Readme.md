@@ -6,6 +6,8 @@ This small Python program can be used to convert from our Audiometri tone scale 
 
 This program should be easy to learn and modify since its written in known Python language and reading only simple JSON for input array or calibration
 
+![images](images/audtone.png?raw=true)
+
 ## Requirements
 
 List of Requirements
@@ -73,3 +75,47 @@ Next, you need download Python installer from [here](https://www.python.org/down
 Choose **Windows installer (64-bit)** for 64 version of Windows and vice-versa.
 
 ![images](images/python_win_installer.png?raw=true)
+
+**NOTES:** Most recent Python for Windows cannot be installed on Windows 7 or ealier version of Windows.
+At the time this tutorial written, the last version available for Windows 7 is Python version 3.8.10.
+You can visit [here](https://www.python.org/downloads/release/python-3810/).
+
+Check **Add Python to PATH**, then click **Install Now**
+
+![images](images/python_win_install.png?raw=true)
+
+Wait until success
+
+![images](images/python_win_install_success.png?raw=true)
+
+Close the installer, then open command prompt using Win+R, type **cmd**, then Enter.
+Then type this to check version:
+
+```sh
+python -V
+```
+
+![images](images/python_win_chkver.png?raw=true)
+
+### Module Installation
+
+The PyQt5 and Matplotlib can be install using tutorials below
+
+#### ArchLinux/Manjaro/Endeavor
+
+```sh
+sudo pacman -Syu
+sudo pacman -S python-pyqt5 python-matplotlib
+```
+
+#### Debian/Ubuntu/LinuxMint
+
+```sh
+sudo apt-get update
+sudo apt-get install python3-pyqt5 python3-matplotlib
+```
+
+#### Windows
+
+For Windows, module installation 
+
