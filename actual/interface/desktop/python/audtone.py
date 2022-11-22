@@ -12,7 +12,6 @@ import json
 from pathlib import Path
 from PyQt5.QtWidgets import QApplication,QWidget,QPushButton
 from PyQt5.QtWidgets import QLabel,QFileDialog,QMessageBox
-import pyqtgraph as pg
 import matplotlib.pyplot as mplt
 
 # The Main Class
@@ -61,54 +60,6 @@ class AudiometriViewer():
             json_data = json.load(json_file)
         json_file.close()
         return json_data
-
-# Plot JSON using PyQtGraph
-    def json_plot_pyqtgraph(self,jsonDataFName):
-        if self.openCalibFName == "":
-            msgerr = QMessageBox()
-            msgerr.setIcon(QMessageBox.Critical)
-            msgerr.setText("Calibration File is not set")
-            msgerr.setWindowTitle("No Calibration File")
-            msgerr.setStandardButtons(QMessageBox.Ok)
-            msgerr.exec()
-        else:
-            jsonData = self.json_load(jsonDataFName)
-            jsonCalib = self.json_load(self.openCalibFName)
-
-            dBL = [
-                    jsonCalib["250Hz"][int(jsonData["audiogram"]["ch_0"]["freq_0"]["ampl"])],
-                    jsonCalib["500Hz"][int(jsonData["audiogram"]["ch_0"]["freq_1"]["ampl"])],
-                    jsonCalib["1000Hz"][int(jsonData["audiogram"]["ch_0"]["freq_2"]["ampl"])],
-                    jsonCalib["2000Hz"][int(jsonData["audiogram"]["ch_0"]["freq_3"]["ampl"])],
-                    jsonCalib["4000Hz"][int(jsonData["audiogram"]["ch_0"]["freq_4"]["ampl"])],
-                    jsonCalib["8000Hz"][int(jsonData["audiogram"]["ch_0"]["freq_5"]["ampl"])]
-                    ]
-            dBR = [
-                    jsonCalib["250Hz"][int(jsonData["audiogram"]["ch_1"]["freq_0"]["ampl"])],
-                    jsonCalib["500Hz"][int(jsonData["audiogram"]["ch_1"]["freq_1"]["ampl"])],
-                    jsonCalib["1000Hz"][int(jsonData["audiogram"]["ch_1"]["freq_2"]["ampl"])],
-                    jsonCalib["2000Hz"][int(jsonData["audiogram"]["ch_1"]["freq_3"]["ampl"])],
-                    jsonCalib["4000Hz"][int(jsonData["audiogram"]["ch_1"]["freq_4"]["ampl"])],
-                    jsonCalib["8000Hz"][int(jsonData["audiogram"]["ch_1"]["freq_5"]["ampl"])]
-                    ]
-
-            plt = pg.plot()
-            plt.setBackground('w')
-            plt.showGrid(x=False, y=True)
-            plt.setLogMode(x=True)
-            plt.plot(self.freq,dBL,pen='r',symbol='x',symbolPen='g',symbolBrush=0.2,name='Left Ear')
-            plt.plot(self.freq,dBR,pen='b',symbol='x',symbolPen='k',symbolBrush=0.2,name='Right Ear')
-
-            plt.setYRange(0, 90)
-
-            ax = plt.getAxis('bottom')
-            dx = [(value, str(value)) for value in list((range(int(min(self.freq)), int(max(self.freq)+1))))]
-            ax.setTicks([dx, []])
-
-            plt.setLabel('left', 'Output', units ='dB')
-            plt.setLabel('bottom', 'Frequency (Hz)')
-
-            plt.show()
 
 # Plot JSON using Matplotlib
     def json_plot_matplotlib(self,jsonDataFName):
@@ -174,7 +125,6 @@ class AudiometriViewer():
             self.lbl_openData.setText(self.stt_fOpenData)
             self.lbl_openData.adjustSize()
 
-            #self.json_plot_pyqtgraph(fName)
             self.json_plot_matplotlib(fName)
 
 # Open Calibration
