@@ -143,7 +143,9 @@ It will run main program like this:
 
 ![images](images/main.png?raw=true)
 
-From here, if load valid JSON data input, it will plot the conversion.
+From here, if you load valid JSON data input, it will plot the conversion like this:
+
+![images](images/plot.png?raw=true)
 
 You can also change your JSON calibration from here.
 By default, the main program will use 'calib_example.json' file (provided here) every program start.
