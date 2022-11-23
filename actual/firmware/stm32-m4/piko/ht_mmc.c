@@ -711,7 +711,7 @@ void ht_mmcMetri_endResult(void){
             f_mount(&FatFs, "", 0);
 
             ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",lastnum);
-            err = f_open(Fil, fname, FA_WRITE | FA_READ | FA_OPEN_ALWAYS);
+            err = f_open(Fil, fname, FA_WRITE | FA_READ | FA_CREATE_ALWAYS);
             if(err==FR_OK){
                 f_lseek(Fil, f_size(Fil));
                 ht_commUSB_Msg(buffMetriOnce);
@@ -751,7 +751,7 @@ void ht_mmcMetri_bufferSave(void){
             f_mount(&FatFs, "", 0);
 
             ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",lastnum);
-            err = f_open(Fil, fname, FA_WRITE | FA_READ | FA_OPEN_ALWAYS);
+            err = f_open(Fil, fname, FA_WRITE | FA_READ | FA_CREATE_ALWAYS);
             if(err==FR_OK){
                 f_lseek(Fil, f_size(Fil));
                 ht_commUSB_Msg(buffMetriOnce);
