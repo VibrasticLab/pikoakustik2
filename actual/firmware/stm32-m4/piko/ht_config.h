@@ -9,7 +9,7 @@
 #define HT_INCLUDES_H
 
 #define MAX_THD_HEAP_SIZE   4096   /* Maximum thread heap size (for metri and shell) */
-#define METRI_HEAP_SIZE     MAX_THD_HEAP_SIZE+64
+#define METRI_HEAP_SIZE     MAX_THD_HEAP_SIZE
 
 #define USER_SERIAL         TRUE   /* Whether enable serial interface or not */
  #define USER_SER_USB		TRUE   /* Whether enable USB part serial or not */
@@ -20,6 +20,7 @@
 
 #define USER_MMC            TRUE   /* Whether use memory card or not */
  #define USER_MMC_MKFS      FALSE  /* Whether use disk formatting or not */
+ #define USER_MMC_2SAVE     TRUE   /* Whether MMC save result twice or not */
 
 #define USER_AUDIO          TRUE   /* Whether use Audio module or not */
  #define USER_AUDIO_TEST    TRUE  /* Whether use Audio test at startup */

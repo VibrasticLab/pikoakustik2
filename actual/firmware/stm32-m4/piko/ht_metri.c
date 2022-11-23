@@ -418,6 +418,10 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
  #if USER_METRI_RECORD
                             ht_mmcOnceMetri_jsonChClose();
                             ht_mmcMetri_endResult();
+  #if USER_MMC_2SAVE
+                            chThdSleepMilliseconds(500);
+                            ht_mmcMetri_bufferSave();
+  #endif
  #endif
 #endif
 
