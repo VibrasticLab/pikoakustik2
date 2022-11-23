@@ -454,7 +454,7 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
                 }
             }
         }
-        chThdSleepMilliseconds(100);
+        chThdSleepMilliseconds(50);
     }
 }
 
