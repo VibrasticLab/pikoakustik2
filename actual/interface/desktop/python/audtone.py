@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 ##
@@ -90,6 +90,8 @@ class AudiometriViewer():
                     jsonCalib["4000Hz"][int(jsonData["audiogram"]["ch_1"]["freq_4"]["ampl"])],
                     jsonCalib["8000Hz"][int(jsonData["audiogram"]["ch_1"]["freq_5"]["ampl"])]
                     ]
+
+            mplt.close()
 
             mplt.plot(self.freq,dBL,'X-',color='r',label='Left Ear')
             for ix,iy in zip(self.freq,dBL):
