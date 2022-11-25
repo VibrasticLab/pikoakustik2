@@ -196,6 +196,7 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
             ht_mmc_InitCheck();
             if(mmc_check_status==FR_OK){
               ht_mmcMetri_chkFile();
+              ht_mmcMetri_bufferOrder();
             }
             else{
   #if USER_METRI_USELOG
@@ -465,7 +466,11 @@ void ht_metri_Progress(uint8_t progress_counter){
     uint8_t freq_progress = (uint8_t) 100 * progress_counter/freq_count_max;
 
     ht_comm_Buff(strProgress, sizeof(strProgress), "aud %i\r\n",freq_progress);
+
+#if USER_METRI_USELOG
     ht_commUSB_Msg(strProgress);
+#endif
+
 #if USER_ESP32
     ht_commUART_Msg(strProgress);
 #endif

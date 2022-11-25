@@ -113,7 +113,7 @@ static void cmd_led(BaseSequentialStream *chp, int argc, char *argv[]){
 
 static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
   if(argc < 1){
-     chprintf(chp,"usage: mmc [test|ls|lsnum|lsjson|cat|stt|dump|mkfs] <file-number>\r\n");
+     chprintf(chp,"usage: mmc [test|ls|lsnum|lsjson|cat|stt|dump] <file-number>\r\n");
      return;
   }
 
@@ -144,15 +144,6 @@ static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
     chprintf(chp,"Dumping Session Buffer to MMC\r\n");
     ht_mmcMetri_bufferSave();
     chprintf(chp,"Buffer Dumping Done\r\n");
-  }
-
-  else if(strcmp(argv[0], "mkfs")==0){
- #if USER_MMC_MKFS
-    chprintf(chp,"Formatting MMC\r\n");
-    ht_mmc_formatFS();
- #else
-    chprintf(chp, "MMC Formatting is disabled\r\n");
- #endif
   }
 #else
   (void) argv;
@@ -462,6 +453,7 @@ static void cmd_virt(BaseSequentialStream *chp, int argc, char *argv[]) {
     ht_mmc_InitCheck();
     if(mmc_check_status==FR_OK){
       ht_mmcMetri_chkFile();
+      ht_mmcMetri_bufferOrder();
     }
     else{
       chprintf(chp,"MMC Failed\r\n");

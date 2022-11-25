@@ -511,28 +511,6 @@ void ht_mmc_catFiles(uint16_t fnum, uint8_t lineType){
     ht_mmc_Delay();
 }
 
-void ht_mmc_formatFS(void){
-    char strbuff[COMM_BUFF_SIZE];
-    FRESULT err;
-    BYTE work[FF_MAX_SS];
-
-#ifdef CH_20
-    err = f_mkfs("", 0, work, sizeof work);
-#endif
-
-#ifdef CH_17
-    err = f_mkfs("", FM_ANY, 0, work, sizeof work);
-#endif
-
-    if(err==FR_OK){
-        ht_commUSB_Msg("Formatting Completed\r\n");
-    }
-    else{
-        ht_comm_Buff(strbuff,sizeof(strbuff),"MMC Error %2i\r\n",err);
-        ht_commUSB_Msg(strbuff);
-    }
-}
-
 /*******************************************/
 
 void ht_mmcMetri_chkFile(void){
@@ -637,7 +615,9 @@ void ht_mmcMetri_endResult(void){
             ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",lastnum);
             err = f_open(Fil, fname, FA_WRITE | FA_READ | FA_CREATE_ALWAYS);
             if(err==FR_OK){
+#if USER_METRI_USELOG
                 ht_commUSB_Msg(buffMetriOnce);
+#endif
                 f_write(Fil, buffMetriOnce, strlen(buffMetriOnce), &bw);
                 f_close(Fil);
             }
@@ -676,7 +656,9 @@ void ht_mmcMetri_bufferSave(void){
             ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",lastnum);
             err = f_open(Fil, fname, FA_WRITE | FA_READ | FA_CREATE_ALWAYS);
             if(err==FR_OK){
+#if USER_METRI_USELOG
                 ht_commUSB_Msg(buffMetriOnce);
+#endif
                 f_write(Fil, buffMetriOnce, strlen(buffMetriOnce), &bw);
                 f_close(Fil);
             }

@@ -19,7 +19,7 @@
  #define USER_SER_BAUD		115200 /* Default Baudrate following ESP32*/
 
 #define USER_MMC            TRUE   /* Whether use memory card or not */
- #define USER_MMC_MKFS      FALSE  /* Whether use disk formatting or not */
+ #define USER_MMC_MKFS      TRUE  /* Whether use disk formatting or not */
  #define USER_MMC_2SAVE     TRUE   /* Whether MMC save result twice or not */
 
 #define USER_AUDIO          TRUE   /* Whether use Audio module or not */

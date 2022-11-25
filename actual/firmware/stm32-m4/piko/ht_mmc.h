@@ -90,11 +90,6 @@ void ht_mmc_lsFiles(uint8_t showList);
  */
 void ht_mmc_catFiles(uint16_t fnum, uint8_t lineType);
 
-/**
- * @brief Format SD Card using internal FatFS function
- */
-void ht_mmc_formatFS(void);
-
 /*******************************************/
 
 /**
