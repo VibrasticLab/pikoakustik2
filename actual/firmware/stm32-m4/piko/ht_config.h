@@ -35,8 +35,8 @@
 #define USER_METRI          TRUE   /* Whether use Audiometri routine or not */
  #define USER_METRI_ENABLED TRUE   /* Whether use RUN mode can be entered or not */
  #define USER_METRI_RECORD  TRUE   /* Whether record Audiometri session */
- #define USER_METRI_USELOG  TRUE   /* Whether metri loop use debug message */
  #define USER_METRI_ALLFREQ TRUE   /* Whether Audiometri in all frequency or selection */
+ #define USER_METRI_USELOG  FALSE  /* Whether metri loop use debug message */
  #define USER_METRI_ONEFREQ FALSE  /* Whether Audiometri in single frequency only */
  #define USER_METRI_TESTROW FALSE  /* Whether Audiometri use False In Row or not */
 

@@ -142,7 +142,6 @@ static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
   }
   else if(strcmp(argv[0], "dump")==0){
     chprintf(chp,"Dumping Session Buffer to MMC\r\n");
-    ht_mmcMetri_chkFileBuffer();
     ht_mmcMetri_bufferSave();
     chprintf(chp,"Buffer Dumping Done\r\n");
   }

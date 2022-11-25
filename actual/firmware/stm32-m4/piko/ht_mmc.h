@@ -106,13 +106,6 @@ void ht_mmc_formatFS(void);
 void ht_mmcMetri_chkFile(void);
 
 /**
- * @brief Check save file existence before audiometri
- * @details If last number file already exist, create new in incremented last number
- * @details Otherwise, use current last number
- */
-void ht_mmcMetri_chkFileBuffer(void);
-
-/**
  * @brief Save end of JSON on save files
  */
 void ht_mmcMetri_endResult(void);
