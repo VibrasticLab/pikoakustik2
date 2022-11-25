@@ -115,6 +115,11 @@ void ht_mmcMetri_endResult(void);
  */
 void ht_mmcMetri_bufferSave(void);
 
+/**
+ * @brief Order File for Buffer into MMC
+ */
+void ht_mmcMetri_bufferOrder(void);
+
 /*
  * @brief Show Buffer content
  */
