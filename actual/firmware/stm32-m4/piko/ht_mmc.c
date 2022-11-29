@@ -594,50 +594,6 @@ void ht_mmcMetri_chkFile(void){
     ht_mmc_Delay();
 }
 
-void ht_mmcMetri_endResult(void){
-    char buffer[MMC_STR_BUFF_SIZE];
-    char fname[MMC_FNAME_SIZE];
-    FATFS FatFs;
-    FIL *Fil;
-    UINT bw;
-    FRESULT err;
-
-    Fil = (FIL*)malloc(sizeof(FIL));
-
-    if(mmc_check()!=FR_OK){return;}
-
-    if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
-        ht_mmc_Buff(buffer,sizeof(buffer),"\n}\n}");
-        strcat(buffMetriOnce, buffer);
-        if(lastnum < FILE_MAX_NUM){
-            f_mount(&FatFs, "", 0);
-
-            ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",lastnum);
-            err = f_open(Fil, fname, FA_WRITE | FA_READ | FA_CREATE_ALWAYS);
-            if(err==FR_OK){
-#if USER_METRI_USELOG
-                ht_commUSB_Msg(buffMetriOnce);
-#endif
-                f_write(Fil, buffMetriOnce, strlen(buffMetriOnce), &bw);
-                f_close(Fil);
-            }
-
-            f_mount(0, "", 0);
-        }
-        else{
-            mode_status = STT_IDLE;
-            mode_led = LED_READY;
-
-#if USER_METRI_USELOG
-            ht_commUSB_Msg("Warning: Maximum save number\r\n");
-#endif
-        }
-    }
-    free(Fil);
-
-    ht_mmc_Delay();
-}
-
 void ht_mmcMetri_bufferSave(void){
     char fname[MMC_FNAME_SIZE];
     FATFS FatFs;
@@ -775,6 +731,13 @@ void ht_mmcOnceMetri_hearingRecord(uint8_t *resArray, uint8_t lastIdx, uint8_t l
   ht_mmc_Buff(buffer,sizeof(buffer),"%s]}",buffer);
 
   strcat(buffMetriOnce, buffer);
+}
+
+void ht_mmcOnceMetri_jsonEnd(void){
+    char buffer[MMC_STR_BUFF_SIZE];
+    ht_mmc_Buff(buffer,sizeof(buffer),"\n}\n}");
+
+    strcat(buffMetriOnce, buffer);
 }
 
 /*******************************************/

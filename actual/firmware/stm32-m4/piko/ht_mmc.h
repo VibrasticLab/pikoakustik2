@@ -101,11 +101,6 @@ void ht_mmc_catFiles(uint16_t fnum, uint8_t lineType);
 void ht_mmcMetri_chkFile(void);
 
 /**
- * @brief Save end of JSON on save files
- */
-void ht_mmcMetri_endResult(void);
-
-/**
  * @brief Dump/Save Buffer into MMC
  */
 void ht_mmcMetri_bufferSave(void);
@@ -154,6 +149,11 @@ void ht_mmcOnceMetri_hearingResult(double freq, uint8_t freqidx, uint8_t ample);
  * @param[in] uint8_t Last Amplitude scale
  */
 void ht_mmcOnceMetri_hearingRecord(uint8_t *resArray, uint8_t lastIdx, uint8_t lastAmpl);
+
+/**
+ * @brief Put JSON end bracket on save buffer
+ */
+void ht_mmcOnceMetri_jsonEnd(void);
 
 
 #endif // HT_MMC_H

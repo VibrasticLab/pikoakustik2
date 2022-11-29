@@ -418,9 +418,12 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
 #if USER_MMC
  #if USER_METRI_RECORD
                             ht_mmcOnceMetri_jsonChClose();
-                            ht_mmcMetri_endResult();
+                            ht_mmcOnceMetri_jsonEnd();
+
+                            ht_mmc_InitCheck();
+                            ht_mmcMetri_bufferSave();
   #if USER_MMC_2SAVE
-                            ht_mmc_Delay();
+                            ht_mmc_InitCheck();
                             ht_mmcMetri_bufferSave();
   #endif
  #endif
