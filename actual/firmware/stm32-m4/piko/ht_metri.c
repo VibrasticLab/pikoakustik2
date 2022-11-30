@@ -432,9 +432,10 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
 /**************** Testing Finish **************/
 
 #if USER_METRI_USELOG
-                            ht_commUSB_Msg("\r\nTesting Finished\r\n");
+                            ht_commUSB_Msg(buffMetriOnce);
 #endif
 
+                            ht_commUSB_Msg("\r\nTesting Finished\r\n");
                             freq_idx = 0;
                             mode_status = STT_IDLE;
                             mode_led = LED_READY;

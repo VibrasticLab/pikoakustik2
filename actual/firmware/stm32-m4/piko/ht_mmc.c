@@ -596,6 +596,7 @@ void ht_mmcMetri_chkFile(void){
 
 void ht_mmcMetri_bufferSave(void){
     char fname[MMC_FNAME_SIZE];
+    char strbuff[COMM_BUFF_SIZE];
     FATFS FatFs;
     FIL *Fil;
     UINT bw;
@@ -612,11 +613,18 @@ void ht_mmcMetri_bufferSave(void){
             ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",lastnum);
             err = f_open(Fil, fname, FA_WRITE | FA_READ | FA_CREATE_ALWAYS);
             if(err==FR_OK){
-#if USER_METRI_USELOG
-                ht_commUSB_Msg(buffMetriOnce);
-#endif
-                f_write(Fil, buffMetriOnce, strlen(buffMetriOnce), &bw);
+                err = f_write(Fil, buffMetriOnce, strlen(buffMetriOnce), &bw);
                 f_close(Fil);
+
+                if(err==FR_OK)ht_commUSB_Msg("Buffer Saving OK\r\n");
+                else{
+                    ht_comm_Buff(strbuff,sizeof(strbuff),"Buffer Save MMC Write Error: %i\r\n",err);
+                    ht_commUSB_Msg(strbuff);
+                }
+            }
+            else{
+                ht_comm_Buff(strbuff,sizeof(strbuff),"Buffer Save MMC Open Error: %i\r\n",err);
+                ht_commUSB_Msg(strbuff);
             }
 
             f_mount(0, "", 0);
@@ -658,6 +666,7 @@ void ht_mmcMetri_bufferOrder(void){
                 f_write(Fil, buffer, strlen(buffer), &bw);
                 f_close(Fil);
             }
+
 
             f_mount(0, "", 0);
         }

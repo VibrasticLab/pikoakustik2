@@ -445,7 +445,6 @@ static void cmd_virt(BaseSequentialStream *chp, int argc, char *argv[]) {
 
     chprintf(chp, "Run Virtual Test Start\r\n");
     chprintf(chp, "DONT PUSH ANY BUTTON\r\n");
-    chprintf(chp, "Keep this Serial Terminal open!!\r\n"); // THIS SHOULDN'T BE PROBLEM
     chprintf(chp, "\r\n");
 
 #if USER_MMC
