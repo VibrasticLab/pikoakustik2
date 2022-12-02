@@ -42,6 +42,11 @@
 #define FILE_MAX_NUM  250
 
 /**
+ * @brief Audiometri saving buffer size
+ */
+#define METRI_BUFFER_SIZE 2048
+
+/**
  * @brief rename to match name f_write()
  */
 #define f_readline    f_gets

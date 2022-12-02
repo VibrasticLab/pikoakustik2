@@ -106,7 +106,7 @@ static MMCConfig mmccfg = {&SPID3, &ls_spicfg, &hs_spicfg};
 /**
  * @brief Buffer to store all JSON string parts
  */
-static char buffMetriOnce[2048];
+static char buffMetriOnce[METRI_BUFFER_SIZE];
 
 /*******************************************/
 
