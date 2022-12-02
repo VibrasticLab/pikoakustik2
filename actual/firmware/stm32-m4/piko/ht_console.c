@@ -479,6 +479,49 @@ static void cmd_virt(BaseSequentialStream *chp, int argc, char *argv[]) {
 
 }
 
+static void cmd_triv(BaseSequentialStream *chp, int argc, char *argv[]) {
+    (void)argv;
+    if (argc != 0) {
+      chprintf(chp, "Usage: triv\r\n");
+      return;
+    }
+
+    chprintf(chp, "Run Virtual Wrong Test Start\r\n");
+    chprintf(chp, "DONT PUSH ANY BUTTON\r\n");
+    chprintf(chp, "\r\n");
+
+#if USER_MMC
+ #if USER_METRI_RECORD
+    ht_mmc_InitCheck();
+    if(mmc_check_status==FR_OK){
+      ht_mmcMetri_chkFile();
+      ht_mmcMetri_bufferOrder();
+    }
+    else{
+      chprintf(chp,"MMC Failed\r\n");
+      chprintf(chp,"MMC Status %2i\r\n", mmc_check_status);
+      return;
+    }
+
+    ht_mmcOnceMetri_jsonChStart(channel_stt);
+
+ #endif
+#endif
+
+    freq_count = 0;
+    ht_metri_Progress(freq_count);
+
+    mode_led = LED_METRI;
+    mode_status = STT_TRIV;
+
+#if USER_ESP32
+  #if USER_ESPIOSTT
+    my_iosttSTMrun(TRUE);
+  #endif
+#endif
+
+}
+
 static void cmd_bufr(BaseSequentialStream *chp, int argc, char *argv[]) {
     (void) argv;
     if (argc != 0){
@@ -545,6 +588,7 @@ static const ShellCommand commands[] = {
   {"sig", cmd_sig},
   {"tone", cmd_tone},
   {"virt", cmd_virt},
+  {"triv", cmd_triv},
   {"bufr", cmd_bufr},
 #if USER_ESP32
   {"esp", cmd_esp},

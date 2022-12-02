@@ -25,6 +25,11 @@
 #define BTN_ANS_C 3
 
 /**
+ * @brief Wrong answer button
+ */
+#define BTN_WRONG 4
+
+/**
  * @brief Button and their callbacks Initialization
  * @details Never put or calling any delay or chThdSleep() on PAL callbacks
  * @details By doing so would cause the entire system frozen

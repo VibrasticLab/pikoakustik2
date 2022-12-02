@@ -241,7 +241,7 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
 #endif
         }
 
-        else if(mode_status==STT_METRI || mode_status==STT_VIRT){
+        else if(mode_status==STT_METRI || mode_status==STT_VIRT || mode_status==STT_TRIV){
             if(mode_step==STEP_ASK){
                 rndask = ht_metri_RndOpt();
 
@@ -284,6 +284,10 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
 
                 if(mode_status==STT_VIRT){
                     numresp = numask;
+                    mode_step=STEP_CHK;
+                }
+                else if(mode_status==STT_TRIV){
+                    numresp = BTN_WRONG;
                     mode_step=STEP_CHK;
                 }
                 else{
@@ -419,12 +423,13 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
  #if USER_METRI_RECORD
                             ht_mmcOnceMetri_jsonChClose();
                             ht_mmcOnceMetri_jsonEnd();
-
+  #if USER_MMC_SAVE
                             ht_mmc_InitCheck();
                             ht_mmcMetri_bufferSave();
-  #if USER_MMC_2SAVE
+    #if USER_MMC_2SAVE
                             ht_mmc_InitCheck();
                             ht_mmcMetri_bufferSave();
+    #endif
   #endif
  #endif
 #endif
@@ -432,7 +437,7 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
 /**************** Testing Finish **************/
 
 #if USER_METRI_USELOG
-                            ht_commUSB_Msg(buffMetriOnce);
+                            ht_mmcMetri_bufferShow();
 #endif
 
                             ht_commUSB_Msg("\r\nTesting Finished\r\n");

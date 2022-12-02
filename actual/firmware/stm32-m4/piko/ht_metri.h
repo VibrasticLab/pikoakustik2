@@ -18,6 +18,7 @@
 #define STT_CFILE   4
 #define STT_METRI   5
 #define STT_VIRT    6
+#define STT_TRIV    7
 
 #define STEP_ASK    0
 #define STEP_WAIT   1
