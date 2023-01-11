@@ -12,22 +12,22 @@
 /**
  * @brief Button answer A on port C0
  */
-#define BTN_ANS_A 1
+#define BTN_ANS_A 11
 
 /**
  * @brief Button answer B on port C1
  */
-#define BTN_ANS_B 2
+#define BTN_ANS_B 12
 
 /**
  * @brief Button answer C on port C2
  */
-#define BTN_ANS_C 3
+#define BTN_ANS_C 13
 
 /**
  * @brief Wrong answer button
  */
-#define BTN_WRONG 4
+#define BTN_WRONG 14
 
 /**
  * @brief Button and their callbacks Initialization

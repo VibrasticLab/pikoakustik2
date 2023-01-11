@@ -302,6 +302,12 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
             }
 
             else if(mode_step==STEP_CHK){
+
+#if USER_METRI_USELOG
+                ht_comm_Buff(strbuff,sizeof(strbuff),"Asked | Response is (%1i | %1i)\r\n", numask, numresp);
+                ht_commUSB_Msg(strbuff);
+#endif
+
                 if(numresp==numask){
                     led_result_off();
                     led_resultYES();
@@ -464,7 +470,7 @@ static ThdFunc_RunMetri(thdRunMetri, arg) {
                 }
             }
         }
-        chThdSleepMilliseconds(50);
+        chThdSleepMilliseconds(100); // please do not change unless something wrong
     }
 }
 
