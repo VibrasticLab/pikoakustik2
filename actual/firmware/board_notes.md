@@ -9,6 +9,7 @@
 - STM32 RX (PA10) tidak boleh ada resistor pull-up
 - STM32 MMC NSS tidak perlu ada resistor pull-up
 - STM32 BOOT-0 dan BOOT-1 pake resistor pull-down
+- STM32 tidak pakai (DNP) debouncing capacitor di tombol-tombol
 - Ada header terhubung ke
     + ESP32 TX1 -- STM32 RX1
     + ESP32 RX1 -- STM32 TX1
