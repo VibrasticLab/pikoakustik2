@@ -9,9 +9,11 @@
 import os
 import sys
 import json
+import numpy as np
 from pathlib import Path
 from PyQt5.QtWidgets import QApplication,QWidget,QPushButton
 from PyQt5.QtWidgets import QLabel,QFileDialog,QMessageBox
+from matplotlib.backend_bases import mpl
 import matplotlib.pyplot as mplt
 
 # The Main Class
@@ -103,7 +105,10 @@ class AudiometriViewer():
 
             mplt.grid(axis='y')
             mplt.semilogx()
-            mplt.ylim(0,90)
+            mplt.yticks(np.arange(0,130,10))
+
+            if jsonCalib["audio_unit"]=="dBHL":
+                mplt.gca().invert_yaxis()
 
             outLabel = "Tone Output (%s)" % jsonCalib["audio_unit"]
             mplt.ylabel(outLabel)
