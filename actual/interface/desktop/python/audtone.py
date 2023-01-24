@@ -13,7 +13,6 @@ import numpy as np
 from pathlib import Path
 from PyQt5.QtWidgets import QApplication,QWidget,QPushButton
 from PyQt5.QtWidgets import QLabel,QFileDialog,QMessageBox
-from matplotlib.backend_bases import mpl
 import matplotlib.pyplot as mplt
 
 # The Main Class
@@ -94,6 +93,7 @@ class AudiometriViewer():
                     ]
 
             mplt.close()
+            fig = mplt.figure(figsize=(4, 6))
 
             mplt.plot(self.freq,dBL,'-',color='r',marker=r'$O$',label='Left Ear')
             for ix,iy in zip(self.freq,dBL):
