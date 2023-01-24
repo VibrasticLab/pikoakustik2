@@ -13,6 +13,7 @@ import numpy as np
 from pathlib import Path
 from PyQt5.QtWidgets import QApplication,QWidget,QPushButton
 from PyQt5.QtWidgets import QLabel,QFileDialog,QMessageBox
+from matplotlib.offsetbox import AnchoredText as antext
 import matplotlib.pyplot as mplt
 
 # The Main Class
@@ -25,6 +26,7 @@ class AudiometriViewer():
         self.stt_fOpenCalib = "Calibration Open: %s" %  self.shorten_path(self.openCalibFName,3)
 
         self.freq = [250,500,1000,2000,4000,8000]
+        self.strfreq = ["250","500","1000","2000","4000","8000"]
 
         self.app = QApplication(sys.argv)
 
@@ -62,6 +64,16 @@ class AudiometriViewer():
         json_file.close()
         return json_data
 
+# PTA calculation
+    def pta_calc(self,l500,l1000,l2000,l4000,r500,r1000,r2000,r4000):
+        pta_L = (l500+l1000+l2000+l4000)/4
+        strPTA_L = r'$\frac{%i + %i + %i + %i}{4} = %i$' % (l500,l1000,l2000,l4000,pta_L)
+
+        pta_R = (r500+r1000+r2000+r4000)/4
+        strPTA_R = r'$\frac{%i + %i + %i + %i}{4} = %i$' % (r500,r1000,r2000,r4000,pta_R)
+
+        return "PTA L: " + strPTA_L + "\n" + "PTA R: " + strPTA_R
+
 # Plot JSON using Matplotlib
     def json_plot_matplotlib(self,jsonDataFName):
         if self.openCalibFName == "":
@@ -93,7 +105,7 @@ class AudiometriViewer():
                     ]
 
             mplt.close()
-            fig = mplt.figure(figsize=(4, 6))
+            mplt.figure(figsize=(4, 6))
 
             mplt.plot(self.freq,dBL,'-',color='r',marker=r'$O$',label='Left Ear')
             for ix,iy in zip(self.freq,dBL):
@@ -103,9 +115,9 @@ class AudiometriViewer():
             for ix,iy in zip(self.freq,dBR):
                 mplt.text(ix,iy,'({},{})'.format(ix,iy),fontsize='x-small')
 
-            mplt.grid(axis='y')
+            mplt.grid(axis='both')
             mplt.semilogx()
-            mplt.yticks(np.arange(0,130,10))
+            mplt.yticks(np.arange(0,160,10))
 
             if jsonCalib["audio_unit"]=="dBHL":
                 mplt.gca().invert_yaxis()
@@ -113,12 +125,26 @@ class AudiometriViewer():
             outLabel = "Tone Output (%s)" % jsonCalib["audio_unit"]
             mplt.ylabel(outLabel)
             mplt.xlabel("Frequency Hz")
-            mplt.xticks([])
+            mplt.xticks(self.freq,labels=self.strfreq)
 
             calibText = "CALIBRATION: %s by %s at %s" % (jsonCalib["headphone"],jsonCalib["author"],jsonCalib["tanggal"])
             mplt.title(calibText, fontsize=8)
 
             mplt.legend(loc='best')
+
+            strPTA = self.pta_calc(
+                jsonCalib["500Hz"][int(jsonData["audiogram"]["ch_0"]["freq_1"]["ampl"])],
+                jsonCalib["1000Hz"][int(jsonData["audiogram"]["ch_0"]["freq_2"]["ampl"])],
+                jsonCalib["2000Hz"][int(jsonData["audiogram"]["ch_0"]["freq_3"]["ampl"])],
+                jsonCalib["4000Hz"][int(jsonData["audiogram"]["ch_0"]["freq_4"]["ampl"])],
+                jsonCalib["500Hz"][int(jsonData["audiogram"]["ch_1"]["freq_1"]["ampl"])],
+                jsonCalib["1000Hz"][int(jsonData["audiogram"]["ch_1"]["freq_2"]["ampl"])],
+                jsonCalib["2000Hz"][int(jsonData["audiogram"]["ch_1"]["freq_3"]["ampl"])],
+                jsonCalib["4000Hz"][int(jsonData["audiogram"]["ch_1"]["freq_4"]["ampl"])]
+            )
+
+            pta_info = antext(strPTA,loc=8)
+            mplt.gca().add_artist(pta_info)
 
             mplt.show()
 
