@@ -95,11 +95,11 @@ class AudiometriViewer():
 
             mplt.close()
 
-            mplt.plot(self.freq,dBL,'X-',color='r',label='Left Ear')
+            mplt.plot(self.freq,dBL,'-',color='r',marker=r'$O$',label='Left Ear')
             for ix,iy in zip(self.freq,dBL):
                 mplt.text(ix,iy,'({},{})'.format(ix,iy),fontsize='x-small')
 
-            mplt.plot(self.freq,dBR,'X-',color='b',label='Right Ear')
+            mplt.plot(self.freq,dBR,'--',color='b',marker=r'$X$',label='Right Ear')
             for ix,iy in zip(self.freq,dBR):
                 mplt.text(ix,iy,'({},{})'.format(ix,iy),fontsize='x-small')
 
