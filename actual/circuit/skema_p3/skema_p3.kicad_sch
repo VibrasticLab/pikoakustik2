@@ -1,0 +1,81 @@
+(kicad_sch (version 20211123) (generator eeschema)
+
+  (uuid a0b292ab-23c5-4b7d-9ddc-d3d5d202c5b1)
+
+  (paper "A4")
+
+  (lib_symbols
+  )
+
+
+  (sheet (at 39.37 27.94) (size 17.78 10.16) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 597d0667-4207-4756-9f1e-dc2b80c39ef1)
+    (property "Sheet name" "esp32" (id 0) (at 39.37 27.2284 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "esp32.kicad_sch" (id 1) (at 39.37 38.6846 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (pin "3V3_ESP" input (at 57.15 30.48 0)
+      (effects (font (size 1.27 1.27)) (justify right))
+      (uuid 2dba31d6-100e-454c-b34d-c17a11a367cd)
+    )
+    (pin "ESPCOM_RX" input (at 57.15 33.02 0)
+      (effects (font (size 1.27 1.27)) (justify right))
+      (uuid 5e914fa1-ac98-456e-8d86-a9ba260f69d7)
+    )
+    (pin "ESPCOM_TX" input (at 57.15 35.56 0)
+      (effects (font (size 1.27 1.27)) (justify right))
+      (uuid 8daaffb1-4a48-4ce7-97e9-ca9502675070)
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1" (page "2"))
+  )
+
+  (symbol_instances
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/e38948e2-99c1-47e0-803c-0d43adc53360"
+      (reference "#PWR01") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/27e887e0-beba-4cb3-9c43-1e50fcb047c9"
+      (reference "#PWR02") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/de2bb75a-8b70-43b5-974d-d338225885b6"
+      (reference "#PWR03") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/bf848998-97a4-4380-99f3-b2742573bde0"
+      (reference "C1") (unit 1) (value "100uF") (footprint "")
+    )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/38a50eb8-4379-4fd0-95f9-2f5bd42b9681"
+      (reference "R1") (unit 1) (value "10K") (footprint "")
+    )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/74f69edf-50da-47ce-addc-e5cb282196be"
+      (reference "R2") (unit 1) (value "10K") (footprint "")
+    )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/190fbe37-68a4-4ecc-902b-7c9d258959c1"
+      (reference "R3") (unit 1) (value "10K") (footprint "")
+    )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/95251301-8aeb-40a4-a3b9-e23dd13846bf"
+      (reference "R4") (unit 1) (value "10K") (footprint "")
+    )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/a01903d0-a20d-414e-a1c0-2178a258662e"
+      (reference "R5") (unit 1) (value "10K") (footprint "")
+    )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/5b03c394-c322-4565-b180-51e5080828f5"
+      (reference "R6") (unit 1) (value "0") (footprint "")
+    )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/338191a3-9916-4358-b931-7f5fc6944c36"
+      (reference "R7") (unit 1) (value "0") (footprint "")
+    )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/d8d42d37-daea-491e-8649-22f8ccf59cd6"
+      (reference "R8") (unit 1) (value "0") (footprint "")
+    )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/4b0c433c-9d35-4622-81fa-d89b3e11d04a"
+      (reference "U1") (unit 1) (value "ESP32-WROOM-32") (footprint "RF_Module:ESP32-WROOM-32")
+    )
+  )
+)
