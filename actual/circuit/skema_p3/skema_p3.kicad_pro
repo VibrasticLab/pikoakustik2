@@ -324,6 +324,10 @@
     [
       "597d0667-4207-4756-9f1e-dc2b80c39ef1",
       "esp32"
+    ],
+    [
+      "fceb2cae-0569-4abe-8ff3-ac4275c17dc7",
+      "stm32"
     ]
   ],
   "text_variables": {}

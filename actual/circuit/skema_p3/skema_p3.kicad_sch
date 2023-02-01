@@ -2,43 +2,62 @@
 
   (uuid a0b292ab-23c5-4b7d-9ddc-d3d5d202c5b1)
 
-  (paper "A4")
+  (paper "User" 150.012 99.9998)
+
+  (title_block
+    (title "Audiometri Base Schematic")
+    (date "2023-02-01")
+    (rev "P3 v2")
+  )
 
   (lib_symbols
   )
 
 
-  (sheet (at 39.37 27.94) (size 17.78 15.24) (fields_autoplaced)
+  (sheet (at 16.51 16.51) (size 17.78 15.24) (fields_autoplaced)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
     (fill (color 0 0 0 0.0000))
     (uuid 597d0667-4207-4756-9f1e-dc2b80c39ef1)
-    (property "Sheet name" "esp32" (id 0) (at 39.37 27.2284 0)
+    (property "Sheet name" "esp32" (id 0) (at 16.51 15.7984 0)
       (effects (font (size 1.27 1.27)) (justify left bottom))
     )
-    (property "Sheet file" "esp32.kicad_sch" (id 1) (at 39.37 43.7646 0)
+    (property "Sheet file" "esp32.kicad_sch" (id 1) (at 16.51 32.3346 0)
       (effects (font (size 1.27 1.27)) (justify left top))
     )
-    (pin "3V3_ESP" input (at 57.15 30.48 0)
+    (pin "3V3_ESP" input (at 34.29 19.05 0)
       (effects (font (size 1.27 1.27)) (justify right))
       (uuid 2dba31d6-100e-454c-b34d-c17a11a367cd)
     )
-    (pin "ESPCOM_RX" input (at 57.15 38.1 0)
+    (pin "ESPCOM_RX" input (at 34.29 26.67 0)
       (effects (font (size 1.27 1.27)) (justify right))
       (uuid 5e914fa1-ac98-456e-8d86-a9ba260f69d7)
     )
-    (pin "ESPCOM_TX" input (at 57.15 40.64 0)
+    (pin "ESPCOM_TX" input (at 34.29 29.21 0)
       (effects (font (size 1.27 1.27)) (justify right))
       (uuid 8daaffb1-4a48-4ce7-97e9-ca9502675070)
     )
-    (pin "3V3_OLED" input (at 57.15 33.02 0)
+    (pin "3V3_OLED" input (at 34.29 21.59 0)
       (effects (font (size 1.27 1.27)) (justify right))
       (uuid 12b55581-ef5a-4469-91de-ff9adf393768)
+    )
+  )
+
+  (sheet (at 71.12 16.51) (size 20.32 13.97) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid fceb2cae-0569-4abe-8ff3-ac4275c17dc7)
+    (property "Sheet name" "stm32" (id 0) (at 71.12 15.7984 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "stm32.kicad_sch" (id 1) (at 71.12 31.0646 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
     )
   )
 
   (sheet_instances
     (path "/" (page "1"))
     (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1" (page "2"))
+    (path "/fceb2cae-0569-4abe-8ff3-ac4275c17dc7" (page "3"))
   )
 
   (symbol_instances
@@ -188,6 +207,9 @@
     )
     (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/6317ef56-f5f0-4615-9ffa-3263fb5227c1"
       (reference "U2") (unit 1) (value "INMP441") (footprint "")
+    )
+    (path "/fceb2cae-0569-4abe-8ff3-ac4275c17dc7/9f5ba256-0014-4fa0-a0e3-e794866b7f53"
+      (reference "U?") (unit 1) (value "STM32F303RBTx") (footprint "Package_QFP:LQFP-64_10x10mm_P0.5mm")
     )
   )
 )
