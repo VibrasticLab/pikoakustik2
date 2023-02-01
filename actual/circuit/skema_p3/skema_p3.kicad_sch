@@ -75,6 +75,15 @@
     (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/05699855-e787-4748-b5c1-d54464eb2c0f"
       (reference "#PWR011") (unit 1) (value "GND") (footprint "")
     )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/252d4bb0-cf06-4efd-96f6-9978e2fcc0a8"
+      (reference "#PWR012") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/3b635cd0-2876-4386-bf75-eaa2ee8a51ec"
+      (reference "#PWR013") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/b39193e9-78cf-46cf-bab4-d26ebcb7e79b"
+      (reference "#PWR014") (unit 1) (value "GND") (footprint "")
+    )
     (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/35709dbc-6113-4681-a2fe-9607a1e10ff5"
       (reference "Brd1") (unit 1) (value "SSD1306") (footprint "")
     )
@@ -98,6 +107,15 @@
     )
     (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/8e958225-40e7-4ae6-9bd6-c92bea46fb51"
       (reference "C7") (unit 1) (value "4.7uF") (footprint "")
+    )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/ecc91a04-dc66-45ec-8924-3d19705dda74"
+      (reference "C8") (unit 1) (value "4.7uF") (footprint "")
+    )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/6291555b-7c54-4c47-8fd0-c24d3bab9243"
+      (reference "C9") (unit 1) (value "100nF") (footprint "")
+    )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/f2f4ae48-b836-4816-9d1b-ea3ab1363470"
+      (reference "C10") (unit 1) (value "22pF") (footprint "")
     )
     (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/053eb1c6-8a54-44cc-bb35-25e43aeee1de"
       (reference "J1") (unit 1) (value "Conn_01x04_Male") (footprint "")
@@ -167,6 +185,9 @@
     )
     (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/4b0c433c-9d35-4622-81fa-d89b3e11d04a"
       (reference "U1") (unit 1) (value "ESP32-WROOM-32") (footprint "RF_Module:ESP32-WROOM-32")
+    )
+    (path "/597d0667-4207-4756-9f1e-dc2b80c39ef1/6317ef56-f5f0-4615-9ffa-3263fb5227c1"
+      (reference "U2") (unit 1) (value "INMP441") (footprint "")
     )
   )
 )
