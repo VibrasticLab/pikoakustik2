@@ -332,6 +332,10 @@
     [
       "c50ec60a-3a80-4aa3-a2d4-6fe51af5b7b5",
       "audio"
+    ],
+    [
+      "7893f05c-f9d9-4fc7-94a3-9849f231a0c3",
+      "power"
     ]
   ],
   "text_variables": {}
