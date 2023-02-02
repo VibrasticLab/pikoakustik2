@@ -2,3 +2,4 @@
 exports/
 jlcpcb/
 *cache
+*.pdf
