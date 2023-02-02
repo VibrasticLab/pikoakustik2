@@ -328,6 +328,10 @@
     [
       "fceb2cae-0569-4abe-8ff3-ac4275c17dc7",
       "stm32"
+    ],
+    [
+      "c50ec60a-3a80-4aa3-a2d4-6fe51af5b7b5",
+      "audio"
     ]
   ],
   "text_variables": {}
