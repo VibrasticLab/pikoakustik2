@@ -598,6 +598,9 @@
     (path "/7893f05c-f9d9-4fc7-94a3-9849f231a0c3/9f0db9c8-99e4-4d8d-9c73-5a36aa19860a"
       (reference "#PWR056") (unit 1) (value "GND") (footprint "")
     )
+    (path "/fceb2cae-0569-4abe-8ff3-ac4275c17dc7/e08fd49d-88a3-40ff-9203-1eb202258104"
+      (reference "#PWR057") (unit 1) (value "GND") (footprint "")
+    )
     (path "/7893f05c-f9d9-4fc7-94a3-9849f231a0c3/634fc955-f83b-4a87-8002-5d0257f394ce"
       (reference "#PWR0101") (unit 1) (value "GND") (footprint "")
     )
@@ -783,6 +786,9 @@
     )
     (path "/7893f05c-f9d9-4fc7-94a3-9849f231a0c3/eda3a491-dc22-4c15-b18e-b96c4ec87351"
       (reference "J8") (unit 1) (value "Conn_01x03_Male") (footprint "")
+    )
+    (path "/fceb2cae-0569-4abe-8ff3-ac4275c17dc7/caec1165-3ad0-48d9-a365-eb3f81b99548"
+      (reference "J9") (unit 1) (value "Conn_01x03_Male") (footprint "")
     )
     (path "/c50ec60a-3a80-4aa3-a2d4-6fe51af5b7b5/d735e88a-47e8-401d-a758-57b7ae050599"
       (reference "K1") (unit 1) (value "G5V-1") (footprint "Relay_THT:Relay_SPDT_Omron_G5V-1")

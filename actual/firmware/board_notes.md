@@ -10,6 +10,7 @@
 - STM32 MMC NSS tidak perlu ada resistor pull-up
 - STM32 BOOT-0 dan BOOT-1 pake resistor pull-down
 - STM32 tidak pakai (DNP) debouncing capacitor di tombol-tombol
+- STM32 tambah header untuk UART
 - Ada header terhubung ke
     + ESP32 TX1 -- STM32 RX1
     + ESP32 RX1 -- STM32 TX1
