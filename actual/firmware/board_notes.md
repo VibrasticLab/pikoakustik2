@@ -24,6 +24,9 @@
 - ESP32 IO-05 must be low during boot
 - ESP32 IO-02 should be pulled to GND when boot (no need for LED)
 - ESP32 IO-15 can be low to prevent boot message (pake dipswitch?)
+- Gating dan Status terkait charge Battery (?)
+	+ Gating jika battery kurang dari 50%
+	+ Status jika battery sedang dicharge
 
 ## Komponen yang kurang di unit P3
 
