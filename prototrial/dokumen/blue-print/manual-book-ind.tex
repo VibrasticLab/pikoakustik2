@@ -2,7 +2,8 @@
 % Packages
 % ---
 \documentclass[11pt,a4paper,twoside,draft,onecolumn]{book}
-\usepackage{lipsum}
+\usepackage[utf8]{inputenc}
+\pagestyle{headings}
 
 % ---
 % PDF Information
@@ -15,36 +16,80 @@
 
 \begin{document}
 	\maketitle
-	\section{Daftar Isi}
+	\renewcommand\contentsname{Daftar Isi}
+	\tableofcontents
+	\addcontentsline{toc}{chapter}{Daftar Isi}
+	
+	\renewcommand\listfigurename{Daftar Gambar}
+	\listoffigures
+	\addcontentsline{toc}{chapter}{Daftar Gambar}
+	
+	\renewcommand\listtablename{Daftar Tabel}
+	\listoftables
+	\addcontentsline{toc}{chapter}{Daftar Tabel}
 	\newpage
 	
-	\section{Daftar Gambar}
+	\renewcommand\chaptername{Bab}
+	
+	\chapter{Pendahuluan}
+	\section{Tujuan Manual}
+	\section{Jenis Alat}
+	\section{Informasi Produsen}
+	\section{Pelayanan Purna Jual}
 	\newpage
 	
-	\section{Daftar Tabel}
+	\chapter{Informasi Keselamatan}
+	\section{Definisi}
+	\section{Peringatan}
+	\subsection{Peringatan Umum Mengenai Penggunaan Alat}
+	\subsection{Peringatan Mengenai Sistem Kelistrikan}
+	\subsection{Peringatan Mengenai Peraturan}
+	\section{Simbol, Label, dan Penanda}
 	\newpage
 	
-	\section{Pendahuluan}
-		\subsection{Tujuan Manual}
-		\subsection{Jenis Alat}
-		\subsection{Informasi Produsen}
-		\subsection{Pelayanan Purna Jual}
+	\chapter{Overview Sistem}
+	\section{Indikasi Penggunaan}
+	\subsection{Target Pasien}
+	\subsection{Target Lingkungan Pengoperasian}
+	\subsection{Target Operator}
+	\section{Indikasi Risiko}
+	\section{Mode Operasi}
+	\section{Klasifikasi Perangkat}
+	\section{Panel Depan}
+	\section{Layar Tampilan}
+	\section{Aksesori dan Material}
+	\section{Pembuangan Limbah dan Aksesori}
 	\newpage
 	
-	\section{Informasi Keselamatan}
-		\subsection{Definisi}
-		\subsection{Peringatan}
-			\subsubsection{Peringatan Umum Mengenai Penggunaan Alat}
-			\subsubsection{Peringatan Mengenai Sistem Kelistrikan}
-			\subsubsection{Peringatan Mengenai Peraturan}
-		\subsection{Simbol, Label, dan Penanda}
+	\chapter{Troubleshooting}
+	\section{Overview}
+	\section{Troubleshooting}
 	\newpage
 	
-	\section{Overview Sistem}
-		\subsection{Indikasi Penggunaan}
-			\subsubsection{Target Pasien}
-			\subsubsection{Target Lingkungan Pengoperasian}
-			\subsubsection{Target Operator}
+	\chapter{Petunjuk Instalasi}
+	\section{Prosedur Instalasi Perangkat}
+	\newpage
+	
+	\chapter{Petunnjuk Pengoperasian}
+	\section{Menyalakan Perangkat}
+	\section{Menjalankan Perangkat}
+	\section{Mematikan Perangkat}
+	\section{Pengumpulan Data}
+	\newpage
+	
+	\chapter{Petunjuk Pembersihan, Sterilisasi, dan Disinfeksi}
+	\section{Permukaan Perangkat}
+	\section{Penanganan Aksesoris}
+	\newpage
+	
+	\chapter{Petunjuk Pemeliharaan}
+	\newpage
+	
+	\chapter*{Lampiran I}
+	\newpage
+	
+	\chapter*{Lampiran II}
+	\newpage
 	
 	
 \end{document}
