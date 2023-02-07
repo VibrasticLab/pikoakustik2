@@ -10,6 +10,9 @@
    xml:space="preserve"
    inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
    sodipodi:docname="stiker_casing.svg"
+   inkscape:export-filename="stiker_casing.png"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -26,8 +29,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="0.32945244"
-     inkscape:cx="575.19684"
-     inkscape:cy="552.43179"
+     inkscape:cx="394.59413"
+     inkscape:cy="555.46713"
      inkscape:window-width="1366"
      inkscape:window-height="691"
      inkscape:window-x="0"
@@ -37,7 +40,13 @@
      id="defs2" /><g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1"><g
+     id="layer1"><rect
+       style="fill:#ffffff;stroke:#ffffff;stroke-width:0.0708957"
+       id="rect411"
+       width="144.94441"
+       height="215.2666"
+       x="32.452404"
+       y="44.680752" /><g
        id="g271"
        transform="translate(37.890632,48.319746)"><g
          id="Rectangle008"
