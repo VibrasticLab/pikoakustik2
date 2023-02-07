@@ -3,7 +3,73 @@
 % ---
 \documentclass[11pt,a4paper,twoside,draft,onecolumn]{book}
 \usepackage[utf8]{inputenc}
-\pagestyle{headings}
+\usepackage[strict]{changepage}
+\usepackage{xcolor}
+\usepackage{framed}
+\usepackage{fourier}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{layout}
+\usepackage{pifont}
+\usepackage{fontawesome}
+
+\definecolor{formalshade}{rgb}{0.95,0.95,1}
+
+\newenvironment{formalred}{%
+	\def\FrameCommand{%
+		\hspace{1pt}%
+		{\color{red}\vrule width 2pt}%
+		{\color{formalshade}\vrule width 4pt}%
+		\colorbox{formalshade}%
+	}%
+	\MakeFramed{\advance\hsize-\width\FrameRestore}%
+	\noindent\hspace{-4.55pt}% disable indenting first paragraph
+	\begin{adjustwidth}{}{7pt}%
+		\vspace{2pt}\vspace{2pt}%
+	}
+	{%
+		\vspace{2pt}\end{adjustwidth}\endMakeFramed%
+}
+
+\newenvironment{formalblue}{%
+	\def\FrameCommand{%
+		\hspace{1pt}%
+		{\color{blue}\vrule width 2pt}%
+		{\color{formalshade}\vrule width 4pt}%
+		\colorbox{formalshade}%
+	}%
+	\MakeFramed{\advance\hsize-\width\FrameRestore}%
+	\noindent\hspace{-4.55pt}% disable indenting first paragraph
+	\begin{adjustwidth}{}{7pt}%
+		\vspace{2pt}\vspace{2pt}%
+	}
+	{%
+		\vspace{2pt}\end{adjustwidth}\endMakeFramed%
+}
+
+\newenvironment{formalyellow}{%
+	\def\FrameCommand{%
+		\hspace{1pt}%
+		{\color{yellow}\vrule width 2pt}%
+		{\color{formalshade}\vrule width 4pt}%
+		\colorbox{formalshade}%
+	}%
+	\MakeFramed{\advance\hsize-\width\FrameRestore}%
+	\noindent\hspace{-4.55pt}% disable indenting first paragraph
+	\begin{adjustwidth}{}{7pt}%
+		\vspace{2pt}\vspace{2pt}%
+	}
+	{%
+		\vspace{2pt}\end{adjustwidth}\endMakeFramed%
+}
+
+\geometry{
+	top=20mm,
+	bottom=25mm,
+	left=20mm,
+	right=20mm,
+	bindingoffset=15mm,	
+}
 
 % ---
 % PDF Information
@@ -15,6 +81,7 @@
 % ---
 
 \begin{document}
+	
 	\maketitle
 	\renewcommand\contentsname{Daftar Isi}
 	\tableofcontents
@@ -33,18 +100,202 @@
 	
 	\chapter{Pendahuluan}
 		\section{Tujuan Manual}
+		Dokumen ini berisi informasi penting mengenai petunjuk pengoperasian perangkat Elbicare Audiometer secara aman. Perangkat ini merupakan perangkat elektronik yang dapat bekerja selama \textcolor{red}{bertahun-tahun} dengan pengoperasian yang cermat, sesuai dengan deskripsi pada dokumen ini. Pastikan untuk membaca dan memahami instruksi pada manual ini sebelum mengoperasikan perangkat Elbicare Audiometer. 
+		
+		\begin{formalred}
+			\raisebox{0.325ex}{\resizebox{!}{1.2ex}{\danger}} \textbf{PERINGATAN}:
+			Sebelum memulai mengoperasikan perangkat ini, silahkan baca, pahami, dan ikuti dengan seksama informasi pada Bab~\ref{chap:2} Informasi Keselamatan 
+		\end{formalred}
+		
 		\section{Jenis Alat}
+		\begin{tabular}{lcl}
+			Merek & : & Elbicare\\
+			Model & : & -\\
+			No. Seri & : & -\\
+		\end{tabular}
+		
 		\section{Informasi Produsen}
+		\begin{tabular}{l}
+			\textbf{PT Xirka Dama Persada}\\
+			Gedung CM, Jl. Mataram I No. 9 Jakarta Timur, 13150, Indonesia\\
+			Telepon +62-21-819-8700; Fax. +62-21-2850-7071\\
+			Email: info@xooey.id\\
+		\end{tabular}
+		
 		\section{Pelayanan Purna Jual}
+		Elbicare Audiometer menawarkan servis purna jual atau garansi sejak perangkat dibeli. Detail mengenai informasi ini dapat diperoleh dengan menghubungi \textcolor{red}{PT. Xirka Dama Persada}.
+		
+		
 	\newpage
 	
-	\chapter{Informasi Keselamatan}
+	\chapter{Informasi Keselamatan}\label{chap:2}
 		\section{Definisi}
-		\section{Peringatan}
+		Dokumen Manual ini menggunakan tiga jenis indikator untuk memperjelas informasi penting berupa: peringatan, perhatian, dan juga catatan. Ketiga hal tersebut muncul dengan bentuk sebagaimana ditunjukkan pada Tabel ~\ref{tab:2.1}
+		
+		\begin{table}
+			\centering
+			\caption{Indikator dalam Buku Manual Pengguna}
+			\label{tab:2.1}
+			\begin{tabular}{|p{0.15\linewidth}  | p{0.7\linewidth}|}
+				\hline
+				Simbol & Keterangan\\
+				\hline
+				\hline
+				\resizebox{!}{4ex}{\danger} & PERINGATAN: \linebreak 
+				Mengindikasikan kondisi yang dapat membahayakan pasien atau operator perangkat\\
+				\hline
+				\resizebox{!}{4ex}{\faSearch} & PERHATIAN: \linebreak
+				Mengindikasikan kondisi yang dapat merusak atau mengurangi masa pakai perangkat \\
+				\hline
+				\resizebox{!}{4ex}{\ding{46}} & CATATAN: \linebreak
+				Mengindikasikan informasi yang dapat menjadikan pengoperasian menjadi lebih efisien dan optimal\\
+				\hline
+			\end{tabular}
+		\end{table}
+	
+		Untuk dapat mengoperasikan perangkat secara tepat dan efisien, dan untuk mencegah insiden, dimohon untuk memberikan perhatian khusus pada bagian ~\ref{sec:2.2} Peringatan, serta semua peringatan dan perhatian yang ada di manual ini.
+		
+		\begin{formalblue}
+			\raisebox{0.125ex}{\resizebox{!}{2ex}{\ding{46}}} \textbf{CATATAN}:
+			Untuk bantuan lebih lanjut, hubungi perwakilan dari \textcolor{red}{PT. Xirka Dama Persada} 
+		\end{formalblue}
+		
+		\section{Peringatan}\label{sec:2.2}
 			\subsection{Peringatan Umum Mengenai Penggunaan Alat}
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}:
+					Perangkat hanya dapat digunakan di bawah tanggung jawab dan rekomendasi dokter dan hanya boleh digunakan untuk kegunaan semestinya seperti tertulis pada Bab 3.1 Indikasi Penggunaan. 
+				\end{formalred}
+			
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Manual ini menjelaskan cara merespon terhadap perangkat, tidak menjelaskan cara penanganan pasien. 
+				\end{formalred}
+			
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Untuk menjamin kinerja perangkat secara optimal, pastikan baterai telah melalui proses charging.
+				\end{formalred}
+				
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Gunakan hasil koreksi yang ditampilkan pada sertifikat kalibrasi yang dikeluarkan oleh institusi yang berwenang
+				\end{formalred}
+			
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Jangan mulai menyalakan perangkat kecuali perangkat telah dirakit dengan benar, tidak tampak cacat fisik pada perangkat
+				\end{formalred}
+			
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Gunakan perangkat tambahan hanya yang direkomendasikan oleh manual ini. Ada kemungkinan ketidakcocokan atau bahkan tidak aman jika menghubungkan perangkat dengan perangkat lain yang tidak direkomendasikan oleh manual ini.
+				\end{formalred}
+			
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Untuk mengurangi risiko infeksi, cuci tangan dengan baik sebelum maupun setelah memegang perangkat atau aksesorinya.
+				\end{formalred}
+			
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Perangkat dan aksesori yang kotor dapat menjadi sumber infeksi. Bersihkan perangkat dan aksesorinya sebelum dan setelah penggunaan, secara regular dan sistematis, serta mengikuti prosedur perawatan untuk mengurangi risiko infeksi. Cek di Bab 7, Petunjuk Pembersihan.
+				\end{formalred}
+			
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Gunakan perangkat dengan hati-hati selama dan setelah penggunaan, terutama jika temperatur lingkungan relatif tinggi. Sebagian permukaan perangkat temperaturnya dapat sedikit meningkat, walaupun penggunaan masih dalam batas aman.
+				\end{formalred}
+			
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Tidak dibolehkan memodifikasi peralatan ini.
+				\end{formalred}
+			
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Peralatan ini tidak boleh dimodifikasi tanpa seizin pabrik. Apabila mendapatkan modifikasi tanpa persetujuan pabrik, tidak ada jaminan bahwa mesin dapat berfungsi dengan semestinya.
+				\end{formalred}
+			
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Jika peralatan ini dimodifikasi, inspeksi dan pengujian yang sesuai harus dilakukan untuk memastikan peralatan aman untuk digunakan.
+				\end{formalred}
+			
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Perangkat tidak boleh direndam di cairan apa pun. Cairan yang terdapat di permukaan perangkat harus dilap sesegera mungkin. Untuk menghindari kerusakan, cairan tidak boleh masuk ke perangkat.
+				\end{formalred}
+			
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Untuk memastikan pengoperasian yang benar sehingga perangkat menjadi awet, pastikan perangkat beroperasi pada kondisi lingkungan yang direkomendasikan.
+				\end{formalred}
+			
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Jangan operasikan perangkat di lingkungan magnetic resonance imaging (MRI), di bawah sinar matahari langsung, di dekat sumber panas, di dekat perangkat bedah yang memiliki High Frequency(HF) aktif, di luar ruangan, di dekat instalasi cairan tanpa proteksi, maupun di area berdebu.
+				\end{formalred}
+			
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Pastikan sekeliling perangkat memungkinkan instalasi dan operasi perangkat secara baik
+				\end{formalred}
+			
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Pastikan pemasangan perangkat ada di lokasi yang sulit dijangkau oleh anak-anak, hewan peliharaan, maupun hewan liar, dan sesuatu yang dapat menimbulkan bahaya dan kerusakan pada perangkat
+				\end{formalred}
+			
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Untuk mengurangi risiko terbakar, jauhkan perangkat dari rokok yang menyala, korek api, dan sumber pembakaran lainnya.
+				\end{formalred}			
+				
 			\subsection{Peringatan Mengenai Sistem Kelistrikan}
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Pengisian ulang daya baterai secara rutin penting untuk memaksimalkan usia baterai. Jika tersimpan terlalu lama tanpa diisi ulang dayanya, usia baterai dapat berkurang.
+				\end{formalred}
+				
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Catu daya listrik harus sesuai dengan spesifikasi perangkat. Pastikan tidak ada kabel yang terlipat maupun tertekan. Perangkat sebaiknya tidak dinyalakan ketika kabel listrik AC rusak. 
+				\end{formalred}
+				
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Jangan mendekatkan perangkat pada api. Pembuangan limbah baterai harus sesuai dengan peraturan lokal yang berlaku.
+				\end{formalred}
+			
 			\subsection{Peringatan Mengenai Peraturan}
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Sebelum mulai proses audiometri, pastikan semua pengaturan sesuai dengan buku manual pengguna ini. Pastikan juga instalasi dilakukan dengan benar.
+				\end{formalred}
+				
+				\begin{formalred}
+					\raisebox{0.125ex}{\resizebox{!}{2ex}{\danger}} \textbf{PERINGATAN}: 
+					Gunakan hasil koreksi yang ditampilkan pada sertifikat kalibrasi yang dikeluarkan oleh institusi yang berwenang
+				\end{formalred}	
+			
 		\section{Simbol, Label, dan Penanda}
+		\begin{table}
+			\centering
+			\caption{Simbol dan Penanda pada Alat}
+			\label{tab:2.2}
+			\begin{tabular}{|p{0.2\linewidth}  | p{0.2\linewidth}| p{0.4\linewidth}|}
+				\hline
+				Simbol & Lokasi & Deskripsi\\
+				\hline
+				\hline
+				a & a & a\\
+				\hline
+				a & a & a\\
+				\hline
+			\end{tabular}
+		\end{table}
+		
 	\newpage
 	
 	\chapter{Overview Sistem}
