@@ -1,6 +1,8 @@
 _minted*
 *.aux
 *.log
+*.lot
+*.lof
 *.nav
 *.out
 *.pdf
