@@ -3,7 +3,23 @@
 % ---
 \documentclass[11pt,a4paper,twoside,draft,onecolumn]{book}
 \usepackage[utf8]{inputenc}
-\pagestyle{headings}
+\usepackage[strict]{changepage}
+\usepackage{xcolor}
+\usepackage{framed}
+\usepackage{fourier}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{layout}
+\usepackage{pifont}
+\usepackage{fontawesome}
+
+\geometry{
+	top=20mm,
+	bottom=25mm,
+	left=20mm,
+	right=20mm,
+	bindingoffset=15mm,	
+}
 
 % ---
 % PDF Information
@@ -33,63 +49,249 @@
 	
 	\chapter{Pendahuluan}
 		\section{Ruang Lingkup}
+		Tujuan dokumen ini adalah untuk menetapkan proses manajemen risiko sebagai bagian dari desain alat kesehatan untuk Elbicare Audiometer. Bagian penting dari proses manajemen risiko meliputi analisis risiko, evaluasi risiko, dan pengendalian risiko merupakan bagian wajib dari
+		dokumen ini. Dokumen ini menekankan bahwa proses manajemen risiko tidak berakhir dengan desain dan produksi alat kesehatan, tetapi berlanjut ke fase pasca-produksi. 
+		
+		Oleh karena itu, pengumpulan informasi pasca produksi akan diidentifikasi sebagai bagian yang diperlukan dalam proses manajemen risiko. Anggota tim bertanggung jawab untuk melakukan analisis risiko, evaluasi risiko, dan pengendalian risiko. Tanggung jawab untuk memelihara dokumen Risiko ada pada Penanggung Jawab Teknis.
+		
 		\section{Standar}
+		Standar yang diacu dalam penyusunan dokumen ini adalah SNI ISO 14971:2015 : Peralatan kesehatan - Alat kesehatan – Penerapan manajemen risiko pada alat kesehatan
+		
 		\section{Kebijakan Risiko}
+		Kebijakan manajemen risiko, ditentukan dari manajemen \textcolor{red}{PT. Xirka Dama Persada}:
+		\begin{itemize}
+			\item Meminimalkan risiko serendah mungkin dari semua risiko yang diidentifikasi dalam proses desain, pengembangan, produksi dan pasca produksi.
+			\item Memprioritas pengendalian risiko dalam perencanaan sesuai dengan tingkat bahaya yang analisis oleh ahli pada bidangnya, sehingga risiko yang paling serius dihilangkan atau diminimalkan terlebih dahulu.
+			\item Kewaspadaan konstan setiap karyawan (administrasi dan teknologi) dalam penemuan baru dan sumber risiko yang tidak diketahui dalam produk.
+			\item Desain dan pengembangan produk yang canggih dan efektif sehingga risiko utama akan diminimalkan dengan desain awal yang baik daripada intervensi kemudian.
+			\item Pemantauan aktif produk yang digunakan, mengumpulkan data dan informasi tentang risiko potensial dari pengguna yang menggunakan produk dan mengirim ke tim untuk pengendalian risiko.
+		\end{itemize}
+		
 		\section{Sumber Daya}
+		Sumber daya yang diperlukan untuk proses manajemen risiko dalam \textcolor{red}{PT. Xirka Dama Persada} adalah :
+		
 		\section{Definisi}
+		\begin{itemize}
+			\item \textbf{Essential Performance}: kinerja yang diperlukan untuk bebas dari RISIKO yang tidak dapat diterima.
+			\linebreak
+			CATATAN: kinerja paling mudah dipahami dengan mempertimbangkan apakah
+			tidak ada atau tidak degradasi akan menghasilkan RISIKO yang tidak dapat
+			diterima.
+			\item \textbf{Cedera (harm)}: luka secara fisik atau merusak kesehatan manusia, atau kerusakan harta benda atau lingkungan [ISO/IEC Guide 51:1999, definisi 3.3].
+			\item \textbf{Bahaya (Hazard)}: sumber potensi Cedera [ISO/IEC Guide 51:1999, definisi 3.5].
+			\item \textbf{Situasi membahayakan}: keadaan ketika manusia, harta benda, atau lingkungan terpapar satu bahaya atau lebih [ISO/IEC Guide 51:1999, definisi 3.6].
+			\item \textbf{Maksud penggunaan (intended use)/Tujuan penggunaan (intended purpose)}: penggunaan satu produk, proses atau layanan yang dimaksudkan sesuai dengan spesifikasi, petunjuk dan informasi yang disediakan oleh pabrikan
+			\item \textbf{Residu Risiko (Residual Risk)}: risiko yang masih tertinggal setelah tindakan kendali risiko dilakukan [ISO/IEC Guide 51:1999, definisi 3.9]
+			\item \textbf{Risiko}: kombinasi kemungkinan terjadinya cedera dan keparahan cedera [ISO/IEC Guide 51:1999, definisi 3.2].
+			\item \textbf{Analisis Risiko}: penggunaan secara sistematis informasi yang tersedia untuk mengidentifikasi bahaya dan untuk memperkirakan risiko. [ISO/IEC Guide 51:1999, definisi 3.10].
+			\item \textbf{Kendali risiko}: proses keputusan yang harus dibuat dan dilakukan, diimplementasikan untuk mengurangi atau mempertahankan resiko pada level spesifik
+			\item \textbf{Perkiraan Risiko}: proses yang digunakan untuk menentukan nilai kemungkinan terjadinya cedera dan keparahan dari cedera tersebut
+			\item \textbf{Evaluasi Risiko}: proses untuk membandingkan perkiraan risiko terhadap kriteria risiko yang ada untuk menetapkan risiko yang dapat diterima.
+		\end{itemize}
 	\newpage
 	
 	\chapter{Deskripsi Proses Analisis Risiko}
 		\section{Analisis Risiko}
 			\subsection{Proses Analisis Risiko}
-			\subsection{Maksud Penggunaan dan Identifikasi Karakteristik yang Berkaitan dengan Keselamatan Alat Kesehatan}
+			Analisis risiko dilakukan untuk perangkat Elbicare Audiometer. Implementasi yang direncanakan dari kegiatan analisis risiko dan hasil analisis risiko dicatat dalam file manajemen risiko. Dokumentasi dari kegiatan yang dilakukan dan hasil analisis risiko meliputi:
+			\begin{enumerate}
+				\item Uraian dan identifikasi alat kesehatan yang dianalisis
+				\item Identifikasi personil dan organisasi yang melakukan analisis risiko
+				\item Ruang lingkup dan tanggal analisis risiko
+			\end{enumerate}
+		
+			\subsection{Maksud Penggunaan dan Identifikasi Karakteristik Berkaitan dengan Keselamatan Alat Kesehatan}
+			Langkah ini membantu \textcolor{red}{PT. Xirka Dama Persada} untuk memikirkan semua karakteristik yang dapat memengaruhi keamanan penggunaan alat kesehatan. Analisis ini harus mempertimbangkan bahwa alat kesehatan juga dapat digunakan dalam situasi selain yang dimaksudkan oleh \textcolor{red}{PT. Xirka Dama Persada} dan dalam situasi selain yang diperkirakan saat alat kesehatan pertama kali dibuat.
+			
 			\subsection{Identifikasi Bahaya}
+			Langkah ini mensyaratkan bahwa \textcolor{red}{PT. Xirka Dama Persada} secara sistematis dalam mengidentifikasi bahaya yang diantisipasi dalam kondisi normal dan gagal. Identifikasi harus didasarkan pada karakteristik keamanan yang diidentifikasi di atas.
+			
 			\subsection{Perkiraan Risiko untuk Setiap Situasi Berbahaya}
+			Ini adalah langkah terakhir dari analisis risiko. Kesulitan dari langkah ini adalah bahwa perkiraan risiko berbeda untuk setiap situasi berbahaya dalam penyelidikan.
+			
 	\newpage
 	
 	\chapter{Analisis Risiko}
 		\section{Identifikasi karakteristik alat kesehatan yang berdampak pada keamanan}
+		Pertanyaan-pertanyaan berikut, yang sesuai dengan SNI ISO 14971:2015, digunakan untuk mengidentifikasi karakteristik alat kesehatan yang dapat berdampak pada keselamatan:
 			\subsection{Apa tujuan penggunaan dan bagaimana alat kesehatan digunakan?}
+			Elbicare Audiometer dimaksudkan:
+			\begin{itemize}
+				\item Untuk screening kondisi pendengaran pasien, diatur di bawah izin dan pengawasan tenaga medis yang memenuhi syarat
+				\item Untuk penggunaan di ruang tapak terbuka
+				\item Untuk penggunaan langsung oleh pasien dengan izin dokter
+				\item Untuk digunakan secara portable dengan tenaga berasal dari baterai 
+			\end{itemize}
+			
 			\subsection{Apakah alat kesehatan dimaksudkan untuk ditanamkan?}
+			Tidak berlaku.
+			
 			\subsection{Apakah alat kesehatan dimaksudkan untuk melakukan kontak dengan pasien atau orang lain?}
+			Bagian perangkat dimaksudkan untuk bersentuhan dengan pasien tetapi hanya sebagai kontak permukaan.
+			
 			\subsection{Bahan atau komponen apa yang digunakan dalam alat kesehatan atau digunakan dengan, atau kontak dengan alat kesehatan?}
+			(...)
+			
 			\subsection{Apakah energi dikirim ke atau diekstraksi dari pasien?}
+			Tidak berlaku.
+			
 			\subsection{Apakah zat dikirim ke atau diekstraksi dari pasien?}
+			Tidak berlaku.
+			
 			\subsection{Apakah bahan biologis diproses oleh alat kesehatan untuk digunakan kembali berikutnya, transfusi atau transplantasi?}
+			Tidak berlaku.
+			
 			\subsection{Apakah alat kesehatan yang disediakan steril atau dimaksudkan untuk disterilkan oleh pengguna, atau lainnya kontrol mikrobiologis yang berlaku?}
+			Tidak berlaku.
+			
 			\subsection{Apakah alat kesehatan dimaksudkan untuk secara rutin dibersihkan dan didesinfeksi oleh pengguna?}
+			Saat menggunakan unit ini untuk pertama kalinya setelah membeli atau setelah lama tidak digunakan, pastikan untuk membersihkan dan mendisinfeksi permukaan alat. 
+			
 			\subsection{Apakah alat kesehatan dimaksudkan untuk memodifikasi lingkungan pasien?}
+			Tidak berlaku.
+			
 			\subsection{Apakah pengukuran dilakukan?}
+			Pengukuran yang ada pada Elbicare Audiometer adalah ....
+			
 			\subsection{Apakah alat kesehatan interpretatif?}
+			Tidak berlaku.
+			
 			\subsection{Apakah alat kesehatan yang dimaksudkan untuk digunakan bersama dengan alat kesehatan lain, obat-obatan atau teknologi medis lainnya?}
+			Penggunaan alat bersama dengan perangkat headphone yang sesuai dengan kebutuhan spesifikasi Elbicare Audiometer
+			
 			\subsection{Apakah ada keluaran energi atau zat yang tidak diinginkan?}
+			Tidak berlaku.
+			
 			\subsection{Apakah alat kesehatan rentan terhadap pengaruh lingkungan?}
+			Tidak berlaku.
+			
 			\subsection{Apakah alat kesehatan mempengaruhi lingkungan?}
+			Sebagai alat kesehatan elektronik dapat mempengaruhi lingkungan karena menimbulkan gangguan elektromagnetik
+			
 			\subsection{Apakah ada bahan habis pakai atau aksesori penting yang terkait dengan alat kesehatan?}
+			Aksesori yang harus ada dalam pengoperasian Elbicare Audiometer yaitu SD Card dan perangkat headphone. Penenti apakah aksesori bersifat habis pakai atau dapat dipakai kembali adalah sesuai klaim dari penyedia aksesori.
+			
 			\subsection{Apakah pemeliharaan atau kalibrasi diperlukan?}
+			Ya. Kalibrasi harus dilakukan oleh lembaga kalibrasi yang bersertifikat dan sesuai masa berlaku yang ditetapkan oleh lembaga tersebut.
+			
 			\subsection{Apakah alat kesehatan mengandung perangkat lunak?}
+			Ya. Alat kesehatan berisi perangkat lunak yang disebut "Firmware Elbicare Audiometer". Perangkat lunak dimaksudkan untuk dipasang, diverifikasi. dimodifikasi, atau ditukar oleh operator atau pengguna atau oleh spesialis.
+			
 			\subsection{Apakah alat kesehatan memiliki masa simpan yang terbatas?}
+			Ya. Perkiraan masa simpan terbatas untuk unit utama adalah ... tahun.
+			
 			\subsection{Apakah ada efek penggunaan yang tertunda atau jangka panjang?}
+			Tidak berlaku.
+			
 			\subsection{Untuk kekuatan mekanik apa alat kesehatan akan dikenai?}
-			\subsection{ Apa yang menentukan masa pakai alat kesehatan?}
+			Tidak berlaku.
+			
+			\subsection{Apa yang menentukan masa pakai alat kesehatan?}
+			Usia pakai ditentukan oleh pabrikan. Usia pakai ditentukan oleh kemungkinan pabrikan harus melakukan perbaikan alat.
+			
 			\subsection{Apakah alat kesehatan dimaksudkan untuk sekali pakai?}
+			Tidak.
+			
 			\subsection{Apakah penonaktifan atau pembuangan yang aman untuk peralatan medis diperlukan?}
+			Pembuangannya sesuai dengan hukum lingkungan yang berlaku.
+			
 			\subsection{Apakah pemasangan atau penggunaan alat kesehatan memerlukan pelatihan khusus atau keterampilan khusus?}
+			Ya. Pengguna harus mengetahui prinsip penggunaan Elbicare Audiometer dan setidaknya telah membaca petunjuk pengoperasian.
+			
 			\subsection{Bagaimana informasi untuk penggunaan yang aman disediakan?}
+			Informasi untuk penggunaan yang aman dari alat kesehatan yang disediakan dalam Petunjuk Penggunaan.
+			
 			\subsection{Apakah proses pembuatan baru perlu dibuat atau diperkenalkan?}
+			Tidak berlaku.
+			
 			\subsection{Apakah aplikasi alat kesehatan yang berhasil sangat tergantung pada faktor manusia? sebagai antarmuka pengguna?}
+			
+				\subsubsection{Dapatkah fitur desain antarmuka pengguna berkontribusi untuk menggunakan kesalahan?}
+				Tidak berlaku.
+				
+				\subsubsection{Apakah alat kesehatan digunakan di lingkungan di mana gangguan dapat menyebabkan kesalahan penggunaan?}
+				Tidak berlaku.
+				
+				\subsubsection{Apakah alat kesehatan memiliki bagian atau aksesori penghubung?}
+				Ya. Elbicare Audiometer memiliki aksesori berupa SD Card dan headphone. 
+				
+				\subsubsection{Apakah alat kesehatan memiliki antarmuka kontrol?}
+				Ya. LCD kecil digunakan untuk menampilkan mode operasi, konfigurasi sambungan wireless, dan prosentasi proses audiometri
+				
+				\subsubsection{Apakah alat kesehatan menampilkan informasi?}
+				Ya. LCD kecil digunakan untuk menampilkan mode operasi, konfigurasi sambungan wireless, dan prosentasi proses audiometri
+				
+				\subsubsection{Apakah alat kesehatan dikendalikan oleh suatu menu?}
+				Tidak berlaku. Penggunaan alat dimulai ketika menjalankan mode operasi (RUN) dengan menekan tiga tombol secara berurutan. 
+				
+				\subsubsection{Apakah alat kesehatan akan digunakan oleh orang-orang dengan kebutuhan khusus?}
+				Perhatian khusus harus diberikan kepada pengguna dengan kebutuhan khusus, seperti orang cacat, orang tua dan anak-anak. Kebutuhan khusus mereka termasuk bantuan oleh orang lain untuk memungkinkan penggunaan alat ini.
+				
+				\subsubsection{Dapatkah antarmuka pengguna digunakan untuk memulai tindakan pengguna?}
+				Ya. Penggunaan alat dimulai ketika menjalankan mode operasi (RUN) dengan menekan tiga tombol secara berurutan.
+			
 			\subsection{Apakah alat kesehatan menggunakan sistem alarm?}
+			Tidak berlaku.
+			
 			\subsection{Dengan cara apa alat kesehatan sengaja disalahgunakan?}
+			Tidak berlaku.
+			
 			\subsection{Apakah alat kesehatan menyimpan data penting untuk perawatan pasien?}
+			Ya. Elbicare Audiometer menyimpan data ambang pendengaran pasien.
+			
 			\subsection{Apakah alat kesehatan dimaksudkan untuk mobile atau portable?}
+			Ya. 
+			
 			\subsection{Apakah penggunaan alat kesehatan tergantung pada kinerja penting?}
+			Ya. Kinerja penting dari Elbicare Audiometer adalah:
+			\begin{enumerate}
+				\item Dioperasikan dalam lingkungan dengan nilai bising latar belakang maksimum ... dB
+			\end{enumerate}
+		
 		\section{Identifikasi Bahaya}
+		Identifikasi harus didasarkan pada karakteristik keselamatan yang diidentifikasi dalam bab 3.1. mengenai mengenali dan mengidentifikasi bahaya-bahaya ini untuk mengatasi risiko dengan baik 
+		
 			\subsection{Bahaya Energi}
+			\begin{itemize}
+				\item Listrik (tegangan jala jala)
+				\item Suhu tinggi
+			\end{itemize}
+			
 			\subsection{Bahaya Lingkungan}
+			\begin{itemize}
+				\item Kerentanan terhadap gangguan elektromagnetik
+				\item Emisi interferensi elektromagnetik
+				\item Penyimpanan, operasi, dan transportasi di luar kondisi lingkungan yang ditentukan
+			\end{itemize}
+			
 			\subsection{Bahaya yang dihasilkan dari keluaran energi dan zat yang salah}
+			Tidak berlaku.
+			
 			\subsection{Bahaya terkait dengan penggunaan alat kesehatan}
+			\begin{itemize}
+				\item Intruksi pengoperasian yang tidak memadai, seperti:
+				\begin{itemize}
+					\item Intruksi pengoperasian yang terlalu rumit
+					\item Spesifikasi aksesori yang tidak memadai untuk digunakan dengan alat kesehatan 
+					\item Spesifikasi penggunaan yang dimaksudkan tidak memadai
+					\item Deskripsi karakteristik kinerja yang tidak memadai
+				\end{itemize}
+				\item Penyalahgunaan yang cukup dapat diperkirakan
+				\item Penggunaan perangkat yang tidak tepat
+			\end{itemize}
+			
 			\subsection{Bahaya yang timbul dari kegagalan fungsional, pemeliharaan dan penuaan}
+			\begin{itemize}
+				\item Perawatan yang tidak memadai
+				\item Agen pembersih, disinfektan
+				\item Tumpahan pada perangkat
+			\end{itemize}
+			
 			\subsection{Bahaya biologis}
+			\begin{itemize}
+				\item Bio-inkompatibilitas
+			\end{itemize}
+			
 		\section{Estimasi dan Evaluasi Risiko}
 	\newpage
 	
