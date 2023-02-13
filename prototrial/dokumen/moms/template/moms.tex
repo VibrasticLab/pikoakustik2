@@ -1,0 +1,58 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{hhline}
+
+\hypersetup{
+	colorlinks=true, %set true if you want colored links
+	linktoc=all,     %set to all if you want both sections and subsections linked
+	linkcolor=blue,  %choose some color if you want links to stand out
+}
+
+\geometry{
+	a4paper,
+	left=10mm,
+	right=10mm,
+	top=10mm,
+	bottom=10mm,
+}
+
+\begin{document}
+
+\begin{table}[!ht]
+	\centering
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\multirow{3}{*}{\includegraphics[width=0.25\columnwidth]{logoviblab}} & \multicolumn{3}{l|}{\textbf{Minutes of Meeting}} \\
+		\cline{2-4}
+		& \textbf{Location of Meeting} & \textbf{Time/Date of Meeting} & \textbf{Date of this Report}  \\
+		\cline{2-4}
+		& Location & Date-Time & Date Only\\
+		\hline
+		\multicolumn{4}{|l|}{\textbf{Subject:}} \\
+		\hline
+		\multicolumn{4}{|l|}{Content of Subject} \\
+		\hline
+		\multicolumn{2}{|l|}{\textbf{Attendees:}} & \multicolumn{2}{l|}{\textbf{Distribution}} \\
+		\hline
+		1. Dhany Arifianto & ITS & & \\
+		\hline
+		2. Attendee Name & Attendee Institution & & \\
+		\hline
+		\multicolumn{4}{|l|}{\textbf{Minuted by: Person Name}} \\
+		\hline
+		\multicolumn{3}{|l|}{\textbf{Discussion}}& \textbf{Action By} \\
+		\hline
+		\multicolumn{3}{|l|}{1st Content of Discussion} & Person In Charge \\
+		\hline
+		\multicolumn{3}{|l|}{2nd Content of Discussion} & Person In Charge \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\end{document}
