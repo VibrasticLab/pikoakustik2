@@ -102,11 +102,6 @@
 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-	\newpage
-	\tableofcontents
-
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
     \mainmatter
     \newpage
 
@@ -203,7 +198,7 @@
 
     \section{Komunikasi Serial}
 
-    Berikut adalah perangkat lunak yang perlu disiapkan untuk pengujian ini
+    Berikut adalah perangkat lunak komunikasi serial ke Konsol yang perlu disiapkan untuk pengujian ini
     (panduan ini menggunakan Windows-7 32-bit sebagai contoh):
 
     \begin{enumerate}
@@ -213,7 +208,7 @@
 
     	\begin{itemize}
     		\item File installer (sesuaikan dengan bit OS).
-    		Dapat didownload di \url{http://intip.in/stm32tools} di folder \textbf{USB-CDC\_Driver}.
+    		Dapat didownload di \href{https://drive.google.com/drive/folders/19gXVrxR68SFHQUGGGgKb0Da03oV7Rh41?usp=share_link}{USB-CDC\_Driver}.
     		\begin{figure}[!ht]
     			\centering
     			\includegraphics[width=200pt]{images/software/driver}
@@ -269,7 +264,7 @@
     	Disini dicontohkan menggunakan \textit{Hercules}.
 
     	\begin{itemize}
-    		\item Program terminal Hercules. Dapat didownload di \url{http://intip.in/stm32tools}
+    		\item Program terminal Hercules. Dapat didownload di \href{https://drive.google.com/drive/folders/1fgNPnGeSm20TrFfwmeCa4B24WIN_t_o_?usp=share_link}{Terminal}.
     		\begin{figure}[!ht]
     			\centering
     			\includegraphics[width=200pt]{images/software/hercules}
@@ -342,7 +337,56 @@ info
 
     \section{Audio Analyzer}
 
-    \section{Kalibrasi}
+    Untuk perangkat lunak Audio Analyzer, digunakan program \textit{Real-Time Analyzer}
+    yang merupakan bagian dari paket software DSFF3 buatan Yoshimasha.
+    Jika membutuhkan versi trial dapat didownload di \href{https://drive.google.com/drive/folders/1Z4cc4C_vb7BwU_MHDFyJTTVzQO7n7AHP?usp=share_link}{Audio\_Analyzer}.
+
+    \begin{figure}[!ht]
+    	\centering
+    	\includegraphics[width=300pt]{images/software/dssf3}
+    	\caption{DSSF3}
+    \end{figure}
+
+    \subsection{Kalibrasi EARS}
+
+    Proses kalibrasi dilakukan pada software Yoshimasa dengan pengatuan level 76 dBA/80dB (sesuai dengan kondisi perekaman suara di dalam ruang diffuse).
+    Rekaman ruang diffuse dapat didownload di \href{https://drive.google.com/drive/folders/1FfFU9WPwoisH7j-oDqF8G0ruZmY0lxM_?usp=share_link}{EARS\_Calibration}\\
+
+    \textbf{Catatan:} Tersedia pula rekaman untuk Tone 125Hz, namun direkomendasikan menggunakan rekaman derau untuk mencakup semua frekuensi.\\
+
+    Berikut Langkah Kalibrasi:
+    \begin{enumerate}
+    	\item Jalankan program Realtime Analyzer, kemudian buka tab fungsi \textbf{FFT Analyzer} dan \textbf{Recorder}.
+    	\begin{figure}[!ht]
+    		\centering
+    		\includegraphics[width=0.6\textwidth]{images/kalibrasi/fft_analyzer}
+    		\caption{FFT Analyzer}
+    	\end{figure}
+
+    	\newpage
+    	\item Pada Jendela Recorder, klik \textbf{Load} untuk memasukkan rekaman
+    	\begin{figure}[!ht]
+    		\centering
+    		\includegraphics[width=0.65\textwidth]{images/kalibrasi/load_file}
+    		\caption{Load File}
+    	\end{figure}
+
+    	\begin{figure}[!ht]
+    		\centering
+    		\includegraphics[width=0.65\textwidth]{images/kalibrasi/loaded}
+    		\caption{Rekaman terload}
+    	\end{figure}
+
+    	\newpage
+    	\item Pada Jendela FFT Analyzer, Klik \textbf{Calibration}.
+    	Ikuti bagaimana panah dalam gambar di bawah dan atur nilai penyesuaian di 76dBA/80dB:
+
+    	\begin{figure}[!ht]
+    		\centering
+    		\includegraphics[width=\textwidth]{images/kalibrasi/adjustment}
+    		\caption{Adjustment}
+    	\end{figure}
+    \end{enumerate}
 
     \chapter{Pengujian}
 
