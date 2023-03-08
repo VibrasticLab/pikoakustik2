@@ -335,6 +335,42 @@ info
 
     \end{enumerate}
 
+	\newpage
+	\subsection{Contoh Perintah Serial}
+
+	Berikut beberapa contoh perintah serial yang dapat diakses melalui komunikasi serial Konsol:
+
+	\begin{table}[!ht]
+		\centering
+		\begin{tabular}{|l|l|l|l|l|}
+			\hline
+			\textbf{No} & \textbf{Perintah} & \textbf{Fungsi} & \textbf{Contoh Perintah} & \textbf{Contoh Respon} \\
+			\hline
+			1 & \textit{coba} & Menguji Respon Serial & \textit{test} & \textit{Serial Console at 9600 \& buffer size 8 bit} \\
+			\hline
+			2 & \textit{help} & Menampilkan Perintah yang tersedia & \textit{help} & \textit{coba mmc out tes led sig tone virt ...} \\
+			\hline
+			3 & \textit{info} & Menampilkan Info Platform Chip & \textit{info} & \textit{Kernel: 6.1.4Compiler: GCC 12.1.0 ...} \\
+			\hline
+			4 & \textit{mmc} & Mengelola isi SDCard & \textit{mmc} & \textit{usage: mmc [test|ls|lsnum| ...} \\
+			& & & \textit{mmc ls} & \textit{HT1.TXT HT2.TXT ...} \\
+			& & & \textit{mmc cat 1} & \textit{\{"audiogram":\{ ...} \\
+			\hline
+			5 & \textit{out} & Menghasilkan nada murni &  \textit{out} & \textit{usage: out <0/1> <freq> <ampl> ...} \\
+			& & & \textit{out 500 11} & \textit{Out: Freq:  500 Ampl:11} \\
+			& & & \textit{out 1 250 8} & \textit{Out: Freq:  250 Ampl:8} \\
+			\hline
+		\end{tabular}
+	\end{table}
+
+	\textbf{Keterangan}: Beberapa keterangan perintah \textit{out}:
+	\begin{itemize}
+		\item Pilihan Channel adalah 0 atau kosong untuk kiri, dan 1 untuk kanan.
+		\item Pilihan Frekuensi Nada Murni: 250Hz, 500Hz, 1000Hz, 2000Hz, 4000Hz, dan 8000Hz.
+		\item Pilihan Skala Loudness Nada Murni: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, dan 11.
+	\end{itemize}
+
+	\newpage
     \section{Audio Analyzer}
 
     Untuk perangkat lunak Audio Analyzer, digunakan program \textit{Real-Time Analyzer}
@@ -387,6 +423,15 @@ info
     		\caption{Adjustment}
     	\end{figure}
     \end{enumerate}
+
+	\newpage
+	Antar-muka Real-Time Analyzer yang digunakan adalah \textit{FFT-Analyzer} pada tab \textit{Octave band}.
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=\textwidth]{images/kalibrasi/fft}
+		\caption{Octave band pada FFT analyzer}
+	\end{figure}
 
     \chapter{Pengujian}
 
