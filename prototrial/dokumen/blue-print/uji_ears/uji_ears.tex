@@ -143,8 +143,20 @@
 			\caption{MiniDSP EARS}
 		\end{figure}
 
+		Spesifikasi umum EARS:
+
+		\begin{figure}[!ht]
+			\centering
+			\includegraphics[width=\textwidth]{images/unit/earspec}
+			\caption{Spesifikasi EARS}
+		\end{figure}
+
+		Berikut laman resmi dari perangkat: \href{https://www.minidsp.com/products/acoustic-measurement/ears-headphone-jig}{MiniDSP EARS}.
+
+
      \end{enumerate}
 
+	\newpage
     \section{Pemasangan}
 
 	Berikut langkah pemasangan unit perangkat di atas:
@@ -154,7 +166,6 @@
 		Pastikan kiri dan kanan tidak terbalik.
 		Pastikan Headphone menutup lubang telinga.
 
-		\newpage
 		\begin{figure}[!ht]
 			\centering
 			\begin{subfigure}[t]{0.35\textwidth}
@@ -361,6 +372,8 @@ info
 			& & & \textit{out 1 250 8} & \textit{Out: Freq:  250 Ampl:8} \\
 			\hline
 		\end{tabular}
+
+		\caption{Contoh perintah serial yang tersedia pada konsol Audiometri.}
 	\end{table}
 
 	\textbf{Keterangan}: Beberapa keterangan perintah \textit{out}:
@@ -434,12 +447,97 @@ info
 		\caption{Octave band pada FFT analyzer}
 	\end{figure}
 
+	Pada tampilan Octave-Band, klik satu bar frekuensi untuk mengetahui nilai SPL (dB)
+	yang terisolasi dengan frekuensi lain.
+
     \chapter{Pengujian}
+
+    Berikut panduan umum pengujian unit prototype.
 
     \section{Charging}
 
-    \section{Test Tone-Generation}
+    Tersedia fitur battery \textit{charging} pada unit prototype.
+    Untuk \textit{charging}, cukup dibutuhkan charger android 5volt dan kabel microUSB ke USB.
 
+	\begin{figure}[!ht]
+		\centering
+		\begin{subfigure}[t]{0.35\textwidth}
+			\includegraphics[width=\textwidth]{images/pasang/battchg}
+			\caption{Persen Battery}
+		\end{subfigure}
+		\begin{subfigure}[t]{0.35\textwidth}
+			\includegraphics[width=\textwidth]{images/pasang/sambung_charger}
+			\caption{Port untuk charging}
+		\end{subfigure}
+
+		\caption{Pengelolaan Battery}
+	\end{figure}
+
+    Berikut prosedur charging:
+    \begin{enumerate}
+    	\item Pastikan unit dalam kondisi mati
+    	\item Hubungkan USB dengan charger 5 volt yang telah terhubung sumber AC
+    	\item LED hijau dekat port charger akan menyala sebagai tanda proses charging berjalan
+    	\item Tunggu LED hijau padam sebagai tanda charging selesai
+    	\item Nyalakan unit setelah charging selesai dan kabel usb charger dilepas.
+    \end{enumerate}
+
+	Direkomendasikan melakukan sesi Audiometri pada kondisi battery pada 80\% atau lebih agar hasil terstandar.
+
+	\newpage
     \section{Rekomendasi Pengujian}
+
+    Salah satu pengujian yang dapat direkomendasikan adalah pengujian aspek Audiometri berupa pengujian nada murni.
+    Pengujian yang dimaksudkan untuk mendapatkan nilai aktual output audio nada murni dalam satuan dBA.\\
+
+    Output nada murni memiliki karakteristik:
+    \begin{itemize}
+    	\item frekuensi adalah nilai frekuensi (dalam Hz) yaitu 250, 500, 1000, 2000, 4000, dan 8000.
+    	\item amplitudo adalah skala amplitudo antara 1 sampai 11.
+    \end{itemize}
+
+	Berikut contoh perintah untuk menghasilkan nada murni (sebagaimana tabel 1.1):
+
+	\begin{itemize}
+		\item Nada murni pada frekuensi 500Hz dan skala 11.
+    	\begin{minted}[frame=lines,framesep=2mm,fontsize=\small]{text}
+out 500 11
+		\end{minted}
+
+		\item Nada murni pada frekuensi 500Hz dan skala 1.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\small]{text}
+out 500 1
+		\end{minted}
+
+		\item Nada murni pada frekuensi 500Hz dan skala 11 di channel/sisi kanan.
+		\begin{minted}[frame=lines,framesep=2mm,fontsize=\small]{text}
+out 1 500 11
+		\end{minted}
+	\end{itemize}
+
+	Secara menyeluruh, uji nada murni akan mengisi tabel dBA antara frekuensi dan skala seperti tabel berikut:
+
+	\begin{table}[!ht]
+		\centering
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+			\hline
+			Freq/Scale & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1\\ [0.5ex]
+			\hline\hline
+			250Hz & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA\\
+			\hline
+			500Hz & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA\\
+			\hline
+			1000Hz & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA\\
+			\hline
+			2000Hz & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA\\
+			\hline
+			4000Hz & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA\\
+			\hline
+			8000Hz & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA\\
+			\hline
+		\end{tabular}
+		\caption{Contoh tabel hasil uji nada murni}
+	\end{table}
+
 \end{document}
 

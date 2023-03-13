@@ -14,5 +14,4 @@ clean:
 	rm -f *.out *.bbl *.blg *.lof *.lot *.nav *.vrb
 	rm -f *.log *.toc *.synctex.gz  *.pyg *.snm
 	rm -f *.aux *Notes.bib
-	rm -f *.pdf
 	rm -rf ./_minted*
