@@ -1,0 +1,15 @@
+_minted*
+*.aux
+*.log
+*.nav
+*.out
+*.pdf
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.bbl
+*.blg
+*.lof
+*.lot
+images/original/

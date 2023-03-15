@@ -1,0 +1,273 @@
+\documentclass[12pt]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tocbibind}
+\usepackage{mathptmx}
+\usepackage{geometry}
+\usepackage{mathtools}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{stackengine}
+\usepackage[os=win]{menukeys}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage[yyyymmdd,hhmmss]{datetime}
+\usepackage{etoolbox}
+\usepackage[inline]{enumitem}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage[os=win]{menukeys}
+\usepackage{minted}
+
+\newcommand{\WindowsLogo}{\raisebox{-0.1em}{\includegraphics[height=0.8em]{images/logo/Windows_3_logo_simplified}}}
+%\newcommand{\PowerLogo}{\raisebox{-0.1em}{\includegraphics[height=0.8em]{images/logo/power}}}
+\newcommand{\WinKey}{\keys{\WindowsLogo}}
+\newcommand{\PowerKey}{\keys{\PowerLogo}}
+
+%%%%% Mengganti label "Contents" ke "Daftar Isi" %%%%%
+\addto\captionsenglish{\renewcommand{\contentsname}{Daftar Isi}}
+
+%%%%% Mengganti label "Chapter" ke "Bab" %%%%%
+\addto\captionsenglish{\renewcommand{\chaptername}{Bab}}
+
+%%%%% Mengganti label "Figure" ke "Gambar" %%%%%
+\addto\captionsenglish{\renewcommand{\figurename}{Gambar}}
+
+%%%%% Mengganti label "List of Figures" ke "Daftar Gambar" %%%%%
+\addto\captionsenglish{\renewcommand{\listfigurename}{Daftar Gambar}}
+
+%%%%% Mengganti label "Table" ke "Tabel" %%%%%
+\addto\captionsenglish{\renewcommand{\tablename}{Tabel}}
+
+%%%%% Mengganti label "List of Tables" ke "Daftar Table" %%%%%
+\addto\captionsenglish{\renewcommand{\listtablename}{Daftar Tabel}}
+
+\hypersetup{
+	colorlinks=true, %set true if you want colored links
+	linktoc=all,     %set to all if you want both sections and subsections linked
+	linkcolor=blue,  %choose some color if you want links to stand out
+	urlcolor=blue,   %url color
+}
+
+\geometry{
+	a4paper,
+	left=10mm,
+	right=10mm,
+	top=15mm,
+	bottom=15mm,
+}
+
+\date{}
+
+\hypersetup{citecolor=black}
+
+\definecolor{LightGray}{gray}{0.95}
+
+%\pagecolor[rgb]{0.1,0.1,0.1}
+%\color[rgb]{1,1,1}
+
+\lstset
+{
+	language=bash,
+	breaklines=true,
+	basicstyle=\tt\normalsize,
+	frame = single
+}
+
+\begin{document}
+	\frontmatter
+	\begin{titlepage}
+		\centering
+		{\LARGE \bf Dokumentasi Kegiatan Komparasi Perangkat MiniDSP EARS dan Sound Level Meter}
+		\vfill
+		{\Large Achmadi ST MT}
+		\vfill
+		Update: {\today}
+		\vfill
+		\includegraphics[width=250pt]{images/logo/logoviblab}
+		\vfill
+		\vfill
+		\vfill
+	\end{titlepage}
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\newpage
+	\tableofcontents
+	\listoffigures
+	\listoftables
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\mainmatter
+	\newpage
+
+	\chapter{Dokumentasi Kegiatan}
+
+	Dokumen berikut menjelaskan kegiatan komparasi antara MiniDSP EARS dan Sound Level Meter.
+
+	\section{Diagram}
+
+	Berikut Diagram setup komparasi:
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=0.5\textwidth]{images/diagram/tesearslm}
+		\caption{Diagram Kegiatan}
+	\end{figure}
+
+	\newpage
+	\section{Daftar Perangkat}
+
+	Perangkat yang digunakan dalam kegiatan ini meliputi:
+
+	\begin{enumerate}
+		\item Sound Level Meter Rion NL-62
+		\begin{figure}[!ht]
+			\centering
+			\includegraphics[width=0.5\textwidth]{images/perangkat/rion_nl62}
+			\caption{Sound Level Meter}
+		\end{figure}
+
+		Website Resmi: \href{https://rion-sv.com/products/10005/NL620009}{Rion NL-62}
+
+		\item Speaker BOSE Revolve Soundlink
+		\begin{figure}[!ht]
+			\centering
+			\includegraphics[width=0.5\textwidth,angle=-90]{images/perangkat/bose}
+			\caption{Speaker 360}
+		\end{figure}
+
+		Website Resmi: \href{https://www.bose.com/en_us/products/speakers/portable_speakers/soundlink-revolve-ii.html}{Bose Revolve Soundlink}
+
+		\newpage
+		\item MiniDSP EARS
+		\begin{figure}[!ht]
+			\centering
+			\includegraphics[width=200pt,angle=-90]{images/perangkat/ears}
+			\caption{MiniDSP EARS}
+		\end{figure}
+
+		Website Resmi: \href{https://www.minidsp.com/products/acoustic-measurement/ears-headphone-jig}{MiniDSP EARS}.
+	\end{enumerate}
+
+	Berikut setup keseluruhan dari kegiatan:
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=0.7\textwidth]{images/perangkat/setup}
+		\caption{Setup Keseluruhan}
+	\end{figure}
+
+	\section{Audio Analyzer}
+
+	Untuk perangkat lunak Audio Analyzer, digunakan program \textit{Real-Time Analyzer}
+	yang merupakan bagian dari paket software DSFF3 buatan Yoshimasha.
+	Jika membutuhkan versi trial dapat didownload di \href{https://drive.google.com/drive/folders/1Z4cc4C_vb7BwU_MHDFyJTTVzQO7n7AHP?usp=share_link}{Audio\_Analyzer}.
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=300pt]{images/dssf3/dssf3}
+		\caption{DSSF3}
+	\end{figure}
+
+	\subsection{Kalibrasi EARS}
+
+	Proses kalibrasi dilakukan pada software Yoshimasa dengan pengatuan level 76 dBA/80dB (sesuai dengan kondisi perekaman suara di dalam ruang diffuse).
+	Rekaman ruang diffuse dapat didownload di \href{https://drive.google.com/drive/folders/1FfFU9WPwoisH7j-oDqF8G0ruZmY0lxM_?usp=share_link}{EARS\_Calibration}\\
+
+	\textbf{Catatan:} Tersedia pula rekaman untuk Tone 125Hz, namun direkomendasikan menggunakan rekaman derau untuk mencakup semua frekuensi.\\
+
+	Berikut Langkah Kalibrasi:
+	\begin{enumerate}
+		\item Sambung kabel USB EARS ke komputer.
+		\begin{figure}[!ht]
+			\centering
+			\includegraphics[width=0.5\textwidth]{images/dssf3/laptop_ears}
+			\caption{Kabel USB}
+		\end{figure}
+
+		\newpage
+		\item Jalankan program \textbf{Realtime Analyzer}, kemudian buka tab fungsi \textbf{FFT Analyzer} dan \textbf{Recorder}.
+		\begin{figure}[!ht]
+			\centering
+			\includegraphics[width=0.8\textwidth]{images/dssf3/fft_analyzer}
+			\caption{FFT Analyzer}
+		\end{figure}
+
+		\item Pada Jendela Recorder, klik \textbf{Load} untuk memasukkan rekaman
+		\begin{figure}[!ht]
+			\centering
+			\includegraphics[width=0.8\textwidth]{images/dssf3/load_file}
+			\caption{Load File}
+		\end{figure}
+
+		\newpage
+		\item Selanjutnya pada Jendela FFT Analyzer, Klik \textbf{Calibration}.
+		Ikuti bagaimana panah dalam gambar di bawah dan atur nilai penyesuaian di 76dBA/80dB:
+
+		\begin{figure}[!ht]
+			\centering
+			\includegraphics[width=\textwidth]{images/dssf3/adjustment}
+			\caption{Adjustment}
+		\end{figure}
+	\end{enumerate}
+
+	\newpage
+	Antar-muka Real-Time Analyzer yang digunakan adalah \textit{FFT-Analyzer} pada tab \textit{Octave band}.
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=\textwidth]{images/dssf3/fft}
+		\caption{Octave band pada FFT analyzer}
+	\end{figure}
+
+	Pada tampilan Octave-Band, klik satu bar frekuensi untuk mengetahui nilai SPL (dB)
+	yang terisolasi dengan frekuensi lain.
+
+	\subsection{Noise Generation}
+
+	Selain digunakan untuk mendapatkan nilai input, software DSSF3 juga dapat menghasilkan output Noise dan Tone-Generation.
+
+	Berikut contoh langkahnya:
+
+	\begin{enumerate}
+		\item Sambungkan komputer/laptop ke Speaker (jika diperlukan).
+
+		\item Jalankan program \textbf{Realtime Analyzer}, kemudian buka tab fungsi \textbf{Signal Generator}.
+
+		\newpage
+		\begin{figure}[!ht]
+			\centering
+			\includegraphics[width=0.7\textwidth]{images/dssf3/signalgen}
+			\caption{Signal Generator}
+		\end{figure}
+
+		\item Dapat dipilih tab \textbf{Noise}, kemudian \textbf{Start}.
+	\end{enumerate}
+
+	\section{Hasil Komparasi}
+
+	Selanjutnya dilakukan contoh uji komparasi untuk satu nilai white-noise,
+	didapatkan SLM menunjukkan nilai 93.8 dBA,
+	sedangkan dari EARS yang ditampilkan melalui software FFT Analyzer menunjukkan 94.66 dBA pada channel kiri (terdekat ke speaker).
+
+	\begin{figure}[!ht]
+		\centering
+		\begin{subfigure}[t]{0.4\textwidth}
+			\includegraphics[width=\textwidth]{images/hasil/spl_rta}
+			\caption{Nilai EARS}
+		\end{subfigure}
+		\begin{subfigure}[t]{0.4\textwidth}
+			\includegraphics[width=\textwidth]{images/hasil/spl_slm}
+			\caption{Nilai SLM}
+		\end{subfigure}
+
+		\caption{Pembandingan EARS dan SLM}
+	\end{figure}
+
+	Dokumentasi berupa video singkat dapat dilihat di \href{https://drive.google.com/drive/folders/1SL2Z-jUqwHkQO1tEB37UERUyHxoY6Bd-?usp=share_link}{Google-Drive}
+\end{document}
