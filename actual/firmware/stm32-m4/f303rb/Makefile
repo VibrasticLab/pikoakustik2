@@ -4,10 +4,8 @@
 #
 
 # Compiler options here.
-# nano/nosys specs: for 'sbrk' linker
 ifeq ($(USE_OPT),)
-  USE_OPT = -O2 -fomit-frame-pointer -falign-functions=16 \
-            -specs=nano.specs -specs=nosys.specs
+  USE_OPT = -O2 -fomit-frame-pointer -falign-functions=16
 endif
 
 # C specific options here (added to USE_OPT).
@@ -124,7 +122,7 @@ LDSCRIPT= ./cfg/STM32F303xB.ld
 
 # C sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
-CSRC = $(ALLCSRC) $(PIKOSRC)
+CSRC = $(ALLCSRC) $(PIKOSRC) $(CHIBIOS)/os/various/syscalls.c
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.

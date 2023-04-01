@@ -20,9 +20,9 @@
     + ESP32 Flash
     + ESP32 Reset
 - Charging process status/indicator/detection
-- ESP32 IO-12 must be low during boot
-- ESP32 IO-05 must be low during boot
-- ESP32 IO-02 should be pulled to GND when boot (no need for LED)
+- Change STATUS_IO_0 to MISC
+- Remove STATUS_IO_1 and STATUS_IO_2 lines
+- ESP32 IO-12 must be low during boot via 0 ohm
 - ESP32 IO-15 can be low to prevent boot message (pake dipswitch?)
 - Gating dan Status terkait charge Battery (?)
 	+ Gating jika battery kurang dari 50%

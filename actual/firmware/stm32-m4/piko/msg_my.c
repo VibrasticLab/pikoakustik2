@@ -34,11 +34,10 @@ void my_iosttSTMrun(uint8_t iostatus){
 }
 
 void my_iosttInit(void){
-  palSetPadMode(GPIOB, STATUS_IO_0, PAL_MODE_OUTPUT_PUSHPULL);
-  palSetPadMode(GPIOB, STATUS_IO_1, PAL_MODE_OUTPUT_PUSHPULL);
+  palSetPadMode(GPIOB, STATUS_IO_0, PAL_MODE_RESET); // (ESP-IO4 - should be floating)
+  palSetPadMode(GPIOB, STATUS_IO_1, PAL_MODE_RESET); // (ESP-IO5 - should be floating)
   palSetPadMode(GPIOB, STATUS_IO_2, PAL_MODE_OUTPUT_PUSHPULL);
   palClearPad(GPIOB, STATUS_IO_0);
-  palSetPad(GPIOB, STATUS_IO_1); // (ESP-IO5 - should always be high)
   palClearPad(GPIOB, STATUS_IO_2); // (ESP-IO12 - should always be low)
 
   palSetPadMode(GPIOC, STATUS_RDY_PIN, PAL_MODE_OUTPUT_PUSHPULL);
