@@ -37,9 +37,9 @@ static void page_task_loop(void *arg){
 #endif
             break;
 
-        case PAGE_PLOT:
-#if MY_PAGE_PLOT
-             my_pagePlot_demo();
+        case PAGE_PTA:
+#if MY_PAGE_PTA
+             my_pagePta_demo();
 #endif
             break;
 

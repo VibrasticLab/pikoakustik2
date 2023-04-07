@@ -22,16 +22,16 @@
 #define PAGE_FILE   1
 
 /**
- * @brief Page Plot index number
+ * @brief Page PTA index number
  *
  */
-#define PAGE_PLOT   2
+#define PAGE_PTA    2
 
 /**
  * @brief Maximum page index number
  *
  */
-#define PAGE_MAX    PAGE_PLOT
+#define PAGE_MAX    PAGE_PTA
 
 /**
  * @brief Page sending index number

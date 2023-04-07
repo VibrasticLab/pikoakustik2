@@ -51,6 +51,7 @@ static void btnpageTask(void *pvParameter){
 		if(btnlock_ActA==0){
 			btnlock_ActA=1;
 
+			// activate wifi access point
 			if(my_wifi_type==WIFI_TYPE_OFF) my_wifiInitAP();
 		}
 	}
@@ -63,11 +64,13 @@ static void btnpageTask(void *pvParameter){
 		if(btnlock_ActB==0){
 			btnlock_ActB=1;
 
+			// Serial to STM32 Test
             gpio_reset_pin(MY_LED_GPIO);
             gpio_set_direction(MY_LED_GPIO, GPIO_MODE_OUTPUT);
             gpio_set_level(MY_LED_GPIO, 0);
 
-            printf("tes\n");
+            printf("led 0\r\n");
+			// end of test
 		}
 	}
     else if(gpio_get_level(BUTTON_ACT_Y)==1){

@@ -79,6 +79,7 @@
 #include "my_pageloop.h"
 #include "my_pagefile.h"
 #include "my_pageplot.h"
+#include "my_pagepta.h"
 
 #include "msg_ht.h"
 
