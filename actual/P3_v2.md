@@ -7,7 +7,6 @@
 - Cari pengganti Slot MMC yang serupa dan kompatibel
 - STM32 USB-CDC ditambahkan ESD Protection
 - STM32 RX (PA10) tidak boleh ada resistor pull-up
-- STM32-ESP32 RX-TX pakai resistor 0 ohm
 - STM32 MMC NSS tidak perlu ada resistor pull-up
 - STM32 BOOT-0 dan BOOT-1 pake resistor pull-down
 - STM32 tidak pakai (DNP) debouncing capacitor di tombol-tombol

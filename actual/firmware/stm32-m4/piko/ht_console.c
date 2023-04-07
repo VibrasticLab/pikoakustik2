@@ -660,6 +660,13 @@ void ht_commUSB_Msg(char *string){
 }
 
 void ht_commUART_Init(void){
+
+#ifdef CH_20
+    // reconfigure overlap UART1 pins to reset
+    palSetPadMode(GPIOC, 4,PAL_MODE_RESET); //TX
+    palSetPadMode(GPIOC, 5,PAL_MODE_RESET); //RX
+#endif
+
     palSetPadMode(GPIOA, 9,PAL_MODE_ALTERNATE(7)); //TX
     palSetPadMode(GPIOA,10,PAL_MODE_ALTERNATE(7)); //RX
     sdStart(&SD1,NULL);
