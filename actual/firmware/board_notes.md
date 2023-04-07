@@ -7,6 +7,7 @@
 - Cari pengganti Slot MMC yang serupa dan kompatibel
 - STM32 USB-CDC ditambahkan ESD Protection
 - STM32 RX (PA10) tidak boleh ada resistor pull-up
+- STM32-ESP32 RX-TX pakai resistor 0 ohm
 - STM32 MMC NSS tidak perlu ada resistor pull-up
 - STM32 BOOT-0 dan BOOT-1 pake resistor pull-down
 - STM32 tidak pakai (DNP) debouncing capacitor di tombol-tombol
@@ -22,7 +23,7 @@
 - Charging process status/indicator/detection
 - Change STATUS_IO_0 to MISC
 - Remove STATUS_IO_1 and STATUS_IO_2 lines
-- ESP32 IO-12 must be low during boot via 0 ohm
+- ESP32 IO-12 should be low during boot via 0 ohm
 - ESP32 IO-15 can be low to prevent boot message (pake dipswitch?)
 - Gating dan Status terkait charge Battery (?)
 	+ Gating jika battery kurang dari 50%
