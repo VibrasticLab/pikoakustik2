@@ -30,7 +30,7 @@
 #define MY_USE_OLCD             TRUE    /* Whether use OLED LCD subsystem or not */
  #define MY_PAGE_HOME           TRUE    /* Whether use Home Page Display or not */
  #define MY_PAGE_LOOP           TRUE    /* Whether use Loop Page Display or not */
- #define MY_PAGE_FILE           TRUE    /* Whether use File Page Display or not */
+ #define MY_PAGE_FILE           FALSE   /* Whether use File Page Display or not */
  #define MY_PAGE_PTA            TRUE    /* Whether use Plot Page Display or not */
 
 #define MY_USE_ADC              TRUE    /* Whether use ADC subsystem or not */
