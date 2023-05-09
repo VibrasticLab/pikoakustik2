@@ -1,4 +1,5 @@
 build/
+.qtc_clangd
 .cache/
 .dep/
 compile_commands.json

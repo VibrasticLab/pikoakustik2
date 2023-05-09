@@ -1,0 +1,8 @@
+/opt/chibios20/ext/fatfs/source
+/opt/chibios20/os/rt/include
+/opt/chibios20/os/hal/include
+/opt/chibios20/os/various/shell
+/opt/chibios20/os/hal/lib/streams
+f303rb/board
+f303rb/cfg
+piko

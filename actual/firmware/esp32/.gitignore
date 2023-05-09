@@ -1,10 +1,13 @@
-/build/
-/compile_commands.json
-/.cache/
-sdkconfig
+build/
+.qtc_clangd
+.cache/
+.dep/
+compile_commands.json
 *.cxxflags
 *.cflags
 *.config
 *.autosave
 *.creator.user
 *_doc/
+*.pdf
+sdkconfig

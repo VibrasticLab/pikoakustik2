@@ -14,8 +14,6 @@
 #include "ch.h"
 #include "hal.h"
 
-#include "hal_pal.h"
-#include "hal_pal_lld.h"
 #include "shell.h"
 #include "chprintf.h"
 
