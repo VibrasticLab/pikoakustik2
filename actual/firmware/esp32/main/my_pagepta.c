@@ -41,8 +41,6 @@ static void page_info_pta(const ssd1306_t *dev, uint8_t *fb, uint8_t *lPta, uint
                         0, 40, strRPta,
                         OLED_COLOR_WHITE,
                         OLED_COLOR_BLACK);
-
-
 }
 
 void my_pagePta(void){
