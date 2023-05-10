@@ -28,7 +28,8 @@
 #include "ht_console.h"
 #include "msg_my.h"
 
-extern uint8_t lastnum;
+extern uint16_t lastnum;
+extern uint16_t lastrec;
 extern FRESULT mmc_check_status;
 
 extern uint8_t mode_status;
@@ -113,7 +114,7 @@ static void cmd_led(BaseSequentialStream *chp, int argc, char *argv[]){
 
 static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
   if(argc < 1){
-     chprintf(chp,"usage: mmc [test|ls|lsnum|lsjson|cat|stt|dump] <file-number>\r\n");
+     chprintf(chp,"usage: mmc [test|ls|lsnum|lsjson|lslast|cat|stt|dump] <file-number>\r\n");
      return;
   }
 
@@ -131,6 +132,10 @@ static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
   }
   else if(strcmp(argv[0], "lsjson")==0){
     ht_mmc_lsFiles(LS_JSONNUM);
+  }
+  else if(strcmp(argv[0], "lslast")==0){
+    ht_mmc_getLastNum();
+    chprintf(chp,"Last File Number is %i\r\n",lastrec);
   }
   else if(strcmp(argv[0], "cat")==0){
     if(argc == 2){
@@ -531,6 +536,16 @@ static void cmd_bufr(BaseSequentialStream *chp, int argc, char *argv[]) {
     ht_mmcMetri_bufferShow();
 }
 
+static void cmd_pta(BaseSequentialStream *chp, int argc, char *argv[]){
+    (void) argv;
+    if (argc != 0){
+        chprintf(chp, "Usage: pta\r\n");
+    }
+
+    ht_mmc_getLastNum();
+    chprintf(chp,"Last File Number is %i\r\n",lastrec);
+}
+
 
 /*******************************************/
 
@@ -590,6 +605,7 @@ static const ShellCommand commands[] = {
   {"virt", cmd_virt},
   {"triv", cmd_triv},
   {"bufr", cmd_bufr},
+  {"pta", cmd_pta},
 #if USER_ESP32
   {"esp", cmd_esp},
   {"aud", cmd_aud},

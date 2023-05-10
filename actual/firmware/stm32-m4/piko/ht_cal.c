@@ -29,7 +29,7 @@ uint8_t cal_RETSPL2_JBL[6][12]={
 
 void ht_cal_ShowCalib(void){
 
-}
+};
 
 /**  @} */
 

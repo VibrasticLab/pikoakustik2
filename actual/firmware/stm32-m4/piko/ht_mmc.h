@@ -161,6 +161,11 @@ void ht_mmcOnceMetri_hearingRecord(uint8_t *resArray, uint8_t lastIdx, uint8_t l
 void ht_mmcOnceMetri_jsonEnd(void);
 
 
+/**
+ * @brief Get Last Number of of record files
+ */
+void ht_mmc_getLastNum(void);
+
 #endif // HT_MMC_H
 
 /** @} */

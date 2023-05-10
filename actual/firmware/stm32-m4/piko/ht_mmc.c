@@ -39,6 +39,11 @@ MMCDriver MMCD1;
 uint16_t lastnum;
 
 /**
+ * @brief Last Record of recorded files (as is)
+ */
+uint16_t lastrec;
+
+/**
  * @brief Gobal MMC Initialization Status
  */
 FRESULT mmc_check_status = FR_OK;
@@ -507,6 +512,36 @@ void ht_mmc_catFiles(uint16_t fnum, uint8_t lineType){
         f_mount(0, "", 0);
     }
     free(Fil);
+
+    ht_mmc_Delay();
+}
+
+void ht_mmc_getLastNum(void){
+
+#if USER_METRI_USELOG
+    char strbuff[COMM_BUFF_SIZE];
+#endif
+
+    FATFS FatFs;
+    FRESULT err;
+
+    char buff[MMC_STR_BUFF_SIZE];
+
+    if(mmc_check()!=FR_OK){return;}
+
+    if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
+        err = f_mount(&FatFs,"",0);
+        if(err==FR_OK){
+            strcpy(buff,"/");
+            err = scanFiles(buff, &lastrec, LS_NOSHOW);
+        }
+        else{
+            ht_comm_Buff(strbuff,sizeof(strbuff),"Open Error:%d\r\n",err);
+            ht_commUSB_Msg(strbuff);
+        }
+
+        f_mount(0, "", 0);
+    }
 
     ht_mmc_Delay();
 }
