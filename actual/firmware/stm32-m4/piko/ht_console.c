@@ -544,6 +544,12 @@ static void cmd_pta(BaseSequentialStream *chp, int argc, char *argv[]){
 
     ht_mmc_getLastNum();
     chprintf(chp,"Last File Number is %i\r\n",lastrec);
+
+    char strjson[METRI_BUFFER_SIZE];
+    ht_mmc_catFilesBuffer(lastrec,strjson);
+
+    chprintf(chp, "JSON: \r\n");
+    chprintf(chp, "%s",strjson);
 }
 
 

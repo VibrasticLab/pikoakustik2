@@ -95,6 +95,14 @@ void ht_mmc_lsFiles(uint8_t showList);
  */
 void ht_mmc_catFiles(uint16_t fnum, uint8_t lineType);
 
+
+/**
+ * @brief Read a file on a directory and load to a JSON string
+ * @param[in] uint16_t Last number of Save file
+ * @param[in] char* JSON string
+ */
+void ht_mmc_catFilesBuffer(uint16_t fnum, char *jsonbuff);
+
 /*******************************************/
 
 /**
@@ -111,7 +119,7 @@ void ht_mmcMetri_chkFile(void);
 void ht_mmcMetri_bufferSave(void);
 
 /**
- * @brief Order File for Buffer into MMC
+ * @brief Ordering File for Buffer into MMC
  */
 void ht_mmcMetri_bufferOrder(void);
 

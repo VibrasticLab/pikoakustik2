@@ -516,6 +516,49 @@ void ht_mmc_catFiles(uint16_t fnum, uint8_t lineType){
     ht_mmc_Delay();
 }
 
+void ht_mmc_catFilesBuffer(uint16_t fnum, char *jsonbuff){
+    char buffer[MMC_STR_BUFF_SIZE];
+    char fname[MMC_FNAME_SIZE];
+    FATFS FatFs;
+    FIL *Fil;
+    FRESULT err;
+
+    ht_mmc_Buff(jsonbuff,sizeof(jsonbuff),"");
+
+    Fil = (FIL*)malloc(sizeof(FIL));
+
+    if(mmc_check()!=FR_OK){return;}
+
+    ht_mmc_Buff(fname,sizeof(fname),"/HT_%i.TXT",fnum);
+    if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
+        f_mount(&FatFs, "", 0);
+
+        err=f_open(Fil, fname, FA_OPEN_EXISTING |FA_READ);
+        if(err==FR_OK){
+            char line[MMC_STR_BUFF_SIZE];
+            TCHAR *eof;
+            while(1){
+                strcpy(line,"");
+                eof=f_readline(line,sizeof(line),Fil);
+                if(eof[0]==0)break;
+
+                // remove CR+LF so string is content only
+                line[strcspn(line, "\r\n")] = 0;
+
+                chsnprintf(buffer,sizeof(buffer),"%s",line);
+                strcat(jsonbuff, buffer);
+            }
+
+            f_close(Fil);
+        }
+
+        f_mount(0, "", 0);
+    }
+    free(Fil);
+
+    ht_mmc_Delay();
+}
+
 void ht_mmc_getLastNum(void){
 
 #if USER_METRI_USELOG
