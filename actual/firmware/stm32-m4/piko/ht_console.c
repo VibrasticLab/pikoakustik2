@@ -536,10 +536,10 @@ static void cmd_bufr(BaseSequentialStream *chp, int argc, char *argv[]) {
     ht_mmcMetri_bufferShow();
 }
 
-static void cmd_pta(BaseSequentialStream *chp, int argc, char *argv[]){
+static void cmd_last(BaseSequentialStream *chp, int argc, char *argv[]){
     (void) argv;
     if (argc != 0){
-        chprintf(chp, "Usage: pta\r\n");
+        chprintf(chp, "Usage: last\r\n");
     }
 
     ht_mmc_getLastNum();
@@ -548,8 +548,7 @@ static void cmd_pta(BaseSequentialStream *chp, int argc, char *argv[]){
     char strjson[METRI_BUFFER_SIZE];
     ht_mmc_catFilesBuffer(lastrec,strjson);
 
-    chprintf(chp, "JSON: \r\n");
-    chprintf(chp, "%s",strjson);
+    ht_commUSB_Msg(strjson);
 }
 
 
@@ -611,7 +610,7 @@ static const ShellCommand commands[] = {
   {"virt", cmd_virt},
   {"triv", cmd_triv},
   {"bufr", cmd_bufr},
-  {"pta", cmd_pta},
+  {"last", cmd_last},
 #if USER_ESP32
   {"esp", cmd_esp},
   {"aud", cmd_aud},

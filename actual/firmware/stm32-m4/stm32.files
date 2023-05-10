@@ -1,3 +1,4 @@
+f303rb/Makefile
 f303rb/board/board.c
 f303rb/board/board.h
 f303rb/board/board.mk
