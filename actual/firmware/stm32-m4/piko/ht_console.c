@@ -543,12 +543,14 @@ static void cmd_last(BaseSequentialStream *chp, int argc, char *argv[]){
     }
 
     ht_mmc_getLastNum();
-    chprintf(chp,"Last File Number is %i\r\n",lastrec);
 
     char strjson[METRI_BUFFER_SIZE];
-    ht_mmc_catFilesBuffer(lastrec,strjson);
+    char strBuff[METRI_BUFFER_SIZE];
 
-    ht_commUSB_Msg(strjson);
+    ht_mmc_catFilesBuffer(lastrec,strjson);
+    ht_comm_Buff(strBuff,sizeof(strBuff), "pta %s\r\n",strjson);
+    ht_commUSB_Msg(strBuff);
+    ht_commUART_Msg(strBuff);
 }
 
 
