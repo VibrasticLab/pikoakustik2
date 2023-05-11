@@ -36,23 +36,23 @@
 #define MY_USE_ADC              TRUE    /* Whether use ADC subsystem or not */
  #define MY_ADC_VCAL            FALSE   /* Whether use calibrated Vref or not */
 
-#define MY_USE_I2SMIC           TRUE    /* Whether use I2S Mic or not */
- #define MY_MIC_TASK            TRUE    /* Whether use I2S Mic Task or not */
+#define MY_USE_I2SMIC           FALSE   /* Whether use I2S Mic or not */
+ #define MY_MIC_TASK            FALSE   /* Whether use I2S Mic Task or not */
  #define MY_MIC_CMD             FALSE   /* Whether use I2S Mic command or not */
 
-#define MY_USE_WIFI             TRUE    /* Whether use WiFi subsystem or not */
- #define MY_WIFI_AP             TRUE    /* Whether use WiFi as Access Point or not */
+#define MY_USE_WIFI             FALSE   /* Whether use WiFi subsystem or not */
+ #define MY_WIFI_AP             FALSE   /* Whether use WiFi as Access Point or not */
  #define MY_WIFI_STA            FALSE   /* Whether use WiFi as Client Station or not */
- #define MY_WIFI_ONCMD          TRUE    /* Whether use WiFi ON on command or not */
+ #define MY_WIFI_ONCMD          FALSE   /* Whether use WiFi ON on command or not */
  #define MY_WIFI_ONBTN          FALSE   /* Whether use WiFi ON on button or not */
 
 #define MY_USE_STM32			TRUE    /* Whether use STM32 subsystem or not */
  #define MY_STM32_IOSTATUS		TRUE    /* Whether use STM32 GPIO Status or not */
 
-#define MY_USE_HTTPD            TRUE   /* Whether use HTTP server or not */
- #define HTTPD_START_ON_CONNECT FALSE  /* Whether HTTP server start/stop on connect/disconnect */
- #define MY_HTTP_ON_WIFIAP      TRUE   /* Whether HTTP start on WiFi AP start */
- #define MY_HTTP_ON_WIFISTA     FALSE  /* Whether HTTP start on WiFi STA start */
+#define MY_USE_HTTPD            FALSE   /* Whether use HTTP server or not */
+ #define HTTPD_START_ON_CONNECT FALSE   /* Whether HTTP server start/stop on connect/disconnect */
+ #define MY_HTTP_ON_WIFIAP      FALSE   /* Whether HTTP start on WiFi AP start */
+ #define MY_HTTP_ON_WIFISTA     FALSE   /* Whether HTTP start on WiFi STA start */
 #endif
 
 /** @} */

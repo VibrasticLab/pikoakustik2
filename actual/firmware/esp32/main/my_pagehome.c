@@ -154,6 +154,23 @@ static void page_info_wifimode(const ssd1306_t *dev, uint8_t *fb){
 }
 
 /**
+ * @brief Draw IP number for settings access
+ * @param dev LCD device object
+ * @param fb frame buffer array
+ */
+static void page_info_ip(const ssd1306_t *dev, uint8_t *fb){
+    char strIP[30];
+
+    sprintf(strIP,"IP: %s",ip4addr_ntoa(&ipInfo.ip));
+    ssd1306_draw_string(dev,
+                        fb,
+                        font_builtin_fonts[FONT_FACE_GLCD5x7],
+                        0, 50, strIP,
+                        OLED_COLOR_WHITE,
+                        OLED_COLOR_BLACK);
+}
+
+/**
  * @brief Draw STM32 run/idle status
  *
  * @param dev LCD device object
@@ -186,6 +203,7 @@ static void page_info_runmode(const ssd1306_t *dev, uint8_t *fb){
     }
 }
 
+#if MY_USE_I2SMIC
 /**
  * @brief Draw ambient dB
  *
@@ -208,18 +226,7 @@ static void page_info_ambient(const ssd1306_t *dev, uint8_t *fb){
                         OLED_COLOR_WHITE,
                         OLED_COLOR_BLACK);
 }
-
-static void page_info_ip(const ssd1306_t *dev, uint8_t *fb){
-    char strIP[30];
-
-    sprintf(strIP,"IP: %s",ip4addr_ntoa(&ipInfo.ip));
-    ssd1306_draw_string(dev,
-                        fb,
-                        font_builtin_fonts[FONT_FACE_GLCD5x7],
-                        0, 50, strIP,
-                        OLED_COLOR_WHITE,
-                        OLED_COLOR_BLACK);
-}
+#endif
 
 /**
  * @brief Draw Page Home
@@ -230,10 +237,13 @@ void my_pageHome(void){
 
     page_info_batt(&oled_dev,lcdbuff);
     page_info_progress(&oled_dev,lcdbuff);
-    page_info_wifimode(&oled_dev,lcdbuff);
     page_info_runmode(&oled_dev,lcdbuff);
-    page_info_ambient(&oled_dev, lcdbuff);
+    page_info_wifimode(&oled_dev,lcdbuff);
     page_info_ip(&oled_dev,lcdbuff);
+
+#if MY_USE_I2SMIC
+    page_info_ambient(&oled_dev, lcdbuff);
+#endif
 
     ssd1306_load_frame_buffer(&oled_dev,lcdbuff);
 }

@@ -50,9 +50,6 @@ static void btnpageTask(void *pvParameter){
     if(gpio_get_level(BUTTON_ACT_X)==0){
 		if(btnlock_ActA==0){
 			btnlock_ActA=1;
-
-			// activate wifi access point
-			if(my_wifi_type==WIFI_TYPE_OFF) my_wifiInitAP();
 		}
 	}
     else if(gpio_get_level(BUTTON_ACT_X)==1){
