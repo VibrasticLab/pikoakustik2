@@ -79,6 +79,10 @@ static void cmd_tes(BaseSequentialStream *chp, int argc, char *argv[]){
     ht_commUSB_Msg("Serial Comm in USB\r\n");
 }
 
+/**
+ * @brief Test command callback for LED testing
+ * @details Enumerated and not called directly by any normal thread
+ */
 static void cmd_led(BaseSequentialStream *chp, int argc, char *argv[]){
     (void)argv;
 
@@ -115,6 +119,10 @@ static void cmd_led(BaseSequentialStream *chp, int argc, char *argv[]){
     }
 }
 
+/**
+ * @brief Test command callback for MMC Storage functionality
+ * @details Enumerated and not called directly by any normal thread
+ */
 static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
   if(argc < 1){
      chprintf(chp,"usage: mmc [test|ls|lsnum|lsjson|lslast|cat|stt|dump] <file-number>\r\n");
@@ -159,6 +167,10 @@ static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
 
 }
 
+/**
+ * @brief Test command callback for Tone generation functionality
+ * @details Enumerated and not called directly by any normal thread
+ */
 static void cmd_out(BaseSequentialStream *chp, int argc, char *argv[]) {
   uint8_t in_ampl;
   uint16_t in_freq;
@@ -242,6 +254,10 @@ static void cmd_out(BaseSequentialStream *chp, int argc, char *argv[]) {
 #endif
 }
 
+/**
+ * @brief Test command callback for simpler Tone generation test
+ * @details Enumerated and not called directly by any normal thread
+ */
 static void cmd_tone(BaseSequentialStream *chp, int argc, char *argv[]){
   if(argc != 1){chprintf(chp,"usage: tone [minl|minr|maxl|maxr]\r\n");return;}
 
@@ -355,6 +371,10 @@ static void cmd_ori(BaseSequentialStream *chp, int argc, char *argv[]) {
 }
 #endif
 
+/**
+ * @brief Test command callback for Tone Signal generation functionality
+ * @details Enumerated and not called directly by any normal thread
+ */
 static void cmd_sig(BaseSequentialStream *chp, int argc, char *argv[]) {
   uint8_t in_ampl;
   uint16_t in_freq;
@@ -444,6 +464,10 @@ static void cmd_sig(BaseSequentialStream *chp, int argc, char *argv[]) {
   chprintf(chp,"\r\n===============\r\n");
 }
 
+/**
+ * @brief Test command callback for Virtual Test with True answer only
+ * @details Enumerated and not called directly by any normal thread
+ */
 static void cmd_virt(BaseSequentialStream *chp, int argc, char *argv[]) {
     (void)argv;
     if (argc != 0) {
@@ -487,6 +511,10 @@ static void cmd_virt(BaseSequentialStream *chp, int argc, char *argv[]) {
 
 }
 
+/**
+ * @brief Test command callback for Virtual Test with False answer only
+ * @details Enumerated and not called directly by any normal thread
+ */
 static void cmd_triv(BaseSequentialStream *chp, int argc, char *argv[]) {
     (void)argv;
     if (argc != 0) {
@@ -530,6 +558,10 @@ static void cmd_triv(BaseSequentialStream *chp, int argc, char *argv[]) {
 
 }
 
+/**
+ * @brief Test command callback for show buffer record in memory
+ * @details Enumerated and not called directly by any normal thread
+ */
 static void cmd_bufr(BaseSequentialStream *chp, int argc, char *argv[]) {
     (void) argv;
     if (argc != 0){
@@ -539,6 +571,10 @@ static void cmd_bufr(BaseSequentialStream *chp, int argc, char *argv[]) {
     ht_mmcMetri_bufferShow();
 }
 
+/**
+ * @brief Test command callback for show PTA JSON
+ * @details Enumerated and not called directly by any normal thread
+ */
 static void cmd_pta(BaseSequentialStream *chp, int argc, char *argv[]){
     (void) argv;
 
