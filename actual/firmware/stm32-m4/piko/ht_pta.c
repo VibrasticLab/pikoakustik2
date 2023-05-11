@@ -81,12 +81,14 @@ static void ptaArrayCalib(void){
     // left channel
     for(i=0;i<4;i++){
         idx = calAmpl[i+1][0];
+        if(idx>=12) idx=11;
         calPTA[i][0] = CALIBRATION_ARRAY[i+1][idx];
     }
 
     // right channel
     for(i=0;i<4;i++){
         idx = calAmpl[i+1][1];
+        if(idx>=12) idx=11;
         calPTA[i][1] = CALIBRATION_ARRAY[i+1][idx];
     }
 }
