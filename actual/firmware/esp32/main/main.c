@@ -82,13 +82,9 @@ void app_main(void){
     while(1) {
         // keep this delay to avoid thread-race error
         vTaskDelay(10 / portTICK_PERIOD_MS);
+
 #if MY_USE_UART
- #if MY_UART_DUMB
         my_shellLoop();
- #else
-        int shloop = my_shellLoop();
-        if(shloop==1)("Empty Command\r\n");
- #endif
 #endif
     }
 }

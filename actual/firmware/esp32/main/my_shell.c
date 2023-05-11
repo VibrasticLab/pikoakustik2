@@ -73,9 +73,7 @@ void my_shellInit(void){
   printf("System Configured\n");
 #endif
 
-#if MY_UART_DUMB
   linenoiseSetDumbMode(1);
-#endif
 }
 
 int my_shellLoop(void){
