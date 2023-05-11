@@ -131,13 +131,13 @@ int ht_ptaParse(char *jsonString){
   return jsonID;
 }
 
-void ht_ptaFinalJSON(char *jsonPTA){
+void ht_ptaFinalCSV(char *jsonPTA){
     uint8_t i,m=0,n=0;
     char ptaUnit[4];
 
     ptaArrayCalib();
 
-    chsnprintf(jsonPTA,sizeof(jsonPTA),"{");
+    chsnprintf(jsonPTA,sizeof(jsonPTA),"");
 
     for(i=0;i<8;i++){
         if(i<7) chsnprintf(ptaUnit,sizeof(ptaUnit),"%i,",calPTA[m][n]);
@@ -150,8 +150,6 @@ void ht_ptaFinalJSON(char *jsonPTA){
             m=0; n=1;
         }
     }
-
-    strcat(jsonPTA,"}");
 }
 
 /** @} */

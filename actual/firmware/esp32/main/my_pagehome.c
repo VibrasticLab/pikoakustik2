@@ -119,6 +119,7 @@ static void page_info_progress(const ssd1306_t *dev, uint8_t *fb){
                         OLED_COLOR_BLACK);
 }
 
+#if MY_USE_WIFI
 /**
  * @brief Draw WIFI mode
  *
@@ -169,6 +170,7 @@ static void page_info_ip(const ssd1306_t *dev, uint8_t *fb){
                         OLED_COLOR_WHITE,
                         OLED_COLOR_BLACK);
 }
+#endif
 
 /**
  * @brief Draw STM32 run/idle status
@@ -238,8 +240,11 @@ void my_pageHome(void){
     page_info_batt(&oled_dev,lcdbuff);
     page_info_progress(&oled_dev,lcdbuff);
     page_info_runmode(&oled_dev,lcdbuff);
+
+#if MY_USE_WIFI
     page_info_wifimode(&oled_dev,lcdbuff);
     page_info_ip(&oled_dev,lcdbuff);
+#endif
 
 #if MY_USE_I2SMIC
     page_info_ambient(&oled_dev, lcdbuff);

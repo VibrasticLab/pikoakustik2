@@ -16,16 +16,16 @@
 #define PAGE_HOME   0
 
 /**
- * @brief Page Files index number
- *
- */
-#define PAGE_FILE   1
-
-/**
  * @brief Page PTA index number
  *
  */
-#define PAGE_PTA    2
+#define PAGE_PTA    1
+
+/**
+ * @brief Page Files index number
+ *
+ */
+#define PAGE_FILE   2
 
 /**
  * @brief Maximum page index number
@@ -37,7 +37,7 @@
  * @brief Page sending index number
  *
  */
-#define PAGE_SEND   PAGE_MAX+1
+#define PAGE_SEND   PAGE_FILE+1
 
 void my_pageLoop(void);
 

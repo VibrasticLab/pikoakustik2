@@ -39,7 +39,7 @@ static void page_task_loop(void *arg){
 
         case PAGE_PTA:
 #if MY_PAGE_PTA
-             my_pagePta_demo();
+             my_pagePta();
 #endif
             break;
 

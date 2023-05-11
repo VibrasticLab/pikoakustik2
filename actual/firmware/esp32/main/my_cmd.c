@@ -20,6 +20,7 @@ static void register_leddelay(void);
 static void register_adctest(void);
 static void register_wifion(void);
 static void register_audpercent(void);
+static void register_jsonpta(void);
 
 void my_registerCommands(void)
 {
@@ -30,6 +31,7 @@ void my_registerCommands(void)
     register_adctest();
     register_wifion();
     register_audpercent();
+    register_jsonpta();
 }
 
 /**
@@ -284,6 +286,37 @@ static void register_audpercent(void)
         .help = "Set Audiometri Progress: aud <percent>",
         .hint = NULL,
         .func = &set_audpercent,
+    };
+    esp_console_cmd_register(&cmd);
+}
+
+/**
+ * @brief get the Audiometri JSON PTA into PTA Array
+ *
+ * @param argc
+ * @param argv
+ * @return int
+ */
+static int get_ptajson(int argc, char **argv)
+{
+    if(argc!=2) return 0;
+
+    char *ptacsv = argv[1];
+    my_ptaArrayLoad(ptacsv);
+
+    return 0;
+}
+
+/**
+ * @brief Register the Audiometri PTA JSON command
+ *
+ */
+static void register_jsonpta(void){
+    const esp_console_cmd_t cmd = {
+        .command = "mpta",
+        .help = "get Audiometri PTA JSON: mpta <json_string>",
+        .hint = NULL,
+        .func = &get_ptajson,
     };
     esp_console_cmd_register(&cmd);
 }

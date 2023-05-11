@@ -39,6 +39,8 @@ static void btnpageTask(void *pvParameter){
 			if(pageSWable){
 				if(pageNum==PAGE_MAX){pageNum=PAGE_HOME;}
 				else{pageNum++;}
+
+                if(pageNum==PAGE_PTA) my_ptaArrayReset();
 			}
 		}
 	}
@@ -62,13 +64,18 @@ static void btnpageTask(void *pvParameter){
 			btnlock_ActB=1;
 
             if(pageNum==PAGE_HOME){
-                // Serial to STM32 Test
+                // Serial to STM32 Test using LED
+
                 gpio_reset_pin(MY_LED_GPIO);
                 gpio_set_direction(MY_LED_GPIO, GPIO_MODE_OUTPUT);
                 gpio_set_level(MY_LED_GPIO, 0);
 
                 printf("led 0\r\n");
-                // end of test
+            }
+            else if(pageNum==PAGE_PTA){
+                // ASK PTA Array CSV
+
+                printf("pta\r\n");
             }
 		}
 	}

@@ -595,7 +595,7 @@ static void cmd_pta(BaseSequentialStream *chp, int argc, char *argv[]){
     }
 
     ht_ptaLoadArray(idJSON,strjson);
-    ht_ptaFinalJSON(ptaJSON);
+    ht_ptaFinalCSV(ptaJSON);
 
     chprintf(chp,"mpta %s\r\n",ptaJSON);
 }

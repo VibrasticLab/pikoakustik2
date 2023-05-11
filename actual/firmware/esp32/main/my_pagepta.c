@@ -11,6 +11,9 @@
 extern ssd1306_t oled_dev;
 extern uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
 
+static uint8_t arrLPta[4];
+static uint8_t arrRPta[4];
+
 static void page_info_pta(const ssd1306_t *dev, uint8_t *fb, uint8_t *lPta, uint8_t *rPta){
     char strLPta[30];
     char strRPta[30];
@@ -43,19 +46,35 @@ static void page_info_pta(const ssd1306_t *dev, uint8_t *fb, uint8_t *lPta, uint
                         OLED_COLOR_BLACK);
 }
 
-void my_pagePta(void){
+void my_ptaArrayReset(void){
+    uint8_t i=0;
 
+    for(i=0;i<4;i++){
+        arrLPta[i] = 0;
+        arrRPta[i] = 0;
+    }
 }
 
-void my_pagePta_demo(void){
+void my_ptaArrayLoad(char *csvArray){
+    char *pt;
+    uint8_t i=0;
+
+    pt = strtok(csvArray,",");
+    while (pt != NULL) {
+        int a = atoi(pt);
+
+        if(i<4) arrLPta[i] = a;
+        else if(i>=4) arrRPta[i-4] = a;
+
+        i++;
+        pt = strtok(NULL, ",");
+    }
+}
+
+void my_pagePta(void){
     ssd1306_clear_buffer(lcdbuff,0,sizeof(lcdbuff));
-
-    uint8_t arrLPta[] = {21,23,24,36};
-    uint8_t arrRPta[] = {24,28,30,32};
-
     page_info_pta(&oled_dev, lcdbuff, arrLPta, arrRPta);
     ssd1306_load_frame_buffer(&oled_dev,lcdbuff);
 }
-
 
 /** @} */
