@@ -41,6 +41,8 @@ extern uint8_t freq_count;
 extern uint16_t sineSize;
 extern int16_t i2s_tx_buf[I2S_BUFF_SIZE];
 
+extern uint8_t calAmpl[6][2];
+
 /*******************************************
  * Serial Command Callback
  *******************************************/
@@ -539,20 +541,27 @@ static void cmd_bufr(BaseSequentialStream *chp, int argc, char *argv[]) {
 
 static void cmd_pta(BaseSequentialStream *chp, int argc, char *argv[]){
     (void) argv;
+
     int idJSON;
+    char strjson[METRI_BUFFER_SIZE];
+    char ptaJSON[COMM_BUFF_SIZE];
 
     if (argc != 0){
         chprintf(chp, "Usage: last\r\n");
     }
 
     ht_mmc_getLastNum();
-    char strjson[METRI_BUFFER_SIZE];
     ht_mmc_catFilesBuffer(lastrec,strjson);
 
     idJSON = ht_ptaParse(strjson);
     if(idJSON<0){
-      chprintf(chp,"JSON Parse Error: %d\r\n",idJSON);
+      return;
     }
+
+    ht_ptaLoadArray(idJSON,strjson);
+    ht_ptaFinalJSON(ptaJSON);
+
+    chprintf(chp,"mpta %s\r\n",ptaJSON);
 }
 
 
