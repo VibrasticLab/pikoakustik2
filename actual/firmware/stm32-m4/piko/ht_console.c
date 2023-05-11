@@ -23,6 +23,7 @@
 #include "ht_usb.h"
 #include "ht_mmc.h"
 #include "ht_led.h"
+#include "ht_pta.h"
 #include "ht_metri.h"
 #include "ht_audio.h"
 #include "ht_console.h"
@@ -536,21 +537,22 @@ static void cmd_bufr(BaseSequentialStream *chp, int argc, char *argv[]) {
     ht_mmcMetri_bufferShow();
 }
 
-static void cmd_last(BaseSequentialStream *chp, int argc, char *argv[]){
+static void cmd_pta(BaseSequentialStream *chp, int argc, char *argv[]){
     (void) argv;
+    int idJSON;
+
     if (argc != 0){
         chprintf(chp, "Usage: last\r\n");
     }
 
     ht_mmc_getLastNum();
-
     char strjson[METRI_BUFFER_SIZE];
-    char strBuff[METRI_BUFFER_SIZE];
-
     ht_mmc_catFilesBuffer(lastrec,strjson);
-    ht_comm_Buff(strBuff,sizeof(strBuff), "pta %s\r\n",strjson);
-    ht_commUSB_Msg(strBuff);
-    ht_commUART_Msg(strBuff);
+
+    idJSON = ht_ptaParse(strjson);
+    if(idJSON<0){
+      chprintf(chp,"JSON Parse Error: %d\r\n",idJSON);
+    }
 }
 
 
@@ -612,7 +614,7 @@ static const ShellCommand commands[] = {
   {"virt", cmd_virt},
   {"triv", cmd_triv},
   {"bufr", cmd_bufr},
-  {"last", cmd_last},
+  {"pta", cmd_pta},
 #if USER_ESP32
   {"esp", cmd_esp},
   {"aud", cmd_aud},

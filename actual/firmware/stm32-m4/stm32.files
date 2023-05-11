@@ -21,8 +21,11 @@ piko/ht_metri.c
 piko/ht_metri.h
 piko/ht_mmc.c
 piko/ht_mmc.h
+piko/ht_pta.c
+piko/ht_pta.h
 piko/ht_usb.c
 piko/ht_usb.h
+piko/jsmn.h
 piko/main.c
 piko/msg_my.c
 piko/msg_my.h
