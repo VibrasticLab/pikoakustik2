@@ -21,6 +21,8 @@
 #include "ht_pta.h"
 #include "ht_console.h"
 
+extern uint16_t lastrec;
+
 /**
  * @brief Calibration Amplitude Array
  */
@@ -137,7 +139,7 @@ void ht_ptaFinalCSV(char *jsonPTA){
 
     ptaArrayCalib();
 
-    chsnprintf(jsonPTA,sizeof(jsonPTA),"");
+    chsnprintf(jsonPTA,sizeof(jsonPTA),"%i,",lastrec);
 
     for(i=0;i<8;i++){
         if(i<7) chsnprintf(ptaUnit,sizeof(ptaUnit),"%i,",calPTA[m][n]);
