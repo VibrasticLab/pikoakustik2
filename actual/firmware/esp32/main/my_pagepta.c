@@ -52,6 +52,7 @@ static void page_info_pta(const ssd1306_t *dev, uint8_t *fb, uint8_t fnum,  uint
 void my_ptaArrayReset(void){
     uint8_t i=0;
 
+    fileNum = 0;
     for(i=0;i<4;i++){
         arrLPta[i] = 0;
         arrRPta[i] = 0;
