@@ -1,7 +1,7 @@
 % ---
 % Packages
 % ---
-\documentclass[11pt,a4paper,twoside,draft,onecolumn]{book}
+\documentclass[11pt,a4paper,twoside,onecolumn]{book}
 \usepackage[utf8]{inputenc}
 \usepackage[strict]{changepage}
 \usepackage{xcolor}
@@ -12,6 +12,9 @@
 \usepackage{layout}
 \usepackage{pifont}
 \usepackage{fontawesome}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{multirow}
 
 \geometry{
 	top=20mm,
@@ -49,7 +52,7 @@
 	
 	\chapter{Pendahuluan}
 		\section{Ruang Lingkup}
-		Tujuan dokumen ini adalah untuk menetapkan proses manajemen risiko sebagai bagian dari desain alat kesehatan untuk Elbicare Audiometer. Bagian penting dari proses manajemen risiko meliputi analisis risiko, evaluasi risiko, dan pengendalian risiko merupakan bagian wajib dari
+		Tujuan dokumen ini adalah untuk menetapkan proses manajemen risiko sebagai bagian dari desain alat kesehatan untuk Elbicare Audiometers. Bagian penting dari proses manajemen risiko meliputi analisis risiko, evaluasi risiko, dan pengendalian risiko merupakan bagian wajib dari
 		dokumen ini. Dokumen ini menekankan bahwa proses manajemen risiko tidak berakhir dengan desain dan produksi alat kesehatan, tetapi berlanjut ke fase pasca-produksi. 
 		
 		Oleh karena itu, pengumpulan informasi pasca produksi akan diidentifikasi sebagai bagian yang diperlukan dalam proses manajemen risiko. Anggota tim bertanggung jawab untuk melakukan analisis risiko, evaluasi risiko, dan pengendalian risiko. Tanggung jawab untuk memelihara dokumen Risiko ada pada Penanggung Jawab Teknis.
@@ -58,7 +61,7 @@
 		Standar yang diacu dalam penyusunan dokumen ini adalah SNI ISO 14971:2015 : Peralatan kesehatan - Alat kesehatan – Penerapan manajemen risiko pada alat kesehatan
 		
 		\section{Kebijakan Risiko}
-		Kebijakan manajemen risiko, ditentukan dari manajemen \textcolor{red}{PT. Xirka Dama Persada}:
+		Kebijakan manajemen risiko, ditentukan dari manajemen \textcolor{blue}{PT. Xirka Dama Persada}:
 		\begin{itemize}
 			\item Meminimalkan risiko serendah mungkin dari semua risiko yang diidentifikasi dalam proses desain, pengembangan, produksi dan pasca produksi.
 			\item Memprioritas pengendalian risiko dalam perencanaan sesuai dengan tingkat bahaya yang analisis oleh ahli pada bidangnya, sehingga risiko yang paling serius dihilangkan atau diminimalkan terlebih dahulu.
@@ -101,10 +104,10 @@
 			\end{enumerate}
 		
 			\subsection{Maksud Penggunaan dan Identifikasi Karakteristik Berkaitan dengan Keselamatan Alat Kesehatan}
-			Langkah ini membantu \textcolor{red}{PT. Xirka Dama Persada} untuk memikirkan semua karakteristik yang dapat memengaruhi keamanan penggunaan alat kesehatan. Analisis ini harus mempertimbangkan bahwa alat kesehatan juga dapat digunakan dalam situasi selain yang dimaksudkan oleh \textcolor{red}{PT. Xirka Dama Persada} dan dalam situasi selain yang diperkirakan saat alat kesehatan pertama kali dibuat.
+			Langkah ini membantu \textcolor{blue}{PT. Xirka Dama Persada} untuk memikirkan semua karakteristik yang dapat memengaruhi keamanan penggunaan alat kesehatan. Analisis ini harus mempertimbangkan bahwa alat kesehatan juga dapat digunakan dalam situasi selain yang dimaksudkan oleh \textcolor{blue}{PT. Xirka Dama Persada} dan dalam situasi selain yang diperkirakan saat alat kesehatan pertama kali dibuat.
 			
 			\subsection{Identifikasi Bahaya}
-			Langkah ini mensyaratkan bahwa \textcolor{red}{PT. Xirka Dama Persada} secara sistematis dalam mengidentifikasi bahaya yang diantisipasi dalam kondisi normal dan gagal. Identifikasi harus didasarkan pada karakteristik keamanan yang diidentifikasi di atas.
+			Langkah ini mensyaratkan bahwa \textcolor{blue}{PT. Xirka Dama Persada} secara sistematis dalam mengidentifikasi bahaya yang diantisipasi dalam kondisi normal dan gagal. Identifikasi harus didasarkan pada karakteristik keamanan yang diidentifikasi di atas.
 			
 			\subsection{Perkiraan Risiko untuk Setiap Situasi Berbahaya}
 			Ini adalah langkah terakhir dari analisis risiko. Kesulitan dari langkah ini adalah bahwa perkiraan risiko berbeda untuk setiap situasi berbahaya dalam penyelidikan.
@@ -130,7 +133,7 @@
 			Bagian perangkat dimaksudkan untuk bersentuhan dengan pasien tetapi hanya sebagai kontak permukaan.
 			
 			\subsection{Bahan atau komponen apa yang digunakan dalam alat kesehatan atau digunakan dengan, atau kontak dengan alat kesehatan?}
-			(...)
+			Perangkat headphone dengan kabel (wired)
 			
 			\subsection{Apakah energi dikirim ke atau diekstraksi dari pasien?}
 			Tidak berlaku.
@@ -151,7 +154,7 @@
 			Tidak berlaku.
 			
 			\subsection{Apakah pengukuran dilakukan?}
-			Pengukuran yang ada pada Elbicare Audiometer adalah ....
+			Pengukuran yang ada pada Elbicare Audiometer adalah nilai pure-tone average (PTA)
 			
 			\subsection{Apakah alat kesehatan interpretatif?}
 			Tidak berlaku.
@@ -293,6 +296,127 @@
 			\end{itemize}
 			
 		\section{Estimasi dan Evaluasi Risiko}
+		Estimasi dan evaluasi risiko dari perangkat Elbicare Audiometers ditunjukkan pada tabel berikut.
+		
+		\begin{table}
+			\begin{tabular}{p{0.1\linewidth} p{0.25\linewidth} p{0.25\linewidth} p{0.25\linewidth} p{0.15\linewidth}}
+				\hline
+				ID & Bahaya & Urutan peristiwa yang bisa diramalkan & Situasi berbahaya & Bahaya \\
+				\hline
+				\hline
+				1 & \multicolumn{4}{l}{Energi} \\
+				\hline
+				1.1 & \multicolumn{4}{l}{Listrik} \\
+				\hline
+				\multirow{4}{0.1\linewidth}{1.1.1} & \multirow{4}{0.25\linewidth}{Tegangan jala jala listrik} 	& \multicolumn{1}{l}{Resistensi isolasi yang rendah} & \multicolumn{1}{l}{Tegangan listrik muncuk pada bagian perangkat yang lain} & \multirow{4}{*}{Kematian, cedera serius, kerusakan permanen pada perangkat} \\\cline{3-4}
+																  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
+																  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
+																  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
+																  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
+																  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
+										 						  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
+										 						  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
+										 						  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
+										 						  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
+										 						  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
+										 						  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \hline
+				
+				
+				1.2 & \multicolumn{4}{l}{Energi termal} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				
+				\hline
+				2 & \multicolumn{4}{l}{Lingkungan} \\
+				\hline
+				2.1 & \multicolumn{4}{l}{Kompatibilitas Elektromagnetik} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline
+				
+				2.2 & \multicolumn{4}{l}{Pasokan tidak mencukupi} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline
+				
+				2.3 & \multicolumn{4}{l}{Kondisi lingkungan yang tidak layak} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline						
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				
+				
+				\hline
+				3 & \multicolumn{4}{l}{Informasi tentang penggunaan perangkat media} \\
+				\hline
+				3.1 & \multicolumn{4}{l}{Pelabelan} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline
+				3.2 & \multicolumn{4}{l}{Instruksi pengoperasian} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & \multirow{4}{*}{XXXXXX} \\ \cline{1-4}
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} &  \\ \cline{1-4}
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} &  \\ \cline{1-4}
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} &  \\ \cline{1-4}
+				\hline
+				3.3 & \multicolumn{4}{l}{Penyalahgunaan yang bisa diperkirakan} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline
+				3.4 & \multicolumn{4}{l}{Penggunaan perangkat yang tidak pantas} \\
+				\hline
+				\multirow{4}{*}{XXXXXX} & \multirow{4}{*}{XXXXXX} 	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \multirow{4}{*}{XXXXXX} \\\cline{3-4}
+										&	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
+										&	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
+										&	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \hline
+				\hline
+				4 & \multicolumn{4}{l}{Operasi} \\
+				\hline
+				4.1 & \multicolumn{4}{l}{Fungsi} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline						
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline
+				4.2 & \multicolumn{4}{l}{Maintaining} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline
+				\hline
+				4.3 & \multicolumn{4}{l}{Pembersihan} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				\hline
+				5 & \multicolumn{4}{l}{Biologis} \\
+				\hline
+				5.1 & \multicolumn{4}{l}{Biokompatibilitas} \\
+				\hline
+				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
+				
+			\end{tabular}
+		\end{table}
+		
 	\newpage
 	
 	
