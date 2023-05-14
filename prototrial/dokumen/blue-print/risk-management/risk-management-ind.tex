@@ -15,6 +15,8 @@
 \usepackage{array}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{longtable}
 
 \geometry{
 	top=20mm,
@@ -295,127 +297,221 @@
 				\item Bio-inkompatibilitas
 			\end{itemize}
 			
+		Tabel berikut mengilustrasikan hubungan antara identifikasi bahaya, urutan yang dapat diperkirakan peristiwa, situasi berbahaya dan bahaya untuk setiap kemungkinan bahaya 
+		
+			\begin{longtable}{p{0.05\linewidth} p{0.20\linewidth} p{0.25\linewidth} p{0.25\linewidth} p{0.15\linewidth}}
+				\hline
+				\cellcolor{yellow} \textbf{ID} & \cellcolor{yellow} \textbf{Bahaya} & \cellcolor{yellow} \textbf{Urutan peristiwa yang bisa diramalkan} & \cellcolor{yellow} \textbf{Situasi berbahaya} & \cellcolor{yellow} \textbf{Bahaya} \\
+				\hline
+				\endfirsthead
+				\hline
+				\cellcolor{yellow} \textbf{ID} & \cellcolor{yellow} \textbf{Bahaya} & \cellcolor{yellow} \textbf{Urutan peristiwa yang bisa diramalkan} & \cellcolor{yellow} \textbf{Situasi berbahaya} & \cellcolor{yellow} \textbf{Bahaya} \\
+				\hline
+				\endhead
+				\hline
+				\multicolumn{5}{r}{\textit{Continued on next page}} \\
+				\endfoot
+				\hline
+				\endlastfoot
+				
+				\hline
+				\hline
+				\cellcolor{cyan} 1 & \multicolumn{4}{l}{\textbf{Energi} \cellcolor{cyan}}  \\
+				\hline
+				1.1 & \multicolumn{4}{l}{\textbf{Listrik}} \\
+				\hline
+				\multirow{4}{\linewidth}{1.1.1} & \multirow{4}{\linewidth}{Tegangan jala jala listrik} 	& Resistensi isolasi yang rendah & Tegangan listrik muncuk pada bagian perangkat yang lain & \multirow{4}{\linewidth}{Kematian, cedera serius, kerusakan permanen pada perangkat} \\\cline{3-4}
+																  &	& Unit utama terjatuh, sistem elektronik dan perkabelan rusak. & Tegangan jala jala dapat dirasakan & \\ \cline{3-4}
+																  &	& Menempatkan steker ke dalam stopkontak dengan tangan yang basah  & Tangan basah menyentuh tegangan jala jala & \\ \cline{3-4}
+																  &	& Unit utama dicuci dengan air & Unit utama basah dan  mengenai tegangan jala jala listrik & \\ \cline{3-4}
+																  &	& Unit direndam di dalam air  & Unit akan basah dan akan mengenai tegangan jala jala listrik  & \\ \cline{3-4}
+																  &	& Steker listrik dicolokkan longgar ke stopkontak listrik. & Tegangan jala jala listrik akan muncul pada kabel listrik  & \\ \cline{3-4}
+										 						  &	& Kabel listrik dekat dengan permukaan yang  panas  & Kabel listrik mungkin akan mencair & \\ \cline{3-4}
+										 						  &	& Kabel listrik ditarik secara paksa  dari stopkontak listrik & \multirow{2}{\linewidth}{Kabel listrik mungkin putus atau korsleting} & \\ \cline{3-4}
+										 						  &	& Bahan berat menduduki kabel listrik &  & \\ \cline{3-4}
+										 						  &	& Kabel listrik terpasang ke stopkontak saat sedang  dibersihan, desinfeksi dan sterilisasi.  & kebocoran listrik dapat terjadi di unit  & \\ \cline{3-4}
+										 						  &	& Sirkuit pendek dan sirkuit terbuka dari komponen listrik apa pun. & Tegangan jala jala listrik muncul di bagian perangkat. & \\ \cline{3-4}
+										 						  &	& ... & ... & \\ \cline{1-5}
+				
+				
+				1.2 & \multicolumn{4}{l}{\textbf{Energi termal}} \\
+				\hline
+				1.2.1 & Suhu tinggi & Slot ventilasi yang diblokir/ditutupi & Permukaan alat akan menjadi panas & Cedera ringan - sedikit terbakar, cedera serius - terbakar, kerusakan pada alat \\ \cline{1-5}
+				... & ... & ... & ... & ... \\ \cline{1-5}
+								
+				\hline
+				\hline
+				\hline
+				\cellcolor{cyan}2 & \multicolumn{4}{l}{\textbf{Lingkungan} \cellcolor{cyan}} \\
+				\hline
+				2.1 & \multicolumn{4}{l}{\textbf{Kompatibilitas Elektromagnetik}} \\
+				\hline
+				2.1.1 & Kerentanan gangguan elektromagnetik & Perangkat tidak berfungsi karena pengaruh radiasi elektromagnetik di sektiarnya & Tidak memungkinkannya melakukan fungsi alat yang benar & Kerusakan alat \\
+				\hline
+				2.1.2 & Gangguan dari emisi elektromagnetik & Pengaruh   dari radiasi elektromagnetik yang dihasilkan oleh pengoperasian perangkat & Kerusakan alat  & Risiko umum untuk 
+				lingkungan \\ \cline{1-5}
+				\hline
+				... & ... & ... & ... & ... \\ \cline{1-5}
+				\hline
+				\hline
+				2.2 & \multicolumn{4}{l}{\textbf{Pasokan tidak mencukupi}} \\
+				\hline
+				2.2.1 & Daya listrik - catu daya yang berfluktuasi & Gangguan fungsi perangkat dikarenakan 
+				pengaruh catu daya yang fluktuatif & Alat tidak dapat dinyalakan & Kerusakan alat  \\
+				\hline
+				... & ... & ... & ... & ... \\ \cline{1-5}
+				\hline
+				\hline
+				2.3 & \multicolumn{4}{l}{\textbf{Kondisi lingkungan yang tidak layak}} \\
+				\hline
+				2.3.1 & Kondisi pemindahan & Pemindahan dilakukan dengan cara yang tidak benar  & Bagian perangkat rusak, alat tidak dapat berfungsi dengan baik  & \multirow{5}{\linewidth}{Cedera ringan, cedera serius, kerusakan alat} \\
+				\cline{1-4}
+				2.3.2 & Kondisi operasi & Mengoperasikan pada kondisi yang tidak didefinisikan dalam panduan penggunaan  & Bagian perangkat rusak, alat tidak dapat berfungsi dengan baik  &  \\
+				\cline{1-4}
+				2.3.3 & Kondisi penyimpanan & Perangkat disimpan di kondisi yang tidak didefinisikan dalam panduan penggunaan  & Bagian perangkat rusak, alat tidak dapat berfungsi dengan baik &  \\
+				\cline{3-4}						
+				 & & Perangkat disimpan di lingkungan yang tidak bersih  & Jamur dan bakteri akan hinggap di alat dan terhitup oleh pengguna  &  \\
+				 \cline{3-4}
+				 & & Perangkat berada di tempat yang mudah dijangkau oleh anak kecil atau orang yang tidak tahu untuk menggunakannya & Bagian perangkat rusak, alat tidak dapat berfungsi dengan baik  &  \\ \cline{1-5}
+				 ... & ... & ... & ... & ... \\ \cline{1-5}
+				 \hline
+				
+				
+				\hline
+				\hline
+				\cellcolor{cyan} 3 & \multicolumn{4}{l}{\textbf{Informasi tentang penggunaan perangkat media} \cellcolor{cyan}} \\
+				\hline
+				3.1 & \multicolumn{4}{l}{\textbf{Pelabelan}} \\
+				\hline
+				3.1.1 & Pelabelan tidak memadai  & Tidak ada atau hilangnya label dengan data teknis pada alat  & Informasi yang dibutuhkan tidak tersedia untuk pengguna  & Kerusakan alat \\
+				\hline
+				... & ... & ... & ... & ... \\
+				\hline
+				3.2 & \multicolumn{4}{l}{\textbf{Instruksi pengoperasian}} \\
+				\hline
+				3.2.1 & Instruksi pengoperasian yang rumit & Penggunaan alat dengan langkah yang tidak sesuai dengan yang dianjurkan pada buku manual  & Pengaplikasian perangkat yang salah  & \multirow{4}{\linewidth}{Cedera serius, cedera ringan, kerusakan alat} \\ \cline{1-4}
+				3.2.2 & Deskripsi karakteristik kinerja yang tidak memadai  & Penggunaan alat dengan karakter pengoperasian yang salah  & Pengaplikasian perangkat yang salah  &  \\ \cline{1-4}
+				3.2.3 & Spesifikasi dari 
+				penggunaan 	yang dimaksudkan tidak memadai  & Penggunaan alat dengan tujuan selain yang ditentukan  & Penggunaan perangkat untuk tujuan selain yang ditentukan &  \\ \cline{1-4}
+				3.2.4 & Spesifikasi dari 
+				aksesoris 	tidak memadai  & Aksesori yang digunakan tidak sesuai  & Alat tidak dapat beroperasi dengan kinerja yang diharapkan  &  \\ \cline{1-4}
+				\hline
+				... & ... & ... & ... & ... \\
+				\hline		
+				
+				3.3 & \multicolumn{4}{l}{\textbf{Penyalahgunaan yang bisa diperkirakan}} \\
+				\hline
+				3.3.1 & Penyalahgunaan yang dapat diduga secara wajar  & Perangkat digunakan untuk menghirup zat yang berbeda dari yang ditentukan  & Penggunaan perangkat untuk tujuan selain yang ditentukan  & Kerusakan alat \\
+				\hline
+				... & ... & ... & ... & ... \\
+				\hline
+				
+				3.4 & \multicolumn{4}{l}{\textbf{Penggunaan perangkat yang tidak pantas}} \\
+				\hline
+				3.4.1 & \multirow{2}{\linewidth}{Menggunakan kekuatan 	yang berlebihan selama mengoperasikan atau memindahkan alat } & Monitor untuk mengendalikan alat mengalami kerusakan & Alat tidak dapat menunjukkan tampilan dan pengguna tidak dapat memakai alat & \multirow{3}{\linewidth}{Cedera ringan, kerusakan alat } \\\cline{3-4}
+				&	& Konektor udara pada alat menjadi sulit terhubung dengan aksesori yang disarankan  & \multirow{2}{\linewidth}{Alat tidak dapat berfungsi}  & \\ \cline{3-3}
+				&  & Terjadi kerusakan pada bagian komponen bagian dalam pada alat &  & \\ \cline{1-5}
+				... & ... & ... & ... & ... \\ \hline
+				
+				\hline
+				4 & \multicolumn{4}{l}{\textbf{Operasi} \cellcolor{cyan}} \\
+				\hline
+				4.1 & \multicolumn{4}{l}{\textbf{Fungsi}} \\
+				\hline
+				4.1.1 & Tidak  memadainya informasi masa aktif perangkat & Seumur hidup tidak ditentukan oleh pabrikan untuk melayani pengguna perangkat. & Penggunaan perangkat setelah berakhirnya masa pakai produk  & \multirow{3}{\linewidth}{Kerusakan alat, cedera ringan} \\
+				\hline
+				4.1.2 & \multirow{2}{\linewidth}{Kehilangan atau penurunan fungsi akibat penggunaan berulang aksesori} & Sensor oksigen di luar masa pakainya akan mengalami penurunan performa. & \multirow{2}{\linewidth}{Alat tidak mampu mengukur parameter penting dan hasil pengukuran yang ditampilkan tidak akurat } &  \\ \cline{3-3}
+				 &  & Flow sensor di luar masa pakainya akan mengalami penurunan performa.  &  & \\
+				\hline						
+				4.1.3 & Kehilangan 	atau kerusakan 	isolasi akibat panas  & Pemanasan komponen selama masa hidup  & Mengurangi insulasi karakteristik  & \multirow{2}{\linewidth}{Kerusakan alat } \\
+				\cline{1-4}
+				4.1.4 & Bagian perangkat yang basah  & Air tumpah di atas perangkat, ketika menggunakan pelembap atau kondisi lainnya & Air masuk ke dalam unit utama dan menyebabkan kegagalan fungsi perangkat & \\ \cline{1-5}
+				... & ... & ... & ... & ... \\ \hline
+				
+				
+				\hline
+				4.2 & \multicolumn{4}{l}{\textbf{Maintaining}} \\
+				\hline
+				4.2.1 & Perawatan yang tidak memadai & Filter bakteri menjadi kotor (karena tingginya tingkat kotoran di udara) & Berbagai kuman dihirup  & Cedera serius, cedera ringan, kerusakan alat  \\
+				\hline
+				... & ... & ... & ... & ... \\ \hline
+				\hline
+				
+				\hline
+				4.3 & \multicolumn{4}{l}{\textbf{Pembersihan}} \\
+				\hline
+				4.3.1 & \multirow[t]{11}{\linewidth}{Pembersihan dan disinfektan tidak memadai} & Perangkat terkontaminasi dengan bakteri saat digunakan untuk pertama kalinya.  & \multirow{2}{\linewidth}{Berbagai kuman dihirup} & \multirow{11}{\linewidth}{Cedera serius, cedera ringan, kerusakan alat} \\ \cline{3-3}
+				 &  & Perangkat terkontaminasi bakteri akibat pembersihan yang tidak memadai. &  & \\ \cline{3-4}
+				 &  & Pengguna menggunakan perangkat dengan bakteri setelah yang lain menggunakannya & Pengguna mungkin terinfeksi penyakit lain & \\ \cline{3-4}
+				 &  & Pengguna menghirup sisa disinfektan dengan pembersiahan yang tidak memadai & Pengguna memungkinkan sakit & \\ \cline{3-4}
+				 &  & Unit utama direndam dalam disinfektan & \multirow{3}{\linewidth}{Perangkat memungkinkan rusak} & \\ \cline{3-3}
+			 	 &  & Unit utama didesinfeksi dengan cara direbus  & & \\ \cline{3-3}
+			 	 &  & Unit utama disterilkan  & & \\ \cline{3-4}
+			 	 &  & Desinfeksi mendidih berlangsung selama 10 menit  & Komponen dapat meleleh atau berubah bentuk & \\\cline{3-4}
+			 	 &  & Pengguna menggunakan desinfektan yang tidak disarankan pada buku 
+			 	 manual  & Perangkat mungkin rusak  &  \\ \cline{3-4}
+			 	 &  & Petugas servis menghirup sisa atau bersentuhan dengan perangkat yang terkontaminasi pada saat reparasi. & Petugas memungkinkan sakit & \\ \cline{1-5}
+			 	 
+				  
+				 
+				 
+				 
+				\hline
+				\cellcolor{cyan} 5 & \multicolumn{4}{l}{\textbf{Biologis} \cellcolor{cyan}} \\
+				\hline
+				5.1 & \multicolumn{4}{l}{\textbf{Biokompatibilitas}} \\
+				\hline
+				5.1.1 & Alergi / iritasi & Bahan nasal kanula yang dipakai tidak biokompatibel  & Kulit yang bersentuhan dengan nasal kanula mungkin menjadi kasar dan memiliki efek setelahnya  & Cedera ringan - iritasi  \\ \hline
+				\hline
+				
+			\end{longtable}
+		
 		\section{Estimasi dan Evaluasi Risiko}
 		Estimasi dan evaluasi risiko dari perangkat Elbicare Audiometers ditunjukkan pada tabel berikut.
 		
-		\begin{table}
-			\begin{tabular}{p{0.1\linewidth} p{0.25\linewidth} p{0.25\linewidth} p{0.25\linewidth} p{0.15\linewidth}}
-				\hline
-				ID & Bahaya & Urutan peristiwa yang bisa diramalkan & Situasi berbahaya & Bahaya \\
-				\hline
-				\hline
-				1 & \multicolumn{4}{l}{Energi} \\
-				\hline
-				1.1 & \multicolumn{4}{l}{Listrik} \\
-				\hline
-				\multirow{4}{0.1\linewidth}{1.1.1} & \multirow{4}{0.25\linewidth}{Tegangan jala jala listrik} 	& \multicolumn{1}{l}{Resistensi isolasi yang rendah} & \multicolumn{1}{l}{Tegangan listrik muncuk pada bagian perangkat yang lain} & \multirow{4}{*}{Kematian, cedera serius, kerusakan permanen pada perangkat} \\\cline{3-4}
-																  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
-																  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
-																  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
-																  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
-																  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
-										 						  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
-										 						  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
-										 						  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
-										 						  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
-										 						  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
-										 						  &	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \hline
-				
-				
-				1.2 & \multicolumn{4}{l}{Energi termal} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				
-				\hline
-				2 & \multicolumn{4}{l}{Lingkungan} \\
-				\hline
-				2.1 & \multicolumn{4}{l}{Kompatibilitas Elektromagnetik} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline
-				
-				2.2 & \multicolumn{4}{l}{Pasokan tidak mencukupi} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline
-				
-				2.3 & \multicolumn{4}{l}{Kondisi lingkungan yang tidak layak} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline						
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				
-				
-				\hline
-				3 & \multicolumn{4}{l}{Informasi tentang penggunaan perangkat media} \\
-				\hline
-				3.1 & \multicolumn{4}{l}{Pelabelan} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline
-				3.2 & \multicolumn{4}{l}{Instruksi pengoperasian} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & \multirow{4}{*}{XXXXXX} \\ \cline{1-4}
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} &  \\ \cline{1-4}
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} &  \\ \cline{1-4}
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} &  \\ \cline{1-4}
-				\hline
-				3.3 & \multicolumn{4}{l}{Penyalahgunaan yang bisa diperkirakan} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline
-				3.4 & \multicolumn{4}{l}{Penggunaan perangkat yang tidak pantas} \\
-				\hline
-				\multirow{4}{*}{XXXXXX} & \multirow{4}{*}{XXXXXX} 	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \multirow{4}{*}{XXXXXX} \\\cline{3-4}
-										&	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
-										&	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \cline{3-4}
-										&	& \multicolumn{1}{l}{XXX} & \multicolumn{1}{l}{XXX} & \\ \hline
-				\hline
-				4 & \multicolumn{4}{l}{Operasi} \\
-				\hline
-				4.1 & \multicolumn{4}{l}{Fungsi} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline						
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline
-				4.2 & \multicolumn{4}{l}{Maintaining} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline
-				\hline
-				4.3 & \multicolumn{4}{l}{Pembersihan} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				\hline
-				5 & \multicolumn{4}{l}{Biologis} \\
-				\hline
-				5.1 & \multicolumn{4}{l}{Biokompatibilitas} \\
-				\hline
-				{XXXXXX} & {XXXXXX} & {XXX} & {XXX} & {XXXXXX} \\
-				
-			\end{tabular}
-		\end{table}
+		\begin{longtable}{p{0.04\linewidth} p{0.12\linewidth} p{0.05\linewidth} p{0.05\linewidth} p{0.10\linewidth} p{0.05\linewidth} p{0.10\linewidth} p{0.07\linewidth} p{0.23\linewidth}}
+		
+		\hline
+		\cellcolor{yellow} \textbf{ID} & \cellcolor{yellow} \textbf{Bahaya} & \cellcolor{yellow} \textbf{(P1)} & \cellcolor{yellow} \textbf{(P2)} & \cellcolor{yellow} \textbf{(P1 x P2)} & \cellcolor{yellow} \textbf{(P)} & \cellcolor{yellow} \textbf{Nilai S} & \cellcolor{yellow} \textbf{Nilai} & \cellcolor{yellow} \textbf{Tingkatan }\\
+		\hline
+		\endfirsthead
+		\hline
+		\cellcolor{yellow} \textbf{ID} & \cellcolor{yellow} \textbf{Bahaya} & \cellcolor{yellow} \textbf{(P1)} & \cellcolor{yellow} \textbf{(P2)} & \cellcolor{yellow} \textbf{(P1 x P2)} & \cellcolor{yellow} \textbf{(P)} & \cellcolor{yellow} \textbf{Nilai S} & \cellcolor{yellow} \textbf{Nilai} & \cellcolor{yellow} \textbf{Tingkatan }\\
+		\hline
+		\endhead
+		\hline
+		\multicolumn{9}{r}{\textit{Continued on next page}} \\
+		\endfoot
+		\hline
+		\endlastfoot
+		
+		\toprule
+		\midrule
+		1.1.1 & Tegangan jala jala listrik & 2 & 3 & 6 & 4 & 8 & 32 & \cellcolor{yellow} Masih dapat diterima\\ \hline
+		1.2.1 & Suhu Tinggi & 3 & 3 & 9 & 4 & 8 & 32 & \cellcolor{yellow} Masih dapat diterima \\ \hline
+		2.1.1 & Kerentanan terhadap gangguan elektromagnetik & 2 & 3 & 6 & 4 & 8 & 32 & \cellcolor{yellow} Masih dapat diterima\\ \hline
+		2.1.2 & Emisi gangguan elektromagnetik & 3 &3 &9 &4 &6 &24 & \cellcolor{yellow} Masih dapat diterima\\ \hline
+		2.2.1 & Daya listrik - catu daya yang berfluktuasi &5 &3 &15 &6 &6 &36 & \cellcolor{yellow} Masih dapat diterima\\ \hline
+		2.3.1 & Kondisi pemindahan &3 &3 &9 &4 &8 &32 & \cellcolor{yellow} Masih dapat diterima\\ \hline
+		2.3.2 & Kondisi operasi &3 &3 &9 &4 &8 &32 & \cellcolor{yellow} Masih dapat diterima\\ \hline
+		2.3.3 & Kondisi penyimpanan &3 &3 &9 &4 &8 &32 & \cellcolor{yellow} Masih dapat diterima\\ \hline
+		3.1.1 & Pemberian label tidak memadai &3 &4 &12 &6 &6 &36 & \cellcolor{yellow} Masih dapat diterima\\ \hline
+		3.2.1 & Instruksi perngoperasian terlalu rumit &2 &6 &12 &6 &6 &36 & \cellcolor{yellow} Masih dapat diterima\\ \hline
+		3.2.2 & Deskripsi karakteristik kinerja yang tidak memadai &3 &4 &12 &6 &6 &36 & \cellcolor{yellow} Masih dapat diterima\\ \hline	
+		3.2.3 & Deskripsi spesfikasi penggunaan yang dimaksud tidak memadai &3 &3 &9 &4 &8 &32 & \cellcolor{yellow} Masih dapat diterima\\ \hline	
+		3.2.4 & Deskripsi aksesoris tidak memadai &2 &4 &8 &4 &8 &32 & \cellcolor{yellow} Masih dapat diterima\\ \hline	
+		3.3.1 & Penyalahgunaan yang dapat diduga secara wajar &3 &3 &9 &4 &8 &32 & \cellcolor{yellow} Masih dapat diterima\\ \hline
+		3.4.1 & Digunakan dengan kekuatan yang berlebihan &3 &3 &9 &4 &8 &32 & \cellcolor{yellow} Masih dapat diterima\\ \hline	
+		4.1.1 & Tidak memadai terkait dengan masa aktif perangkat &3 &3 &9 &4 &8 &32 & \cellcolor{yellow} Masih dapat diterima\\ \hline	
+		4.1.2 & Kehilangan atau penurunnan fungsi akibat penggunaan berulang aksesori &4 &2 &8 &6 &6 &36 &\cellcolor{yellow} Masih dapat diterima \\ \hline	
+		4.1.3 & Kehilangan atau kerusakan isolasi akibat panas &1 &3 &3 &2 &8 &16 & \cellcolor{green} Masih dapat diterima\\ \hline
+		4.1.4 & Bagian perangkat yang basah &4 &2 &8 &6 &6 &36 & \cellcolor{yellow} Masih dapat diterima\\ \hline	
+		4.2.1 & Perawatan yang tidak memadai &2 &4 &8 &4 &8 &32 & \cellcolor{yellow} Masih dapat diterima\\ \hline	
+		4.3.1 & Pembersihan dan disinfektan yang tidak memadai &3 &3 &9 &4 &8 &32 & \cellcolor{yellow} Masih dapat diterima\\ \hline	
+		5.1.1 & Alergi / iritasi&3 &3 &9 &4 &8 &32 & \cellcolor{yellow} Masih dapat diterima\\ \hline	    	    	  
+		 \bottomrule	  
+		
+		\end{longtable}
 		
 	\newpage
 	
