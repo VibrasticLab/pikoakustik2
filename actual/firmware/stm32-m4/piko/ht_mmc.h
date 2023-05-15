@@ -171,8 +171,9 @@ void ht_mmcOnceMetri_jsonEnd(void);
 
 /**
  * @brief Get Last Number of of record files
+ * @return uint16_t File Number to check
  */
-void ht_mmc_getLastNum(void);
+uint16_t ht_mmc_getLastNum(void);
 
 #endif // HT_MMC_H
 

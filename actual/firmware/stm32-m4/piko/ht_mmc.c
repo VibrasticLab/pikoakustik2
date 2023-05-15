@@ -39,11 +39,6 @@ MMCDriver MMCD1;
 uint16_t lastnum;
 
 /**
- * @brief Last Record of recorded files (as is)
- */
-uint16_t lastrec;
-
-/**
  * @brief Gobal MMC Initialization Status
  */
 FRESULT mmc_check_status = FR_OK;
@@ -559,18 +554,20 @@ void ht_mmc_catFilesBuffer(uint16_t fnum, char *jsonbuff){
     ht_mmc_Delay();
 }
 
-void ht_mmc_getLastNum(void){
+uint16_t ht_mmc_getLastNum(void){
 
 #if USER_METRI_USELOG
     char strbuff[COMM_BUFF_SIZE];
 #endif
+
+    uint16_t lastrec;
 
     FATFS FatFs;
     FRESULT err;
 
     char buff[MMC_STR_BUFF_SIZE];
 
-    if(mmc_check()!=FR_OK){return;}
+    if(mmc_check()!=FR_OK){return 0;}
 
     if( (filesystem_ready==true) && (mmc_spi_status_flag==MMC_SPI_OK) ){
         err = f_mount(&FatFs,"",0);
@@ -586,7 +583,7 @@ void ht_mmc_getLastNum(void){
         f_mount(0, "", 0);
     }
 
-    ht_mmc_Delay();
+    return lastrec;
 }
 
 /*******************************************/

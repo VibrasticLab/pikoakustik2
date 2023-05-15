@@ -37,7 +37,7 @@ void ht_ptaLoadArray(int id, char *jsonString);
 /**
  * @brief Get final PTA Comma Separation Value
  */
-void ht_ptaFinalCSV(char *jsonPTA);
+void ht_ptaFinalCSV(uint16_t fnum, char *jsonPTA);
 
 #endif // HT_PTA_H
 

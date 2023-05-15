@@ -24,7 +24,7 @@
 extern uint16_t lastrec;
 
 /**
- * @brief Calibration Amplitude Array
+ * @brief Amplitude Array to be Calibrated
  */
 uint8_t calAmpl[6][2];
 
@@ -74,6 +74,25 @@ static int jsonEq(const char *jsonSTR, jsmntok_t *tok, const char *str){
 }
 
 /**
+ * @brief Reset All Array
+ */
+static void ptaArrayReset(void){
+    uint8_t i,j;
+
+    for(i=0;i<2;i++){
+        for(j=0;j<6;j++){
+            calAmpl[j][i]=0;
+        }
+    }
+
+    for(i=0;i<2;i++){
+        for(j=0;j<4;j++){
+            calPTA[j][i]=0;
+        }
+    }
+}
+
+/**
  * @brief Calibrate Array for PTA
  */
 static void ptaArrayCalib(void){
@@ -99,6 +118,8 @@ void ht_ptaLoadArray(int id, char *jsonString){
     int i;
     int m=0,n=0;
     char val[3];
+
+    ptaArrayReset();
 
     for(i=1;i<id;i++){
         if (jsonEq(jsonString, &tkn[i], "ampl") == 0) {
@@ -133,13 +154,13 @@ int ht_ptaParse(char *jsonString){
   return jsonID;
 }
 
-void ht_ptaFinalCSV(char *jsonPTA){
+void ht_ptaFinalCSV(uint16_t fnum, char *jsonPTA){
     uint8_t i,m=0,n=0;
     char ptaUnit[4];
 
     ptaArrayCalib();
 
-    chsnprintf(jsonPTA,sizeof(jsonPTA),"%i,",lastrec);
+    chsnprintf(jsonPTA,sizeof(jsonPTA),"%i,",fnum);
 
     for(i=0;i<8;i++){
         if(i<7) chsnprintf(ptaUnit,sizeof(ptaUnit),"%i,",calPTA[m][n]);

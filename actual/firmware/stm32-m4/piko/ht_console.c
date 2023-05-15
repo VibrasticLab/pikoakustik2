@@ -30,7 +30,6 @@
 #include "msg_my.h"
 
 extern uint16_t lastnum;
-extern uint16_t lastrec;
 extern FRESULT mmc_check_status;
 
 extern uint8_t mode_status;
@@ -125,7 +124,7 @@ static void cmd_led(BaseSequentialStream *chp, int argc, char *argv[]){
  */
 static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
   if(argc < 1){
-     chprintf(chp,"usage: mmc [test|ls|lsnum|lsjson|lslast|cat|stt|dump] <file-number>\r\n");
+     chprintf(chp,"usage: mmc [test|ls|lsnum|lsjson|cat|stt|dump] <file-number>\r\n");
      return;
   }
 
@@ -143,10 +142,6 @@ static void cmd_mmc(BaseSequentialStream *chp, int argc, char *argv[]) {
   }
   else if(strcmp(argv[0], "lsjson")==0){
     ht_mmc_lsFiles(LS_JSONNUM);
-  }
-  else if(strcmp(argv[0], "lslast")==0){
-    ht_mmc_getLastNum();
-    chprintf(chp,"Last File Number is %i\r\n",lastrec);
   }
   else if(strcmp(argv[0], "cat")==0){
     if(argc == 2){
@@ -566,6 +561,7 @@ static void cmd_bufr(BaseSequentialStream *chp, int argc, char *argv[]) {
     (void) argv;
     if (argc != 0){
         chprintf(chp, "Usage: bufr\r\n");
+        return;
     }
 
     ht_mmcMetri_bufferShow();
@@ -576,28 +572,37 @@ static void cmd_bufr(BaseSequentialStream *chp, int argc, char *argv[]) {
  * @details Enumerated and not called directly by any normal thread
  */
 static void cmd_pta(BaseSequentialStream *chp, int argc, char *argv[]){
-    (void) argv;
-
+    uint16_t fileID = 0;
     int idJSON;
     char strjson[METRI_BUFFER_SIZE];
     char ptaJSON[COMM_BUFF_SIZE];
+    char ptaComm[COMM_BUFF_SIZE];
 
-    if (argc != 0){
-        chprintf(chp, "Usage: last\r\n");
+    if (argc > 1){
+        chprintf(chp, "Usage: last <number>\r\n");
+        return;
     }
 
-    ht_mmc_getLastNum();
-    ht_mmc_catFilesBuffer(lastrec,strjson);
+    if(argc==0){
+        fileID = ht_mmc_getLastNum();
+    }
+    else if(argc==1){
+        fileID = atoi(argv[0]);
+    }
 
+    ht_mmc_catFilesBuffer(fileID,strjson);
     idJSON = ht_ptaParse(strjson);
     if(idJSON<0){
       return;
     }
 
     ht_ptaLoadArray(idJSON,strjson);
-    ht_ptaFinalCSV(ptaJSON);
+    ht_ptaFinalCSV(fileID,ptaJSON);
 
     chprintf(chp,"mpta %s\r\n",ptaJSON);
+
+    ht_comm_Buff(ptaComm,sizeof(ptaComm),"mpta %s\r\n",ptaJSON);
+    ht_commUART_Msg(ptaComm);
 }
 
 
