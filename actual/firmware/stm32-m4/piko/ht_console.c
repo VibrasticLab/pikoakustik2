@@ -579,7 +579,7 @@ static void cmd_pta(BaseSequentialStream *chp, int argc, char *argv[]){
     char ptaComm[COMM_BUFF_SIZE];
 
     if (argc > 1){
-        chprintf(chp, "Usage: last <number>\r\n");
+        chprintf(chp, "Usage: pta <number>\r\n");
         return;
     }
 
@@ -601,6 +601,7 @@ static void cmd_pta(BaseSequentialStream *chp, int argc, char *argv[]){
 
     chprintf(chp,"mpta %s\r\n",ptaJSON);
 
+    // WARNING: If request came from UART, it means response twice
     ht_comm_Buff(ptaComm,sizeof(ptaComm),"mpta %s\r\n",ptaJSON);
     ht_commUART_Msg(ptaComm);
 }
