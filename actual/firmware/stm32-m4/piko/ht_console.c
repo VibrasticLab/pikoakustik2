@@ -567,6 +567,10 @@ static void cmd_bufr(BaseSequentialStream *chp, int argc, char *argv[]) {
     ht_mmcMetri_bufferShow();
 }
 
+/*******************************************/
+
+#if USER_ESP32
+
 /**
  * @brief Test command callback for show PTA JSON
  * @details Enumerated and not called directly by any normal thread
@@ -599,17 +603,11 @@ static void cmd_pta(BaseSequentialStream *chp, int argc, char *argv[]){
     ht_ptaLoadArray(idJSON,strjson);
     ht_ptaFinalCSV(fileID,ptaJSON);
 
-    chprintf(chp,"mpta %s\r\n",ptaJSON);
-
-    // WARNING: If request came from UART, it means response twice
     ht_comm_Buff(ptaComm,sizeof(ptaComm),"mpta %s\r\n",ptaJSON);
+    ht_commUSB_Msg(ptaComm);
     ht_commUART_Msg(ptaComm);
 }
 
-
-/*******************************************/
-
-#if USER_ESP32
 static void cmd_esp(BaseSequentialStream *chp, int argc, char *argv[]) {
     if(argc!=1){
         chprintf(chp,"Usage: esp [wifi]\r\n");
