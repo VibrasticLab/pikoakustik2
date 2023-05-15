@@ -8,6 +8,11 @@
 
 #include "my_includes.h"
 
+/**
+ * Whether use strtok() method or not
+ */
+#define PTA_PARSE_STRTOK    FALSE
+
 extern ssd1306_t oled_dev;
 extern uint8_t lcdbuff[DISPLAY_WIDTH * DISPLAY_HEIGHT / 8];
 
@@ -60,20 +65,40 @@ void my_ptaArrayReset(void){
 }
 
 void my_ptaArrayLoad(char *csvArray){
+#if PTA_PARSE_STRTOK
     char *pt;
     uint8_t i=0;
 
     pt = strtok(csvArray,",");
     while (pt != NULL) {
-        int a = atoi(pt);
-
-        if(i==0) fileNum = a;
-        if((i>0) && (i<5)) arrLPta[i-1] = a;
-        else if(i>=5) arrRPta[i-5] = a;
+        if(i==0) fileNum = atoi(pt);
+        else if((i>0) && (i<5)) arrLPta[i-1] = atoi(pt);
+        else if(i>=5) arrRPta[i-5] = atoi(pt);
 
         i++;
         pt = strtok(NULL, ",");
     }
+#else
+    uint8_t i,j,cnt;
+    char strSplit[9][4];
+
+    j=0; cnt=0;
+    for(i=0;i<=strlen(csvArray);i++){
+        if(csvArray[i]==',' || csvArray[i]=='\0'){
+            strSplit[cnt][j] = '\0';
+            cnt++; j=0;
+        }
+        else{
+            strSplit[cnt][j] = csvArray[i]; j++;
+        }
+    }
+
+    for(i=0;i<cnt;i++){
+        if(i==0) fileNum = atoi(strSplit[i]);
+        else if((i>0) && (i<5)) arrLPta[i-1] = atoi(strSplit[i]);
+        else if(i>=5) arrRPta[i-5] = atoi(strSplit[i]);
+    }
+#endif
 }
 
 void my_pagePta(void){
