@@ -1,0 +1,155 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[yyyymmdd, hhmmss]{datetime}
+\usepackage{graphicx}
+
+\usepackage[english]{babel}
+\usepackage{geometry}
+
+\usepackage{adjustbox}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{titlesec}
+
+\geometry{
+	a4paper,
+	left=25mm,
+	right=25mm,
+	top=25mm,
+	bottom=25mm,
+}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=blue,
+}
+
+\setcounter{secnumdepth}{4}
+
+\renewcommand{\theparagraph}{\thesubsubsection.\alph{paragraph}}
+
+\begin{document}
+	\begin{titlepage}
+		\centering
+		
+		{
+			\LARGE
+			\bf
+			Uji Respon Headphone Menggunakan Ear Simulator
+		}
+		
+		\bigskip
+		
+		{
+			\large
+			\bf
+			Tim Penelitian Portable Audiometer  
+		}
+		
+		\vfill
+	\end{titlepage}
+	
+	\newpage
+	\section{Pendahuluan}
+	
+	
+	\section{Tujuan Pengujian}
+	Pengujian resppon headphone bertujuan untuk memperoleh informasi berupa:
+	\begin{itemize}
+		\item Karakteristik respon dari headphone, meliputi: frequency response, harmonic distortion, 
+		\item Sound pressure level (SPL) dari luaran tone portable audiometer
+	\end{itemize}
+	
+	\section{Metode Pengujian}
+	\subsection{Alat dan Perangkat Pendukung}
+	Pengujian ini memerlukan peralatan dan perangkat pendukung sebagai berikut:
+	\begin{itemize}
+		\item \textbf{Ear simulator}. Pada pengujian ini digunakan dua jenis Ear simulator, yaitu:
+		\begin{enumerate}
+			\item miniDSP EARS (\href{https://www.minidsp.com/images/documents/Product%20Brief-EARS.pdf}{detail produk})
+			\item Free Space Pro II Binaural Microphone (\href{https://3diosound.com/products/free-space-pro-binaural-microphone}{detail produk})
+		\end{enumerate}
+	
+		\item \textbf{Headphone} yang akan diuji, yaitu:
+		\begin{enumerate}
+			\item JBL Tune 500 Wire On-Ear Headphone 
+			(\href{https://id.jbl.com/over-ear-headphones/JBL+TUNE500.html}{detail produk})
+			\item Bose Frames Tempo Open-Ear Headphone
+			(\href{https://www.bose.com/en_us/products/frames/bose-frames-tempo.html#v=bose_frames_tempo_black_us}{detail produk})
+			\item IMOO Open-Ear Headphone
+			(\href{https://imoostore.com/pages/imoo-ear-care-headset}{detail produk})
+		\end{enumerate}
+		
+		\item Software \textbf{Room Equalization Wizard (REW)} (unduh \href{https://www.roomeqwizard.com/}{disini})
+	\end{itemize}
+	
+	\subsection{Prosedur Pengujian}
+	\subsubsection{Pengujian menggunakan miniDSP EARS}
+	\paragraph{Setup dan Pengaturan Perangkat}
+	\label{setup}
+	\begin{enumerate}
+		\item Atur nilai gain pada gain switch di panel depan miniDSP EARS (Gambar) mengikuti acuan pada Tabel. Pada pengujiani ini digunakan nilai gain sebesar 0 dB.
+		
+		
+		\item Hubungkan miniDSP EARS ke laptop menggunakan sambungan kabel USB (Gambar) yang tersedia.
+		
+		\item Hubungkan headphone dengan laptop menggunakan sambungan kabel (untuk wired headphone) atau koneksi bluetooth (untuk wireless headphone)
+		
+	\end{enumerate}
+	
+	\paragraph{Kalibrasi Ear Simulator}
+	\begin{enumerate}
+		\item Unduh dokumen kalibrasi miniDSP EARS halaman \href{https://www.minidsp.com/products/acoustic-measurement/ears-headphone-jig}{unduhan}. Masukkan serial number dari perangkat (terdapat pada bagian panel bawah perangkat) untuk mengakses file unduhan.  
+		
+		\item Pilih file kalibrasi yang sesuai dengan kondisi/mode pengujian yang dilakukan. 
+		
+		\item Atur setup dan pengaturan perangkat sesuai dengan penejelasan pada bagian \ref{setup}
+		
+		\item Pastikan nilai sample rate dari perangkat input (miniDSP EARS) dan output (headphone) memiliki nilai yang sama. 
+		\begin{itemize}
+			\item Pengecekan sample rate pada input dapat dilakukan melalui {\bf Control Panel} $\rightarrow$ {\bf Hardware and Sound} $\rightarrow$ {\bf Manage Audio Devices} $\rightarrow$ {\bf Input Device} $\rightarrow$ {\bf Properties} $\rightarrow$ {\bf Advanced}.
+			\item Pengecekan sample rate pada output dapat dilakukan melalui {\bf Control Panel} $\rightarrow$ {\bf Hardware and Sound} $\rightarrow$ {\bf Manage Audio Devices} $\rightarrow$ {\bf Output Device} $\rightarrow$ {\bf Properties} $\rightarrow$ {\bf Advanced}.
+		\end{itemize}
+		
+		\item Buka software REW. Tampilan dialog akan muncul menunjukkan perangkat miniDSP EARS terbaca oleh laptop. Tekan {\bf Yes}.
+		
+		\item Tampilan dialog muncul menanyakan apakah file kalibrasi telah tersedia. Tekan {\bf Yes}.
+		
+		\item Unggah file kalibrasi yang akan digunakan, masing-masing untuk channel kiri dan kanan.
+		
+		\item Buka menu {\bf Preferences}. Pada tab Soundcard, pastikan nilai sample rate, output device, dan input device menunjukkan pengaturan seperti pada Gambar.
+		
+		\item Buka tab {\bf Cal Files}. Pastikan file kalibrasi sudah terunggah.
+		
+		\item Kembali ke menu utama. Buka menu {\bf Generator}. Pilih tab {\bf Tones} dan {\bf Sine}. Atur nilai frekuensi menjadi 300 Hz dan nilai RMS level sebesar -20.00 dB FS. Tekan tombol {\bf Play} pada bagian kanan bawah.
+		
+		\item Buka menu {\bf SPL Meter}. Atur volume pada headphone hingga mencapai nilai 84 dB. Nilai volume dapat diatur lebih tinggi, namun pastikan hal tersebut tidak melebihi batas kemampuan headphone.
+		
+		\item Kembali ke menu {\bf Generator}. Tekan tombol {\bf Stop} pada bagian kanan bawah. Tutup menu {\bf Generator} dan {\bf SPL Meter}. 
+		
+	\end{enumerate}
+	
+	\paragraph{Pengukuran dan Pengambilan Data}
+	\subparagraph{Karateristik Respon Headphone}
+	\begin{enumerate}
+		\item 
+	\end{enumerate}
+	
+	\subparagraph{Nilai SPL Luaran Tone}
+	\begin{enumerate}
+		\item 
+	\end{enumerate}
+
+	\subsubsection{Pengujian menggunakan Free Space II Binaural Microphone}
+	\paragraph{Setup dan Pengaturan Perangkat}
+	
+	\paragraph{Kalibrasi Ear Simulator}
+	
+	\paragraph{Pengukuran dan Pengambilan Data}	
+	
+	
+\end{document}
