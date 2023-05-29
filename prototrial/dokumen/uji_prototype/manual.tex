@@ -6,10 +6,11 @@
 \usepackage[yyyymmdd, hhmmss]{datetime}
 \usepackage{graphicx}
 \usepackage{float}
-\usepackage[labelsep=endash, figurename=Gambar]{caption}
 \usepackage{subcaption}
-\usepackage{minted}
 
+\usepackage{minted}
+\usepackage[os=win]{menukeys}
+\usepackage{tikz}
 
 \usepackage[english]{babel}
 \usepackage{geometry}
@@ -35,7 +36,9 @@
 
 \setcounter{secnumdepth}{4}
 \renewcommand{\theparagraph}{\thesubsubsection.\alph{paragraph}}
-\renewcommand{\figurename}{Gambar}
+
+\addto\captionsenglish{\renewcommand{\tablename}{Tabel}}
+\addto\captionsenglish{\renewcommand{\figurename}{Gambar}}
 
 \begin{document}
 	\begin{titlepage}
@@ -52,7 +55,7 @@
 		{
 			\large
 			\bf
-			Tim Penelitian Portable Audiometer  
+			Tim Penelitian Audiometer Portable  
 		}
 		
 		\vfill
@@ -76,13 +79,30 @@
 		\item \textbf{Ear simulator}. Pada pengujian ini digunakan dua jenis Ear simulator, yaitu:
 		\begin{enumerate}
 			\item miniDSP EARS (\href{https://www.minidsp.com/images/documents/Product%20Brief-EARS.pdf}{detail produk})
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=200pt,angle=-90]{images/unit/ears}
+				\caption{MiniDSP EARS}
+			\end{figure}
+			
 			\item Free Space Pro II Binaural Microphone (\href{https://3diosound.com/products/free-space-pro-binaural-microphone}{detail produk})
+			
+			\item Presonus AudioBox
+			
+			\item iRig Pro Duo
+			
 		\end{enumerate}
 	
 		\item \textbf{Headphone} yang akan diuji, yaitu:
 		\begin{enumerate}
 			\item JBL Tune 500 Wire On-Ear Headphone 
 			(\href{https://id.jbl.com/over-ear-headphones/JBL+TUNE500.html}{detail produk})
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=200pt]{images/unit/jbl}
+				\caption{Wired Headphone}
+			\end{figure}
+			
 			\item Bose Frames Tempo Open-Ear Headphone
 			(\href{https://www.bose.com/en_us/products/frames/bose-frames-tempo.html#v=bose_frames_tempo_black_us}{detail produk})
 			\item IMOO Open-Ear Headphone
@@ -100,10 +120,25 @@
 	\subparagraph{Setup dan Pengaturan Perangkat}
 	\label{setup}
 	\begin{enumerate}
-		\item Atur nilai gain pada gain switch di panel depan miniDSP EARS (Gambar \ref{fig:front-panel}) mengikuti acuan pada Tabel. Pada pengujiani ini digunakan nilai gain sebesar 0 dB.
+		\item Atur nilai gain pada gain switch di panel depan miniDSP EARS (Gambar \ref{fig:front-panel}) mengikuti acuan pada Tabel \ref{table:gain}. Pada pengujiani ini digunakan nilai gain sebesar 18 dB.
+		
+		\begin{table}[H]
+			\centering
+			\caption{Pengaturan Gain pada MiniDSP EARS \label{table:gain}}
+			\begin{tabular}{| p{0.1\textwidth} | p{0.1\textwidth} | p{0.1\textwidth} | p{0.1\textwidth} |}
+				\hline
+				Switch 1 & Switch 2 & Switch 3 & Gain (dB) \\ \hline\hline
+				Down & Down & Up & 0 \\ \hline
+				Down & Up & Down & 6 \\ \hline
+				Down & Up & Up & 12 \\ \hline
+				Up & Down & Down & 18 \\ \hline
+				Up & Down & Up & 24 \\ \hline
+				Up & Up & Down & 30 \\ \hline
+				Up & Up & Up & 36 \\ \hline
+			\end{tabular}
+		\end{table}
 		
 		\begin{figure}[H]
-			\renewcommand{\figurename}{Gambar}
 			\centering
 			\includegraphics[width=0.5\textwidth]{images/front-panel}
 			\caption{Tampilan panel depan miniDSP EARS}
@@ -114,7 +149,6 @@
 		
 		\begin{figure}[H]
 			\centering
-			\renewcommand{\figurename}{Gambar}
 			\begin{subfigure}[]{.45\textwidth}
 				\includegraphics[width=\textwidth]{images/plug-in}
 				\caption{}
@@ -129,7 +163,6 @@
 		
 		\begin{figure}[H]
 			\centering
-			\renewcommand{\figurename}{Gambar}
 			\begin{subfigure}[]{.45\textwidth}
 				\includegraphics[width=\textwidth]{images/plug-in-audio}
 				\caption{}
@@ -149,6 +182,7 @@
 	\end{enumerate}
 	
 	\subparagraph{Kalibrasi miniDSP EARS}
+	\label{subparagraph:kalibrasi}
 	\begin{enumerate}
 		\item Unduh dokumen kalibrasi miniDSP EARS halaman \href{https://www.minidsp.com/products/acoustic-measurement/ears-headphone-jig}{unduhan}. Masukkan serial number dari perangkat (terdapat pada bagian panel bawah perangkat) untuk mengakses file unduhan.  
 		
@@ -165,7 +199,6 @@
 		\item Buka software REW (tampilan awal software seperti pada Gambar \ref{fig:rew-initial}). Tampilan dialog akan muncul menunjukkan perangkat miniDSP EARS terbaca oleh laptop. Tekan {\bf Yes}.
 		
 		\begin{figure}[H]
-			\renewcommand{\figurename}{Gambar}
 			\centering
 			\includegraphics[width=0.6\textwidth]{images/rew-initial}
 			\caption{Tampilan awal software REW}
@@ -181,7 +214,6 @@
 		\item Buka menu {\bf Preferences}. Pada tab Soundcard, pastikan nilai sample rate, output device, dan input device menunjukkan pengaturan seperti pada Gambar \ref{fig:rew-preferences}.
 		
 		\begin{figure}[H]
-			\renewcommand{\figurename}{Gambar}
 			\centering
 			\includegraphics[width=0.6\textwidth]{images/rew-preferences}
 			\caption{Tampilan menu Preferences software REW}
@@ -191,7 +223,6 @@
 		\item Buka tab {\bf Cal Files}. Pastikan file kalibrasi sudah terunggah (Gambar \ref{fig:rew-cal}).
 		
 		\begin{figure}[H]
-			\renewcommand{\figurename}{Gambar}
 			\centering
 			\includegraphics[width=0.6\textwidth]{images/rew-calibration}
 			\caption{Tampilan menu Preferences software REW}
@@ -201,7 +232,6 @@
 		\item Kembali ke menu utama. Buka menu {\bf Generator} (Gambar \ref{fig:rew-generator}). Pilih tab {\bf Tones} dan {\bf Sine}. Atur nilai frekuensi menjadi 300 Hz dan nilai RMS level sebesar -20.00 dB FS. Tekan tombol {\bf Play} pada bagian kanan bawah.
 		
 		\begin{figure}[H]
-			\renewcommand{\figurename}{Gambar}
 			\centering
 			\includegraphics[width=0.4\textwidth]{images/rew-generator}
 			\caption{Tampilan menu Preferences software REW}
@@ -211,7 +241,6 @@
 		\item Buka menu {\bf SPL Meter} (Gambar \ref{fig:rew-spl-meter}). Atur volume pada headphone hingga mencapai nilai 84 dB. Nilai volume dapat diatur lebih tinggi, namun pastikan hal tersebut tidak melebihi batas kemampuan headphone.
 		
 		\begin{figure}[H]
-			\renewcommand{\figurename}{Gambar}
 			\centering
 			\includegraphics[width=0.4\textwidth]{images/rew-splmeter}
 			\caption{Tampilan menu Preferences software REW}
@@ -227,7 +256,6 @@
 		\item Buka menu {\bf Measure} pada REW, lakukan pengaturan sesuai pada Gambar \ref{fig:rew-measurement-left}. Pilih tab {\bf SPL}, atur nilai range frekuensi mulai 20-20.000 Hz. Atur nilai level pada -20.00 dB FS. Kemudian pilih tab {\bf Sweep}. Pastikan channel aktif dari device output dan input adalah sisi kiri (left). Tekan {\bf Start} untuk memulai pengukuran.   
 		
 		\begin{figure}[H]
-			\renewcommand{\figurename}{Gambar}
 			\centering
 			\includegraphics[width=0.8\textwidth]{images/rew-measurement-L}
 			\caption{Tampilan menu Preferences software REW}
@@ -237,7 +265,6 @@
 		\item Lakukan pengukuran selanjutnya dengan mengubah channel input dan output ke sisi kanan (right), seperti ditunjukkan pada Gambar \ref{fig:rew-measurement-right}. Tekan {\bf Start} untuk memulai pengukuran.
 		
 		\begin{figure}[H]
-			\renewcommand{\figurename}{Gambar}
 			\centering
 			\includegraphics[width=0.8\textwidth]{images/rew-measurement-R}
 			\caption{Tampilan menu Preferences software REW}
@@ -247,7 +274,6 @@
 		\item Pilih menu {\bf Overlay} untuk menampilkan hasil untuk kedua channel sekaligus. Tampilan contoh hasil pengukuran nilai frequency response dan distortion ditunjukkan berturut-turut pada Gambar \ref{fig:rew-overlay} dan Gambar \ref{fig:rew-overlay-distortion}.
 		
 		\begin{figure}[H]
-			\renewcommand{\figurename}{Gambar}
 			\centering
 			\includegraphics[width=0.8\textwidth]{images/rew-overlay}
 			\caption{Tampilan menu Preferences software REW}
@@ -255,7 +281,6 @@
 		\end{figure}
 	
 		\begin{figure}[H]
-			\renewcommand{\figurename}{Gambar}
 			\centering
 			\includegraphics[width=0.8\textwidth]{images/rew-overlay-distortion}
 			\caption{Tampilan menu Preferences software REW}
@@ -270,8 +295,6 @@
 	
 	\paragraph{Pengukuran Nilai SPL Luaran Tone Audiometer Portabel}
 	\subparagraph{Setup dan Pengaturan Perangkat}
-		Berikut langkah pemasangan unit perangkat di atas:
-		
 		\begin{enumerate}
 			\item Pasang Headphone pada unit EARS sebagaimana jika digunakan pada telinga manusia.
 			Pastikan kiri dan kanan tidak terbalik.
@@ -279,19 +302,19 @@
 			
 			\begin{figure}[H]
 				\centering
-				\begin{subfigure}[t]{0.35\textwidth}
+				\begin{subfigure}[H]{0.4\textwidth}
 					\includegraphics[width=\textwidth]{images/pasang/chjbl}
 					\caption{Label Channel}
 				\end{subfigure}
-				\begin{subfigure}[t]{0.35\textwidth}
+				\begin{subfigure}[H]{0.4\textwidth}
 					\includegraphics[width=\textwidth]{images/pasang/pasangjbl}
 					\caption{Pasang Headphone}
 				\end{subfigure}
-				\\
-				\begin{subfigure}[t]{0.35\textwidth}
-					\includegraphics[width=\textwidth,angle=-90]{images/pasang/tutupjbl}
-					\caption{Menutup Telinga}
-				\end{subfigure}
+%				\\
+%				\begin{subfigure}[H]{0.3\textwidth}
+%					\includegraphics[width=\textwidth,angle=-90]{images/pasang/tutupjbl}
+%					\caption{Menutup Telinga}
+%				\end{subfigure}
 				
 				\caption{Pemasangan Headphone pada EARS}
 			\end{figure}
@@ -302,8 +325,7 @@
 				\includegraphics[width=200pt]{images/pasang/sambung_audio}
 				\caption{Sambung Jack Audio}
 			\end{figure}
-			
-			\newpage
+		
 			\item Nyalakan Unit. Tunggu hingga LED biru berkedip.
 			\begin{figure}[H]
 				\centering
@@ -318,10 +340,11 @@
 			\end{figure}
 		\end{enumerate}
 	
-	Berikut adalah perangkat lunak komunikasi serial ke Konsol yang perlu disiapkan untuk pengujian ini
-	(panduan ini menggunakan Windows-7 32-bit sebagai contoh):
+	\subparagraph{Komunikasi Serial}
 	
 	\begin{enumerate}
+		\item Berikut adalah perangkat lunak komunikasi serial ke Konsol yang perlu disiapkan untuk pengujian ini (panduan ini menggunakan Windows-7 32-bit sebagai contoh)
+		
 		\item Install driver ARM USB-CDC.\\
 		Untuk dapat menghubungkan unit prototype dengan komputer,
 		diperlukan driver ARM USB-CDC untuk komunikasi serial.
@@ -329,15 +352,14 @@
 		\begin{itemize}
 			\item File installer (sesuaikan dengan bit OS).
 			Dapat didownload di \href{https://drive.google.com/drive/folders/19gXVrxR68SFHQUGGGgKb0Da03oV7Rh41?usp=share_link}{USB-CDC\_Driver}.
-			\begin{figure}[!ht]
+			\begin{figure}[H]
 				\centering
 				\includegraphics[width=200pt]{images/software/driver}
 				\caption{Installer Driver}
 			\end{figure}
 			
-			\newpage
 			\item Instalasi driver (tanpa unit prototype terhubung) cukup mudah sebagaimana umumnya.
-			\begin{figure}[!ht]
+			\begin{figure}[H]
 				\centering
 				\includegraphics[width=200pt]{images/software/install_driver}
 				\caption{Mulai instal driver}
@@ -345,7 +367,7 @@
 		\end{itemize}
 		
 		\item Sambungkan unit prototype yang telah nyala dengan komputer via kabel USB.
-		\begin{figure}[!ht]
+		\begin{figure}[H]
 			\centering
 			\includegraphics[width=200pt]{images/pasang/laptop_usb}
 			\caption{Sambung Kabel USB ke Laptop}
@@ -355,10 +377,10 @@
 		
 		\item Cek \textit{Device Manager} untuk mengetahui Nomor Serial-Port
 		\begin{itemize}
-			\item Buka run-command dialog dengan kombinasi keyboard (\keys{\WinKey + r})
+			\item Buka run-command dialog dengan kombinasi keyboard %(\keys{\WinKey + r})
 			
 			\item masukkan perintah \textbf{devmgmt.msc}.
-			\begin{figure}[!ht]
+			\begin{figure}[H]
 				\centering
 				\includegraphics[width=200pt]{images/software/devicemgr}
 				\caption{Memanggil Device Manager}
@@ -366,12 +388,11 @@
 			
 			\item Tekan (\keys{\return}) atau klik OK
 			
-			\newpage
 			\item Cari entry \textit{Ports (COM and LPT)}.
 			Catat nomor port untuk entry \textit{STMicroelectronics Virtual COM Port}.
 			Dalam contoh ini, terkonfigurasi pada COM3.
 			
-			\begin{figure}[!ht]
+			\begin{figure}[H]
 				\centering
 				\includegraphics[width=200pt]{images/software/comport}
 				\caption{Serial Komunikasi pada COM3}
@@ -385,7 +406,7 @@
 		
 		\begin{itemize}
 			\item Program terminal Hercules. Dapat didownload di \href{https://drive.google.com/drive/folders/1fgNPnGeSm20TrFfwmeCa4B24WIN_t_o_?usp=share_link}{Terminal}.
-			\begin{figure}[!ht]
+			\begin{figure}[H]
 				\centering
 				\includegraphics[width=200pt]{images/software/hercules}
 				\caption{Hercules Terminal}
@@ -395,7 +416,7 @@
 			Jika muncul konfirmasi lisensi, cukup \textit{Close} saja.
 			
 			\item Pilih tab \textit{Serial}.
-			\begin{figure}[!ht]
+			\begin{figure}[H]
 				\centering
 				\includegraphics[width=200pt]{images/software/hercules_serial}
 				\caption{Serial Terminal}
@@ -405,13 +426,12 @@
 		\item Test Komunikasi Serial
 		\begin{itemize}
 			\item Hercules Serial Terminal
-			\begin{figure}[!ht]
+			\begin{figure}[H]
 				\centering
 				\includegraphics[width=250pt]{images/software/hercules_terminal}
 				\caption{Hercules Serial Terminal}
 			\end{figure}
 			
-			\newpage
 			\item Setting Port pada Serial Terminal sebagai berikut
 			\begin{itemize}
 				\item Name     : COM3
@@ -420,7 +440,7 @@
 				\item Parity   : none
 			\end{itemize}
 			
-			\begin{figure}[!ht]
+			\begin{figure}[H]
 				\centering
 				\includegraphics[width=100pt]{images/software/hercules_port}
 				\caption{Pengaturan serial port}
@@ -429,7 +449,7 @@
 			\item Klik Open (pastikan unit prototype sudah standby dan terhubung
 			serta nama COM port sudah sesuai)
 			
-			\begin{figure}[!ht]
+			\begin{figure}[H]
 				\centering
 				\includegraphics[width=100pt]{images/software/hercules_open}
 				\caption{Open Serial Port}
@@ -446,7 +466,7 @@
 				info
 			\end{minted}
 			Serial akan menampilkan informasi kernel dan platform
-			\begin{figure}[!ht]
+			\begin{figure}[H]
 				\centering
 				\includegraphics[width=300pt]{images/software/hercules_text}
 				\caption{Informasi Platform}
@@ -457,9 +477,11 @@
 
 	Berikut beberapa contoh perintah serial yang dapat diakses melalui komunikasi serial Konsol:
 	
-	\begin{table}[!ht]
+	\begin{table}[H]
+		\renewcommand{\tablename}{Tabel}
 		\centering
-		\begin{tabular}{|l|l|l|l|l|}
+		\caption{Contoh perintah serial yang tersedia pada konsol Audiometri. \label{table:serial-code}}
+		\begin{tabular}{| p{0.05\textwidth} | p{0.1\textwidth} | p{0.15\textwidth} | p{0.1\textwidth} | p{0.5\textwidth} |}
 			\hline
 			\textbf{No} & \textbf{Perintah} & \textbf{Fungsi} & \textbf{Contoh Perintah} & \textbf{Contoh Respon} \\
 			\hline
@@ -478,8 +500,6 @@
 			& & & \textit{out 1 250 8} & \textit{Out: Freq:  250 Ampl:8} \\
 			\hline
 		\end{tabular}
-		
-		\caption{Contoh perintah serial yang tersedia pada konsol Audiometri.}
 	\end{table}
 	
 	\textbf{Keterangan}: Beberapa keterangan perintah \textit{out}:
@@ -489,22 +509,89 @@
 		\item Pilihan Skala Loudness Nada Murni: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, dan 11.
 	\end{itemize}
 	
-	\subparagraph{Kalibrasi miniDSP EARS}
-		\begin{enumerate}
-			\item 
-		\end{enumerate}
-	
 	\subparagraph{Pengukuran dan Pengambilan Data}
+		
 		\begin{enumerate}
-			\item 
+			\item Pengujian yang dimaksudkan untuk mendapatkan nilai aktual output audio nada murni dalam satuan dBA.
+			
+			\item Output nada murni memiliki karakteristik:
+			\begin{itemize}
+				\item frekuensi adalah nilai frekuensi (dalam Hz) yaitu 250, 500, 1000, 2000, 4000, dan 8000.
+				\item amplitudo adalah skala amplitudo antara 1 sampai 11.
+			\end{itemize}
+		
+			\item Berikut contoh perintah untuk menghasilkan nada murni (sebagaimana Tabel \ref{table:serial-code}):
+			
+			\begin{itemize}
+				\item Nada murni pada frekuensi 500Hz dan skala 11.
+				\begin{minted}[frame=lines,framesep=2mm,fontsize=\small]{text}
+					out 500 11
+				\end{minted}
+				
+				\item Nada murni pada frekuensi 500Hz dan skala 1.
+				\begin{minted}[frame=lines,framesep=2mm,fontsize=\small]{text}
+					out 500 1
+				\end{minted}
+				
+				\item Nada murni pada frekuensi 500Hz dan skala 11 di channel/sisi kanan.
+				\begin{minted}[frame=lines,framesep=2mm,fontsize=\small]{text}
+					out 1 500 11
+				\end{minted}
+				
+				\textbf{Catatan:} Pengukuran dua sisi diperlukan jika diasumsikan headphone berbeda karakteristik kedua sisinya.
+			\end{itemize}	
+		
+			\item Buka terminal serial dan software REW. Pada software REW, lakukan prosedur kalibrasi sesuai pada bagian \ref{subparagraph:kalibrasi}. 
+			
+			\item Pada software REW, buka menu {\bf RTA}. Atur pengaturan dengan menekan simbol {\bf Setting} pada bagian kanan atas menu. Atur mode display RTA mengikuti Gambar. 
+			
+			\item Siapkan perangkat audiometer portable. Pada terminal serial, pilih menu {\bf Open}. Tuliskan code untuk membangkitkan nada murni seperti pada langkah 3. Tekan {\bf Enter}. 
+			
+			\item Perhatikan perubahan nilai pada panel {\bf RTA} di software REW. Setelah 5 detik (sesuai dengan durasi nada murni yang dibangkitkan), simpan data peak dengan menekan tombol pada bagian atas panel {\bf RTA}, seperti pada Gambar.
+			
+			\item Data yang disimpan akan muncul pada panel utama software REW
+			
+			\item Lakukan prosedur 6-8 secara berurutan pada nilai skala 1 - 11 secara berurutan dan bolak balik. Prosedur ini digunakan untuk memeriksa histeresis dari luaran nada murni audiometer portable.
+			
+			\item Setelah semua pengukuran dilakukan, tutup menu {\bf RTA} dan kembali ke halaman utama. Pada halaman tersebut sudah terdapat beberapa data yang telah disimpan sebelumnya (Gambar).
+			
+			\item Export seluruh data dalam format .txt dengan memilih menu {\bf File} $\rightarrow$ {\bf Export}  $\rightarrow$ {\bf Export all measurement data in .txt}
+			
+			\item Untuk memperoleh nilai dBA pada setiap skala dan frekuensi uji, buka file .txt yang disimpan untuk nilai skala dan frekuensi yang hendak diketahui. Catat nilai dBA pada kondisi tersebut pada Tabel \ref{table:data}. 
+		
+			\item Secara menyeluruh, uji nada murni akan mengisi tabel dBA antara frekuensi dan skala seperti Tabel \ref{table:data} berikut:
+			
+			\begin{table}[H]
+				\renewcommand{\tablename}{Tabel}
+				\caption{Contoh tabel hasil uji nada murni \label{table:data}}
+				\centering
+				\begin{tabular}{|p{0.07\linewidth}|c|c|c|c|c|c|c|c|c|c|c|}
+					\hline
+					Scale/ Freq & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1\\ [0.5ex]
+					\hline\hline
+					250Hz & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA\\
+					\hline
+					500Hz & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA\\
+					\hline
+					1000Hz & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA\\
+					\hline
+					2000Hz & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA\\
+					\hline
+					4000Hz & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA\\
+					\hline
+					8000Hz & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA & x dBA\\
+					\hline
+				\end{tabular}
+			\end{table}
 		\end{enumerate}
+		
 
-	\subsubsection{Pengujian menggunakan Free Space II Binaural Microphone}
-	\paragraph{Setup dan Pengaturan Perangkat}
-	
-	\paragraph{Kalibrasi Ear Simulator}
-	
-	\paragraph{Pengukuran dan Pengambilan Data}	
+%	\subsubsection{Pengujian menggunakan Free Space II Binaural Microphone}
+%	\paragraph{Setup dan Pengaturan Perangkat}
+%	
+%	\paragraph{Kalibrasi Ear Simulator}
+%	
+%	\paragraph{Pengukuran dan Pengambilan Data}	
 	
 	
 \end{document}
