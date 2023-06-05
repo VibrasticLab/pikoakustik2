@@ -650,6 +650,7 @@ out 1 500 11
 			\label{fig:Setup Unit AudioBox USB96}
 		\end{figure}
 
+		\newpage
 		\item Nyalakan AudioBox dan aktifkan Phantom Power 48V, kemudian pasang headphone yg akan diuji.
 
 		\begin{figure}[H]
@@ -667,16 +668,100 @@ out 1 500 11
 		\end{figure}
 
 	\end{enumerate}
-
+	
 	\paragraph{Kalibrasi Ear Simulator}
 
 	Mengingat Phantom Telinga yg tidak bisa dilepaskan, maka kalibrasi Piston Phone tidak direkomendasikan.
 	Sebagai gantinya, dilakukan kalibrasi Ruang dengung.
-	Berikut contoh langkah kalibrasi Ruang dengung:
+	Berikut contoh langkah kalibrasi Ruang Dengung:
 
+	\begin{enumerate}
+		\item Proses kalibrasi pada ruang dengung dilakukan untuk menghasilkan medan bunyi yang sama di semua titik dalam ruangan.
+		
+		\begin{enumerate}
+			\item Stimuli suara berupa \textit{white noise} dengan level 80 dB dibangkitkan dengan \textit{speaker} yang terhubung dengan \textit{amplifier}. Speaker diletakkan di dalam ruang dengung dengan
+			menghadap ke salah satu sisi tembok ruangan untuk menghasilkan ruang \textit{diffuse}.
+			
+			\item Stimuli suara yang dibangkitkan dan ditangkap oleh Ear Simulator direkam melalui software \textit{Audacity}.
+			
+			\item Level suara yang dihasilkan dalam ruang diffuse diukur menggunakan \textit{Sound Level Meter (SLM)}.
+			
+			\item Level suara yang ditangkap oleh Ear Simulator digunakan untuk melakukan \textit{adjusting} sensor \textit{microphone} pada EARS melalui software \textit{Realtime Analyzer} dimana untuk pembobotan A
+			(A-weighting) perlu diperoleh level sesuai dengan pembacaan pada SLM.
+			
+			\item Prosedur (1-2) dilakukan kembali pada EARS pada bagian sisi telinga lainnya.
+		\end{enumerate}
+	
+		\item Proses kalibrasi pada ruang dengung dilakukan menggunakan fitur Calibration pada software \textit{Realtime Analyzer (RTA)} berdasarkan rekaman white noise yang diperoleh sebelumnya.
+		
+		\begin{enumerate}
+			\item Stimuli suara berupa \textit{white noise} diunggah (Load) pada software \textit{Realtime Analyzer} yang tersedia fiturnya di tab \textit{Recorder}.
+			Centang opsi \textit{Playback} untuk menjadikan suara white noise sebagai input untuk software \textit{Realtime Analyzer}.
+			
+			\item Buka tab \textit{FFT Analyzer} tanpa menutup tab \textit{Recorder}.
+			
+			\item Pilih fitur \textit{Calibration} dan pilih opsi \textit{Edit}.
+			
+			\item Proses adjustment sensor microphone pada EARS dilakukan pada masing-masing sisi telinga sehingga diperoleh nilai level sesuai dengan level pada proses pengambilan
+			rekaman sebelumnya (di kondisi diffuse).
+		\end{enumerate}
+	\end{enumerate}
 
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}[]{.45\textwidth}
+			\includegraphics[width=\textwidth]{images/dengung/ruang_dengung}
+			\caption{}
+		\end{subfigure}
+		\begin{subfigure}[]{.45\textwidth}
+			\includegraphics[width=\textwidth]{images/dengung/speaker}
+			\caption{}
+		\end{subfigure}
+		\begin{subfigure}[]{.45\textwidth}
+			\includegraphics[width=\textwidth]{images/dengung/ear_sim}
+			\caption{}
+		\end{subfigure}
+		\begin{subfigure}[]{.45\textwidth}
+			\includegraphics[width=\textwidth]{images/dengung/audacity}
+			\caption{}
+		\end{subfigure}
+		\caption{Setup proses kalibrasi (a) di dalam ruang dengung, menggunakan perangkat (b) speaker yang
+			dihadapkan ke salah satu sisi dinding ruangan. (c) Perangkat EARS dihubungkan dengan laptop untuk proses
+			adjustment (kalibrasi) melalui software Realtime Analyzer. (d) Hasil rekaman suara pada software Audacity}
+		\label{fig:Setup Kalibrasi Ruang Dengung}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}[]{.45\textwidth}
+			\includegraphics[width=\textwidth]{images/dengung/rta_calib0}
+			\caption{}
+		\end{subfigure}
+		\begin{subfigure}[]{.45\textwidth}
+			\includegraphics[width=\textwidth]{images/dengung/rta_calib1}
+			\caption{}
+		\end{subfigure}
+		\begin{subfigure}[]{.45\textwidth}
+			\includegraphics[width=\textwidth]{images/dengung/rta_calib2}
+			\caption{}
+		\end{subfigure}
+		\begin{subfigure}[]{.45\textwidth}
+			\includegraphics[width=\textwidth]{images/dengung/rta_calib3}
+			\caption{}
+		\end{subfigure}
+		\caption{Proses kalibrasi menggunakan data rekaman white noise dengan software Realtime Analyzer. (a)
+			File diunggah (load) melalui tab Recorder. (b) Data rekaman yang sudah terunggah dengan opsi playaback.
+			(c) Tampilan tab FFT Analyzer dan fitur Calibration tanpa menutup tab Recorder. (d) Proses adjustment
+			dilakukan pada bagian sensitivity adjustment untuk masing masing channel microphone (pada bagian kiri dan
+			kanan telinga EARS)}
+		\label{fig:Load Kalibrasi Ruang Dengung}
+	\end{figure}
 
 	\paragraph{Pengukuran dan Pengambilan Data}
+	
+	Metode Pengujian untuk FS2Pro kurang lebih sama dengan metode EARS sebelumnya.
+	
+	\vspace{30pt}\centering \textbf{--- Selesai ---}
 
 
 \end{document}
