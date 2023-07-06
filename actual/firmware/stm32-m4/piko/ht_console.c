@@ -225,11 +225,11 @@ static void cmd_out(BaseSequentialStream *chp, int argc, char *argv[]) {
           break;
   }
 
-  if(in_freq>=250 && in_freq<=8000){
+  if(in_freq>=LOWEST_FREQ && in_freq<=8000){
       vfreq = (double) in_freq / 400; // 400 is known array length as default frequency
   }
   else{
-      chprintf(chp,"frequency only between 250 and 8000\r\n");
+      chprintf(chp,"frequency only between LOWEST_FREQ and 8000\r\n");
   }
 
   if(!(in_ampl>0 && in_ampl<12)){
@@ -341,11 +341,11 @@ static void cmd_ori(BaseSequentialStream *chp, int argc, char *argv[]) {
           break;
   }
 
-  if(in_freq>=250 && in_freq<=8000){
+  if(in_freq>=LOWEST_FREQ && in_freq<=8000){
       vfreq = (double) in_freq / 400; // 400 is known array length as default frequency
   }
   else{
-      chprintf(chp,"frequency only between 250 and 8000\r\n");
+      chprintf(chp,"frequency only between LOWEST_FREQ and 8000\r\n");
   }
 
   if(!(in_ampl>0 && in_ampl<12)){
@@ -431,11 +431,11 @@ static void cmd_sig(BaseSequentialStream *chp, int argc, char *argv[]) {
           break;
   }
 
-  if(in_freq>=250 && in_freq<=8000){
+  if(in_freq>=LOWEST_FREQ && in_freq<=8000){
       vfreq = (double) in_freq / 400; // 400 is known array length as default frequency
   }
   else{
-      chprintf(chp,"frequency only between 250 and 8000\r\n");
+      chprintf(chp,"frequency only between LOWEST_FREQ and 8000\r\n");
   }
 
   if(!(in_ampl>0 && in_ampl<12)){

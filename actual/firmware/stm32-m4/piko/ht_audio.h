@@ -83,6 +83,12 @@
 #define SMALLEST_DB     0.0008
 
 /**
+ * @brief Lowest Frequency in Hz that can be generated through Serial Interface Only
+ * @details Recommended value are either 125, 250, or 500
+ */
+#define LOWEST_FREQ     125
+
+/**
  * @brief First dB scale at first step on audiotest
  * @details The value ratio follows:\n
  *          11: ratio = 1\n
