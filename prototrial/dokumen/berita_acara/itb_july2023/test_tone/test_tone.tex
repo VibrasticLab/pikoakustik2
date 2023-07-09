@@ -1,0 +1,531 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{datetime}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subcaption}
+
+\usepackage{minted}
+\usepackage[os=win]{menukeys}
+\usepackage{tikz}
+
+\usepackage[english]{babel}
+\usepackage{geometry}
+
+\usepackage{adjustbox}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{titlesec}
+
+\geometry{
+	a4paper,
+	left=25mm,
+	right=25mm,
+	top=25mm,
+	bottom=25mm,
+}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=blue,
+}
+
+\setcounter{secnumdepth}{4}
+\renewcommand{\theparagraph}{\thesubsubsection.\alph{paragraph}}
+
+\addto\captionsenglish{\renewcommand{\contentsname}{Daftar Isi}}
+\addto\captionsenglish{\renewcommand{\tablename}{Tabel}}
+\addto\captionsenglish{\renewcommand{\figurename}{Gambar}}
+
+\def\mydate{\leavevmode\hbox{\the\year-\twodigits\month-\twodigits\day}}
+\def\twodigits#1{\ifnum#1<10 0\fi\the#1}
+
+% this custom commands below will not work if not run on GNU/Linux
+\newcommand{\ShowOsVersion}{
+	\immediate\write18{\unexpanded{foo=`uname -srom | tr '_' '-'` && echo -n "${foo}" > tmp.txt}}
+	\unskip\unskip\input{tmp.txt}\unskip
+	\immediate\write18{rm tmp.txt}
+}
+\newcommand{\ShowTexVersion}{
+	\immediate\write18{\unexpanded{foo=`pdflatex -version | head -n1 | cut -d' ' -f1,2` && echo -n "${foo}" > tmp.txt}}
+	\unskip\unskip\input{tmp.txt}\unskip
+	\immediate\write18{rm tmp.txt}
+}
+
+\begin{document}
+\begin{titlepage}
+		\centering
+
+		{
+			\LARGE
+			\bf
+			Laporan Kegiatan Kalibrasi Simulator Telinga
+		}
+
+		\bigskip
+
+		{
+			\large
+			\bf
+			Tim Penelitian Audiometer Portable Elbicare
+		}
+
+		\vfill
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=250pt,angle=0]{images/elbicare-logo}
+		\end{figure}
+
+		\vfill
+
+        \bigskip
+
+        {
+            \bf
+            Achmadi, S.T., M.T. dan M. Ammar Asyraf, S.T.
+        }
+	\end{titlepage}
+
+	\newpage
+
+	\textbf{Tentang Dokumen}\\
+
+	Dokumen ini ditulis menggunakan {\textbf{\ShowTexVersion}} pada sistem operasi {\textbf{\ShowOsVersion}} yang diupdate terakhir pada tanggal {\mydate} di jam \currenttime.\\
+
+	Kode sumber dokumen ini dapat ditemukan di laman repositori proyek
+	\url{https://github.com/VibrasticLab/pikoakustik2/tree/master/prototrial/dokumen/berita_acara/itb_july2023/test_calib}.
+
+	\newpage
+
+	\tableofcontents
+
+	\newpage
+	\section{Pendahuluan}
+
+	Dokumen ini merupakan laporan hasil kegiatan pengujian perangkat audiometer berdasarkan Metode Kerja Balai Pengamanan Fasilitas Kesehatan (MK-BPFK) No. 007-18 tentang Metode Kerja Pengujian Audiometer.  
+
+	\subsection{Tujuan Kegiatan}
+
+	Tujuan utama kegiatan ini adalah melakukan pengujian dan/atau kalibrasi secara langsung (direct calibration) pada
+	Audiometer, dengan cara melakukan pemeriksaan fisik, pengujian fungsi, pengujian keselamatan listrik dan pengukuran
+	kinerja (kalibrasi).
+	
+	\subsection{Ruang Lingkup Pengujian}
+	
+	Pelaksanan pengujian audiometer yang dilakukan mengalami penyesuaian dari MK BPFK yang digunakan, dengan mempertimbangkan kondisi aktual perangkat audiometer yang diujikan dan ketersediaan alat ukur yang tersedia. Metode pengukuran yang kemudian dilaksanakan memiliki lingkup pengujian sebagai berikut:
+	\begin{enumerate}
+		\item Perangkat Audiometer yang diuji merupakan perangkat portable bertenaga baterai (battery power)
+		
+		\item  Algoritma perangkat audiometer portable yang digunakan adalah metode Three-Forced Choice (3AFC)
+	\end{enumerate}
+
+	Adapun ruang lingkup pengujian yang dilakukan meliputi aspek-aspek berikut.
+	\begin{enumerate}
+		\item Pemeriksaan fisik
+		
+		\item Pengujian fungsi
+		
+		\item Pengujian keselamatan listrik
+		
+		\item Pengujian kinerja, meliputi:
+		\begin{enumerate}
+			\item Hearing level Air Conduction
+			
+			\item Akurasi Frekuensi
+			
+			\item Total Harmonic Distortion Air Conduction
+		\end{enumerate}
+		
+	\end{enumerate}
+
+	\subsection{Waktu dan Tempat}
+
+	Kegiatan ini dilakukan di Ruang Dengung dan Ruang Kedap Laboratorium Akustik Adhiwijogo di Institut Teknologi Bandung pada tanggal 10-12 Juli 2023.
+
+	\subsection{Alat dan Perlengkapan}
+
+	Alat yang digunakan meliputi:
+	
+	\begin{enumerate}
+		\item Perangkat eLBicare Audiometer Portabel
+		
+		
+		
+		\item Speaker merek Yamaha dengan Amplifier board portabel.
+
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[]{.45\textwidth}
+				\includegraphics[width=\textwidth,angle=-90]{example-image}
+				\caption{Speaker}
+			\end{subfigure}
+			\begin{subfigure}[]{.45\textwidth}
+				\includegraphics[width=\textwidth]{example-image}
+				\caption{Amplifier}
+			\end{subfigure}
+			\caption{Perangkat Speaker}
+		\end{figure}
+
+		\item Sound Level Meter Merek Rion yang telah terkalibrasi.
+
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[]{.35\textwidth}
+				\includegraphics[width=\textwidth]{example-image}
+				\caption{SLM RION}
+			\end{subfigure}
+			\begin{subfigure}[]{.25\textwidth}
+				\includegraphics[width=\textwidth]{example-image}
+				\caption{Noise paling rendah}
+			\end{subfigure}
+			\caption{Perangkat SLM}
+		\end{figure}
+
+		\item Unit MiniDSP EARS sebagai Simulator Telinga. Ini adalah unit simulator telinga pertama.
+		Berikut laman produk: \href{https://www.minidsp.com/products/acoustic-measurement/ears-headphone-jig}{MiniDSP EARS}
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=100pt,angle=0]{example-image}
+			\caption{Unit MiniDSP EARS}
+		\end{figure}
+
+		\item Unit Microphone 3DIO dan AudioBox Presonus USB96. Ini adalah unit simulator telinga kedua.
+		Berikut laman produk: \href{https://3diosound.com/products/free-space-pro-binaural-microphone}{3DIO}
+		dan \href{https://www.frontendaudio.com/presonus-audiobox-usb-96-usb-audio-interface/}{AudioBox USB96}
+
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[]{.40\textwidth}
+				\includegraphics[width=\textwidth]{example-image}
+				\caption{Microphone 3DIO}
+			\end{subfigure}
+			\begin{subfigure}[]{.40\textwidth}
+				\includegraphics[width=\textwidth]{example-image}
+				\caption{Audiobox USB96}
+			\end{subfigure}
+			\caption{Perangkat 3DIO}
+		\end{figure}
+
+		\item Perangkat Lunak Audacity dan RealTime Analyzer dari Yoshimasa.
+		Berikut laman produk: \href{https://www.audacityteam.org/}{Audacity} dan \href{http://www.ymec.com/products/dssf3e/}{RTA}.
+
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[]{.40\textwidth}
+				\includegraphics[width=\textwidth]{example-image}
+				\caption{Audacity}
+			\end{subfigure}
+			\begin{subfigure}[]{.40\textwidth}
+				\includegraphics[width=\textwidth]{example-image}
+				\caption{Realtime Analyzer}
+			\end{subfigure}
+			\caption{Perangkat Lunak}
+		\end{figure}
+
+	\end{enumerate}
+
+
+	\newpage
+	\section{Kegiatan Kalibrasi}
+
+	\subsection{Unit EARS}
+
+	Berikut rangkuman kegiatan kalibrasi untuk unit MiniDSP EARS.
+
+	\subsubsection{Setup}
+
+	Berikut setup kalibrasi:
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth,angle=0]{example-image}
+		\caption{Setup posisi EARS, SLM, dan Speaker}
+	\end{figure}
+
+	Disini diatur gain pada 0-1-1-1 sebelum sambungan USB ke Laptop.
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth,angle=-90]{example-image}
+		\caption{Pengaturan Gain}
+	\end{figure}
+
+	\subsubsection{Recording}
+
+	Berikut langkah perekaman noise sebagai acuan kalibrasi:
+
+	\begin{itemize}
+		\item Setup perekaman, kemudian sambungkan:
+		\begin{itemize}
+			\item Kabel USB MiniDSP EARS dan Laptop
+			\item Kabel 3.5mm Audio dari Laptop ke Amplifier/Speaker
+		\end{itemize}
+	
+		\item Jalankan Audacity dan pilih input di jendela "Audio Settings".
+		Pastikan Input adalah "E.A.R.S Gain: 18dB"
+		
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[]{.55\textwidth}
+				\includegraphics[width=\textwidth]{example-image}
+				\caption{ALSA/PulseAudio di GNU/Linux}
+			\end{subfigure}
+			\begin{subfigure}[]{.35\textwidth}
+				\includegraphics[width=\textwidth]{example-image}
+				\caption{WASAPI di Windows}
+			\end{subfigure}
+			\caption{Audio Input}
+		\end{figure}
+		
+		\item Jalankan Real-Time Analyzer dan jalankan Signal Generator.
+		Pilih White Noise pada volume penuh. Klik Start.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.6\textwidth,angle=0]{example-image}
+			\caption{Menghasilkan noise}
+		\end{figure}
+	
+		\item Atur Amplifier hingga baca stabil pada nilai tertentu (semisal 80 dB-SPL) pada Sound Level Meter.
+		Kemudian rekam noise ruangan di Audacity.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[]{.8\textwidth}
+				\includegraphics[width=\textwidth]{example-image}
+				\caption{Perekaman di Audacity}
+			\end{subfigure}
+			\\
+			\begin{subfigure}[]{.5\textwidth}
+				\includegraphics[width=\textwidth]{example-image}
+				\caption{Nilai terbaca pada SLM}
+			\end{subfigure}
+			\caption{Perekaman Noise}
+		\end{figure}
+		
+		\item Simpan rekaman dalam format WAV.
+		Nama file rekaman memiliki informasi nilai pembacaan SLM.
+		
+		\item Ulangi langkah di atas untuk Pink Noise.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.5\textwidth,angle=0]{example-image}
+			\caption{Pembacaan Pink Noise}
+		\end{figure}
+		
+	\end{itemize}
+
+	\subsubsection{Kalibrasi}
+	
+	Untuk kalibrasi, berikut langkah yang dapat dilakukan:
+	
+	\begin{itemize}
+		\item Jalankan Real-Time Analyzer dan buka tab Recorder.
+		Pastikan Input adalah PulseAudio (untuk GNU/Linux) atau langsung E.A.R.S (Untuk Windows).
+		Kemudian Load rekaman.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.6\textwidth,angle=0]{example-image}
+			\caption{Loading rekaman ke RTA}
+		\end{figure}
+	
+		Biarkan tab rekaman terbuka.
+	
+		\item Buka tab FFT Analyzer dan Tekan Calibrate.
+		Pilih mode Separate dan atur setiap slider ke nilai 80 dB-SPL sesuai yang terbaca SLM.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\textwidth,angle=0]{example-image}
+			\caption{Kalibrasi FFT Analyzer}
+		\end{figure}
+	
+		\item Tutup jendela Recorder dan FFT Analyzer terkalibrasi.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\textwidth,angle=0]{example-image}
+			\caption{Kalibrasi selesai}
+		\end{figure}
+		
+	\end{itemize}
+
+	\newpage
+	
+	\subsection{Unit 3DIO}
+	
+	Berikut rangkuman kegiatan kalibrasi untuk unit Microphone 3DIO.
+
+	\subsubsection{Setup}
+	
+	Berikut setup kalibrasi:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\textwidth,angle=0]{example-image}
+		\caption{Setup posisi 3DIO, AudioBox, SLM, dan Speaker}
+	\end{figure}
+
+	Kemudian sambungkan Mic 3DIO dan AudioBox dengan gain AudioBox di pertengahan:
+	
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}[]{.4\textwidth}
+			\includegraphics[width=\textwidth]{example-image}
+			\caption{Sambungan Audio Jack}
+		\end{subfigure}
+		\begin{subfigure}[]{.4\textwidth}
+			\includegraphics[width=\textwidth,angle=180]{example-image}
+			\caption{Nilai Gain AudioBox}
+		\end{subfigure}
+		\\
+		\begin{subfigure}[]{.4\textwidth}
+			\includegraphics[width=\textwidth,angle=0]{example-image}
+			\caption{Nyalakan 3DIO tanpa Bass-Roll}
+		\end{subfigure}
+		\caption{Setup AudioBox}
+	\end{figure}
+
+	\subsubsection{Recording}
+	
+	Berikut langkah perekaman noise yang kurang lebih sama dengan unit EARS sebelumnya:
+	
+	\begin{itemize}
+		\item Setup perekaman, kemudian sambungkan:
+		\begin{itemize}
+			\item Kabel USB AudioBox dan Laptop
+			\item Kabel 3.5mm Audio dari Laptop ke Amplifier/Speaker
+		\end{itemize}
+	
+		\item Jalankan Audacity dan pilih input di jendela "Audio Settings".
+		Pastikan Input adalah "AudioBox USB96"
+		
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[]{.55\textwidth}
+				\includegraphics[width=\textwidth]{example-image}
+				\caption{ALSA/PulseAudio di GNU/Linux}
+			\end{subfigure}
+			\begin{subfigure}[]{.35\textwidth}
+				\includegraphics[width=\textwidth]{example-image}
+				\caption{WASAPI di Windows}
+			\end{subfigure}
+			\caption{Audio Input}
+		\end{figure}
+	
+		\item Jalankan Real-Time Analyzer dan jalankan Signal Generator.
+		Pilih White Noise pada volume penuh. Klik Start.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.6\textwidth,angle=0]{example-image}
+			\caption{Menghasilkan noise}
+		\end{figure}
+		
+		\item Atur Amplifier hingga baca stabil pada nilai tertentu (semisal 81 dB-SPL) pada Sound Level Meter.
+		Kemudian rekam noise ruangan di Audacity.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[]{.8\textwidth}
+				\includegraphics[width=\textwidth]{example-image}
+				\caption{Perekaman di Audacity}
+			\end{subfigure}
+			\\
+			\begin{subfigure}[]{.5\textwidth}
+				\includegraphics[width=\textwidth]{example-image}
+				\caption{Nilai terbaca pada SLM}
+			\end{subfigure}
+			\caption{Perekaman Noise}
+		\end{figure}
+		
+		\item Simpan rekaman dalam format WAV.
+		Nama file rekaman memiliki informasi nilai pembacaan SLM.
+		
+		\item Ulangi langkah di atas untuk Pink Noise.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.5\textwidth,angle=0]{example-image}
+			\caption{Pembacaan Pink Noise}
+		\end{figure}
+	\end{itemize}
+
+	\subsubsection{Kalibrasi}
+	
+	Untuk kalibrasi, kurang lebih juga sama dengan unit EARS sebelumnya.
+	Berikut langkah yang dapat dilakukan:
+	
+	\begin{itemize}
+		\item Jalankan Real-Time Analyzer dan buka tab Recorder.
+		Pastikan Input adalah PulseAudio (untuk GNU/Linux) atau langsung AudioBox USB 96 (Untuk Windows).
+		Kemudian Load rekaman.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.6\textwidth,angle=0]{example-image}
+			\caption{Loading rekaman ke RTA}
+		\end{figure}
+		
+		Biarkan tab rekaman terbuka.
+		
+		\item Buka tab FFT Analyzer dan Tekan Calibrate.
+		Pilih mode Separate dan atur setiap slider ke nilai 81 dB-SPL sesuai yang terbaca SLM.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\textwidth,angle=0]{example-image}
+			\caption{Kalibrasi FFT Analyzer}
+		\end{figure}
+		
+		\newpage
+		\item Tutup jendela Recorder dan FFT Analyzer terkalibrasi.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\textwidth,angle=0]{example-image}
+			\caption{Kalibrasi selesai}
+		\end{figure}
+		
+	\end{itemize}
+	
+	\newpage
+	\subsection{Rekaman}
+	
+	Berkas WAV rekaman dapat di-download di alamat berikut: \href{https://drive.google.com/drive/folders/18bjBI3CSgyAX_4-f_cD2AvmgAtwJ-hkF}{Google-Drive}
+
+	\subsection{Tes Ruang Kedap}
+	
+	Untuk memastikan hasil kalibrasi, digunakan pengujian pembacaan di ruang kedap.
+	Berikut setup pengujian di Ruang Kedap:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth,angle=0]{example-image}
+		\caption{Setup Uji di ruang Kedap}
+	\end{figure}
+	
+	Hasilnya ada selisih kisaran 6dB-SPL antara pembacaan SLM dan unit 3DIO yang terbaca di software RTA.
+	
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}[]{.55\textwidth}
+			\includegraphics[width=\textwidth]{example-image}
+			\caption{Nilai RTA dari 3DIO}
+		\end{subfigure}
+		\\
+		\begin{subfigure}[]{.55\textwidth}
+			\includegraphics[width=\textwidth]{example-image}
+			\caption{Nilai SLM}
+		\end{subfigure}
+		\caption{Tes pada Ruang Kedap}
+	\end{figure}
+
+\end{document}
