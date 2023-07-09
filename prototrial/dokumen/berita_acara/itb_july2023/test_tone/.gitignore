@@ -1,5 +1,6 @@
 /images/originals/
 /records/
+/_minted-*
 *.aux
 *.log
 *.nav
