@@ -224,16 +224,275 @@
 
 	\subsubsection{Recording}
 
-	\subsubsection{Testing}
+	Berikut langkah perekaman noise sebagai acuan kalibrasi:
 
+	\begin{itemize}
+		\item Setup perekaman, kemudian sambungkan:
+		\begin{itemize}
+			\item Kabel USB MiniDSP EARS dan Laptop
+			\item Kabel 3.5mm Audio dari Laptop ke Amplifier/Speaker
+		\end{itemize}
+	
+		\item Jalankan Audacity dan pilih input di jendela "Audio Settings".
+		Pastikan Input adalah "E.A.R.S Gain: 18dB"
+		
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[]{.55\textwidth}
+				\includegraphics[width=\textwidth]{images/audacity_in_linux}
+				\caption{ALSA/PulseAudio di GNU/Linux}
+			\end{subfigure}
+			\begin{subfigure}[]{.35\textwidth}
+				\includegraphics[width=\textwidth]{images/audacity_in_windows}
+				\caption{WASAPI di Windows}
+			\end{subfigure}
+			\caption{Audio Input}
+		\end{figure}
+		
+		\item Jalankan Real-Time Analyzer dan jalankan Signal Generator.
+		Pilih White Noise pada volume penuh. Klik Start.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.6\textwidth,angle=0]{images/rta_noise_gen}
+			\caption{Menghasilkan noise}
+		\end{figure}
+	
+		\item Atur Amplifier hingga baca stabil pada nilai tertentu (semisal 80 dB-SPL) pada Sound Level Meter.
+		Kemudian rekam noise ruangan di Audacity.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[]{.8\textwidth}
+				\includegraphics[width=\textwidth]{images/audacity_record}
+				\caption{Perekaman di Audacity}
+			\end{subfigure}
+			\\
+			\begin{subfigure}[]{.5\textwidth}
+				\includegraphics[width=\textwidth]{images/ears_slm_whitenoise}
+				\caption{Nilai terbaca pada SLM}
+			\end{subfigure}
+			\caption{Perekaman Noise}
+		\end{figure}
+		
+		\item Simpan rekaman dalam format WAV.
+		Nama file rekaman memiliki informasi nilai pembacaan SLM.
+		
+		\item Ulangi langkah di atas untuk Pink Noise.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.5\textwidth,angle=0]{images/ears_slm_pinknoise}
+			\caption{Pembacaan Pink Noise}
+		\end{figure}
+		
+	\end{itemize}
+
+	\subsubsection{Kalibrasi}
+	
+	Untuk kalibrasi, berikut langkah yang dapat dilakukan:
+	
+	\begin{itemize}
+		\item Jalankan Real-Time Analyzer dan buka tab Recorder.
+		Pastikan Input adalah PulseAudio (untuk GNU/Linux) atau langsung E.A.R.S (Untuk Windows).
+		Kemudian Load rekaman.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.6\textwidth,angle=0]{images/rta_load}
+			\caption{Loading rekaman ke RTA}
+		\end{figure}
+	
+		Biarkan tab rekaman terbuka.
+	
+		\item Buka tab FFT Analyzer dan Tekan Calibrate.
+		Pilih mode Separate dan atur setiap slider ke nilai 80 dB-SPL sesuai yang terbaca SLM.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\textwidth,angle=0]{images/rta_calib}
+			\caption{Kalibrasi FFT Analyzer}
+		\end{figure}
+	
+		\item Tutup jendela Recorder dan FFT Analyzer terkalibrasi.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\textwidth,angle=0]{images/rta_fft}
+			\caption{Kalibrasi selesai}
+		\end{figure}
+		
+	\end{itemize}
+
+	\newpage
+	
 	\subsection{Unit 3DIO}
+	
+	Berikut rangkuman kegiatan kalibrasi untuk unit Microphone 3DIO.
 
 	\subsubsection{Setup}
+	
+	Berikut setup kalibrasi:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\textwidth,angle=0]{images/3dio_setup}
+		\caption{Setup posisi 3DIO, AudioBox, SLM, dan Speaker}
+	\end{figure}
+
+	Kemudian sambungkan Mic 3DIO dan AudioBox dengan gain AudioBox di pertengahan:
+	
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}[]{.4\textwidth}
+			\includegraphics[width=\textwidth]{images/3dio_presonus_jack}
+			\caption{Sambungan Audio Jack}
+		\end{subfigure}
+		\begin{subfigure}[]{.4\textwidth}
+			\includegraphics[width=\textwidth,angle=180]{images/3dio_presonus_set}
+			\caption{Nilai Gain AudioBox}
+		\end{subfigure}
+		\\
+		\begin{subfigure}[]{.4\textwidth}
+			\includegraphics[width=\textwidth,angle=0]{images/3dio_unit_on}
+			\caption{Nyalakan 3DIO tanpa Bass-Roll}
+		\end{subfigure}
+		\caption{Setup AudioBox}
+	\end{figure}
 
 	\subsubsection{Recording}
+	
+	Berikut langkah perekaman noise yang kurang lebih sama dengan unit EARS sebelumnya:
+	
+	\begin{itemize}
+		\item Setup perekaman, kemudian sambungkan:
+		\begin{itemize}
+			\item Kabel USB AudioBox dan Laptop
+			\item Kabel 3.5mm Audio dari Laptop ke Amplifier/Speaker
+		\end{itemize}
+	
+		\item Jalankan Audacity dan pilih input di jendela "Audio Settings".
+		Pastikan Input adalah "AudioBox USB96"
+		
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[]{.55\textwidth}
+				\includegraphics[width=\textwidth]{images/audacity_in_linux}
+				\caption{ALSA/PulseAudio di GNU/Linux}
+			\end{subfigure}
+			\begin{subfigure}[]{.35\textwidth}
+				\includegraphics[width=\textwidth]{images/audacity_in_windows}
+				\caption{WASAPI di Windows}
+			\end{subfigure}
+			\caption{Audio Input}
+		\end{figure}
+	
+		\item Jalankan Real-Time Analyzer dan jalankan Signal Generator.
+		Pilih White Noise pada volume penuh. Klik Start.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.6\textwidth,angle=0]{images/rta_noise_gen}
+			\caption{Menghasilkan noise}
+		\end{figure}
+		
+		\item Atur Amplifier hingga baca stabil pada nilai tertentu (semisal 81 dB-SPL) pada Sound Level Meter.
+		Kemudian rekam noise ruangan di Audacity.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[]{.8\textwidth}
+				\includegraphics[width=\textwidth]{images/audacity_record}
+				\caption{Perekaman di Audacity}
+			\end{subfigure}
+			\\
+			\begin{subfigure}[]{.5\textwidth}
+				\includegraphics[width=\textwidth]{images/3dio_slm_whitenoise}
+				\caption{Nilai terbaca pada SLM}
+			\end{subfigure}
+			\caption{Perekaman Noise}
+		\end{figure}
+		
+		\item Simpan rekaman dalam format WAV.
+		Nama file rekaman memiliki informasi nilai pembacaan SLM.
+		
+		\item Ulangi langkah di atas untuk Pink Noise.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.5\textwidth,angle=0]{images/3dio_slm_pinknoise}
+			\caption{Pembacaan Pink Noise}
+		\end{figure}
+	\end{itemize}
 
-	\subsubsection{Testing}
+	\subsubsection{Kalibrasi}
+	
+	Untuk kalibrasi, kurang lebih juga sama dengan unit EARS sebelumnya.
+	Berikut langkah yang dapat dilakukan:
+	
+	\begin{itemize}
+		\item Jalankan Real-Time Analyzer dan buka tab Recorder.
+		Pastikan Input adalah PulseAudio (untuk GNU/Linux) atau langsung AudioBox USB 96 (Untuk Windows).
+		Kemudian Load rekaman.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.6\textwidth,angle=0]{images/rta_load}
+			\caption{Loading rekaman ke RTA}
+		\end{figure}
+		
+		Biarkan tab rekaman terbuka.
+		
+		\item Buka tab FFT Analyzer dan Tekan Calibrate.
+		Pilih mode Separate dan atur setiap slider ke nilai 81 dB-SPL sesuai yang terbaca SLM.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\textwidth,angle=0]{images/rta_calib}
+			\caption{Kalibrasi FFT Analyzer}
+		\end{figure}
+		
+		\newpage
+		\item Tutup jendela Recorder dan FFT Analyzer terkalibrasi.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\textwidth,angle=0]{images/rta_fft}
+			\caption{Kalibrasi selesai}
+		\end{figure}
+		
+	\end{itemize}
+	
+	\newpage
+	\subsection{Rekaman}
+	
+	Berkas WAV rekaman dapat di-download di alamat berikut: \href{https://drive.google.com/drive/folders/18bjBI3CSgyAX_4-f_cD2AvmgAtwJ-hkF}{Google-Drive}
 
 	\subsection{Tes Ruang Kedap}
+	
+	Untuk memastikan hasil kalibrasi, digunakan pengujian pembacaan di ruang kedap.
+	Berikut setup pengujian di Ruang Kedap:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth,angle=0]{images/tes_kedap}
+		\caption{Setup Uji di ruang Kedap}
+	\end{figure}
+	
+	Hasilnya ada selisih kisaran 6dB-SPL antara pembacaan SLM dan unit 3DIO yang terbaca di software RTA.
+	
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}[]{.55\textwidth}
+			\includegraphics[width=\textwidth]{images/tes_kedap_rta}
+			\caption{Nilai RTA dari 3DIO}
+		\end{subfigure}
+		\\
+		\begin{subfigure}[]{.55\textwidth}
+			\includegraphics[width=\textwidth]{images/tes_kedap_slm}
+			\caption{Nilai SLM}
+		\end{subfigure}
+		\caption{Tes pada Ruang Kedap}
+	\end{figure}
 
 \end{document}
