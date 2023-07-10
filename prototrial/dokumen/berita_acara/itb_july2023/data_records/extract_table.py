@@ -26,8 +26,6 @@ elif chInput!='R':
 else:
     sys.exit()
 
-arrScale = np.array([1,2,3,4,5,6,7,8,9,10,11])
-
 def get_freq(freq_name,freq_val,dir_input,ch_input):
     df = pd.read_csv('%s/%sHz-%s.csv' % (dir_input,freq_name,ch_input))
     arr = df.loc[:,'%s-%s' % (freq_val,ch_input)].to_numpy()
@@ -47,8 +45,24 @@ def get_freq(freq_name,freq_val,dir_input,ch_input):
 
     return val
 
-val_125 = get_freq('125', '125', dirInput, chInput)
-val_250 = get_freq('250', '125', dirInput, chInput)
+val_125 = get_freq('125', '119', dirInput, chInput)
+val_250 = get_freq('250', '224', dirInput, chInput)
+val_500 = get_freq('500', '459.5', dirInput, chInput)
+val_1000 = get_freq('1000', '917.5', dirInput, chInput)
+val_2000 = get_freq('2000', '1.83k', dirInput, chInput)
+val_4000 = get_freq('4000', '3.76k', dirInput, chInput)
+val_8000 = get_freq('8000', '7.72k', dirInput, chInput)
+
+val_all = np.array([
+    [val_125],
+    [val_250],
+    [val_500],
+    [val_1000],
+    [val_2000],
+    [val_4000],
+    [val_8000]
+    ])
+print(val_all)
 
 
 
