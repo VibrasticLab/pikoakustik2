@@ -85,7 +85,8 @@ str_tex = "freq/scale & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\\\\n\
 
 print(str_tex)
 
-tex_out = open('./%s-%s.tex' % (dirInput,chInput), "w")
+name_out = dirInput.replace('.', '').replace('/', '')
+tex_out = open('./%s-%s.tex' % (name_out,chInput), "w")
 tex_out.write(str(str_tex))
 tex_out.close()
 
