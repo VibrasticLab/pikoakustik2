@@ -1,0 +1,15 @@
+/images/originals/
+/records/
+*.aux
+*.log
+*.nav
+*.out
+*.pdf
+*.snm
+*.synctex.gz
+*.toc
+*.bbl
+*.blg
+_minted*
+*.bkp
+

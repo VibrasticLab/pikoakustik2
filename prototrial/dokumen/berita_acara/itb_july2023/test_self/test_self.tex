@@ -1,0 +1,539 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{datetime}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subcaption}
+
+\usepackage{minted}
+\usepackage[os=win]{menukeys}
+\usepackage{tikz}
+
+\usepackage[english]{babel}
+\usepackage{geometry}
+
+\usepackage{adjustbox}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{titlesec}
+
+\geometry{
+	a4paper,
+	left=25mm,
+	right=25mm,
+	top=25mm,
+	bottom=25mm,
+}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=blue,
+}
+
+\setcounter{secnumdepth}{4}
+\renewcommand{\theparagraph}{\thesubsubsection.\alph{paragraph}}
+
+\addto\captionsenglish{\renewcommand{\contentsname}{Daftar Isi}}
+\addto\captionsenglish{\renewcommand{\tablename}{Tabel}}
+\addto\captionsenglish{\renewcommand{\figurename}{Gambar}}
+
+\def\mydate{\leavevmode\hbox{\the\year-\twodigits\month-\twodigits\day}}
+\def\twodigits#1{\ifnum#1<10 0\fi\the#1}
+
+% this custom commands below will not work if not run on GNU/Linux
+\newcommand{\ShowOsVersion}{
+	\immediate\write18{\unexpanded{foo=`uname -srom | tr '_' '-'` && echo -n "${foo}" > tmp.txt}}
+	\unskip\unskip\input{tmp.txt}\unskip
+	\immediate\write18{rm tmp.txt}
+}
+\newcommand{\ShowTexVersion}{
+	\immediate\write18{\unexpanded{foo=`pdflatex -version | head -n1 | cut -d' ' -f1,2` && echo -n "${foo}" > tmp.txt}}
+	\unskip\unskip\input{tmp.txt}\unskip
+	\immediate\write18{rm tmp.txt}
+}
+
+\begin{document}
+	\begin{titlepage}
+		\centering
+		
+		{
+			\LARGE
+			\bf
+			Laporan Kegiatan Uji Mandiri Audiometri Portabel
+		}
+		
+		\bigskip
+		
+		{
+			\large
+			\bf
+			Tim Penelitian Audiometer Portable Elbicare
+		}
+		
+		\vfill
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=250pt,angle=0]{images/elbicare-logo}
+		\end{figure}
+		
+		\vfill
+		
+		\bigskip
+		
+		{
+			\bf
+			Achmadi ST MT dan M. Ammar Asyraf ST MT
+		}
+	\end{titlepage}
+
+	\newpage
+	
+	\textbf{Tentang Dokumen}\\
+	
+	\noindent Dokumen ini ditulis menggunakan {\textbf{\ShowTexVersion}}pada sistem operasi {\textbf{\ShowOsVersion}}yang
+	diupdate terakhir pada tanggal {\mydate} di jam \currenttime.\\
+	
+	Kode sumber dokumen ini dapat ditemukan di laman repositori proyek
+	\url{https://github.com/VibrasticLab/pikoakustik2/tree/master/prototrial/dokumen/berita_acara/itb_july2023/test_calib}.
+	
+	\newpage
+	
+	\tableofcontents
+	
+	\newpage
+	\section{Pendahuluan}
+	
+	Dokumen ini adalah rangkuman kegiatan uji mandiri perangkat Audiometri Portabel.
+	
+	\subsection{Tujuan Kegiatan}
+	
+	Tujuan utama kegiatan ini adalah mendapatkan konversi skala \textbf{loudness} dari nada murni menjadi nilai aktual dalam dB-SPL untuk setiap frekuensi uji.
+	
+	\subsection{Waktu dan Tempat}
+	
+	Kegiatan ini dilakukan di Ruang Dengung dan Ruang Kedap Gedung Adhiwijogo di Institut Teknologi Bandung pada tanggal 10 Juli 2023.
+	
+	\subsection{Alat dan Perlengkapan}
+	
+	Alat dan perlengkapan meliputi:
+	
+	\begin{itemize}
+		\item Sound Level Meter Merek Rion yang telah terkalibrasi.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[]{.35\textwidth}
+				\includegraphics[width=\textwidth]{images/tools_slm_box}
+				\caption{SLM RION}
+			\end{subfigure}
+			\begin{subfigure}[]{.25\textwidth}
+				\includegraphics[width=\textwidth]{images/slm_lowest}
+				\caption{Noise paling rendah}
+			\end{subfigure}
+			\caption{Perangkat SLM}
+		\end{figure}
+	
+		\item Paket Audiometri yang terdiri dari Konsol Audiometri, Headphone JBL T500, dan Kabel USB
+		
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[]{.35\textwidth}
+				\includegraphics[width=\textwidth]{images/proto}
+				\caption{Prototype Konsol}
+			\end{subfigure}
+			\begin{subfigure}[]{.25\textwidth}
+				\includegraphics[width=\textwidth]{images/jbl}
+				\caption{Headphone JBL}
+			\end{subfigure}
+			\\
+			\begin{subfigure}[]{.25\textwidth}
+				\includegraphics[width=\textwidth]{images/kabel}
+				\caption{Kabel USB}
+			\end{subfigure}
+			\caption{Perangkat Audiometri}
+		\end{figure}
+	
+		\item Unit Microphone 3DIO dan AudioBox Presonus USB96. Ini adalah unit simulator telinga kedua.
+		Berikut laman produk: \href{https://3diosound.com/products/free-space-pro-binaural-microphone}{3DIO}
+		dan \href{https://www.frontendaudio.com/presonus-audiobox-usb-96-usb-audio-interface/}{AudioBox USB96}
+		
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[]{.40\textwidth}
+				\includegraphics[width=\textwidth]{images/3dio}
+				\caption{Microphone 3DIO}
+			\end{subfigure}
+			\begin{subfigure}[]{.40\textwidth}
+				\includegraphics[width=\textwidth]{images/audiobox}
+				\caption{Audiobox USB96}
+			\end{subfigure}
+			\caption{Perangkat 3DIO}
+		\end{figure}
+	
+		\item Sebagai pembanding, digunakan perangkat KEMAR dengan metode yang kurang lebih sama.
+		Laman produk: \href{https://www.grasacoustics.com/products/head-torso-simulators-kemar/product/733-45bb}{KEMAR}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.35\textwidth,angle=0]{images/kemar}
+			\caption{Perangkat KEMAR}
+		\end{figure}
+	
+		\item Perangkat Lunak RealTime Analyzer dari Yoshimasa.
+		Berikut laman produk: \href{http://www.ymec.com/products/dssf3e/}{RTA}.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.45\textwidth,angle=0]{images/rta_fft}
+			\caption{Perangkat Lunak RTA}
+		\end{figure}
+		
+	\end{itemize}
+
+	\newpage
+	
+	\section{Setup Pengujian}
+	
+	\subsection{Diagram Pengujian}
+	
+	Berikut Diagram Pengujian yang disiapkan:
+	
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}[]{.45\textwidth}
+			\includegraphics[width=\textwidth]{images/3dio_setup}
+			\caption{3DIO}
+		\end{subfigure}
+		\begin{subfigure}[]{.45\textwidth}
+			\includegraphics[width=\textwidth]{images/kemar_setup}
+			\caption{KEMAR}
+		\end{subfigure}
+		\\
+		\begin{subfigure}[]{.6\textwidth}
+			\includegraphics[width=\textwidth]{images/diagram/setup_uji}
+			\caption{Diagram}
+		\end{subfigure}
+		\caption{Setup Pengujian}
+	\end{figure}
+	
+	\newpage
+	\subsection{Komunikasi Serial}
+	
+	\begin{enumerate}
+		\item Berikut adalah perangkat lunak komunikasi serial ke Konsol yang perlu disiapkan untuk pengujian ini (panduan ini menggunakan Windows-7 32-bit sebagai contoh)
+		
+		\item Install driver ARM USB-CDC.\\
+		Untuk dapat menghubungkan unit prototype dengan komputer,
+		diperlukan driver ARM USB-CDC untuk komunikasi serial.
+		
+		\begin{itemize}
+			\item File installer (sesuaikan dengan bit OS).
+			Dapat didownload di \href{https://drive.google.com/drive/folders/19gXVrxR68SFHQUGGGgKb0Da03oV7Rh41?usp=share_link}{USB-CDC\_Driver}.
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=200pt]{images/software/driver}
+				\caption{Installer Driver}
+			\end{figure}
+			
+			\item Instalasi driver (tanpa unit prototype terhubung) cukup mudah sebagaimana umumnya.
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=200pt]{images/software/install_driver}
+				\caption{Mulai instal driver}
+			\end{figure}
+		\end{itemize}
+		
+		\item Sambungkan unit prototype yang telah nyala dengan komputer via kabel USB.
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=200pt]{images/pasang/laptop_usb}
+			\caption{Sambung Kabel USB ke Laptop}
+		\end{figure}
+		
+		\item Tunggu hingga driver selesai mengkonfigurasi otomatis
+		
+		\item Cek \textit{Device Manager} untuk mengetahui Nomor Serial-Port
+		\begin{itemize}
+			\item Buka run-command dialog dengan kombinasi keyboard %(\keys{\WinKey + r})
+			
+			\item masukkan perintah \textbf{devmgmt.msc}.
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=200pt]{images/software/devicemgr}
+				\caption{Memanggil Device Manager}
+			\end{figure}
+			
+			\item Tekan (\keys{\return}) atau klik OK
+			
+			\item Cari entry \textit{Ports (COM and LPT)}.
+			Catat nomor port untuk entry \textit{STMicroelectronics Virtual COM Port}.
+			Dalam contoh ini, terkonfigurasi pada COM3.
+			
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=200pt]{images/software/comport}
+				\caption{Serial Komunikasi pada COM3}
+			\end{figure}
+		\end{itemize}
+		
+		
+		\item Install Serial Terminal.
+		Untuk dapat berkomunikasi via serial port, perlu diinstall serial terminal.
+		Disini dicontohkan menggunakan \textit{Hercules}.
+		
+		\begin{itemize}
+			\item Program terminal Hercules. Dapat didownload di \href{https://drive.google.com/drive/folders/1fgNPnGeSm20TrFfwmeCa4B24WIN_t_o_?usp=share_link}{Terminal}.
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=200pt]{images/software/hercules}
+				\caption{Hercules Terminal}
+			\end{figure}
+			
+			\item Jalankan program Hercules.
+			Jika muncul konfirmasi lisensi, cukup \textit{Close} saja.
+			
+			\item Pilih tab \textit{Serial}.
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=200pt]{images/software/hercules_serial}
+				\caption{Serial Terminal}
+			\end{figure}
+		\end{itemize}
+		
+		\item Test Komunikasi Serial
+		\begin{itemize}
+			\item Hercules Serial Terminal
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=250pt]{images/software/hercules_terminal}
+				\caption{Hercules Serial Terminal}
+			\end{figure}
+			
+			\item Setting Port pada Serial Terminal sebagai berikut
+			\begin{itemize}
+				\item Name     : COM3
+				\item Baud     : 9600
+				\item Data size: 8
+				\item Parity   : none
+			\end{itemize}
+			
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=100pt]{images/software/hercules_port}
+				\caption{Pengaturan serial port}
+			\end{figure}
+			
+			\item Klik Open (pastikan unit prototype sudah standby dan terhubung
+			serta nama COM port sudah sesuai)
+			
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=100pt]{images/software/hercules_open}
+				\caption{Open Serial Port}
+			\end{figure}
+			
+			\item Kolom terminal akan menampilkan pesan:
+			\begin{minted}[frame=lines,framesep=2mm,fontsize=\small]{text}
+Serial port COM3 opened
+			\end{minted}
+			
+			\item Selanjutnya, pada kolom terminal,
+			masukkan perintah berikut dan diakhiri dengan (\keys{\return})
+			\begin{minted}[frame=lines,framesep=2mm,fontsize=\small]{text}
+info
+			\end{minted}
+			Serial akan menampilkan informasi kernel dan platform
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=300pt]{images/software/hercules_text}
+				\caption{Informasi Platform}
+			\end{figure}
+		\end{itemize}
+		
+	\end{enumerate}
+	
+	Berikut beberapa contoh perintah serial yang dapat diakses melalui komunikasi serial Konsol:
+	
+	\begin{table}[H]
+		\renewcommand{\tablename}{Tabel}
+		\centering
+		\caption{Contoh perintah serial yang tersedia pada konsol Audiometri. \label{table:serial-code}}
+		\begin{tabular}{| p{0.05\textwidth} | p{0.1\textwidth} | p{0.15\textwidth} | p{0.2\textwidth} | p{0.4\textwidth} |}
+			\hline
+			\textbf{No} & \textbf{Perintah} & \textbf{Fungsi} & \textbf{Contoh Perintah} & \textbf{Contoh Respon} \\
+			\hline
+			1 & \textit{help} & Menampilkan Perintah yang tersedia & \textit{help} & \textit{coba mmc out tes led sig tone virt ...} \\
+			\hline
+			2 & \textit{info} & Menampilkan Info Platform Chip & \textit{info} & \textit{Kernel: 6.1.4Compiler: GCC 12.1.0 ...} \\
+			\hline
+			3 & \textit{mmc} & Mengelola isi SDCard & \textit{mmc} & \textit{usage: mmc [test|ls|lsnum| ...} \\
+			& & & \textit{mmc ls} & \textit{HT1.TXT HT2.TXT ...} \\
+			& & & \textit{mmc cat 1} & \textit{\{"audiogram":\{ ...} \\
+			\hline
+			4 & \textit{out} & Menghasilkan nada murni &  \textit{out} & \textit{usage: out <0/1> <freq> <ampl> ...} \\
+			& & & \textit{out 500 11} & \textit{Out: Freq:  500 Ampl:11} \\
+			& & & \textit{out 1 250 8} & \textit{Out: Freq:  250 Ampl:8} \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	\textbf{Keterangan}: Beberapa keterangan perintah \textit{out}:
+	\begin{itemize}
+		\item Pilihan Channel adalah 0 atau kosong untuk kiri, dan 1 untuk kanan.
+		\item Pilihan Frekuensi Nada Murni: 125Hz, 250Hz, 500Hz, 1000Hz, 2000Hz, 4000Hz, dan 8000Hz.
+		\item Pilihan Skala Loudness Nada Murni: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, dan 11.
+	\end{itemize}
+	
+	\subsection{Kalibrasi Hearing Level Air Conduction}
+
+	\begin{enumerate}
+		\item Pengujian yang dimaksudkan untuk mendapatkan nilai aktual output audio nada murni dalam satuan dBA.
+		
+		\item Output nada murni memiliki karakteristik:
+		\begin{itemize}
+			\item frekuensi adalah nilai frekuensi (dalam Hz) yaitu 125, 250, 500, 1000, 2000, 4000, dan 8000.
+			\item amplitudo adalah skala amplitudo antara 1 sampai 11.
+		\end{itemize}
+	
+		\item Untuk perangkat lunak Audio Analyzer, digunakan program \textit{Real-Time Analyzer}
+		yang merupakan bagian dari paket software DSFF3 buatan Yoshimasha.
+		Jika membutuhkan versi trial dapat didownload di \url{http://intip.in/stm32tools}.
+	
+		Antar-muka Real-Time Analyzer yang digunakan adalah \textit{FFT-Analyzer} pada tab \textit{Octave band}.
+	
+		\begin{figure}[!ht]
+			\centering
+			\includegraphics[width=0.45\textwidth]{images/rta_fft}
+			\caption{Octave band pada FFT analyzer}
+		\end{figure}
+	
+		Pada tampilan Octave-Band, klik satu bar frekuensi untuk mengetahui nilai SPL (dB)
+		yang terisolasi dengan frekuensi lain.
+	
+
+		\item Berikut adalah prosedur untuk mencoba \textit{tone-generation}:
+		\begin{enumerate}
+			\item Nyalakan unit prototype dan tunggu standby.
+			Pastikan USB belum terhubung ke komputer.
+			\item Sambungkan unit dengan headphone yang disiapkan
+			\item Sambungkan USB ke komputer
+			\item Cek nomor COM port pada Device manager
+			\item Jalankan Hercules terminal
+			\item Atur nama port sesuai COM port
+			\item Klik \textbf{Open} pada Hercules terminal
+			\item Masukkan perintah berikut:
+			\begin{minted}[frame=lines,framesep=2mm,fontsize=\small]{text}
+				out 500 5
+			\end{minted}
+			\item Setelah tekan (\keys{\return}), maka pada salah satu headphone
+			akan membangkitkan tone selama kurang lebih 5detik.
+			\item Jika setelah selesai, tekan \textbf{Close} pada terminal,
+			lepas USB, dan matikan unit prototype.
+			
+		\end{enumerate}
+		
+		\item Berikut contoh variasi perintah untuk menghasilkan nada murni (sebagaimana Tabel \ref{table:serial-code}):
+		
+		\begin{itemize}
+			\item Nada murni pada frekuensi 500Hz dan skala 11.
+			\begin{minted}[frame=lines,framesep=2mm,fontsize=\small]{text}
+out 500 11
+			\end{minted}
+			
+			\item Nada murni pada frekuensi 500Hz dan skala 1.
+			\begin{minted}[frame=lines,framesep=2mm,fontsize=\small]{text}
+out 500 1
+			\end{minted}
+			
+			\item Nada murni pada frekuensi 500Hz dan skala 11 di channel/sisi kanan.
+			\begin{minted}[frame=lines,framesep=2mm,fontsize=\small]{text}
+out 1 500 11
+			\end{minted}
+			
+			\textbf{Catatan:} Pengukuran dua sisi diperlukan jika diasumsikan headphone berbeda karakteristik kedua sisinya.
+		\end{itemize}
+		
+		\begin{table}[H]
+			\renewcommand{\tablename}{Tabel}
+			\caption{Format tabel hasil uji nada murni dalam dB-SPL}
+			\centering 
+			\begin{tabular}{|p{0.07\linewidth}|c|c|c|c|c|c|c|c|c|c|c|}
+				\hline
+				Scale/ Freq & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1\\ [0.5ex]
+				\hline\hline
+				125Hz & x  & x  & x  & x  & x  & x  & x  & x  & x  & x  & x \\
+				\hline
+				250Hz & x  & x  & x  & x  & x  & x  & x  & x  & x  & x  & x \\
+				\hline
+				500Hz & x  & x  & x  & x  & x  & x  & x  & x  & x  & x  & x \\
+				\hline
+				1000Hz & x  & x  & x  & x  & x  & x  & x  & x  & x  & x  & x \\
+				\hline
+				2000Hz & x  & x  & x  & x  & x  & x  & x  & x  & x  & x  & x \\
+				\hline
+				4000Hz & x  & x  & x  & x  & x  & x  & x  & x  & x  & x  & x \\
+				\hline
+				8000Hz & x  & x  & x  & x  & x  & x  & x  & x  & x  & x  & x \\
+				\hline
+			\end{tabular}
+		\end{table}
+	\end{enumerate}
+
+	\newpage
+	\section{Hasil Pengujian}
+	
+	\subsection{Unduh Data}
+	
+	Kumpulan data dalam format tabel CSV dapat diunduh dalam repository Github berikut:
+	\url{https://github.com/VibrasticLab/pikoakustik2/tree/master/prototrial/dokumen/berita_acara/itb_july2023/data_records}\\
+	
+	Skrip Python untuk ekstraksi data dapat dilihat di:
+	\url{https://github.com/VibrasticLab/pikoakustik2/blob/master/prototrial/dokumen/berita_acara/itb_july2023/data_records/extract_table.py}
+	
+	\subsection{Tabel Hasil}
+	
+	Berikut hasil pengukuran menggunakan perangkat 3DIO:
+	
+	\begin{table}[H]
+		\renewcommand{\tablename}{Tabel}
+		\caption{Tabel hasil uji nada murni dalam dB-SPL untuk channel Kiri}
+		\centering 
+		\begin{tabular}{|p{0.07\linewidth}|c|c|c|c|c|c|c|c|c|c|c|}
+			\hline
+			Scale/ Freq & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1\\ [0.5ex]
+			\hline\hline
+			125Hz & 62.27 & 56.31 & 50.27  & 44.18 & 38.06 & 31.79 & 25.12 & 17.78 & 9.86 & -2.90 & -2 \\
+			250Hz & 63.90 & 57.87 & 51.81  & 45.72 & 39.58 & 33.31 & 26.69 & 19.58 & 12.32 & -5.91 & -6 \\
+			500Hz & 66.97 & 60.93 & 54.87  & 48.78 & 42.62 & 36.35 & 29.76 & 22.36 & 14.80 & -5.97 & -5 \\
+			1000Hz & 76.93 & 70.89 & 64.84  & 58.74 & 52.58 & 46.34 & 39.78 & 32.56 & 24.70 & -2.87 & -4 \\
+			2000Hz & 71.29 & 65.24 & 59.19  & 53.10 & 46.95 & 40.70 & 34.15 & 26.92 & 19.05 & -4.22 & -4 \\
+			4000Hz & 79.16 & 73.13 & 67.09  & 61.00 & 54.90 & 48.62 & 42.04 & 34.46 & 26.37 & 2.11 & 2 \\
+			8000Hz & 87.46 & 81.41 & 75.32  & 69.26 & 63.11 & 56.83 & 50.48 & 43.85 & 36.37 & 12.03 & 11 \\
+			\hline
+		\end{tabular}
+	\end{table}
+
+	\begin{table}[H]
+		\renewcommand{\tablename}{Tabel}
+		\caption{Tabel hasil uji nada murni dalam dB-SPL untuk channel Kanan}
+		\centering 
+		\begin{tabular}{|p{0.07\linewidth}|c|c|c|c|c|c|c|c|c|c|c|}
+			\hline
+			Scale/ Freq & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1\\ [0.5ex]
+			\hline\hline
+			125Hz & 64.57 & 58.59 & 52.56  & 46.48 & 40.33 & 34.05 & 27.47 & 20.23 & 12.43 & 0.42 & -1 \\
+			250Hz & 66.16 & 60.12 & 54.07  & 47.97 & 41.82 & 35.58 & 28.95 & 21.71 & 13.92 & -4.96 & -4 \\
+			500Hz & 68.74 & 62.70 & 56.64  & 50.56 & 44.40 & 38.12 & 31.53 & 24.32 & 16.59 & -4.66 & -5 \\
+			1000Hz & 76.93 & 70.88 & 64.83  & 58.73 & 52.57 & 46.32 & 39.75 & 32.50 & 24.70 & -2.37 & -4 \\
+			2000Hz & 69.53 & 63.49 & 57.44  & 51.35 & 45.19 & 38.94 & 32.40 & 25.17 & 17.31 & -5.30 & -4 \\
+			4000Hz & 79.68 & 73.64 & 67.61  & 61.52 & 55.40 & 49.12 & 42.54 & 34.97 & 26.86 & 1.33 & 2 \\
+			8000Hz & 86.64 & 80.59 & 74.51  & 68.45 & 62.31 & 56.02 & 49.69 & 43.05 & 35.59 & 11.48 & 12 \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+\end{document}

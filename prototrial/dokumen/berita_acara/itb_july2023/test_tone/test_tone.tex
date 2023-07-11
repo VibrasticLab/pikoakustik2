@@ -62,7 +62,7 @@
 		{
 			\LARGE
 			\bf
-			Laporan Kegiatan Kalibrasi Simulator Telinga
+			Laporan Kegiatan Pengujian Audiometri Portable
 		}
 
 		\bigskip
@@ -431,13 +431,13 @@
 			
 			\item Kolom terminal akan menampilkan pesan:
 			\begin{minted}[frame=lines,framesep=2mm,fontsize=\small]{text}
-				Serial port COM3 opened
+Serial port COM3 opened
 			\end{minted}
 			
 			\item Selanjutnya, pada kolom terminal,
 			masukkan perintah berikut dan diakhiri dengan (\keys{\return})
 			\begin{minted}[frame=lines,framesep=2mm,fontsize=\small]{text}
-				info
+info
 			\end{minted}
 			Serial akan menampilkan informasi kernel dan platform
 			\begin{figure}[H]
@@ -477,7 +477,7 @@
 	\textbf{Keterangan}: Beberapa keterangan perintah \textit{out}:
 	\begin{itemize}
 		\item Pilihan Channel adalah 0 atau kosong untuk kiri, dan 1 untuk kanan.
-		\item Pilihan Frekuensi Nada Murni: 250Hz, 500Hz, 1000Hz, 2000Hz, 4000Hz, dan 8000Hz.
+		\item Pilihan Frekuensi Nada Murni: 125Hz, 250Hz, 500Hz, 1000Hz, 2000Hz, 4000Hz, dan 8000Hz.
 		\item Pilihan Skala Loudness Nada Murni: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, dan 11.
 	\end{itemize}
 	
@@ -497,17 +497,17 @@
 		\begin{itemize}
 			\item Nada murni pada frekuensi 500Hz dan skala 11.
 			\begin{minted}[frame=lines,framesep=2mm,fontsize=\small]{text}
-				out 500 11
+out 500 11
 			\end{minted}
 			
 			\item Nada murni pada frekuensi 500Hz dan skala 1.
 			\begin{minted}[frame=lines,framesep=2mm,fontsize=\small]{text}
-				out 500 1
+out 500 1
 			\end{minted}
 			
 			\item Nada murni pada frekuensi 500Hz dan skala 11 di channel/sisi kanan.
 			\begin{minted}[frame=lines,framesep=2mm,fontsize=\small]{text}
-				out 1 500 11
+out 1 500 11
 			\end{minted}
 			
 			\textbf{Catatan:} Pengukuran dua sisi diperlukan jika diasumsikan headphone berbeda karakteristik kedua sisinya.
