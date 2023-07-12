@@ -361,7 +361,7 @@ info
 	\begin{table}[H]
 		\renewcommand{\tablename}{Tabel}
 		\centering
-		\caption{Contoh perintah serial yang tersedia pada konsol Audiometri. \label{table:serial-code}}
+		\caption{Contoh perintah serial yang tersedia pada konsol Audiometri.
 		\begin{tabular}{| p{0.05\textwidth} | p{0.1\textwidth} | p{0.15\textwidth} | p{0.2\textwidth} | p{0.4\textwidth} |}
 			\hline
 			\textbf{No} & \textbf{Perintah} & \textbf{Fungsi} & \textbf{Contoh Perintah} & \textbf{Contoh Respon} \\
@@ -496,7 +496,9 @@ out 1 500 11
 	
 	\subsection{Tabel Hasil}
 	
-	Berikut hasil pengukuran menggunakan perangkat 3DIO:
+	Berikut hasil pengukuran dalam bentuk tabel untuk satuan dB-SPL:
+	
+	\subsubsection{Hasil dari 3DIO}
 	
 	\begin{table}[H]
 		\renewcommand{\tablename}{Tabel}
@@ -532,6 +534,46 @@ out 1 500 11
 			2000Hz & 69.53 & 63.49 & 57.44  & 51.35 & 45.19 & 38.94 & 32.40 & 25.17 & 17.31 & -5.30 & -4 \\
 			4000Hz & 79.68 & 73.64 & 67.61  & 61.52 & 55.40 & 49.12 & 42.54 & 34.97 & 26.86 & 1.33 & 2 \\
 			8000Hz & 86.64 & 80.59 & 74.51  & 68.45 & 62.31 & 56.02 & 49.69 & 43.05 & 35.59 & 11.48 & 12 \\
+			\hline
+		\end{tabular}
+	\end{table}
+
+	\subsubsection{Hasil dari KEMAR}
+	
+	\begin{table}[H]
+		\renewcommand{\tablename}{Tabel}
+		\caption{Tabel hasil uji nada murni dalam dB-SPL untuk channel Kiri}
+		\centering 
+		\begin{tabular}{|p{0.07\linewidth}|c|c|c|c|c|c|c|c|c|c|c|}
+			\hline
+			Scale/ Freq & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1\\ [0.5ex]
+			\hline\hline
+			125Hz & 58.40 & 52.40 & 46.35  & 40.25 & 34.06 & 27.74 & 21.35 & 14.52 & 9.45 & 3.42 & 6 \\
+			250Hz & 58.15 & 52.12 & 46.06  & 39.94 & 33.78 & 27.57 & 21.45 & 13.95 & 7.84 & 1.94 & 1 \\
+			500Hz & 59.76 & 53.72 & 47.64  & 41.56 & 35.45 & 29.20 & 22.39 & 15.58 & 8.02 & 1.38 & 1 \\
+			1000Hz & 65.97 & 59.93 & 53.87  & 47.77 & 41.59 & 35.32 & 28.77 & 21.44 & 13.18 & 0.58 & 1 \\
+			2000Hz & 59.79 & 53.74 & 47.69  & 41.60 & 35.47 & 29.16 & 22.74 & 15.06 & 9.05 & 2.84 & 3 \\
+			4000Hz & 69.54 & 63.50 & 57.46  & 51.38 & 45.26 & 38.97 & 32.37 & 24.85 & 17.06 & 6.75 & 6 \\
+			8000Hz & 71.50 & 65.45 & 59.36  & 53.31 & 47.15 & 40.91 & 34.63 & 27.98 & 20.81 & 9.06 & 9 \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	\begin{table}[H]
+		\renewcommand{\tablename}{Tabel}
+		\caption{Tabel hasil uji nada murni dalam dB-SPL untuk channel Kanan}
+		\centering 
+		\begin{tabular}{|p{0.07\linewidth}|c|c|c|c|c|c|c|c|c|c|c|}
+			\hline
+			Scale/ Freq & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1\\ [0.5ex]
+			\hline\hline
+			125Hz & 53.24 & 47.25 & 41.16  & 35.18 & 28.91 & 22.71 & 15.65 & 9.51 & 4.43 & 5.63 & 2 \\
+			250Hz & 53.30 & 47.25 & 41.19  & 35.16 & 28.87 & 22.88 & 16.01 & 10.07 & 4.14 & 1.92 & 0 \\
+			500Hz & 57.07 & 51.00 & 44.95  & 38.89 & 32.73 & 26.54 & 19.89 & 13.02 & 6.96 & -1.30 & -1 \\
+			1000Hz & 64.97 & 58.93 & 52.87  & 46.80 & 40.65 & 34.38 & 27.86 & 20.70 & 13.08 & -2.07 & -2 \\
+			2000Hz & 59.03 & 52.99 & 46.93  & 40.83 & 34.66 & 28.40 & 21.98 & 14.74 & 7.96 & 0.09 & -1 \\
+			4000Hz & 78.40 & 72.37 & 66.33  & 60.23 & 54.12 & 47.83 & 41.26 & 33.70 & 25.64 & 3.51 & 4 \\
+			8000Hz & 64.56 & 58.51 & 52.42  & 46.39 & 40.22 & 33.98 & 27.68 & 21.18 & 13.89 & 5.14 & 5 \\
 			\hline
 		\end{tabular}
 	\end{table}

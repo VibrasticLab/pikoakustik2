@@ -39,6 +39,7 @@
 \addto\captionsenglish{\renewcommand{\contentsname}{Daftar Isi}}
 \addto\captionsenglish{\renewcommand{\tablename}{Tabel}}
 \addto\captionsenglish{\renewcommand{\figurename}{Gambar}}
+\addto\captionsenglish{\renewcommand{\refname}{}}
 
 \def\mydate{\leavevmode\hbox{\the\year-\twodigits\month-\twodigits\day}}
 \def\twodigits#1{\ifnum#1<10 0\fi\the#1}
@@ -178,17 +179,28 @@
 			\end{subfigure}
 			\caption{Perangkat 3DIO}
 		\end{figure}
+	
+		\item Perangkat KEMAR buatan GRAS.
+		Laman produk: \href{https://www.grasacoustics.com/products/head-torso-simulators-kemar/product/733-45bb}{KEMAR}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.35\textwidth,angle=0]{images/kemar}
+			\caption{Perangkat KEMAR}
+		\end{figure}
 
+		\newpage
 		\item Perangkat Lunak Audacity dan RealTime Analyzer dari Yoshimasa.
 		Berikut laman produk: \href{https://www.audacityteam.org/}{Audacity} dan \href{http://www.ymec.com/products/dssf3e/}{RTA}.
 
 		\begin{figure}[H]
 			\centering
-			\begin{subfigure}[]{.40\textwidth}
+			\begin{subfigure}[]{.55\textwidth}
 				\includegraphics[width=\textwidth]{images/audacity}
 				\caption{Audacity}
 			\end{subfigure}
-			\begin{subfigure}[]{.40\textwidth}
+			\\
+			\begin{subfigure}[]{.55\textwidth}
 				\includegraphics[width=\textwidth]{images/rta}
 				\caption{Realtime Analyzer}
 			\end{subfigure}
@@ -462,6 +474,29 @@
 		\end{figure}
 		
 	\end{itemize}
+
+	\newpage
+	\subsection{KEMAR}
+	
+	Berikut rangkuman kegiatan kalibrasi untuk unit Microphone 3DIO.
+	
+	\subsubsection{Setup}
+	
+	Berikut setup kalibrasi:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\textwidth,angle=0]{images/kemar_calib_setup}
+		\caption{Setup posisi KEMAR, audiobox BSWA, dan Speaker}
+	\end{figure}
+
+	\subsubsection{Recording}
+	
+	Kurang lebih sama dengan unit 3DIO sebelumnya.
+	
+	\subsubsection{Kalibrasi}
+	
+	Kurang lebih sama dengan unit 3DIO sebelumnya.
 	
 	\newpage
 	\subsection{Rekaman}
@@ -483,16 +518,24 @@
 	
 	\begin{figure}[H]
 		\centering
-		\begin{subfigure}[]{.55\textwidth}
+		\begin{subfigure}[]{.45\textwidth}
 			\includegraphics[width=\textwidth]{images/tes_kedap_rta}
 			\caption{Nilai RTA dari 3DIO}
 		\end{subfigure}
 		\\
-		\begin{subfigure}[]{.55\textwidth}
+		\begin{subfigure}[]{.45\textwidth}
 			\includegraphics[width=\textwidth]{images/tes_kedap_slm}
 			\caption{Nilai SLM}
 		\end{subfigure}
 		\caption{Tes pada Ruang Kedap}
 	\end{figure}
+
+	Secara umum memang ada perbedaan nilai sekitar 10dB-SPL antara pengukuran SLM dan dummy head seperti perangkat 3DIO\cite{Sudarsono2018}.
+	
+	\newpage
+	\section{Daftar Pustaka}
+	
+	\bibliographystyle{IEEEtran}
+	\bibliography{/home/achmaday/Documents/library.bib}
 
 \end{document}
