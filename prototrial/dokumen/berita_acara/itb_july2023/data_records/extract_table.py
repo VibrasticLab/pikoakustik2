@@ -5,8 +5,6 @@ import sys
 import numpy as np
 import pandas as pd
 
-np.set_printoptions(precision=2)
-
 print("Args Count: ",len(sys.argv))
 print("Args List: ",str(sys.argv))
 
@@ -46,7 +44,7 @@ def get_freq(freq_name,freq_val,dir_input,ch_input):
     return val
 
 def get_str(arr_freq,arr_freq_name):
-    vStr = "%s & %.2f & %.2f & %.2f  & %.2f & %.2f & %.2f & %.2f & %.2f & %.2f & %.2f & %.f" % (
+    vStr = "%s & %.1f & %.1f & %.1f  & %.1f & %.1f & %.1f & %.1f & %.1f & %.1f & %.1f & %.f" % (
         arr_freq_name,
         arr_freq[0],
         arr_freq[1],
