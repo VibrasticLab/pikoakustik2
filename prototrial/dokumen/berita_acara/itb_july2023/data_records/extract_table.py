@@ -72,13 +72,13 @@ val_8000 = get_freq('8000', '7.72k', dirInput, chInput)
 # latex table
 str_tex = "freq/scale & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\\\\n\
 %s \\\\\n%s \\\\\n%s \\\\\n%s \\\\\n%s \\\\\n%s \\\\\n%s \\\\\n" % (
-        get_str(val_125, '125Hz'),
-        get_str(val_250, '250Hz'),
-        get_str(val_500, '500Hz'),
-        get_str(val_1000, '1000Hz'),
-        get_str(val_2000, '2000Hz'),
-        get_str(val_4000, '4000Hz'),
-        get_str(val_8000, '8000Hz')
+        get_str(val_125, '125Hz (119Hz)'),
+        get_str(val_250, '250Hz (224Hz)'),
+        get_str(val_500, '500Hz (459.5Hz)'),
+        get_str(val_1000, '1000Hz (917.5Hz)'),
+        get_str(val_2000, '2000Hz (1.83kHz)'),
+        get_str(val_4000, '4000Hz (3.76kHz)'),
+        get_str(val_8000, '8000Hz (7.72kHz)')
         )
 
 print(str_tex)
