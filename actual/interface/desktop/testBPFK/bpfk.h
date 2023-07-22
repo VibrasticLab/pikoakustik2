@@ -30,6 +30,7 @@ private slots:
     void serialPortPopulate();
     void serialDataRead();
     void serialDataRequest();
+    QString serialStringRequest();
 
 private:
     Ui::bpfk *ui;

@@ -8,6 +8,7 @@ bpfk::bpfk(QWidget *parent)
     ui->setupUi(this);
 
     ui->rbtOut_50->setEnabled(false);
+    ui->rbtOut_80->setEnabled(false);
     ui->rbtOut_90->setEnabled(false);
     ui->rbtOut_100->setEnabled(false);
 
@@ -100,13 +101,40 @@ void bpfk::serialDataRead(){
 }
 
 void bpfk::serialDataRequest(){
-    ui->txtSerialConsole->clear();
-    QByteArray dataReq = "info\r";
+    QByteArray dataReq = serialStringRequest().toUtf8();
     serPort->write(dataReq);
+}
+
+QString bpfk::serialStringRequest(){
+    QString strReq = "bpfk ";
+
+    // channel
+    if(ui->rbtChLeft->isChecked()) strReq += "0 ";
+    else if(ui->rbtChRight->isChecked()) strReq += "1 ";
+
+    // frequency
+    if(ui->rbtFreq_125->isChecked()) strReq += "125 ";
+    else if(ui->rbtFreq_250->isChecked()) strReq += "250 ";
+    else if(ui->rbtFreq_500->isChecked()) strReq += "500 ";
+    else if(ui->rbtFreq_1000->isChecked()) strReq += "1000 ";
+    else if(ui->rbtFreq_2000->isChecked()) strReq += "2000 ";
+    else if(ui->rbtFreq_4000->isChecked()) strReq += "4000 ";
+    else if(ui->rbtFreq_8000->isChecked()) strReq += "8000 ";
+
+    // output
+    if(ui->rbtOut_60->isChecked()) strReq += "60";
+    else if(ui->rbtOut_70->isChecked()) strReq += "70";
+
+    // show text
+    strReq += "\r";
+    ui->txtSerialConsole->insertPlainText(strReq.toUtf8());
+
+    return strReq;
 }
 
 void bpfk::on_btnReqSend_clicked()
 {
+    ui->txtSerialConsole->clear();
     serialDataRequest();
 }
 
