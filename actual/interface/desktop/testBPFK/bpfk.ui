@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>bpfk</class>
+ <widget class="QMainWindow" name="bpfk">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>BPFK Testing</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QGroupBox" name="grpSerial">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>251</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox { 
+     border: 2px solid gray; 
+     border-radius: 3px; 
+ } 
+</string>
+    </property>
+    <property name="title">
+     <string>Serial Communication</string>
+    </property>
+    <widget class="QPushButton" name="btnPortRefresh">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>85</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Refresh</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="cmbPortList">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>20</y>
+       <width>131</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnSerialOpen">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>85</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Open</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblSerial">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>50</y>
+       <width>131</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Port Default: 38400-8-N-1</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="grpConsole">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>0</y>
+      <width>231</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox { 
+     border: 2px solid gray; 
+     border-radius: 3px; 
+ } 
+
+</string>
+    </property>
+    <property name="title">
+     <string>Serial Console</string>
+    </property>
+    <widget class="QPlainTextEdit" name="txtSerialConsole">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>211</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="grpFrequency">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>90</y>
+      <width>141</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox { 
+     border: 2px solid gray; 
+     border-radius: 3px; 
+ } 
+</string>
+    </property>
+    <property name="title">
+     <string>Frequency Options</string>
+    </property>
+    <widget class="QRadioButton" name="rbtFreq_125">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>88</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>125 Hz</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rbtFreq_250">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>88</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>250 Hz</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rbtFreq_500">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>90</y>
+       <width>88</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>500 Hz</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rbtFreq_1000">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>120</y>
+       <width>88</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>1000 Hz</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rbtFreq_2000">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>88</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>2000 Hz</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rbtFreq_4000">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>180</y>
+       <width>88</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>4000 Hz</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rbtFreq_8000">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>210</y>
+       <width>88</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>8000 Hz</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="grpOutput">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>90</y>
+      <width>141</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox { 
+     border: 2px solid gray; 
+     border-radius: 3px; 
+ } 
+</string>
+    </property>
+    <property name="title">
+     <string>Output Options</string>
+    </property>
+    <widget class="QRadioButton" name="rbtOut_50">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>88</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>50 dB</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rbtOut_60">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>88</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>60 dB</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rbtOut_70">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>90</y>
+       <width>88</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>70 dB</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rbtOut_80">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>120</y>
+       <width>88</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>80 dB</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rbtOut_90">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>88</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>90 dB</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rbtOut_100">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>180</y>
+       <width>88</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>100 dB</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="btnReqSend">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>90</y>
+      <width>161</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Send</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblLogo">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>170</y>
+      <width>141</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox { 
+     border: 2px solid gray; 
+     border-radius: 3px; 
+ } 
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="testBPFK.qrc">:/images/elbicare-logo.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>500</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="actionAboutQt"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionQuit">
+   <property name="icon">
+    <iconset theme="application-exit"/>
+   </property>
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset theme="help-about"/>
+   </property>
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionAboutQt">
+   <property name="icon">
+    <iconset theme="help-faq"/>
+   </property>
+   <property name="text">
+    <string>AboutQt</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="testBPFK.qrc"/>
+ </resources>
+ <connections/>
+</ui>

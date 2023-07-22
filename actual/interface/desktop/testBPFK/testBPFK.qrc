@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>elbicare-logo.png</file>
+    </qresource>
+</RCC>
