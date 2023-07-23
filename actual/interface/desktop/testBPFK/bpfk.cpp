@@ -48,8 +48,8 @@ void bpfk::on_actionAbout_triggered()
 {
     QMessageBox msgAbout;
 
-    msgAbout.setText("Elbicare Audiometri Interface by Achmadi ST MT");
-    msgAbout.setWindowTitle("ECU Interface");
+    msgAbout.setText("Elbicare Audiometri Interface for BPFK Testing by Achmadi ST MT");
+    msgAbout.setWindowTitle("Elbicare");
     msgAbout.setIcon(QMessageBox::Information);
     msgAbout.exec();
 }
